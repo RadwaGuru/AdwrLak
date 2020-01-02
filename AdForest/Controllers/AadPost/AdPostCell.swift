@@ -16,7 +16,7 @@ protocol textFieldValueDelegate {
 }
 
 protocol PopupValueChangeDelegate {
-    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText : String, isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool)
+    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText : String, isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool,isShow:Bool)
 }
 
 class AdPostCell: UITableViewCell , UITextFieldDelegate {
@@ -123,6 +123,8 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
     var hasTempelate = false
     var hasSub = false
     var fieldTypeName = ""
+    var isShowArr = [Bool]()
+    var isShow = true
     
     var dataArray = [AdPostField]()
     var appDel = UIApplication.shared.delegate as! AppDelegate
@@ -159,6 +161,8 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
 //            self.hasTempelate = self.hasTempelateArray[index]
 //            self.hasCatTempelate = self.hasCatTemplateArray[index]
            
+            self.isShow = self.isShowArr[index]
+            
             if self.fieldTypeName == "ad_cats1"{
                 self.isBidSelected = self.isBiddingArray[index]
                 self.IsPaySelected = self.isPayArray[index]
@@ -173,8 +177,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
                 let alert = Constants.showBasicAlert(message: buy!)
                 self.window?.rootViewController?.presentVC(alert)
             }else{
-            
-               
+        
                 self.oltPopup.setTitle(item, for: .normal)
                 self.selectedValue = item
                 self.selectedKey = self.dropDownKeysArray[index]
@@ -182,8 +185,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
                 self.hasTempelate = self.hasTempelateArray[index]
                 self.hasCatTempelate = self.hasCatTemplateArray[index]
                 
-                
-                self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: item, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected )
+                self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: item, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow)
                 
                 if self.hasCatTempelate {
                     if self.hasTempelate {

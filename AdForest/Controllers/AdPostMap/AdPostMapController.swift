@@ -122,6 +122,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var valueArray = [String]()
     
     var localVariable = ""
+    var isSimpleAddress = true
     
     
     
@@ -191,10 +192,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             txtTermCondition.textAlignment = .left
             oltPopup.contentHorizontalAlignment = .left
         }
-        
-        
-        
-        
+  
     }
     
     
@@ -206,23 +204,29 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if AddsHandler.sharedInstance.objAdPost != nil {
-            
+
             let objData = AddsHandler.sharedInstance.objAdPost
-            
-            if objData?.data.profile.map.mapStyle == "google_map"{
-                let searchVC = GMSAutocompleteViewController()
-                searchVC.delegate = self
-                searchVC.modalPresentationStyle = .fullScreen
-                self.presentVC(searchVC)
+
+            if isSimpleAddress == true{
+                if objData?.data.profile.map.mapStyle == "google_map"{
+                    let searchVC = GMSAutocompleteViewController()
+                    searchVC.delegate = self
+                    searchVC.modalPresentationStyle = .fullScreen
+                    self.presentVC(searchVC)
+                }else{
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                    let mapBoxPlaceVc = storyboard.instantiateViewController(withIdentifier: MapBoxPlacesViewController.className) as! MapBoxPlacesViewController
+                    mapBoxPlaceVc.delegate = self
+                    mapBoxPlaceVc.modalPresentationStyle = .fullScreen
+                    self.presentVC(mapBoxPlaceVc)
+                }
             }else{
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                let mapBoxPlaceVc = storyboard.instantiateViewController(withIdentifier: MapBoxPlacesViewController.className) as! MapBoxPlacesViewController
-                mapBoxPlaceVc.delegate = self
-                mapBoxPlaceVc.modalPresentationStyle = .fullScreen
-                self.presentVC(mapBoxPlaceVc)
+                address = txtAddress.text!
             }
             
+           
+
         }
         
     }
@@ -306,7 +310,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             guard let isMapShow = objData?.data.profile.map.onOff else {
                 return
             }
-        
+            isSimpleAddress = isMapShow
             if isMapShow {
                 
                 if let latText = objData?.data.profile.map.locationLat.title {
@@ -678,6 +682,11 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     }
     
     @IBAction func actionPostAdd(_ sender: Any) {
+        
+        if isSimpleAddress == false{
+            address = txtAddress.text!
+        }
+        
         if address == "" {
             self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
         }else if isTermCond == false{
@@ -687,7 +696,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             var parameter: [String: Any] = [
                 "images_array": imageIdArray,
                 "ad_phone": self.txtNumber.text!, //phone_number,
-                "ad_location":  address,
+                "ad_location": address,
                 "location_lat": latitude,
                 "location_long": longitude,
                 "ad_country": selectedID,   //selectedCountry,

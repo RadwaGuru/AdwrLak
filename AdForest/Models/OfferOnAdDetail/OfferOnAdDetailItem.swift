@@ -18,7 +18,7 @@ struct OfferOnAdDetailItem {
     var messageReadStatus : Bool!
     var messageReceiverId : String!
     var messageSenderId : String!
-     var is_block : String!
+    var is_block : String!
     
     
     /**

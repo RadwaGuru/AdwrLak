@@ -106,9 +106,11 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.messagesScreen.mainTitle, forKey: "message")
                 self.defaults.set(successResponse.data.messagesScreen.sent, forKey: "sentOffers")
                 self.defaults.set(successResponse.data.messagesScreen.receive, forKey: "receiveOffers")
+                self.defaults.set(successResponse.data.messagesScreen.blocked, forKey: "blocked")
                 self.defaults.synchronize()
                 UserHandler.sharedInstance.objSettings = successResponse.data
                 UserHandler.sharedInstance.objSettingsMenu = successResponse.data.menu.submenu.pages
+               
                 UserHandler.sharedInstance.menuKeysArray = successResponse.data.menu.dynamicMenu.keys
                 
                 if successResponse.data.menu.iStaticMenu != nil{
@@ -123,13 +125,22 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                     }
                 }
                 
+                UserDefaults.standard.set(successResponse.data.wpml_menu_text, forKey: "langHeading")
+                
                 if successResponse.data.menu.iStaticMenu.array == nil{
-                    if  successResponse.data.menu.iStaticMenu.array == nil {
+                    if successResponse.data.menu.iStaticMenu.array == nil {
+                        
+                         UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
+                        
                         if self.isWplOn == true{
-                            UserHandler.sharedInstance.otherKeysArray.append("wpml_menu_text")
-                            UserHandler.sharedInstance.otherValuesArray.append(successResponse.data.wpml_menu_text)
+                
+                            UserDefaults.standard.set("custom", forKey: "custom")
+                            UserHandler.sharedInstance.otherKeysArray.append("wpml_custom_menu_text")
+                            UserHandler.sharedInstance.otherValuesArray.append(successResponse.data.wpml_menu_textCustom)
+                            
                         }
                     }
+                    
                     if successResponse.data.menu.isShowMenu.blog == true{
                         UserHandler.sharedInstance.otherKeysArray.append("blog")
                         UserHandler.sharedInstance.otherValuesArray.append(successResponse.data.menu.blog)
@@ -149,20 +160,16 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                     UserHandler.sharedInstance.otherKeysArray.append("logout")
                     UserHandler.sharedInstance.otherValuesArray.append(successResponse.data.menu.logout)
                     
-                }
-                
-                if self.isWplOn == false {
-                    if UserHandler.sharedInstance.menuKeysArray.contains("wpml_menu_text"){
-                        UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
-                    }
                 }else{
-                    UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
+                    UserDefaults.standard.set("default", forKey: "custom")
+
+                      UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
+                    
+                    if self.isWplOn == true {
+                        
+                    }
                 }
-                
-                //                if UserHandler.sharedInstance.menuKeysArray.contains("wpml_menu_text"){
-                //                    UserHandler.sharedInstance.menuValuesArray = successResponse.data.menu.dynamicMenu.array
-                //                }
-                
+    
                 UserDefaults.standard.set(successResponse.data.location_text, forKey: "loc_text")
                 if successResponse.data.menu.isShowMenu.blog == true{
                     self.settingBlogArr.append(successResponse.data.menu.blog)
@@ -184,7 +191,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 
                 if self.isWplOn == true {
                     
-                    if isLang == "1" {
+                    if isLang != "1" {
                         let langCtrl = storyboard.instantiateViewController(withIdentifier: LangViewController.className) as! LangViewController
                         self.navigationController?.pushViewController(langCtrl, animated: true)
                     } else {

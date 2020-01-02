@@ -10,7 +10,7 @@ import UIKit
 import DropDown
 
 protocol textSelectDropDown {
-    func textValSelecrDrop(value: String,indexPath: Int, fieldType:String, section: Int,fieldName:String)
+    func textValSelecrDrop(value: String,indexPath: Int, fieldType:String, section: Int,fieldName:String,isShow:Bool)
 }
 
 class DropDownCell: UITableViewCell {
@@ -32,6 +32,8 @@ class DropDownCell: UITableViewCell {
     var dropDownKeysArray = [String]()
     var fieldTypeNameArray = [String]()
     var hasFieldsArr = [Bool]()
+    var isShowArr = [Bool]()
+    var isShow = true
     
     var selectedKey = ""
     var selectedValue = ""
@@ -79,15 +81,17 @@ class DropDownCell: UITableViewCell {
             self.selectedValue = item
             self.selectedKey = self.dropDownKeysArray[index]
             self.selectedValue = self.dropDownValuesArray[index]
+            
             self.param = self.fieldTypeNameArray[index]
             self.hasSub = self.hasFieldsArr[index]
+            self.isShow = self.isShowArr[index]
             print(self.hasSub)
             print(self.param, self.selectedKey)
             self.bidOnOfCell = index
             self.objSaved.fieldVal = item
             //self.delegate?.addToFieldsArray(obj: self.objSaved, index: self.selectedIndex, isFrom: "select", title: item)
             self.defaults.set(item, forKey: "value")
-            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: index, fieldType: "select", section: self.section,fieldName : self.fieldNam)
+            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: index, fieldType: "select", section: self.section,fieldName : self.fieldNam,isShow: self.isShow)
             self.defaults.synchronize()
             print(self.fieldNam,self.bidOnOfCell)
             

@@ -120,7 +120,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
         }
     }
     
-    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText: String,isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool) {
+    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText: String,isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool,isShow:Bool) {
         print(selectedKey, fieldTitle, selectedText,isBidSelected,IsPaySelected,isImageSelected)
         isBidding = isBidSelected
         isPaid = IsPaySelected
@@ -141,11 +141,27 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         }
                     }
                 }
+                
+                
+                
+                //if objData.fieldType == "select" {
+                    if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? TextFieldCell {
+                       
+                        if objData.fieldTypeName == "ad_price_type"{
+                            
+                            if isShow == false{
+                                 cell.isHidden = true
+                            }
+                        }
+                        
+                    }
+               // }
+                
+                
             }
         }
     }
   
-   
     @objc func onForwardButtonClciked() {
         
         var option = ""
@@ -270,7 +286,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                     
                 }
                 if i == 1 {
-                    
                     if cell.selectedValue == ""{
                         cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
                         value = objData.values[0].name
@@ -311,6 +326,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         cell.isImageArray.append(items.isImg)
                         cell.fieldTypeName = objData.fieldTypeName
                     }
+                    
+                     cell.isShowArr.append(items.isShow)
                    
                 }
                 cell.popupShow()

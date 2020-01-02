@@ -14,8 +14,9 @@ class Constants {
     struct  URL {
         
         //static let ipAddress =  "https://adforest-wpml.scriptsbundle.com/"
-         //static let ipAddress =  "http://adforest-api.scriptsbundle.com/"
+        //static let ipAddress =  "http://adforest-api.scriptsbundle.com/"
         static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
+        //static let ipAddress =  "https://rumfa.ng/"
         
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
@@ -111,8 +112,8 @@ class Constants {
     struct customCodes {
        
         //Live
-        //static let purchaseCode = "aaBMQWH8vIWZjOR07nEyJbOnqrzWbHk-ios"
-        //static let securityCode = "212PQoz1zAICAxui55AZuSTNhajjTTs-ios"
+       // static let purchaseCode = "aaBMQWH8vIWZjOR07nEyJbOnqrzWbHk-ios"
+       // static let securityCode = "212PQoz1zAICAxui55AZuSTNhajjTTs-ios"
         
         //Test
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
@@ -122,13 +123,14 @@ class Constants {
         
         //static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk"
         //static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs"
+        
+        //static let purchaseCode = "d716d7ea-afbc-4681-a9e7-debc02240067"
+        //static let securityCode = "11223"
+        
     }
-    
-    
     
     struct googlePlacesAPIKey {
         static let placesKey =  "AIzaSyDorvTuNOQlyBP3TmhpCaRWjgfjl4P46MYM"
-        
     }
     
     struct AppColor {
@@ -145,7 +147,6 @@ class Constants {
         static let phoneVerified = "#8ac249"
         static let phoneNotVerified = "#F25E5E"
     }
-    
     
     struct NotificationName {
         static let updateUserProfile = "updateProfile"

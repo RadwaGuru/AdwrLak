@@ -127,7 +127,8 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
         let objData = AddsHandler.sharedInstance.topLocationArray[indexPath.row]
         if let id = objData.locationId {
             UserDefaults.standard.set(id, forKey: "locId")
-            appDelegate.moveToHome()
+            let param : [String:Any] = ["location_id":id]
+            setLocation(parameter: param)
         }
         
     }

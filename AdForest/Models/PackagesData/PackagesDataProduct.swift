@@ -39,6 +39,8 @@ struct PackagesDataProduct {
     var allow_cats_text : String!
     var allow_cats_val : String!
     var allow_cats_valArr : [AllowCatsValue]!
+    var seeAll : String!
+
     
     var productAppCode : PackageDataAppCode!
     
@@ -75,6 +77,7 @@ struct PackagesDataProduct {
         allow_tags_val = dictionary["allow_tags_val"] as? String
         allow_cats_text = dictionary["allow_cats_text"] as? String
         allow_cats_val = dictionary["allow_cats_val"] as? String
+        seeAll = dictionary["see_all_cats"] as? String
     
         if let productAppCodeData = dictionary["product_appCode"] as? [String:Any]{
             productAppCode = PackageDataAppCode(fromDictionary: productAppCodeData)

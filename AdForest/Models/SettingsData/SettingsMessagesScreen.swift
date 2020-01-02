@@ -13,6 +13,7 @@ struct SettingsMessagesScreen {
     var mainTitle : String!
     var receive : String!
     var sent : String!
+    var blocked : String!
     
     
     /**
@@ -22,6 +23,7 @@ struct SettingsMessagesScreen {
         mainTitle = dictionary["main_title"] as? String
         receive = dictionary["receive"] as? String
         sent = dictionary["sent"] as? String
+        blocked = dictionary["blocked"] as? String
     }
     
     /**

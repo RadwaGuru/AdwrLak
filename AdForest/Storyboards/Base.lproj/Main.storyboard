@@ -4630,9 +4630,9 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jva-PP-DN1">
-                                                                    <rect key="frame" x="71" y="157" width="185" height="20"/>
+                                                                    <rect key="frame" x="8" y="157" width="248" height="20"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="185" id="KfL-uc-iMd"/>
+                                                                        <constraint firstAttribute="width" constant="248" id="KfL-uc-iMd"/>
                                                                         <constraint firstAttribute="height" constant="20" id="w8o-Zy-SMp"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -4669,6 +4669,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="bsY-CH-NsF" secondAttribute="trailing" constant="8" id="PaH-oq-F6F"/>
                                                                 <constraint firstItem="8Yv-1f-Otc" firstAttribute="top" secondItem="fkd-GJ-UpT" secondAttribute="bottom" constant="4" id="Pbd-8X-6PI"/>
                                                                 <constraint firstItem="zAk-Xz-mO7" firstAttribute="leading" secondItem="oFn-qB-nIh" secondAttribute="trailing" id="QT8-tD-KJp"/>
+                                                                <constraint firstItem="jva-PP-DN1" firstAttribute="top" secondItem="bsY-CH-NsF" secondAttribute="bottom" constant="1" id="QoJ-2L-oT0"/>
                                                                 <constraint firstItem="qkE-PN-brM" firstAttribute="leading" secondItem="oHL-g3-sta" secondAttribute="trailing" id="RRt-R6-gtX"/>
                                                                 <constraint firstItem="S2K-PJ-qIO" firstAttribute="top" secondItem="w0b-hs-wzE" secondAttribute="bottom" constant="4" id="SKF-4K-FX7"/>
                                                                 <constraint firstItem="oFn-qB-nIh" firstAttribute="leading" secondItem="yHM-0u-NVt" secondAttribute="leading" constant="2" id="Tga-3g-jem"/>
@@ -4693,7 +4694,6 @@
                                                                 <constraint firstItem="bsY-CH-NsF" firstAttribute="top" secondItem="qkE-PN-brM" secondAttribute="bottom" constant="4" id="ujV-MZ-bQq"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Dwe-9f-Ex3" secondAttribute="trailing" constant="8" id="vXj-S3-tfl"/>
                                                                 <constraint firstItem="oFn-qB-nIh" firstAttribute="top" secondItem="lbj-WY-nd8" secondAttribute="bottom" constant="4" id="vmH-HL-cJD"/>
-                                                                <constraint firstAttribute="bottom" secondItem="jva-PP-DN1" secondAttribute="bottom" constant="10" id="yXR-vY-881"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALg-a6-G5m">
@@ -4755,6 +4755,33 @@
                                             <outlet property="btnMore" destination="jva-PP-DN1" id="izD-So-2iQ"/>
                                             <outlet property="buttonSelectOption" destination="ofr-Ee-Sc3" id="d8q-eX-v7T"/>
                                             <outlet property="containerView" destination="g1Y-zS-BQJ" id="gcD-Mg-eEz"/>
+                                            <outlet property="heightConstAllCat" destination="sh1-eF-OiK" id="fHY-ed-Agh"/>
+                                            <outlet property="heightConstBid" destination="M3m-Sz-Dwt" id="R8r-E7-Hjr"/>
+                                            <outlet property="heightConstBump" destination="sP8-fY-t1s" id="nli-hO-7pO"/>
+                                            <outlet property="heightConstFeature" destination="ty7-9J-pke" id="r1i-32-gb6"/>
+                                            <outlet property="heightConstFree" destination="jPr-Ee-kZ5" id="cz1-cf-ck1"/>
+                                            <outlet property="heightConstNumImg" destination="HF9-5N-01b" id="qJc-rP-sPp"/>
+                                            <outlet property="heightConstTag" destination="L7f-dx-4cZ" id="ng1-Rc-aFx"/>
+                                            <outlet property="heightConstValid" destination="P9u-kl-pxx" id="oUZ-pK-V9p"/>
+                                            <outlet property="heightConstVideo" destination="RDR-CN-eWd" id="lJc-XJ-WQ6"/>
+                                            <outlet property="img1" destination="hPN-he-Os2" id="Lll-KE-rH8"/>
+                                            <outlet property="img1HeightConst" destination="EuZ-l9-Ufh" id="aKD-zb-ug3"/>
+                                            <outlet property="img2" destination="fkd-GJ-UpT" id="Cgv-bU-HZB"/>
+                                            <outlet property="img2HeightConst" destination="PGJ-Wv-teO" id="ydj-zr-lmu"/>
+                                            <outlet property="img3" destination="8Yv-1f-Otc" id="bSq-Ka-R3r"/>
+                                            <outlet property="img3HeightConst" destination="H2J-Io-M5f" id="B2M-GA-fhj"/>
+                                            <outlet property="img4" destination="nnW-9F-cEn" id="4wO-ub-yZe"/>
+                                            <outlet property="img4HeightConst" destination="VEL-24-BFN" id="1dW-ge-LDm"/>
+                                            <outlet property="img5" destination="lbj-WY-nd8" id="wnm-gC-NDQ"/>
+                                            <outlet property="img5HeightConst" destination="UdM-I2-dBb" id="k0A-8G-ELH"/>
+                                            <outlet property="img6" destination="oFn-qB-nIh" id="qub-Bd-ZgY"/>
+                                            <outlet property="img6HeightConst" destination="08L-TW-hGT" id="Vhc-7b-mmV"/>
+                                            <outlet property="img7" destination="oHL-g3-sta" id="n0M-8F-xBi"/>
+                                            <outlet property="img7HeightConst" destination="m0e-Qx-PSx" id="rMh-b0-bYW"/>
+                                            <outlet property="img8" destination="w0b-hs-wzE" id="SGV-bx-gwr"/>
+                                            <outlet property="img8HeightConst" destination="GiJ-JZ-VmI" id="kLK-ZX-fjo"/>
+                                            <outlet property="img9" destination="S2K-PJ-qIO" id="UPG-4L-jpp"/>
+                                            <outlet property="img9HightConst" destination="SeK-ge-pMc" id="vHM-rg-fg1"/>
                                             <outlet property="lblAllowBidValue" destination="8ec-If-ncN" id="DBu-Jr-ENg"/>
                                             <outlet property="lblAllowCatVal" destination="Dwe-9f-Ex3" id="aog-LO-uuv"/>
                                             <outlet property="lblAllowTagVal" destination="bsY-CH-NsF" id="7qz-qU-nMW"/>
@@ -8352,38 +8379,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cs4-po-o5I">
-                                <rect key="frame" x="0.0" y="60" width="320" height="488"/>
+                                <rect key="frame" x="0.0" y="35" width="320" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWd-Be-uUF">
-                                <rect key="frame" x="222" y="20" width="82" height="30"/>
-                                <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.4549019608" green="0.4549019608" blue="0.50196078430000002" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1ns-Ni-uIe"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="c98-1w-Xcy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Refresh">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnRefreshClicked:" destination="ybA-fT-Txb" eventType="touchUpInside" id="sg1-vc-nqZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="LhH-5A-EqS" firstAttribute="trailing" secondItem="KWd-Be-uUF" secondAttribute="trailing" constant="16" id="ChU-OW-gpy"/>
                             <constraint firstItem="cs4-po-o5I" firstAttribute="leading" secondItem="LhH-5A-EqS" secondAttribute="leading" id="UYo-sl-DOJ"/>
-                            <constraint firstItem="KWd-Be-uUF" firstAttribute="top" secondItem="LhH-5A-EqS" secondAttribute="top" constant="20" id="XNo-wr-TA2"/>
+                            <constraint firstItem="cs4-po-o5I" firstAttribute="top" secondItem="LhH-5A-EqS" secondAttribute="top" constant="35" id="kGm-dd-l0f"/>
                             <constraint firstItem="LhH-5A-EqS" firstAttribute="trailing" secondItem="cs4-po-o5I" secondAttribute="trailing" id="lOM-SL-SIu"/>
-                            <constraint firstItem="cs4-po-o5I" firstAttribute="top" secondItem="KWd-Be-uUF" secondAttribute="bottom" constant="10" id="trQ-ax-Iln"/>
-                            <constraint firstItem="LhH-5A-EqS" firstAttribute="bottom" secondItem="cs4-po-o5I" secondAttribute="bottom" id="ubF-js-qzh"/>
+                            <constraint firstItem="LhH-5A-EqS" firstAttribute="bottom" secondItem="cs4-po-o5I" secondAttribute="bottom" constant="30" id="ubF-js-qzh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LhH-5A-EqS"/>
                     </view>
                     <connections>
-                        <outlet property="btnRefresh" destination="KWd-Be-uUF" id="Gct-DS-sq7"/>
                         <outlet property="tableView" destination="cs4-po-o5I" id="NsP-WI-EVS"/>
                     </connections>
                 </viewController>
@@ -11609,6 +11618,11 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFf-bR-Jcv">
+                                <rect key="frame" x="16" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

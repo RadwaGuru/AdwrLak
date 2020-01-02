@@ -96,8 +96,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isShowSetting = false
     var menuLangText = UserDefaults.standard.string(forKey: "meuText")
     var defaults = UserDefaults.standard
-    var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"), UIImage(named: "logout")]
-    var othersArrayImages = [#imageLiteral(resourceName: "blog"),#imageLiteral(resourceName: "settings") , #imageLiteral(resourceName: "logout")]
+    var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"),UIImage(named: "logout"), UIImage(named: "man-user")]
+    var othersArrayImages = [#imageLiteral(resourceName: "blog"),#imageLiteral(resourceName: "settings"),UIImage(named: "logout")]
     var guestOtherArray = [#imageLiteral(resourceName: "blog"), #imageLiteral(resourceName: "settings")]
     var msgPkgArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "profile"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "myads"), #imageLiteral(resourceName: "inactiveads"), #imageLiteral(resourceName: "featuredAds"), #imageLiteral(resourceName: "favourite")]
     var guestHideImagesArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "logout")]
@@ -479,7 +479,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if (UserHandler.sharedInstance.objSettings?.menu.isShowMenu.packageField)! == false {
                     value = 3
                 } else {
-                    value = 4
+                    value = 5
                 }
             } else {
                 return  UserHandler.sharedInstance.menuValuesArray.count - 2
@@ -526,6 +526,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     else if row == 3 {
                         cell.lblName.text = objData?.menu.login
+                    } else if row == 4 {
+                        cell.lblName.text = objData?.menu.register
                     }
                 }
                 else {
@@ -600,27 +602,84 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let objData = UserHandler.sharedInstance.otherValuesArray[indexPath.row]
                 let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
                 cell.lblName.text = objData
-                switch img.lowercased() {
-                case "blog":
-                    cell.imgPicture.image = UIImage(named: "blog")
-                case "app_settings":
-                    cell.imgPicture.image = UIImage(named: "settings")
-                case "wpml_menu_text":
-                    cell.imgPicture.image = UIImage(named: "language")
-                case "top_location_text":
-                    cell.imgPicture.image = UIImage(named: "topLocation")
-                case "logout":
-                    cell.imgPicture.image = UIImage(named: "logout")
-                default:
-                    break
+                
+                let custom = UserDefaults.standard.string(forKey: "custom")
+                
+                if custom == "custom"{
+                    switch img.lowercased() {
+                    case "blog":
+                        cell.imgPicture.image = UIImage(named: "blog")
+                    case "app_settings":
+                        cell.imgPicture.image = UIImage(named: "settings")
+                    case "wpml_custom_menu_text":
+                        cell.imgPicture.image = UIImage(named: "language")
+                    case "top_location_text":
+                        cell.imgPicture.image = UIImage(named: "topLocation")
+                    case "logout":
+                        cell.imgPicture.image = UIImage(named: "log-out")
+                    default:
+                        break
+                    }
+                }else{
+                    switch img.lowercased() {
+                    case "blog":
+                        cell.imgPicture.image = UIImage(named: "blog")
+                    case "app_settings":
+                        cell.imgPicture.image = UIImage(named: "settings")
+                    case "wpml_menu_text":
+                        cell.imgPicture.image = UIImage(named: "language")
+                    case "top_location_text":
+                        cell.imgPicture.image = UIImage(named: "topLocation")
+                    case "logout":
+                        cell.imgPicture.image = UIImage(named: "log-out")
+                    default:
+                        break
+                    }
                 }
+                
+                
             }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        
+        let wpml = UserDefaults.standard.bool(forKey: "isWpOn")
+        if indexPath.section == 2{
+            if wpml == false{
+                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                let custom = UserDefaults.standard.string(forKey: "custom")
+                
+                if custom == "custom"{
+                    switch img.lowercased() {
+                        
+                    case "wpml_custom_menu_text":
+                        return 0
+                    default:
+                        return 40
+                    }
+                }else{
+                    switch img.lowercased() {
+                        
+                    case "wpml_menu_text":
+                        return 0
+                    default:
+                        return 40
+                    }
+                    
+                }
+                
+                
+               
+            }else{
+                return 40
+            }
+        }else{
+            return 40
+        }
+       
+        //return 40
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

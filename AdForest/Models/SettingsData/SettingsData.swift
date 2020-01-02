@@ -49,6 +49,7 @@ struct SettingsData {
     var language_style: String!
     var is_wpml_active: Bool!
     var wpml_menu_text: String!
+    var wpml_menu_textCustom: String!
     var langData : [LangData]!
     var location_text: String!
     var notVerified: String!
@@ -142,6 +143,7 @@ struct SettingsData {
         language_style = dictionary["language_style"] as? String
         is_wpml_active = dictionary["is_wpml_active"] as? Bool
         wpml_menu_text = dictionary["wpml_menu_text"] as? String
+        wpml_menu_textCustom = dictionary["wpml_custom_menu_text"] as? String
         location_text = dictionary["app_location_text"] as? String
         notVerified = dictionary["verified_msg"] as? String 
     }

@@ -201,8 +201,6 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-       
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PackagesCell", for: indexPath) as! PackagesCell
         let objData = dataArray[indexPath.row]
         let paymentData = UserHandler.sharedInstance.objPaymentType
@@ -221,30 +219,59 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.lblValidity.text = "\(validityText): \(daysvalue)"
             }
         }
+        if objData.daysText == nil{
+            cell.img1HeightConst.constant = 0
+            cell.heightConstValid.constant = 0
+        }
+        
+        
         if let freeAdsText = objData.freeAdsText {
             if let freeAdsValue = objData.freeAdsValue {
                 cell.lblFreeAds.text = "\(freeAdsText): \(freeAdsValue)"
             }
         }
+        if objData.freeAdsText == nil{
+            cell.img2HeightConst.constant = 0
+            cell.heightConstFree.constant = 0
+        }
+        
+        
         if let fearureAdsText = objData.featuredAdsText {
             if let featureAdValue = objData.featuredAdsValue {
                 cell.lblFeaturedAds.text = "\(fearureAdsText): \(featureAdValue)"
             }
         }
+        if objData.featuredAdsText == nil{
+            cell.img3HeightConst.constant = 0
+            cell.heightConstFeature.constant = 0
+        }
+        
+
         if let bumpUptext = objData.bumpAdsText {
             if let bumpValue = objData.bumpAdsValue {
                 cell.lblBumpUpAds.text = "\(bumpUptext): \(bumpValue)"
             }
         }
+        
+        if objData.bumpAdsText == nil{
+            cell.img4HeightConst.constant = 0
+            cell.heightConstBump.constant = 0
+        }
+        
         if let paymentTypeButton = objData.paymentTypesValue {
             cell.buttonSelectOption.setTitle(paymentTypeButton, for: .normal)
         }
-        
         
         if let allow_bidding_text = objData.allow_bidding_text {
             if let allow_bidding_val = objData.allow_bidding_value {
                 cell.lblAllowBidValue.text = "\(allow_bidding_text): \(allow_bidding_val)"
             }
+        }
+
+        if objData.allow_bidding_text == nil{
+            cell.img5.isHidden = true
+            cell.img5HeightConst.constant = 0
+            cell.heightConstBid.constant = 0
         }
         
         if let num_of_images_text = objData.num_of_images_text {
@@ -252,6 +279,11 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.lblNumOfImgValue.text = "\(num_of_images_text): \(num_of_images_val)"
             }
         }
+        if objData.num_of_images_text == nil{
+            cell.img6HeightConst.constant = 0
+            cell.heightConstNumImg.constant = 0
+        }
+        
         
         if let video_url_text = objData.video_url_text {
             if let video_url_val = objData.video_url_val {
@@ -259,18 +291,31 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
-      
+        if objData.video_url_text == nil{
+            cell.img7HeightConst.constant = 0
+            cell.heightConstVideo.constant = 0
+        }
         
         if let allow_tags_text = objData.allow_tags_text{
             if let allow_tags_val = objData.allow_tags_val {
                 cell.lblAllowTagVal.text = "\(allow_tags_text): \(allow_tags_val)"
             }
         }
-        
+        if objData.allow_tags_text == nil{
+            cell.img8HeightConst.constant = 0
+            cell.heightConstTag.constant = 0
+        }
+    
         if let allow_cats_text = objData.allow_cats_text {
             if let allow_cats_val = objData.allow_cats_val {
                 cell.lblAllowCatVal.text = "\(allow_cats_text): \(allow_cats_val)"
             }
+        }
+        if objData.allow_cats_text == nil{
+            cell.img9HightConst.constant = 0
+            cell.heightConstAllCat.constant = 0
+        }else{
+            UserDefaults.standard.set(objData.allow_cats_text, forKey: "allowText")
         }
         
         if let allow_cats_text = objData.allow_cats_text {
@@ -286,23 +331,25 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
                         NSAttributedStringKey.underlineColor: UIColor(hex: bgColor!)
                         //.font : UIFont.boldSystemFont(ofSize: 18)
                     ]
-                    let underlineAttributedString = NSAttributedString(string: "See All...", attributes: strokeTextAttributes)
+            let underlineAttributedString = NSAttributedString(string: objData.seeAll, attributes: strokeTextAttributes)
                     let yourAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]
                     let partOne = NSMutableAttributedString(string: "\(allow_cats_text): ", attributes: yourAttributes)
                     let combination = NSMutableAttributedString()
                     combination.append(partOne)
                     combination.append(underlineAttributedString)
                     cell.lblAllowCatVal.attributedText = combination //underlineAttributedString
-                    moreCatArr.append(catName)
+                     moreCatArr.append(catName)
                     cell.btnMore.isHidden = false
                     cell.btnMore.setTitle("", for: .normal)
-                    
+                     
+                    //cell.catNewArr = objData.allow_cats_valArr
+            
                 }
             }
+            cell.catNewArr = objData.allow_cats_valArr
+            cell.catArr = moreCatArr
         }
         
-        cell.catArr = moreCatArr
-       
         cell.package_id = objData.productId
         cell.dropShow = { () in
             if self.defaults.bool(forKey: "isLogin") == false {

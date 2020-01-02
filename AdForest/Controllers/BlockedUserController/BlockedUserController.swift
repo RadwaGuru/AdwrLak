@@ -404,9 +404,10 @@ class BlockeduserCell: UITableViewCell {
 
 extension BlockedUserController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        var pageTitle = "Blocked"
-       
-        
-        return IndicatorInfo(title: pageTitle)
+        var pageTitle = ""
+        if let title = self.defaults.string(forKey: "blocked") {
+                   pageTitle = title
+               }
+               return IndicatorInfo(title: pageTitle)
     }
 }

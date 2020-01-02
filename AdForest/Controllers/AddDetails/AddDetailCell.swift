@@ -83,6 +83,8 @@ class AddDetailCell: UITableViewCell {
                    sourceImages.removeAll()
           
         }
+        
+       
        
     }
     

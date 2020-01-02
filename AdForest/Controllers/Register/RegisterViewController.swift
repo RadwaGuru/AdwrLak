@@ -76,9 +76,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
 //    }
 //
     
-    
-    
-   
+
     @IBOutlet weak var btnGoogle: GIDSignInButton!
     @IBOutlet weak var buttonGoogle: GIDSignInButton!
         {
@@ -432,7 +430,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     }
     
     @IBAction func actionLoginHere(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+       // self.navigationController?.popViewController(animated: true)
+       
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+        self.navigationController?.pushViewController(vc!, animated: true)
+        
     }
     
     

@@ -34,7 +34,6 @@ target 'AdForest' do
     #Bar Button View
     pod 'XLPagerTabStrip', '~> 8.1'
     
-    
     # Star control
     pod 'Cosmos'
     

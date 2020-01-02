@@ -70,6 +70,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isBid = true
     var isImg = true
     var imagesMsg = ""
+    var isShowPrice = true
     
     
     //MARK:- View Life Cycle
@@ -479,7 +480,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         }
             
         else if section == 2 {
-            var objData = fieldsArray[indexPath.row]
+            let objData = fieldsArray[indexPath.row]
        
             if objData.fieldType == "textfield"  {
                 let cell: TextFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
@@ -507,6 +508,16 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.section = 2
                // cell.selectedIndex = indexPath.row
                 cell.delegate = self
+                
+                
+                if objData.fieldTypeName == "ad_price_type"{
+                    if isShowPrice == false{
+                        cell.isHidden = true
+                    }
+                }
+                
+                
+                
                 return cell
             }
                 
@@ -571,6 +582,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         cell.dropDownValuesArray.append(item.name)
                         cell.hasFieldsArr.append(item.hasTemplate)
                         cell.fieldTypeNameArray.append(objData.fieldTypeName)
+                        cell.isShowArr.append(item.isShow)
+
                     }
                     cell.accountDropDown()
                     cell.valueDropDown.show()
@@ -641,6 +654,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.section = 2
                 cell.fieldName = objData.fieldTypeName
                 cell.delegate = self
+                
                 return cell
             }
                 
@@ -658,6 +672,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.delegate = self
                 cell.fieldName = objData.fieldTypeName
                 cell.tableView.reloadData()
+                
                 return cell
 
             }
@@ -857,17 +872,22 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
 
-    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int,fieldName:String) {
+    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int,fieldName:String,isShow:Bool) {
         if fieldType == "select"{
             var obj = AdPostField()
             obj.fieldType = "select"
             obj.fieldVal = value
             obj.fieldTypeName = fieldName //"ad_price_type"
+            isShowPrice = isShow
             self.fieldsArray[indexPath].fieldVal = value
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
             objArray.append(obj)
             customArray.append(obj)
+            
+            
+            
+            //tableView.reloadData()
         }
     }
     

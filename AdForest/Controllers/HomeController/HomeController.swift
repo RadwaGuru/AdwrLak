@@ -485,7 +485,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     if objData.isShowLocation == false{
                         cell.viewLoc.isHidden = true
-                        cell.topConstraintSearch.constant -= 40
+                        cell.topConstraintSearch.constant =  -40
                     }
                     
                 }
@@ -883,7 +883,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if Constants.isiPhone5 {
                             totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 120)
                         } else {
-                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 85)
+                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 110)
                         }
                         height =  totalHeight
                     }

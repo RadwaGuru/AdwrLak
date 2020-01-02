@@ -45,14 +45,18 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        let lang = UserDefaults.standard.string(forKey: "langHeading")
         let isLang = UserDefaults.standard.string(forKey: "langFirst")
         if isLang != "1"{
             self.navigationController?.isNavigationBarHidden = true
+            
         }else{
             self.navigationController?.isNavigationBarHidden = false
+            self.title = lang
             self.addLeftBarButtonWithImage()
             //addBackButtonToNavigationBar()
         }
+         UserDefaults.standard.setValue("1", forKey: "langFirst")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,6 +67,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         if isLang != "1"{
             self.navigationController?.isNavigationBarHidden = false
         }
+        
     }
     
     //-->> Custome Functions
@@ -77,6 +82,11 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         self.delegate?.changeViewController(.main)
         self.navigationController?.popViewController(animated: true)
         self.dismissVC(completion: nil)
+    }
+    
+    
+    @IBAction func btnBackClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK:- CollectionView
@@ -104,6 +114,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
             print("\(String(describing: cell.btnCode.titleLabel?.text))")
             UserDefaults.standard.set(cell.btnCode.titleLabel?.text, forKey: "langCode")
             UserDefaults.standard.setValue("1", forKey: "langFirst")
+            
         }
         self.perform(#selector(self.showHome), with: nil, afterDelay: 2)
     }

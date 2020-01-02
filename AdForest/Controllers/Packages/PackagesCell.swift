@@ -45,6 +45,45 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var btnMore: UIButton!
     
+    @IBOutlet weak var img1: UIImageView!
+    @IBOutlet weak var heightConstValid: NSLayoutConstraint!
+    @IBOutlet weak var img1HeightConst: NSLayoutConstraint!
+    
+    @IBOutlet weak var img2: UIImageView!
+    @IBOutlet weak var img2HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstFree: NSLayoutConstraint!
+    
+    @IBOutlet weak var img3: UIImageView!
+    @IBOutlet weak var img3HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstFeature: NSLayoutConstraint!
+    
+    @IBOutlet weak var img4: UIImageView!
+    @IBOutlet weak var img4HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstBump: NSLayoutConstraint!
+    
+    @IBOutlet weak var img5: UIImageView!
+    @IBOutlet weak var heightConstBid: NSLayoutConstraint!
+    @IBOutlet weak var img5HeightConst: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var img6: UIImageView!
+    @IBOutlet weak var img6HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstNumImg: NSLayoutConstraint!
+    
+    @IBOutlet weak var img7: UIImageView!
+    @IBOutlet weak var img7HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstVideo: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var img8: UIImageView!
+    @IBOutlet weak var img8HeightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstTag: NSLayoutConstraint!
+    
+    @IBOutlet weak var img9: UIImageView!
+    @IBOutlet weak var img9HightConst: NSLayoutConstraint!
+    @IBOutlet weak var heightConstAllCat: NSLayoutConstraint!
+    
+    
     
     //MARK:- Properties
     var delegate : PaymentTypeDelegate?
@@ -71,6 +110,7 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
     var selectedInAppPackage = ""
     var package_id = ""
     var catArr = [String]()
+    var catNewArr = [AllowCatsValue]()
     
     
     var popover: Popover!
@@ -86,13 +126,14 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
         selectionStyle = .none
         self.adForest_settingsData()
         buttonWithRtl()
+        print(catNewArr)
     }
     
     @IBAction func btnMoreClicked(_ sender: UIButton) {
-       // let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: lblAllowCatVal.frame.width, height: containerView.frame.height))
+      
         let tableView = UITableView()
         
-        let height = catArr.count * 47
+        let height = catNewArr.count * 47
         
         tableView.frame = CGRect(x: 0, y: 0, width: lblAllowCatVal.frame.width, height:tableView.contentSize.height + CGFloat(height))
         
@@ -121,25 +162,29 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return catArr.count
+        return catNewArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = self.catArr[(indexPath as NSIndexPath).row]
+        
+        let ob = catNewArr[indexPath.row]
+        cell.textLabel?.text = ob.cat_name  // self.catArr[(indexPath as NSIndexPath).row]
+        
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let allowText = UserDefaults.standard.string(forKey: "allowText")
         
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 35))
         
         let label = UILabel()
         label.textAlignment = .center
-        label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
-        label.text = "Allowed Categories"
+        label.frame = CGRect.init(x: 5, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        label.text = allowText
         headerView.addSubview(label)
         
         return headerView
@@ -147,7 +192,7 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 35
     }
     
     //MARK:- Custom

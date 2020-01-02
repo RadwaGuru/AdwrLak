@@ -106,8 +106,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         txtFieldsWithRtl()
         btnGoogleLog.isHidden = true
         buttonGuestLogin.isHidden = true
-        btnFb.isHidden = true
-        buttonFBLogin.isHidden = true
+       // btnFb.isHidden = true
+       // buttonFBLogin.isHidden = true
         
     }
     
@@ -528,12 +528,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
         }
     }
+    
     func loginButtonDidLogOut(_ loginButton: FBLoginButton!) {
-        
     }
     
     func loginButtonWillLogin(_ loginButton: FBLoginButton!) -> Bool {
-        
         return true
     }
     
