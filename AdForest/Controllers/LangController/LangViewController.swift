@@ -176,6 +176,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
 
                         }
         })
+        //-- Fix
     }
     
     //-->> Api Calls
