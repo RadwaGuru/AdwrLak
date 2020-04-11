@@ -93,7 +93,7 @@ class HomeBlogCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewD
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: 210)
+        return CGSize(width: 170, height: 210)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

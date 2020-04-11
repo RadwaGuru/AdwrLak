@@ -13,6 +13,7 @@ struct LoginData {
     var bgColor : String!
     var emailPlaceholder : String!
     var facebookBtn : String!
+    var appleBtn : String!
     var forgotText : String!
     var formBtn : String!
     var googleBtn : String!
@@ -33,6 +34,7 @@ struct LoginData {
         bgColor = dictionary["bg_color"] as? String
         emailPlaceholder = dictionary["email_placeholder"] as? String
         facebookBtn = dictionary["facebook_btn"] as? String
+        appleBtn = dictionary["apple_btn"] as? String
         forgotText = dictionary["forgot_text"] as? String
         formBtn = dictionary["form_btn"] as? String
         googleBtn = dictionary["google_btn"] as? String
@@ -61,6 +63,9 @@ struct LoginData {
         }
         if facebookBtn != nil{
             dictionary["facebook_btn"] = facebookBtn
+        }
+        if appleBtn != nil{
+            dictionary["apple_btn"] = appleBtn
         }
         if forgotText != nil{
             dictionary["forgot_text"] = forgotText

@@ -19,7 +19,7 @@ struct AddTimer{
      */
     init(fromDictionary dictionary: [String:Any]){
         isShow = dictionary["is_show"] as? Bool
-        timer = dictionary["timer"] as? String
+        timer = dictionary["timer_time"] as? String
     }
     
     /**
@@ -32,7 +32,7 @@ struct AddTimer{
             dictionary["is_show"] = isShow
         }
         if timer != nil{
-            dictionary["timer"] = timer
+            dictionary["timer_time"] = timer
         }
         return dictionary
     }

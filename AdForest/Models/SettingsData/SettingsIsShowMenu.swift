@@ -16,6 +16,9 @@ struct settingsIsShowMenu{
     var settings : Bool!
     var sellers : Bool!
     var shop : Bool!
+    var toplocation : Bool!
+    var isWpmlActive : Bool!
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -27,6 +30,8 @@ struct settingsIsShowMenu{
         sellers = dictionary["sellers"] as? Bool
         shop = dictionary["shop"] as? Bool
         settings = dictionary["settings"] as? Bool
+        toplocation = dictionary["is_top_location"] as? Bool
+        isWpmlActive = dictionary["is_wpml_active"] as? Bool
     }
     
     /**
@@ -52,6 +57,12 @@ struct settingsIsShowMenu{
         }
         if settings != nil{
             dictionary["settings"] = settings
+        }
+        if toplocation != nil{
+            dictionary["is_top_location"] = toplocation
+        }
+        if isWpmlActive != nil{
+            dictionary["is_wpml_active"] = isWpmlActive
         }
         return dictionary
     }

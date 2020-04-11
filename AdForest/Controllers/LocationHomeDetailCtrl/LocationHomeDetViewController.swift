@@ -114,6 +114,9 @@ class LocationHomeDetViewController: UIViewController, UITableViewDelegate, UITa
             if let id = dataArray[indexPath.row].catId {
                 cell.tag = id
             }
+//            if let count = dataArray[indexPath.row].count{
+//                cell.lblName.text = count
+//            }
             
             
         }

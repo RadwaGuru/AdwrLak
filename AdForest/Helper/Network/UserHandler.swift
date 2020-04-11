@@ -67,7 +67,31 @@ class UserHandler {
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
-    
+    //MARK:- Logout Get
+    class func logout(success: @escaping(logoutRoot) -> Void, failure: @escaping(NetworkError) -> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.logout
+        print(url)
+        NetworkHandler.getRequest(url: url, parameters: nil, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objData = logoutRoot(fromDictionary: dictionary)
+            success(objData)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    //MARK:- Cart Empty
+    class func emptyCart(success: @escaping(EmptyCartRoot) -> Void, failure: @escaping(NetworkError) -> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.cartEmpty
+        print(url)
+        NetworkHandler.getRequest(url: url, parameters: nil, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objData = EmptyCartRoot(fromDictionary: dictionary)
+            success(objData)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+
     //MARK:- Login Post
     class func loginUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.logIn

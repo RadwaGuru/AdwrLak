@@ -13,10 +13,11 @@ import DeviceKit
 class Constants {
     struct  URL {
         
-        //static let ipAddress =  "https://adforest-wpml.scriptsbundle.com/"
-        //static let ipAddress =  "http://adforest-api.scriptsbundle.com/"
-        static let ipAddress =  "http://adforest-testapp.scriptsbundle.com/"
-        //static let ipAddress =  "https://rumfa.ng/"
+
+        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
+
+
+        
         
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
@@ -41,6 +42,7 @@ class Constants {
         static let unBlockUser = "user/unblock"
         static let blockUser = "user/block"
         
+        static let getMostViewedAd = "ad/most-visited"
         static let getExpAds = "ad/expire-sold"
         static let getMyAds = "ad"
         static let getInactiveAds = "ad/inactive"
@@ -106,31 +108,32 @@ class Constants {
         
         static let topLocation = "site-location"
         static let reactEmojis = "ad_post/ad_rating/rating_emojies"
+        static let logout = "logout"
+        static let cartEmpty = "cart-empty"
+
     }
     
     
     struct customCodes {
        
-        //Live
-       // static let purchaseCode = "aaBMQWH8vIWZjOR07nEyJbOnqrzWbHk-ios"
-       // static let securityCode = "212PQoz1zAICAxui55AZuSTNhajjTTs-ios"
-        
-        //Test
+//        //Test
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
+       
         
-        // WPML
-        
-        //static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk"
-        //static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs"
-        
-        //static let purchaseCode = "d716d7ea-afbc-4681-a9e7-debc02240067"
-        //static let securityCode = "11223"
-        
+              
+
     }
     
+
+    
+    
     struct googlePlacesAPIKey {
-        static let placesKey =  "AIzaSyDorvTuNOQlyBP3TmhpCaRWjgfjl4P46MYM"
+        //AIzaSyC10EmGBoQfFAr1kAuj1gNLreO043Dqr9w
+        //AIzaSyDorvTuNOQlyBP3TmhpCaRWjgfjl4P46MYM
+        
+        static let placesKey =  "AIzaSyDigOS_q3eWaEok7EiOxMMOYE9RWbLKlXk"
+        
     }
     
     struct AppColor {
@@ -147,6 +150,7 @@ class Constants {
         static let phoneVerified = "#8ac249"
         static let phoneNotVerified = "#F25E5E"
     }
+    
     
     struct NotificationName {
         static let updateUserProfile = "updateProfile"
@@ -194,12 +198,19 @@ class Constants {
         case loadingMessage = ""
     }
     
+//    static func showBasicAlert (message: String) -> UIAlertController{
+//        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//        return alert
+//    }
     static func showBasicAlert (message: String) -> UIAlertController{
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        let al = UserDefaults.standard.string(forKey: "aler")
+        let ok = UserDefaults.standard.string(forKey: "okbtnNew")
+        //let cancel = UserDefaults.standard.string(forKey: "cancelbtnNew")
+        let alert = UIAlertController(title: al, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: ok, style: UIAlertActionStyle.default, handler: nil))
         return alert
     }
-    
     //Convert data to json string
     static func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {

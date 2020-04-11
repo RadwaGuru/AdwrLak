@@ -26,6 +26,9 @@ enum GuestMenu: Int {
     case packages
     case login
     case register
+    //    case location
+    //    case language
+    
 }
 
 //Guest Package Hide
@@ -39,6 +42,13 @@ enum HideGuestPackage: Int {
 enum OtherGuestMenues: Int {
     case blog = 1
     case settings
+    //    case location
+    //    case Wpml
+}
+enum OtherMenues: Int {
+    case blog
+    case settings
+    case logout
 }
 
 enum leftMenuLangSetting : Int {
@@ -57,7 +67,9 @@ protocol guestMenuProtocol {
 protocol changePagesProtocol {
     func changePage(_ menu : pageMenu)
 }
-
+protocol changeOtherMenuesProtocol {
+    func changeMenu(_ other: OtherMenues )
+}
 protocol changeOtherGuestProtocol {
     func changeGuestMenu(_ other: OtherGuestMenues)
 }
@@ -65,8 +77,10 @@ protocol changeOtherGuestProtocol {
 protocol leftMenuLangProtocol : class {
     func changeViewControllerLang(_ menu: leftMenuLangSetting)
 }
-
+//,leftMenuLangProtocol
 class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, guestMenuProtocol, changeOtherGuestProtocol, changePagesProtocol, leftMenuProtocol,leftMenuLangProtocol {
+    
+    
     
     
     //MARK:- Outlets
@@ -94,11 +108,14 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var isShowBlog = false
     var isShowSetting = false
+    var isShowLocation = false
+    var isWpmlActive = false
+    
     var menuLangText = UserDefaults.standard.string(forKey: "meuText")
     var defaults = UserDefaults.standard
-    var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"),UIImage(named: "logout"), UIImage(named: "man-user")]
+    var guestImagesArray = [UIImage(named: "home"), UIImage(named: "search-magnifier"), UIImage(named: "packages"),UIImage(named: "logout"), UIImage(named: "man-user")]   //, UIImage(named: "language"),UIImage(named:"language")
     var othersArrayImages = [#imageLiteral(resourceName: "blog"),#imageLiteral(resourceName: "settings"),UIImage(named: "logout")]
-    var guestOtherArray = [#imageLiteral(resourceName: "blog"), #imageLiteral(resourceName: "settings")]
+    var guestOtherArray = [#imageLiteral(resourceName: "blog"), #imageLiteral(resourceName: "settings"),UIImage(named:"language")]
     var msgPkgArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "profile"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "myads"), #imageLiteral(resourceName: "inactiveads"), #imageLiteral(resourceName: "featuredAds"), #imageLiteral(resourceName: "favourite")]
     var guestHideImagesArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "logout")]
     
@@ -116,6 +133,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var viewRejected: UIViewController!
     var viewExpired: UIViewController!
+    var viewMostVisited: UIViewController!
     
     var viewLogin: UIViewController!
     var viewRegister: UIViewController!
@@ -146,6 +164,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.adForest_populateData()
         }
         self.langView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,6 +242,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(viewRejected, close: true)
         case "expire_sold_ads":
             self.slideMenuController()?.changeMainViewController(viewExpired, close: true)
+            
+        case "most_visited_ads":
+            self.slideMenuController()?.changeMainViewController(viewMostVisited, close: true)
         default:
             break
         }
@@ -254,6 +276,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewLogin, close: true)
         case .register:
             self.slideMenuController()?.changeMainViewController(self.viewRegister, close: true)
+            
         }
     }
     
@@ -263,7 +286,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.langController, close: true)
         }
     }
-    
     
     //MARK:- Hide Guest Package
     func hideGuestController(_ menu: HideGuestPackage) {
@@ -276,6 +298,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewLogin, close: true)
         case .register:
             self.slideMenuController()?.changeMainViewController(self.viewRegister, close: true)
+            
         }
     }
     
@@ -300,32 +323,32 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let searchView = storyboard?.instantiateViewController(withIdentifier: AdvancedSearchController.className) as! AdvancedSearchController
         searchView.delegate = self
-          
+        
         self.viewAdvancedSearch = UINavigationController(rootViewController: searchView)
         
         let messagesView = storyboard?.instantiateViewController(withIdentifier: MessagesController.className) as! MessagesController
         messagesView.menuDelegate = self
-          
+        
         self.viewMessages = UINavigationController(rootViewController: messagesView)
         
         let packageView = storyboard?.instantiateViewController(withIdentifier: PackagesController.className) as! PackagesController
-          
+        
         self.viewPackages = UINavigationController(rootViewController: packageView)
         
         let myAdsView = storyboard?.instantiateViewController(withIdentifier: MyAdsController.className) as! MyAdsController
-          
+        
         self.viewMyAds = UINavigationController(rootViewController: myAdsView)
         
         let inactiveAdsView = storyboard?.instantiateViewController(withIdentifier: InactiveAdsController.className) as! InactiveAdsController
-          
+        
         self.viewInactiveAds = UINavigationController(rootViewController: inactiveAdsView)
         
         let featuredAdsView = storyboard?.instantiateViewController(withIdentifier: FeaturedAdsController.className) as! FeaturedAdsController
-      
+        
         self.viewFeaturedAds = UINavigationController(rootViewController: featuredAdsView)
         
         let favAdsView = storyboard?.instantiateViewController(withIdentifier: FavouriteAdsController.className) as! FavouriteAdsController
-         
+        
         self.viewFavAds = UINavigationController(rootViewController: favAdsView)
         
         let rejectedAdsView = storyboard?.instantiateViewController(withIdentifier: RejectedAds.className) as! RejectedAds
@@ -335,15 +358,19 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let expiredAdsView = storyboard?.instantiateViewController(withIdentifier: ExpireAdsViewController.className) as! ExpireAdsViewController
         
         self.viewExpired = UINavigationController(rootViewController: expiredAdsView)
+        let viewMostVisited = storyboard?.instantiateViewController(withIdentifier: MostVisitedAdsViewController.className) as! MostVisitedAdsViewController
         
+        self.viewMostVisited=UINavigationController(rootViewController: viewMostVisited)
         let shopView = storyboard?.instantiateViewController(withIdentifier: ShopController.className) as! ShopController
         shopView.delegate = self
-          
+        
         self.viewShop = UINavigationController(rootViewController: shopView)
         
         let sellerView = storyboard?.instantiateViewController(withIdentifier: SellersController.className) as! SellersController
-          
+        
         self.viewSeller = UINavigationController(rootViewController: sellerView)
+        
+        
     }
     
     //MARK:- For Guest Pages
@@ -363,6 +390,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let registerView = storyboard?.instantiateViewController(withIdentifier: RegisterViewController.className) as! RegisterViewController
         self.viewRegister = UINavigationController(rootViewController: registerView)
+        
     }
     
     func initializeGuestHiddenViews() {
@@ -390,15 +418,21 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let topLocation = storyboard?.instantiateViewController(withIdentifier: SetLocationController.className) as! SetLocationController
         viewToplocation = UINavigationController(rootViewController: topLocation)
+        let language = storyboard?.instantiateViewController(withIdentifier: LangViewController.className) as! LangViewController
+        langController = UINavigationController(rootViewController: language)
+        
     }
     
     func initializeOtherGuestViews() {
+        
+        
         let blogView = self.storyboard?.instantiateViewController(withIdentifier: BlogController.className) as! BlogController
         self.viewBlog = UINavigationController(rootViewController: blogView)
         
         let settingsView = self.storyboard?.instantiateViewController(withIdentifier: SettingsController.className) as! SettingsController
         settingsView.delegate = self
         self.viewSettings = UINavigationController(rootViewController: settingsView)
+        
     }
     
     func initializeOthersettingLangViewa() {
@@ -410,7 +444,17 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let langView = self.storyboard?.instantiateViewController(withIdentifier: LangViewController.className) as! LangViewController
         self.langController = UINavigationController(rootViewController: langView)
     }
-    
+    //Change Other Views
+    func changeMenu(_ other: OtherMenues) {
+        switch other {
+        case .blog :
+            self.slideMenuController()?.changeMainViewController(self.viewBlog, close: true)
+        case .settings:
+            self.slideMenuController()?.changeMainViewController(self.viewSettings, close: true)
+        case .logout :
+            self.logoutUser()
+        }
+    }
     func changeOtherMenues(controllerName: String) {
         switch controllerName.lowercased() {
         case "blog":
@@ -435,6 +479,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewBlog, close: true)
         case .settings:
             self.slideMenuController()?.changeMainViewController(self.viewSettings, close: true)
+            
         }
     }
     
@@ -446,15 +491,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.stopAnimating()
             if successResponse.success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    Messaging.messaging().shouldEstablishDirectChannel = false
-                    Messaging.messaging().unsubscribe(fromTopic: "global")
-                    self.defaults.set(false, forKey: "isLogin")
-                    self.defaults.set(false, forKey: "isGuest")
-                    self.defaults.set(false, forKey: "isSocial")
-                    FacebookAuthentication.signOut()
-                    GoogleAuthenctication.signOut()
-                    self.appDelegate.moveToLogin()
-                    self.stopAnimating()
+                    self.emptyCart()
                 }
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -466,6 +503,41 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
+    //MARK EmptyCart
+    func emptyCart(){
+        self.showLoader()
+        UserHandler.emptyCart(success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success{
+                print(successResponse.message)
+                Messaging.messaging().shouldEstablishDirectChannel = false
+                Messaging.messaging().unsubscribe(fromTopic: "global")
+                self.defaults.set(false, forKey: "isLogin")
+                self.defaults.set(false, forKey: "isGuest")
+                self.defaults.set(false, forKey: "isSocial")
+                FacebookAuthentication.signOut()
+                GoogleAuthenctication.signOut()
+                self.appDelegate.moveToLogin()
+                self.stopAnimating()
+            }
+            else{
+                Messaging.messaging().shouldEstablishDirectChannel = false
+                Messaging.messaging().unsubscribe(fromTopic: "global")
+                self.defaults.set(false, forKey: "isLogin")
+                self.defaults.set(false, forKey: "isGuest")
+                self.defaults.set(false, forKey: "isSocial")
+                FacebookAuthentication.signOut()
+                GoogleAuthenctication.signOut()
+                self.appDelegate.moveToLogin()
+            }
+        }) { (error) in
+            
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+        
+    }
+    
     //MARK:- Table View Delegate Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
@@ -495,6 +567,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if defaults.bool(forKey: "isLogin") == false {
                 return (settingArr?.count)!
             } else {
+
                 value = UserHandler.sharedInstance.otherValuesArray.count
             }
         }
@@ -513,7 +586,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if let isPackage = objData?.menu.isShowMenu.packageField {
                     isShowPackage = isPackage
                 }
-                if isShowPackage {
+                if isShowPackage{
                     cell.imgPicture.image = guestImagesArray[indexPath.row]
                     if row == 0 {
                         cell.lblName.text = objData?.menu.home
@@ -549,7 +622,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let img = UserHandler.sharedInstance.menuKeysArray[indexPath.row]
                 
                 cell.lblName.text = objData
-                 
+                
                 switch img.lowercased() {
                 case "home" :
                     cell.imgPicture.image = #imageLiteral(resourceName: "home")
@@ -577,6 +650,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.imgPicture.image = UIImage(named: "reject")
                 case "expire_sold_ads":
                     cell.imgPicture.image = UIImage(named: "warning")
+                case "most_visited_ads":
+                    cell.imgPicture.image = UIImage(named: "visited")
                 default:
                     break
                 }
@@ -602,83 +677,67 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let objData = UserHandler.sharedInstance.otherValuesArray[indexPath.row]
                 let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
                 cell.lblName.text = objData
-                
-                let custom = UserDefaults.standard.string(forKey: "custom")
-                
-                if custom == "custom"{
-                    switch img.lowercased() {
-                    case "blog":
-                        cell.imgPicture.image = UIImage(named: "blog")
-                    case "app_settings":
-                        cell.imgPicture.image = UIImage(named: "settings")
-                    case "wpml_custom_menu_text":
-                        cell.imgPicture.image = UIImage(named: "language")
-                    case "top_location_text":
-                        cell.imgPicture.image = UIImage(named: "topLocation")
-                    case "logout":
-                        cell.imgPicture.image = UIImage(named: "log-out")
-                    default:
-                        break
-                    }
-                }else{
-                    switch img.lowercased() {
-                    case "blog":
-                        cell.imgPicture.image = UIImage(named: "blog")
-                    case "app_settings":
-                        cell.imgPicture.image = UIImage(named: "settings")
-                    case "wpml_menu_text":
-                        cell.imgPicture.image = UIImage(named: "language")
-                    case "top_location_text":
-                        cell.imgPicture.image = UIImage(named: "topLocation")
-                    case "logout":
-                        cell.imgPicture.image = UIImage(named: "log-out")
-                    default:
-                        break
-                    }
+                switch img.lowercased() {
+                case "blog":
+                    cell.imgPicture.image = UIImage(named: "blog")
+                case "app_settings":
+                    cell.imgPicture.image = UIImage(named: "settings")
+                case "wpml_menu_text":
+                    cell.imgPicture.image = UIImage(named: "language")
+                case "top_location_text":
+                    cell.imgPicture.image = UIImage(named: "topLocation")
+                case "logout":
+                    cell.imgPicture.image = UIImage(named: "log-out")
+                default:
+                    break
                 }
-                
-                
             }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+        let toplocation = UserDefaults.standard.bool(forKey: "isToplocOn")
         let wpml = UserDefaults.standard.bool(forKey: "isWpOn")
+        let blog = UserDefaults.standard.bool(forKey: "isBlogOn")
+        let settings = UserDefaults.standard.bool(forKey: "isSettingsOn")
+        
+        
         if indexPath.section == 2{
-            if wpml == false{
-                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
-                let custom = UserDefaults.standard.string(forKey: "custom")
-                
-                if custom == "custom"{
-                    switch img.lowercased() {
-                        
-                    case "wpml_custom_menu_text":
-                        return 0
-                    default:
-                        return 40
-                    }
+            let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+            switch img.lowercased() {
+            case "top_location_text":
+                if toplocation == true{
+                    return 40
                 }else{
-                    switch img.lowercased() {
-                        
-                    case "wpml_menu_text":
-                        return 0
-                    default:
-                        return 40
-                    }
-                    
+                    return 0
+                }
+            case "blog":
+                if blog == true{
+                    return 40
+                }else{
+                    return 0
+                }
+                case "app_settings":
+                if settings == true{
+                    return 40
+                }else{
+                    return 0
+                }
+            case "wpml_menu_text":
+                if wpml == true{
+                    return 40
+                }else{
+                    return 0
                 }
                 
-                
-               
-            }else{
+            default:
                 return 40
             }
         }else{
             return 40
         }
-       
+        
         //return 40
     }
     
@@ -764,28 +823,45 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if let isBlog = objData?.menu.isShowMenu.blog {
                 isShowBlog = isBlog
+                print(isBlog)
             }
             
             if let isSetting = objData?.menu.isShowMenu.settings {
                 isShowSetting = isSetting
+                print(isSetting)
+                
             }
-            
+            if let isLocation = objData?.menu.isShowMenu.toplocation {
+                isShowLocation = isLocation
+                
+                print(isLocation)
+                
+            }
+            if let isWpmlActive = objData?.menu.isShowMenu.isWpmlActive {
+                self.isWpmlActive = isWpmlActive
+                print(isWpmlActive)
+                
+            }
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
                     self.changeGuestMenu(menu)
                 }
             }
+            
+//            if isShowBlog {
+//                if let menu = OtherMenues(rawValue: indexPath.row) {
+//                    self.changeMenu(menu)
+//                }
+//            }
                 
-                //            if isShowBlog {
-                //                if let menu = OtherMenues(rawValue: indexPath.row) {
-                //                    self.changeMenu(menu)
-                //                }
-                //            }
-                
-            else {
-                let objData = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
-                changeOtherMenues(controllerName: objData)
-            }
+        
+            
+        else {
+            let objData = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+            changeOtherMenues(controllerName: objData)
         }
     }
+}
+
+
 }

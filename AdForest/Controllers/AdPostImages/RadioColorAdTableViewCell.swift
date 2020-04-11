@@ -59,7 +59,11 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         let cell: RadioColorAdCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "RadioColorAdCollectionViewCell", for: indexPath) as! RadioColorAdCollectionViewCell
     
         let objData = dataArray[indexPath.row]
-     
+        if objData.isChecked == true{
+            cell.imgViewRadio.image = UIImage(named: "radio-on-button")
+            cell.imgViewRadio.tintColor = UIColor(hex: dataArray[indexPath.row].id)
+
+        }
         cell.imgViewRadio.image = cell.imgViewRadio.image?.withRenderingMode(.alwaysTemplate)
         cell.imgViewRadio.tintColor = UIColor(hex: objData.id)
         cell.dataArray = dataArray

@@ -13,6 +13,7 @@ struct RegisterData {
     var bgColor : String!
     var emailPlaceholder : String!
     var facebookBtn : String!
+    var appleBtn : String!
     var formBtn : String!
     var googleBtn : String!
     var heading : String!
@@ -34,6 +35,7 @@ struct RegisterData {
         bgColor = dictionary["bg_color"] as? String
         emailPlaceholder = dictionary["email_placeholder"] as? String
         facebookBtn = dictionary["facebook_btn"] as? String
+        appleBtn = dictionary["apple_btn"] as? String
         formBtn = dictionary["form_btn"] as? String
         googleBtn = dictionary["google_btn"] as? String
         heading = dictionary["heading"] as? String
@@ -63,6 +65,9 @@ struct RegisterData {
         }
         if facebookBtn != nil{
             dictionary["facebook_btn"] = facebookBtn
+        }
+        if appleBtn != nil{
+            dictionary["apple_btn"] = appleBtn
         }
         if formBtn != nil{
             dictionary["form_btn"] = formBtn

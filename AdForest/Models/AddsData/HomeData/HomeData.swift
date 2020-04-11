@@ -108,6 +108,7 @@ struct HomeData {
             catLocationsBtn = CatIconsColumnBtn(fromDictionary: catLocationsBtnData)
         }
         appTopLocation = dictionary["app_top_location"] as? Bool
+        print(appTopLocation)
         appTopLocationList = [HomeAppTopLocation]()
         if let appTopLocationListArray = dictionary["app_top_location_list"] as? [[String:Any]]{
             for dic in appTopLocationListArray{

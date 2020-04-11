@@ -21,6 +21,16 @@ protocol PopupValueChangeDelegate {
 
 class AdPostCell: UITableViewCell , UITextFieldDelegate {
 
+    @IBOutlet weak var Hoshisample: HoshiTextField!{
+        didSet {
+            Hoshisample.delegate = self
+
+            if let mainColor = defaults.string(forKey: "mainColor") {
+//                txtType.borderActiveColor = Constants.hexStringToUIColor(hex: mainColor)
+                
+            }
+        }
+    }
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txtType: UITextField! {
@@ -28,7 +38,7 @@ class AdPostCell: UITableViewCell , UITextFieldDelegate {
             txtType.delegate = self
 
             if let mainColor = defaults.string(forKey: "mainColor") {
-                //txtType.borderActiveColor = Constants.hexStringToUIColor(hex: mainColor)
+//                txtType.borderActiveColor = Constants.hexStringToUIColor(hex: mainColor)
             
             }
         }
@@ -66,6 +76,7 @@ class AdPostCell: UITableViewCell , UITextFieldDelegate {
             delegateText?.changeText(value: text, fieldTitle: fieldName)
         }
     }
+     
     
    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
        // get the current text, or use an empty string if that failed
@@ -84,11 +95,20 @@ class AdPostCell: UITableViewCell , UITextFieldDelegate {
 }
 
 class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategoryDelegate {
-    
+ 
+
     //MARK:- Outlets
+    @IBOutlet weak var ViewCategories: UIView!
     @IBOutlet weak var oltPopup: UIButton! {
         didSet {
             oltPopup.setTitleColor(UIColor.darkGray, for: .normal)
+//            ViewCategories.layer.cornerRadius = 4.0
+//            ViewCategories.layer.borderWidth = 1.0
+//            ViewCategories.layer.borderColor = UIColor.black.cgColor
+//            ViewCategories.bounds = CGRect(x: 0, y: 0, width: 10, height: 10);
+//            oltPopup.titleEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
+
+
         }
     }
     @IBOutlet weak var imgArrow: UIImageView!
@@ -97,7 +117,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
      //MARK:- Properties
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let selectionDropdown = DropDown()
-    lazy var dropDowns : [DropDown] = {
+    lazy var dropDowns : [DropDown] = { 
         return [
             self.selectionDropdown
         ]

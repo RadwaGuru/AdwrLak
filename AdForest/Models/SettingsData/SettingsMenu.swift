@@ -149,6 +149,9 @@ struct SettingsMenu {
         if appSettings != nil{
             dictionary["app_settings"] = appSettings
         }
+        if topLocation != nil{
+            dictionary["topLocation"] = topLocation
+        }
         if iStaticMenu != nil{
             dictionary["i_static_menu"] = iStaticMenu.toDictionary()
         }

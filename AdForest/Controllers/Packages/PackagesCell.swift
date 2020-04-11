@@ -18,9 +18,12 @@ class PackagesCell: UITableViewCell,UITableViewDelegate,UITableViewDataSource {
         }
     }
     
+    @IBOutlet weak var lblregularPrice: UILabel!
+    @IBOutlet weak var imgSale: UIImageView!
     @IBOutlet weak var lblOfferName: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var midView: UIView!
+    @IBOutlet weak var lblSale: UILabel!
     @IBOutlet weak var lblValidity: UILabel!
     @IBOutlet weak var lblFreeAds: UILabel!
     @IBOutlet weak var lblFeaturedAds: UILabel!

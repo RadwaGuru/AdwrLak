@@ -35,6 +35,17 @@ extension UIButton {
         clipsToBounds = true
     }
 }
+extension UIButton{
+    func circularButtonShadow(){
+//        Shadow and Radius for Circle Button
+        layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        layer.masksToBounds = false
+        layer.shadowRadius = 1.0
+        layer.shadowOpacity = 0.5
+        layer.cornerRadius = frame.width / 2
+
+    }
+}
 extension UIButton {
     /// Add image on left view
     func leftImage(image: UIImage) {

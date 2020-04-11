@@ -676,7 +676,9 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     private lazy var uploadingProgressBar: JGProgressHUD = {
         let progressBar = JGProgressHUD(style: .dark)
         progressBar.indicatorView = JGProgressHUDRingIndicatorView()
-        progressBar.textLabel.text = "Uploading"
+        let ImgUplaoding = UserDefaults.standard.string(forKey: "Uploading")
+
+        progressBar.textLabel.text = ImgUplaoding
         return progressBar
     }()
     
@@ -791,13 +793,52 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         let galleryAction = UIAlertAction(title: titleGallery, style: .default) { (actionIn) in
             self.adForest_openGallery()
         }
+        let SettingsAction = UIAlertAction(title: "Settings", style: .default) { (actionIn) in
+//            self.adForest_openSettings()
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                           return
+                       }
+                       if UIApplication.shared.canOpenURL(settingsUrl) {
+                           UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                        }
+        }
+        
         let cancelAction = UIAlertAction(title: titleCancel, style: .default) { (actionIn) in
             self.adForest_cancel()
         }
+        
         alert.addAction(cameraAction)
         alert.addAction(galleryAction)
+        alert.addAction(SettingsAction)
         alert.addAction(cancelAction)
         self.appDel.presentController(ShowVC: alert)
+    }
+     func adForest_openSettings(){
+        // initialise a pop up for using later
+        let alertController = UIAlertController(title: "TITLE", message: "Please go to Settings and turn on the permissions", preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+             }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+
+        // check the permission status
+        switch(CLLocationManager.authorizationStatus()) {
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Authorize.")
+                // get the user location
+            case .notDetermined, .restricted, .denied:
+                // redirect the users to settings
+//                self.present(alertController, animated: true, completion: nil)
+            self.appDel.presentController(ShowVC: alertController)
+
+        }
     }
     
     func adForest_openCamera() {

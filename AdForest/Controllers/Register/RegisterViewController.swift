@@ -10,14 +10,19 @@ import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
 import NVActivityIndicatorView
+import AuthenticationServices
 
 class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate {
     
     //MARK:- Outlets
     
+    
+    @IBOutlet weak var topConstraintBtnGoogle2: NSLayoutConstraint!
+    @IBOutlet weak var topConstraintBtnGoogle: NSLayoutConstraint!
+    @IBOutlet weak var topConstraintBtnApple: NSLayoutConstraint!
     @IBOutlet weak var scrollBar: UIScrollView! {
         didSet {
-            scrollBar.isScrollEnabled = false
+            scrollBar.isScrollEnabled = true
         }
     }
     @IBOutlet weak var lblregisterWithUs: UILabel!
@@ -59,6 +64,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     }
     @IBOutlet weak var lblOr: UILabel!
     
+     @IBOutlet weak var btnApple: UIButton!
     @IBOutlet weak var buttonFB: FBLoginButton!
     @IBOutlet weak var btnFb: UIButton!
     @IBOutlet weak var heightConstraintSocial: NSLayoutConstraint!
@@ -117,6 +123,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         GIDSignIn.sharedInstance().delegate = self
         self.adForest_registerData()
         txtFieldsWithRtl()
+        btnApple.isHidden = true
+        btnApple.layer.cornerRadius = 10
+        btnApple.layer.borderWidth = 1
+        btnApple.layer.borderColor = UIColor.black.cgColor
+        setUpSignInAppleButton()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -129,6 +140,31 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         self.navigationController?.isNavigationBarHidden = false
     }
    
+    
+    func setUpSignInAppleButton() {
+           if #available(iOS 13.0, *) {
+               let authorizationButton = ASAuthorizationAppleIDButton()
+               //authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
+               authorizationButton.cornerRadius = 10
+               //Add button on some view or stack
+              // authorizationButton.frame.size = btnApple.frame.size
+               //self.btnApple.addSubview(authorizationButton)
+           } else {
+               // Fallback on earlier versions
+           }
+         
+       }
+       
+       
+       @available(iOS 13.0, *)
+       @objc func handleAppleIdRequest() {
+           let appleIDProvider = ASAuthorizationAppleIDProvider()
+           let request = appleIDProvider.createRequest()
+           request.requestedScopes = [.fullName, .email]
+           let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+           authorizationController.delegate = self
+           authorizationController.performRequests()
+       }
     
     //MARK:- Text Field Delegate Methods
     
@@ -197,6 +233,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             if let passwordtext = objData?.passwordPlaceholder {
                 self.txtPassword.placeholder = passwordtext
             }
+            if let appleText = objData?.appleBtn{
+                self.btnApple.setTitle(appleText,for: .normal)
+            }
+            
             if let termsText = objData?.termsText {
                 self.buttonAgreeWithTermsConditions.setTitle(termsText, for: .normal)
             }
@@ -219,8 +259,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             let objSettings = SettingsRoot(fromDictionary: settingObject)
             
             // Show/hide google and facebook button
-            var isShowGoogle = false
+            var isShowGoogle = true
             var isShowFacebook = false
+            var isShowApple = true
             
             if let isGoogle = objSettings.data.registerBtnShow.google {
                 isShowGoogle = isGoogle
@@ -228,82 +269,110 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             if let isFacebook = objSettings.data.registerBtnShow.facebook{
                 isShowFacebook = isFacebook
             }
-            if isShowFacebook || isShowGoogle {
+            if let isApple = objSettings.data.registerBtnShow.apple{
+                isShowApple = isApple
+            }
+            
+            if isShowFacebook || isShowGoogle || isShowApple {
                 if let sepratorText = objData?.separator {
                     self.lblOr.text = sepratorText
                 }
             }
             
-            if isShowFacebook && isShowGoogle {
+            if isShowFacebook && isShowGoogle && isShowApple {
                 self.btnGoogle.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonFB.isHidden = false
                 self.buttonGoogle.isHidden = false
-               // self.btnGoogle.isHidden = false // new
-                //if let fbText = objData?.facebookBtn {
-                   // self.buttonFB.setTitle(fbText, for: .normal)
-               // }
-              // if let googletext = objData?.googleBtn {
-                    //self.buttonGoogle.setTitle(googletext, for: .normal)
-              //  }
+                self.btnApple.isHidden = false
             }
                 
-            else if isShowFacebook && isShowGoogle == false {
+            else if isShowFacebook && isShowGoogle == false && isShowApple == false {
                 self.buttonFB.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogle.isHidden = true
                 self.btnGoogle.isHidden = true
-
-               // self.btnGoogle.isHidden = true
-                //self.buttonFB.translatesAutoresizingMaskIntoConstraints = false
-//                buttonFB.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-//                buttonFB.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
-                //if let fbText = objData?.facebookBtn {
-                   // self.buttonFB.setTitle(fbText, for: .normal)
-                //}
+                self.btnApple.isHidden = true
+  
             }
-                
-            else if isShowGoogle && isShowFacebook == false {
+            else if isShowFacebook && isShowGoogle == false && isShowApple {
+                self.buttonFB.isHidden = false
+                self.btnFb.isHidden = false
+                self.buttonGoogle.isHidden = true
+                self.btnGoogle.isHidden = true
+                self.btnApple.isHidden = false
+                self.topConstraintBtnApple.constant -= 80
+            }
+
+            else if isShowFacebook && isShowGoogle  && isShowApple == false {
+                self.buttonFB.isHidden = false
+                self.btnFb.isHidden = false
                 self.buttonGoogle.isHidden = false
-               // self.btnGoogle.isHidden = false // new
+                self.btnGoogle.isHidden = false
+                self.btnApple.isHidden = true
+                
+            }
+            else if isShowFacebook == false && isShowGoogle && isShowApple{
+                self.btnFb.isHidden = true
+                self.buttonFB.isHidden = true
+                self.btnGoogle.isHidden = false
+                self.buttonGoogle.isHidden = false //New
+                self.btnApple.isHidden = false
+                self.topConstraintBtnGoogle.constant -= 80
+                self.topConstraintBtnGoogle2.constant -= 80
+            }
+          
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
+                self.buttonFB.isHidden = true
+                self.btnFb.isHidden = true
+                self.buttonGoogle.isHidden = true
+                self.btnGoogle.isHidden = true
+                self.btnApple.isHidden = false
+                self.topConstraintBtnApple.constant -= 155
+            }
+    
+            else if isShowGoogle && isShowFacebook == false && isShowApple == false {
+                self.buttonGoogle.isHidden = false
                 self.buttonFB.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnGoogle.isHidden = false
-
-                
+                self.btnApple.isHidden = true
                 topGoogle.constant -= 80
                 topGoogleNew.constant -= 80
-                
-                //btnGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
-                //self.btnGoogle.translatesAutoresizingMaskIntoConstraints = false //new
                 self.heightConstraintSocial.constant -= 55
-//                buttonGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true
-//                btnGoogle.leftAnchor.constraint(equalTo: self.containerViewSocialButton.leftAnchor, constant: 0).isActive = true // new
-//                buttonGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true
-//                btnGoogle.rightAnchor.constraint(equalTo: self.containerViewSocialButton.rightAnchor, constant: 0).isActive = true // new
-                
-                
-                if let googletext = objData?.googleBtn {
-                    //self.buttonGoogle.setTitle(googletext, for: .normal)
-                }
             }
-            
-            else if isShowFacebook == false && isShowGoogle == false{
+
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple == false{
                 self.lblOr.isHidden = true
                 self.buttonGoogle.isHidden = true
-                //self.btnGoogle.isHidden = true
                 self.btnFb.isHidden = true
                 self.buttonFB.isHidden = true
                 self.btnGoogle.isHidden = true
-
+                self.btnApple.isHidden = true
             }
+            
             
         }
     }
     
     //MARK: -IBActions
+    
+    @IBAction func btnAppleClicked(_ sender: UIButton) {
+        
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+       
+        
+    }
     
     @IBAction func checkBox(_ sender: UIButton) {
         
@@ -610,3 +679,42 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
 }
 
+@available(iOS 13.0, *)
+extension RegisterViewController: ASAuthorizationControllerPresentationContextProviding,ASAuthorizationControllerDelegate {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            
+            let email = appleIDCredential.email
+            if email != nil{
+                UserDefaults.standard.set(email, forKey:"emailA")
+            }
+            let emApple = UserDefaults.standard.string(forKey: "emailA")
+            if emApple != nil{
+                let param: [String: Any] = [
+                    "email": emApple!,
+                    "type": "social"
+                ]
+                print(param)
+                self.defaults.set(true, forKey: "isSocial")
+                UserDefaults.standard.set(emApple, forKey:"email")
+                self.defaults.set("1122", forKey: "password")
+                self.defaults.synchronize()
+                UserDefaults.standard.set("true", forKey: "apple")
+                self.adForest_loginUser(parameters: param as NSDictionary)
+                print(userIdentifier,fullName,email)
+            }else{
+                let alert = Constants.showBasicAlert(message: "Apple id....")
+                self.presentVC(alert)
+            }
+           
+        }
+    }
+    
+    
+}

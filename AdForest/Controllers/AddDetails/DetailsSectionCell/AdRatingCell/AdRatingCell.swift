@@ -16,6 +16,8 @@ class AdRatingCell: UITableViewCell, NVActivityIndicatorViewable {
 
     //MARK:- Outlets
     
+    @IBOutlet weak var lblSectionTagline: UILabel!
+    @IBOutlet weak var lblSectionTitle: UILabel!
     @IBOutlet weak var containerView: UIView!{
         didSet {
             containerView.addShadowToView()

@@ -20,6 +20,14 @@ class ShopController: UIViewController, UIWebViewDelegate {
         }
     }
     
+    @IBOutlet weak var AdPostCircleButton: UIButton!{
+        didSet{
+            AdPostCircleButton.circularButtonShadow()
+            if let bgColor = defaults.string(forKey: "mainColor") {
+                AdPostCircleButton.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+            }
+        }
+    }
     //MARK:- Properties
     let cartButton = UIButton(type: .custom)
     let defaults = UserDefaults.standard
@@ -70,7 +78,41 @@ class ShopController: UIViewController, UIWebViewDelegate {
         
         
     }
-    
+    //Adpost Btn Action/
+    @IBAction func actionAdPost(_ sender: UIButton) {
+        
+        let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
+        let can = UserDefaults.standard.bool(forKey: "can")
+        
+        if can == false{
+            var buttonOk = ""
+            var buttonCancel = ""
+            if let settingsInfo = defaults.object(forKey: "settings") {
+                let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]
+                let model = SettingsRoot(fromDictionary: settingObject)
+                
+                if let okTitle = model.data.internetDialog.okBtn {
+                    buttonOk = okTitle
+                }
+                if let cancelTitle = model.data.internetDialog.cancelBtn {
+                    buttonCancel = cancelTitle
+                }
+                
+                let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
+                    self.appDelegate.moveToProfile()
+                }
+                let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+                
+            }
+        }else{
+            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+            self.navigationController?.pushViewController(adPostVC, animated: true)
+        }
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        guard let userEmail = UserDefaults.standard.string(forKey: "email") else {return}

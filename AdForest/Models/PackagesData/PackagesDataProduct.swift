@@ -40,7 +40,9 @@ struct PackagesDataProduct {
     var allow_cats_val : String!
     var allow_cats_valArr : [AllowCatsValue]!
     var seeAll : String!
-
+    var isSale : Bool!
+    var saleText :String!
+    var regularPrice: String!
     
     var productAppCode : PackageDataAppCode!
     
@@ -78,7 +80,9 @@ struct PackagesDataProduct {
         allow_cats_text = dictionary["allow_cats_text"] as? String
         allow_cats_val = dictionary["allow_cats_val"] as? String
         seeAll = dictionary["see_all_cats"] as? String
-    
+        isSale = dictionary["is_sale"] as? Bool
+        saleText = dictionary["sale_text"] as? String
+        regularPrice = dictionary["regular_price"] as? String
         if let productAppCodeData = dictionary["product_appCode"] as? [String:Any]{
             productAppCode = PackageDataAppCode(fromDictionary: productAppCodeData)
         }
@@ -143,6 +147,15 @@ struct PackagesDataProduct {
         }
         if productPrice != nil{
             dictionary["product_price"] = productPrice
+        }
+        if isSale != nil{
+            dictionary["is_sale"] = isSale
+        }
+        if saleText != nil{
+            dictionary["sale_text"] = saleText
+        }
+        if regularPrice != nil{
+            dictionary["regular_price"] = regularPrice
         }
         if productQty != nil{
             dictionary["product_qty"] = productQty

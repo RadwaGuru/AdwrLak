@@ -14,6 +14,29 @@ import IQKeyboardManagerSwift
 class SellersController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
 
     //MARK:- Outlets
+    @IBOutlet weak var AdpostCirclebtn: UIButton!
+        {
+        didSet {
+                 AdpostCirclebtn.circularButtonShadow()
+                 if let bgColor = defaults.string(forKey: "mainColor") {
+                     AdpostCirclebtn.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+                    
+
+//                     Shadow and Radius for Circle Button
+                           AdpostCirclebtn.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+                           AdpostCirclebtn.layer.masksToBounds = false
+//                           AdpostCirclebtn.layer.shadowRadius = 1.0
+//                           AdpostCirclebtn.layer.shadowOpacity = 0.5
+                           AdpostCirclebtn.layer.cornerRadius = AdpostCirclebtn.frame.width / 2
+                 }
+             }
+    }
+////              AdpostCirclebtn.titleEdgeInsets = UIEdgeInsetsMake(10,100,10,10)
+//AdpostCirclebtn.titleEdgeInsets.left = 150; // add left padding.
+//AdpostCirclebtn.titleEdgeInsets.right = 10; // add right padding.
+//AdpostCirclebtn.titleEdgeInsets.top = 10; // add top padding.
+//AdpostCirclebtn.titleEdgeInsets.bottom = 10; // add bottom padding.
+//                AdpostCirclebtn.contentHorizontalAlignment = .right;
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -40,8 +63,6 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
     
-    
-    //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if defaults.bool(forKey: "isRtl") {
@@ -49,10 +70,51 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         } else {
             self.addLeftBarButtonWithImage()
         }
+        if defaults.bool(forKey: "isGuest") {
+            self.AdpostCirclebtn.isHidden = true
+        }
         self.adForest_sellerData()
+        print(adForest_sellerData())
         navigationButtons()
+
     }
     
+    //Adpost Btn Action/
+    @IBAction func actionAdPost(_ sender: UIButton) {
+        
+        let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
+        let can = UserDefaults.standard.bool(forKey: "can")
+        
+        if can == false{
+            var buttonOk = ""
+            var buttonCancel = ""
+            if let settingsInfo = defaults.object(forKey: "settings") {
+                let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]
+                let model = SettingsRoot(fromDictionary: settingObject)
+                
+                if let okTitle = model.data.internetDialog.okBtn {
+                    buttonOk = okTitle
+                }
+                if let cancelTitle = model.data.internetDialog.cancelBtn {
+                    buttonCancel = cancelTitle
+                }
+                
+                let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
+                    self.appDelegate.moveToProfile()
+                }
+                let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+                
+            }
+        }else{
+            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+            self.navigationController?.pushViewController(adPostVC, animated: true)
+        }
+    }
+
     //MARK:- Custom
     
     func showLoader() {
@@ -89,6 +151,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
             cell.ratingBar.rating = Double(rating)!
             cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
         }
+        //adding social icons to sellers array
         cell.dataArray = objData.authorSocial.socialIcons
         cell.collectionView.reloadData()
         return cell

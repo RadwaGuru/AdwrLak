@@ -14,7 +14,9 @@ import OpalImagePicker
 import UITextField_Shake
 import JGProgressHUD
 
-class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate {
+class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount {
+ 
+    
    //textViewValueDelegate
   
     //MARK:- Outlets
@@ -38,12 +40,14 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         progressBar.textLabel.text = "Uploading"
         return progressBar
     }()
-    
+    var isDragAdpost : Bool = false
+    var UiImagesArrAdpost = [UIImage]()
     var imageUrl:URL?
-    
+    var imgIdDrag = [Int]()
     var photoArray = [UIImage]()
    
     var imageArray = [AdPostImageArray]()
+    var imgCtrlCount = 0
     
     var fieldsArray = [AdPostField]()
     var data = [AdPostImageArray]()
@@ -71,7 +75,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isImg = true
     var imagesMsg = ""
     var isShowPrice = true
-    
+    var isImagesRequired = "true"
+    var isEditStart  = false
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -80,7 +85,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         self.hideKeyboard()
         self.forwardButton()
         self.adForest_populateData()
-    
+//        self.imgeCount(count: imgCtrlCount)
+        print(imgCtrlCount)
         for ite in objArray {
             print(ite.fieldTypeName, ite.fieldName, ite.fieldVal, ite.fieldType)
         }
@@ -110,9 +116,19 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         fieldsArray = dataArray
+        self.adForest_populateData()
         self.tableView.reloadData()
+//        self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+//        self.tableView.reloadSections(NSIndexSet(index: 2) as IndexSet, with: .automatic)
+
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+//        print(imageArray.count)
+      
+
+//        self.tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -189,20 +205,21 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //    }
     
     @objc func onForwardButtonClciked() {
+
         localVariable = ""
         for index in  0..<fieldsArray.count {
             if let objData = fieldsArray[index] as? AdPostField {
-//                if objData.fieldType == "select"  {
-//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
-//                        var obj = AdPostField()
-//                        obj.fieldType = "select"
-//                        obj.fieldTypeName = cell.param
-//                        print(cell.param)
-//                        obj.fieldVal = cell.selectedKey
-//                        objArray.append(obj)
-//                        customArray.append(obj)
-//                    }
-//                }
+                if objData.fieldType == "select"  {
+                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
+                        var obj = AdPostField()
+                        obj.fieldType = "select"
+                        obj.fieldTypeName = cell.param
+                        print(cell.param)
+                        obj.fieldVal = cell.selectedKey
+                        objArray.append(obj)
+                        customArray.append(obj)
+                    }
+                }
                  if objData.fieldType == "textfield"  {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? TextFieldCell {
                             var obj = AdPostField()
@@ -316,15 +333,38 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //            
 //        }
        // else {
+        if isDragAdpost == true{
+            adPostVC.imageIdArray = imgIdDrag
+        }else{
             adPostVC.imageIdArray = imageIDArray
+        }
+//            adPostVC.imageIdArray = imageIDArray
             adPostVC.objArray = objArray
             adPostVC.customArray = self.customArray
             print(self.customArray)
             adPostVC.localVariable = self.localVariable
             adPostVC.valueArray = self.valueArray
             adPostVC.localDictionary = self.localDictionary
-            self.navigationController?.pushViewController(adPostVC, animated: true)
-       // }
+        
+        let objData = AddsHandler.sharedInstance.objAdPost
+        if self.isImagesRequired == objData?.data.images.isRequired{
+    
+            let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
+            if imgCtrlCount == 0{
+                let alert = Constants.showBasicAlert(message: msgImg!)
+                self.presentVC(alert)
+            }
+        else{
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+
+            }
+            
+        }
+            else{
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+
+            }
+        
     }
     
     func adForest_populateData() {
@@ -339,9 +379,14 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             if let maximumImages = objData?.data.images.numbers {
                 self.maximumImagesAllowed = maximumImages
             }
+            
         }
     }
 
+    func imgeCount(count: Int) {
+        imgCtrlCount = count
+//        self.tableView.reloadData()
+     }
     //MARK:- Add Data Delegate
     /*
     func addToFieldsArray(obj: AdPostField, index: Int) {
@@ -389,6 +434,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         
         if section == 0 {
             let cell: UploadImageCell = tableView.dequeueReusableCell(withIdentifier: "UploadImageCell", for: indexPath) as! UploadImageCell
+
             
 //            if isImg == false{
 //                cell.isHidden = true
@@ -403,31 +449,38 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.lblSelectImages.text = imagesTitle
             }
             
-            cell.lblPicNumber.text = String(photoArray.count)
-          
+            cell.lblPicNumber.text = String(imgCtrlCount)
+//            print(imgCtrlCount)
             cell.btnUploadImage = { () in
-                
+            
                 if self.maximumImagesAllowed == 0{
                     let msgImg = UserDefaults.standard.string(forKey: "imgMsg")
                     let alert = Constants.showBasicAlert(message: msgImg!)
                     self.presentVC(alert)
                 }
                 else{
-                    let actionSheet = UIAlertController(title: "Select", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-                                   actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) -> Void in
+                    let select = UserDefaults.standard.string(forKey: "select")
+                    let camera = UserDefaults.standard.string(forKey: "camera")
+                    let cameraNotAvailable = UserDefaults.standard.string(forKey: "cameraNotAvavilable")
+                    
+                    let actionSheet = UIAlertController(title: "select", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                                   actionSheet.addAction(UIAlertAction(title: "camera", style: .default, handler: { (action) -> Void in
                                        let imagePickerConroller = UIImagePickerController()
                                        imagePickerConroller.delegate = self
                                        if UIImagePickerController.isSourceTypeAvailable(.camera){
                                            imagePickerConroller.sourceType = .camera
                                        }else{
-                                           let alert = UIAlertController(title: "Alert", message: "camera not available", preferredStyle: UIAlertControllerStyle.alert)
-                                           let OkAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
+                                        let al = UserDefaults.standard.string(forKey: "aler")
+                                            let ok = UserDefaults.standard.string(forKey: "okbtnNew")
+                                           let alert = UIAlertController(title: al, message: "cameraNotAvailable", preferredStyle: UIAlertControllerStyle.alert)
+                                           let OkAction = UIAlertAction(title: ok, style: UIAlertActionStyle.cancel, handler: nil)
                                            alert.addAction(OkAction)
                                            self.present(alert, animated: true, completion: nil)
                                        }
                                        self.present(imagePickerConroller,animated:true, completion:nil)
                                    }))
-                                   actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action) -> Void in
+                                   let gallery = UserDefaults.standard.string(forKey: "gallery")
+                                   actionSheet.addAction(UIAlertAction(title: "gallery", style: .default, handler: { (action) -> Void in
                                      
                                        let imagePicker = OpalImagePickerController()
                                        imagePicker.navigationBar.tintColor = UIColor.white
@@ -442,7 +495,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                        self.present(imagePicker, animated: true, completion: nil)
                                    
                                    }))
-                                   actionSheet.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in
+                                   let cancel = UserDefaults.standard.string(forKey: "cancelBtn")
+                                   actionSheet.addAction(UIAlertAction(title: cancel, style: .destructive, handler: { (action) -> Void in
                                    }))
                                    if Constants.isiPadDevice {
                                        actionSheet.popoverPresentationController?.sourceView = cell.containerView
@@ -459,13 +513,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             
         else if section == 1 {
             let cell: CollectionImageCell = tableView.dequeueReusableCell(withIdentifier: "CollectionImageCell", for: indexPath) as! CollectionImageCell
-           
-//            if isImg == false{
-//                cell.isHidden = true
-//            }else{
-//                cell.isHidden = false
-//            }
-            
+        
             let objData = AddsHandler.sharedInstance.objAdPost
            
             if let sortMsg = objData?.extra.sortImageMsg {
@@ -474,7 +522,15 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             if let adID = objData?.data.adId {
                 cell.ad_id = adID
             }
-            cell.dataArray = self.imageArray
+            if cell.isDrag == false{
+                cell.dataArray = self.imageArray
+            }else{
+                isDragAdpost = true
+                imgIdDrag = cell.imageIdArrAd
+            }
+            print(UiImagesArrAdpost)
+            imgCtrlCount = self.imageArray.count
+            cell.delegate = self
             cell.collectionView.reloadData()
             return cell
         }
@@ -548,7 +604,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             cell.oltPopup.setTitle(name, for: .normal)
                         }
                     }
-                    
+                    if isEditStart == true {
                     if i == 1 {
                         
                          print(cell.selectedValue)
@@ -558,7 +614,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             cell.selectedKey = String(item.id)
                         }else{
                             if cell.selectedValue == ""{
-                                cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                                cell.oltPopup.setTitle(objData.values[1].name, for: .normal)
                                 cell.selectedKey = String(item.id)
                             }else{
                                 cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
@@ -569,6 +625,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                       //  cell.selectedKey = String(item.id)
                     }
                     i = i + 1
+                    }
+                    
                 }
                 cell.btnPopUpAction = { () in
                     cell.dropDownKeysArray = []
@@ -582,7 +640,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         cell.dropDownValuesArray.append(item.name)
                         cell.hasFieldsArr.append(item.hasTemplate)
                         cell.fieldTypeNameArray.append(objData.fieldTypeName)
-                        cell.isShowArr.append(item.isShow)
+//                        cell.isShowArr.append(item.isShow)
 
                     }
                     cell.accountDropDown()
@@ -700,7 +758,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     cell.txtMinPrice.placeholder = title
                 }
                 cell.fieldName = objData.fieldTypeName
-
+                cell.txtMinPrice.keyboardType = .numberPad
                 return cell
             }
             
@@ -801,12 +859,14 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             //self.stopAnimating()
             if successResponse.success {
                 self.imageArray = successResponse.data.adImages
+                self.imgCtrlCount = successResponse.data.adImages.count
                 //add image id to array to send to next View Controller and hit to server
                 for item in self.imageArray {
                     self.imageIDArray.append(item.imgId)
                 }
                 self.maximumImagesAllowed = successResponse.data.images.numbers
                 self.imagesMsg = successResponse.data.images.message
+                
                 UserDefaults.standard.set( self.imagesMsg, forKey: "imgMsg")
                 self.tableView.reloadData()
             }
@@ -872,21 +932,20 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
         }
     }
 
-    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int,fieldName:String,isShow:Bool) {
+    func textValSelecrDrop(value: String, indexPath: Int, fieldType: String, section: Int,fieldName:String,isShow:Bool,valueName:String) {
         if fieldType == "select"{
             var obj = AdPostField()
             obj.fieldType = "select"
             obj.fieldVal = value
-            obj.fieldTypeName = fieldName //"ad_price_type"
+            obj.fieldTypeName = fieldName
             isShowPrice = isShow
-            self.fieldsArray[indexPath].fieldVal = value
+            self.fieldsArray[indexPath].fieldVal = valueName
+            self.dataArray[indexPath].fieldVal = valueName
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
             objArray.append(obj)
             customArray.append(obj)
-            
-            
-            
+            isEditStart = true
             //tableView.reloadData()
         }
     }

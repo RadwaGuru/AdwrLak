@@ -48,11 +48,13 @@ struct SettingsData {
     var wpml_header_title_2: String!
     var language_style: String!
     var is_wpml_active: Bool!
+    var is_Top_Location: Bool!
     var wpml_menu_text: String!
-    var wpml_menu_textCustom: String!
     var langData : [LangData]!
     var location_text: String!
     var notVerified: String!
+    var ImgReqMessage: String!
+    var ImgUplaoding: String!
     var buyText:String!
     var showHome :Bool!
     var advanceIcon :Bool!
@@ -142,10 +144,13 @@ struct SettingsData {
         wpml_header_title_2 = dictionary["wpml_header_title_2"] as? String
         language_style = dictionary["language_style"] as? String
         is_wpml_active = dictionary["is_wpml_active"] as? Bool
+        is_Top_Location = dictionary["is_top_location"] as? Bool
         wpml_menu_text = dictionary["wpml_menu_text"] as? String
-        wpml_menu_textCustom = dictionary["wpml_custom_menu_text"] as? String
         location_text = dictionary["app_location_text"] as? String
-        notVerified = dictionary["verified_msg"] as? String 
+        notVerified = dictionary["verified_msg"] as? String
+        ImgReqMessage = dictionary["required_img"] as? String
+        ImgUplaoding = dictionary["img_uploading"] as? String
+        
     }
     
     /**
@@ -261,6 +266,16 @@ struct SettingsData {
         if notVerified != nil {
             dictionary["verified_msg"] = notVerified
         }
+        if ImgReqMessage != nil {
+            dictionary["required_img"] = ImgReqMessage
+        }
+        if is_Top_Location != nil{
+            dictionary["is_top_location"] = is_Top_Location
+        }
+        if ImgUplaoding != nil{
+            dictionary["img_uploading"] = ImgUplaoding
+        }
+
 
         return dictionary
     }

@@ -21,7 +21,7 @@ class CustomHeader: UITableViewCell {
     @IBOutlet weak var lblTotalAds: UILabel!
     @IBOutlet weak var oltOrder: UIButton!{
         didSet {
-            oltOrder.contentHorizontalAlignment = .center
+            oltOrder.contentHorizontalAlignment = .right
         }
     }
     @IBOutlet weak var imgIcon: UIImageView!
@@ -48,7 +48,7 @@ class CustomHeader: UITableViewCell {
     
     //MARK:- Custom
     func orderDropDown() {
-        arrangeDropDown.anchorView = oltOrder
+        arrangeDropDown.anchorView = imgIcon
         arrangeDropDown.dataSource = orderArray
         print(orderArray)
         arrangeDropDown.selectionAction = { [unowned self] (index, item) in

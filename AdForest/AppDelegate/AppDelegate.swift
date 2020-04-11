@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var deviceFcmToken = "0"
     var interstitial: GADInterstitial?
     
+    
     func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
         guard let interstitial = interstitial else {

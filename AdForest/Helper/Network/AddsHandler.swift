@@ -33,7 +33,7 @@ class AddsHandler {
     
     var isShowFeatureOnCategory = false
     var isFromHomeFeature = false
-    
+    var isFromTextSearch = false
     
     var objCategoryArray = [CategoryAd]()
     var objCategotyAdArray = [CategoryAd]()
@@ -183,7 +183,31 @@ class AddsHandler {
        }
     
     
-    
+    //MARK:- Get MostViewedAds data
+    class func getmyMostViewedAds(success: @escaping(MyAdsRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+           let url = Constants.URL.baseUrl+Constants.URL.getMostViewedAd
+           print(url)
+           
+           NetworkHandler.getRequest(url: url, parameters: nil, success: { (successResponse) in
+               let dictionary = successResponse as! [String: Any]
+               let objAds = MyAdsRoot(fromDictionary: dictionary)
+               success(objAds)
+           }) { (error) in
+               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+           }
+       }
+       
+       class func getmyMoreMostViewedAds(param: NSDictionary ,success: @escaping(MyAdsRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+              let url = Constants.URL.baseUrl+Constants.URL.getMostViewedAd
+              print(url)
+              NetworkHandler.postRequest(url: url, parameters: param as? Parameters, success: { (successResponse) in
+                  let dictionary = successResponse as! [String: Any]
+                  let objAds = MyAdsRoot(fromDictionary: dictionary)
+                  success(objAds)
+              }) { (error) in
+                   failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+              }
+          }
     //MARK:- More Inactive Ads data
     class func moreInactiveAdsdata(param: NSDictionary ,success: @escaping(InactiveAdsRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.getInactiveAds

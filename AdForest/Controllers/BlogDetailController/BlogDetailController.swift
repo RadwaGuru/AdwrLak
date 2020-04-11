@@ -348,7 +348,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         if section == 0 {
             let objData = dataArray[indexPath.row]
             if objData.post.hasImage {
-                height = 230
+                height = 284
             }
             else if objData.post.hasImage == false {
                 height = 70

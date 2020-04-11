@@ -247,7 +247,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         self.latitude = lat
         self.longitude = long
         self.txtAddress.text = place
-        
+        self.address = place
         initialLocation = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)
         self.centerMapOnLocation(location: initialLocation)
         self.addAnnotations(coords: [initialLocation])
@@ -709,35 +709,86 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             print(parameter)
             let dataArray = objArray
             print(objArray)
-            
             for (_, value) in dataArray.enumerated() {
-                if value.fieldVal == "" {
-                    continue
-                }
-                if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
-                    customDictionary[value.fieldTypeName] = value.fieldVal
-                    print(customDictionary)
-                }
-                else {
-                    addInfoDictionary[value.fieldTypeName] = value.fieldVal
-                    print(addInfoDictionary)
-                }
+            if value.fieldVal == "" {
+            continue
             }
-      
+            if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
+
+            if value.fieldType == "checkbox"{
+            let points = value.fieldVal
+            let pointsArr = points!.components(separatedBy: ",")
+            print(pointsArr)
+            let uni = uniq(source: pointsArr)
+            print(uni)
+
+            let formattedArray = (uni.map{String($0)}).joined(separator: ",")
+            print(formattedArray)
+
+            customDictionary[value.fieldTypeName] = formattedArray//value.fieldVal
+            print(customDictionary)
+            }else{
+            customDictionary[value.fieldTypeName] = value.fieldVal
+            print(customDictionary)
+            }
+
+
+            }
+            else {
+            addInfoDictionary[value.fieldTypeName] = value.fieldVal
+            print(addInfoDictionary)
+            }
+            }
             customDictionary.merge(with: localDictionary)
             let custom = Constants.json(from: customDictionary)
             if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                let param: [String: Any] = ["custom_fields": custom!]
-                parameter.merge(with: param)
+            let param: [String: Any] = ["custom_fields": custom!]
+            parameter.merge(with: param)
             }
             parameter.merge(with: addInfoDictionary)
             parameter.merge(with: customDictionary) //Added by Furqan
             print(parameter)
-             //self.dummy(param: parameter as NSDictionary)
+            //self.dummy(param: parameter as NSDictionary)
             self.adForest_postAd(param: parameter as NSDictionary)
-        }
+            }
+//            for (_, value) in dataArray.enumerated() {
+//                if value.fieldVal == "" {
+//                    continue
+//                }
+//                if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
+//                    customDictionary[value.fieldTypeName] = value.fieldVal
+//                    print(customDictionary)
+//                }
+//                else {
+//                    addInfoDictionary[value.fieldTypeName] = value.fieldVal
+//                    print(addInfoDictionary)
+//                }
+//            }
+//
+//            customDictionary.merge(with: localDictionary)
+//            let custom = Constants.json(from: customDictionary)
+//            if AddsHandler.sharedInstance.isCategoeyTempelateOn {
+//                let param: [String: Any] = ["custom_fields": custom!]
+//                parameter.merge(with: param)
+//            }
+//            parameter.merge(with: addInfoDictionary)
+//            parameter.merge(with: customDictionary) //Added by Furqan
+//            print(parameter)
+//             //self.dummy(param: parameter as NSDictionary)
+//            self.adForest_postAd(param: parameter as NSDictionary)
+//        }
     }
-    
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
     //MARK:- API Call
     //Post Add
     func adForest_postAd(param: NSDictionary) {

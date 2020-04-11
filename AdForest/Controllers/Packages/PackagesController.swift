@@ -50,12 +50,13 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     let defaults = UserDefaults.standard
     var dataArray = [PackagesDataProduct]()
     var isAppOpen = false
+    var isSale = true
     var inAppSecretKey = ""
     var inApp_id = ""
     var package_id = ""
     var interstitial: GADInterstitial?
     var moreCatArr = [String]()
-    
+    var regularPrice = String()
   
     var nearByTitle = ""
     var latitude: Double = 0
@@ -208,11 +209,36 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
         if let name = objData.productTitle {
             cell.lblOfferName.text = name
         }
+        if objData.isSale == nil{
+            isSale = false
+        }else {
+            isSale = true
+        }
+        
+        if isSale == true {
+            cell.imgSale.isHidden = false
+            regularPrice = objData.regularPrice
+            if let sale =  objData.saleText{
+                
+                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: regularPrice)
+                attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                cell.lblSale.attributedText = attributeString
+                cell.lblregularPrice.text = "\(sale)"
+            }
+        }
+        else{
+            cell.lblregularPrice.text = ""
+            cell.lblSale.text = ""
+            cell.imgSale.isHidden = true
+        }
         if let price = objData.productPrice {
             cell.lblPrice.text = price
         }
         if let mainColor = defaults.string(forKey: "mainColor") {
             cell.lblPrice.textColor = Constants.hexStringToUIColor(hex: mainColor)
+            cell.lblSale.textColor = Constants.hexStringToUIColor(hex: mainColor)
+            cell.lblregularPrice.textColor = UIColor.white
+
         }
         if let validityText = objData.daysText {
             if let daysvalue = objData.daysValue {
@@ -423,7 +449,8 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
    
-            return 300
+            return 366
+        
 
     }
     
@@ -470,10 +497,13 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func purchaseProduct(productID: String) {
-        self.showNavigationActivity()
+        self.showLoader()
+//        self.showNavigationActivity()
         SwiftyStoreKit.purchaseProduct(inApp_id, completion: {
             result in
-            self.hideNavigationActivity()
+//            self.hideNavigationActivity()
+            self.stopAnimating()
+
             if case .success(let product) = result {
                 let parameters: [String: Any] = [
                     "package_id": self.package_id,

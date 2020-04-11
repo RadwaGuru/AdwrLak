@@ -24,6 +24,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
         }
     }
     
+    
     //MARK:- Properties
     var isFromEditAd = false
     var ad_id = 0
@@ -184,6 +185,9 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                 self.adTitle = txtTitle
                             }
                         }
+                        
+
+       
                     }
                 }
                 else if objData.fieldType == "select" {
@@ -397,7 +401,9 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 }else{
                     print("Not Called...")
                 }
-               
+                UserDefaults.standard.set(successResponse.extra.dialgCancel, forKey: "dialgCancel")
+                UserDefaults.standard.set(successResponse.extra.dialogSend, forKey: "dialogSend")
+                
                 self.tableView.reloadData() 
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
@@ -443,4 +449,5 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             self.presentVC(alert)
         }
     }
+
 }

@@ -23,10 +23,12 @@ extension UIViewController {
         let barButton = UIBarButtonItem(customView: activityIndicator)
         self.navigationItem.setRightBarButton(barButton, animated: true)
         activityIndicator.startAnimating()
+       
     }
     
     func hideNavigationActivity() {
         navigationItem.rightBarButtonItem = nil
+//         self.navigationButtons()
     }
 }
 

@@ -86,7 +86,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(param)
                     self.adForest_dynamicSearch(param: param as NSDictionary)
                 }
-                self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
             
             if self.hasSub {
@@ -98,6 +98,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                      self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
                 else {
+                      
                     let param: [String: Any] = ["subcat": self.selectedKey]
                     print(param)
                     let url = Constants.URL.baseUrl+Constants.URL.subCategory

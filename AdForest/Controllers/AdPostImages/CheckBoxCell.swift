@@ -56,35 +56,107 @@ class CheckBoxCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
-    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell: CehckCell = tableView.dequeueReusableCell(withIdentifier: "CehckCell", for: indexPath) as! CehckCell
+//        let objData = dataArray[indexPath.row]
+//        if let cell = tableView.cellForRow(at: indexPath) {
+//            cell.accessoryType = .checkmark
+//
+//        if objData.isChecked == true{
+//        //            cell.oltFullButton.setTitle(objData.name, for: .normal)
+//                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+//            }
+//
+//        }
+//    }
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+           var buffer = [T]()
+           var added = Set<T>()
+           for elem in source {
+               if !added.contains(elem) {
+                   buffer.append(elem)
+                   added.insert(elem)
+               }
+           }
+           return buffer
+       }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CehckCell = tableView.dequeueReusableCell(withIdentifier: "CehckCell", for: indexPath) as! CehckCell
         
-        let objData = dataArray[indexPath.row]
-        
-        if let title = objData.name {
-            cell.lblName.text = title
-        }
-        
-        cell.btnFull = { () in
+//        let objData = dataArray[indexPath.row]
+//
+//        cell.tintColor = .systemGreen
+//        if objData.isChecked == true{
+//            print(objData.id)
+//            self.valueArray.append(objData.id)
+//            self.dict[self.fieldName] = objData.id
+//            cell.backgroundColor = UIColor.groupTableViewBackground
+//            cell.accessoryType = .checkmark
+//        }
+//
+//        if let title = objData.name {
+//            cell.lblName.text = title
+//        }
+//
+//        cell.btnFull = { () in
+//
+//            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+//                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+//                print(self.valueArray)
+//                let uni = self.uniq(source: self.valueArray)
+//                print(uni)
+//                self.valueArray = uni
+//
+//                self.valueArray.remove(object: objData.id)
+//                cell.backgroundColor = UIColor.white
+//                // if self.valueArray.contains(objData.id) {
+//                // }
+//                // else {
+//                // }
+//                print(self.valueArray)
+//            }
+//            else {
+//                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+//
+//
+//                if self.valueArray.contains(objData.id) {
+//                }
+//                else {
+//                    cell.backgroundColor = UIColor.groupTableViewBackground
+//                    self.valueArray.append(objData.id)
+//                    self.dict[self.fieldName] = objData.id
+//                }
+//                print(self.valueArray)
+//            }
+//        }
 
-            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-                    if self.valueArray.contains(objData.id) {
+            let objData = dataArray[indexPath.row]
+            
+            if let title = objData.name {
+                cell.lblName.text = title
+            }
+        
+            
+            cell.btnFull = { () in
+
+                if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+                        if self.valueArray.contains(objData.id) {
+                    }
+                    else {
+                    }
                 }
                 else {
+                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+                        if self.valueArray.contains(objData.id) {
+                    }
+                    else {
+                        self.valueArray.append(objData.id)
+                        self.dict[self.fieldName] = objData.id
+                    }
                 }
             }
-            else {
-                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
-                    if self.valueArray.contains(objData.id) {
-                }
-                else {
-                    self.valueArray.append(objData.id)
-                    self.dict[self.fieldName] = objData.id
-                }
-            }
-        }
+
         return cell
     }
  
@@ -119,4 +191,6 @@ class CehckCell: UITableViewCell {
     }
 }
 
-
+protocol checkValuess {
+func check(value: [AdPostValue])
+}

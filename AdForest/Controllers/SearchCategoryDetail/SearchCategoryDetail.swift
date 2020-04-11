@@ -31,6 +31,9 @@ class SearchCategoryDetail: UIViewController, UITableViewDelegate, UITableViewDa
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
                 oltSubmit.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+                let DialoSubmit = UserDefaults.standard.string(forKey: "dialogSend")
+                oltSubmit.setTitle(DialoSubmit, for: .normal)
+
             }
         }
     }
@@ -38,6 +41,8 @@ class SearchCategoryDetail: UIViewController, UITableViewDelegate, UITableViewDa
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
                 oltCancel.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+                let DialoCancel = UserDefaults.standard.string(forKey: "dialgCancel")
+                oltCancel.setTitle(DialoCancel, for: .normal)
         }
     }
 }
@@ -133,6 +138,7 @@ class SearchCategoryDetail: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK:- IBActions
     
     @IBAction func actionSubmit(_ sender: Any) {
+        
         self.dismissVC(completion: nil)
     }
     

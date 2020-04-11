@@ -63,7 +63,8 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
     let keyboardManager = IQKeyboardManager.sharedManager()
 
     var barButtonItems = [UIBarButtonItem]()
-    
+    var topBarObj :CategoryTopBar!
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,14 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
         self.googleAnalytics(controllerName: "Category Controller")
         self.adMob()
         navigationButtons()
+        if isFromAdvanceSearch == true {
+        self.orderName = topBarObj.sortArrKey.value
+
+        for ob in topBarObj.sortArr{
+            self.orderArray.append(ob.value)
+            self.orderKeysArray.append(ob.key)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -274,11 +283,11 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             if AddsHandler.sharedInstance.isShowFeatureOnCategory {
                 return 50
-            } else {
+            }else {
                 return 0
             }
         case 1:
-            return 50
+                return 50
         default:
             return 0
         }
@@ -293,15 +302,25 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
             headerView.lblTotalAds.text = self.featureAddTitle
             return headerView
         case 1:
-            headerView.lblTotalAds.text = self.addcategoryTitle
-            headerView.oltOrder.setTitle(orderName, for: .normal)
-            headerView.btnSort = { () in
+            if isFromTextSearch {
+                headerView.imgIcon.isHidden = true
+//                headerView.oltOrder.isHidden = true
+                headerView.oltOrder.backgroundColor = UIColor.clear
+                headerView.lblTotalAds.text = self.addcategoryTitle
+                print(isFromTextSearch)
+            }else{
+                headerView.imgIcon.isHidden = false
+                headerView.oltOrder.isHidden = false
+                headerView.lblTotalAds.text = self.addcategoryTitle
+                headerView.oltOrder.setTitle(orderName, for: .normal)
+                headerView.btnSort = { () in
                 headerView.categoryID = self.categoryID
                 headerView.orderArray = self.orderArray
                 headerView.orderKeysArray = self.orderKeysArray
                 headerView.delegate = self
                 headerView.orderDropDown()
                 headerView.arrangeDropDown.show()
+                }
             }
             return headerView
         default:

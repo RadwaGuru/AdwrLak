@@ -19,7 +19,6 @@ struct LoginRoot{
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
-    
     init(fromDictionary dictionary: [String:Any]){
         if let dataData = dictionary["data"] as? [String:Any]{
             data = LoginData(fromDictionary: dataData)
@@ -28,7 +27,6 @@ struct LoginRoot{
         success = dictionary["success"] as? Bool
     }
     
-
     /**
      * Returns all the available property values in the form of [String:Any] object where the key is the approperiate json key and the value is the value of the corresponding property
      */

@@ -13,6 +13,7 @@ struct SettingsRegisterbuttonShow {
  
     var facebook : Bool!
     var google : Bool!
+    var apple : Bool!
     
     
     /**
@@ -21,6 +22,7 @@ struct SettingsRegisterbuttonShow {
     init(fromDictionary dictionary: [String:Any]){
         facebook = dictionary["facebook"] as? Bool
         google = dictionary["google"] as? Bool
+        apple = dictionary["apple"] as? Bool
     }
     
     /**
@@ -34,6 +36,9 @@ struct SettingsRegisterbuttonShow {
         }
         if google != nil{
             dictionary["google"] = google
+        }
+        if apple != nil{
+            dictionary["apple"] = apple
         }
         return dictionary
     }

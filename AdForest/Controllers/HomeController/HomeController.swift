@@ -41,6 +41,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 oltAddPost.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
             }
         }
+        
     }
     
     let keyboardManager = IQKeyboardManager.sharedManager()
@@ -96,15 +97,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var inters : GADInterstitial!
     
     var isAdvanceSearch:Bool = false
-    
-    
+    var latColHeight: Double = 0
+    var fetColHeight: Double = 0
+    var SliderColHeight: Double = 0
+    var showVertical:Bool = false
+    var latestHorizontalSingleAd:Bool = true
+
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
         // self.navigationController?.isNavigationBarHidden = false
-        inters = GADInterstitial(adUnitID:"ca-app-pub-3521346996890484/7679081330")
+        inters = GADInterstitial(adUnitID:"ca-app-pub-2596107136418753/4126592208")
         let request = GADRequest()
        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
         inters.load(request)
@@ -116,6 +121,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adForest_homeData()
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,15 +131,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.oltAddPost.isHidden = false
         }
         currentVc = self
-        //self.adForest_homeData()
+//        self.adForest_homeData()
 
     }
     
     @objc func refreshTableView() {
        self.adForest_homeData()
+//        self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
        tableView.reloadData()
        self.refreshControl.endRefreshing()
     }
+    
+    
+
     
     //MARK:- Topic Message
     func subscribeToTopicMessage() {
@@ -191,7 +201,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.adForest_nearBySearch(param: param as NSDictionary)
         }
     }
-    
+   
     func navigationButtons() {
         
         //Home Button
@@ -200,6 +210,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         HomeButton.setBackgroundImage(ho, for: .normal)
         HomeButton.tintColor = UIColor.white
         HomeButton.setImage(ho, for: .normal)
+//        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//            HomeButton.isHidden = true
+//        }
         if #available(iOS 11, *) {
             searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
             searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -215,6 +228,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
       
         //Location Search
         let locationButton = UIButton(type: .custom)
+        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+            locationButton.isHidden = true
+        }
+
         if #available(iOS 11, *) {
             locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
             locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -232,7 +249,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         //Search Button
         let searchButton = UIButton(type: .custom)
-       
+//       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//           searchButton.isHidden = true
+//       }
         if defaults.bool(forKey: "advanceSearch") == true{
             let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
             searchButton.setBackgroundImage(con, for: .normal)
@@ -508,6 +527,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.dataArray = (objData?.blogs)!
                     cell.delegate = self
                     cell.collectionView.reloadData()
+                    
                     return cell
                 }
             case "cat_icons":
@@ -515,7 +535,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let data = AddsHandler.sharedInstance.objHomeData
                 
                 
-                if self.isShowCategoryButton {
+                if self.isShowCategoryButton == true {
                     cell.oltViewAll.isHidden = false
                     if let viewAllText = data?.catIconsColumnBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
@@ -541,6 +561,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     cell.dataArray = featuredArray
                     cell.delegate = self
+                    fetColHeight = Double(cell.collectionView.contentSize.height)
+                    print(latColHeight)
+                    if latestHorizontalSingleAd == true {
+                        fetColHeight = Double(cell.collectionView.contentSize.height)
+                    }
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -563,6 +588,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.delegate = self
                     cell.dataArray = self.latestAdsArray
                     heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
+                    latColHeight = Double(cell.collectionView.contentSize.height)
+                    print(latColHeight)
+                    if latestHorizontalSingleAd == true {
+                        latColHeight = Double(cell.collectionView.contentSize.height)
+                     }
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -604,15 +634,32 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     categoryVC.categoryID = objData.catId
                     self.navigationController?.pushViewController(categoryVC, animated: true)
                 }
+                SliderColHeight = Double(cell.collectionView.contentSize.height)
+                
+                print(SliderColHeight)
+                if latestHorizontalSingleAd == true {
+                    SliderColHeight = Double(cell.collectionView.contentSize.height)
+                }
                 cell.dataArray = objData.data
                 cell.delegate = self
                 
                 heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
+                
                 cell.reloadData()
                 return cell
             case "nearby":
                 if self.isShowNearby {
                     let cell: AddsTableCell = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
+                    let data = AddsHandler.sharedInstance.objHomeData
+
+                    if let viewAllText = data?.viewAll {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    cell.btnViewAll = { () in
+                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                        self.navigationController?.pushViewController(categoryVC, animated: true)
+                    }
+                    cell.delegate = self 
                     cell.lblSectionTitle.text = self.nearByTitle
                     cell.dataArray = self.nearByAddsArray
                     cell.collectionView.reloadData()
@@ -908,7 +955,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else if position == "sliders" {
                 if dataArray.isEmpty {
                     height = 0
-                } else {
+                }
+               else if showVertical{
+                    height = CGFloat(SliderColHeight) + CGFloat(70 + heightConstraintTitlead)
+                } else if latestHorizontalSingleAd {
+                    height = CGFloat(SliderColHeight) + CGFloat(70 + heightConstraintTitlead)
+
+                }
+                else {
                     height = CGFloat(290 + heightConstraintTitlead)
                 }
             } else if position == "blogNews"{
@@ -921,15 +975,30 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if self.isShowFeature {
                     if featuredArray.isEmpty {
                         height = 0
-                    } else {
+                    }
+                    else {
                         height = 270
+                    }
+                    if showVertical{
+                        height = CGFloat(fetColHeight) + 70
+                    } else if latestHorizontalSingleAd{
+                        height = CGFloat(fetColHeight) + 70
                     }
                 } else {
                     height = 0
                 }
             } else if position ==  "latest_ads" {
                 if self.isShowLatest {
-                    height = CGFloat(290 + heightConstraintTitleLatestad)
+
+                    if showVertical{
+                        height = CGFloat(latColHeight) + 70
+                
+                    }else if latestHorizontalSingleAd{
+                        height = CGFloat(latColHeight) + 70
+                    }
+                    else{
+                        height = CGFloat(290 + heightConstraintTitleLatestad)
+                    }
                 } else {
                     height = 0
                 }
@@ -1170,6 +1239,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //Get value of show/hide buttons of location and categories
                 if successResponse.data.catIconsColumnBtn != nil {
                     self.isShowCategoryButton = successResponse.data.catIconsColumnBtn.isShow
+                    print(self.isShowCategoryButton)
                 }
                 if successResponse.data.catLocationsBtn != nil {
                     self.isShowLocationButton = successResponse.data.catLocationsBtn.isShow
@@ -1296,7 +1366,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 //Search Section Data
                 self.searchSectionArray = [successResponse.data.searchSection]
-                self.tableView.reloadData()
+                
+            self.tableView.reloadData()
+             
+                    let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
+                    self.tableView.setContentOffset(scrollPoint, animated: true)
+                        
+                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
+  
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
@@ -1308,6 +1385,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 
+    @objc func nokri_showNavController1(){
+        
+        let scrollPoint = CGPoint(x: 0, y: 0)
+        self.tableView.setContentOffset(scrollPoint, animated: true)
+        
+    }
+    
     @objc func showAd(){
         currentVc = self
         admobDelegate.showAd()
@@ -1376,3 +1460,4 @@ extension UIViewController {
         self.navigationItem.rightBarButtonItem = rightButton
    }
 }
+

@@ -25,7 +25,6 @@ struct MyAdsAd{
     var adVideo : MyAdsAdVideo!
     var adViews : String!
     
-    
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -96,6 +95,7 @@ struct MyAdsAd{
         if adId != nil{
             dictionary["ad_id"] = adId
         }
+        
         if adImages != nil{
             var dictionaryElements = [[String:Any]]()
             for adImagesElement in adImages {

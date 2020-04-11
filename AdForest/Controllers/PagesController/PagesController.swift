@@ -18,6 +18,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
     //MARK:- Outlets
     @IBOutlet weak var webView: UIWebView!{
         didSet {
+
             webView.delegate =  self
             webView.isOpaque = false
             webView.backgroundColor = UIColor.clear

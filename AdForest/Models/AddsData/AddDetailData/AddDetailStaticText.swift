@@ -18,6 +18,7 @@ struct AddDetailStaticText {
     var callNowBtn : String!
     var descriptionTitle : String!
     var favBtn : String!
+    var editBtn : String!
     var getDirection : String!
     var relatedPostsTitle : String!
     var reportBtn : String!
@@ -27,7 +28,7 @@ struct AddDetailStaticText {
     var showCallBtn : Bool!
     var showMegsBtn : Bool!
     var blockUser : AddDetailsBlockUser!
-
+    var viewLink : String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -53,7 +54,8 @@ struct AddDetailStaticText {
         shareBtn = dictionary["share_btn"] as? String
         showCallBtn = dictionary["show_call_btn"] as? Bool
         showMegsBtn = dictionary["show_megs_btn"] as? Bool
-        
+        editBtn = dictionary["edit_txt"] as? String
+        viewLink = dictionary["click_here_text"] as?String
         if let blockUserData = dictionary["block_user"] as? [String:Any]{
             blockUser = AddDetailsBlockUser(fromDictionary: blockUserData)
         }
@@ -115,6 +117,12 @@ struct AddDetailStaticText {
         }
         if blockUser != nil{
             dictionary["block_user"] = blockUser.toDictionary()
+        }
+        if editBtn != nil{
+            dictionary["edit_txt"] = editBtn
+        }
+        if viewLink != nil{
+            dictionary["click_here_text"] = viewLink
         }
         return dictionary
     }

@@ -13,6 +13,7 @@ struct AdPostImage{
     var isShow : Bool!
     var message : String!
     var numbers : Int!
+    var isRequired : String!
     
     
     /**
@@ -22,6 +23,7 @@ struct AdPostImage{
         isShow = dictionary["is_show"] as? Bool
         message = dictionary["message"] as? String
         numbers = dictionary["numbers"] as? Int
+        isRequired = dictionary ["is_required"] as? String
     }
     
     /**
@@ -38,6 +40,9 @@ struct AdPostImage{
         }
         if numbers != nil{
             dictionary["numbers"] = numbers
+        }
+        if isRequired != nil{
+            dictionary["is_required"] = isRequired
         }
         return dictionary
     }

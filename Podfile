@@ -106,6 +106,8 @@ target 'AdForest' do
     pod 'Mapbox-iOS-SDK', '~> 5.4'
     pod 'Alamofire-SwiftyJSON'
      
-    
+    #Intro App
+    pod 'OnboardKit'
+
     
 end

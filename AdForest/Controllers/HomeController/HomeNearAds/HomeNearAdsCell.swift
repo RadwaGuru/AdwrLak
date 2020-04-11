@@ -82,13 +82,14 @@ class HomeNearAdsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
             cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
         }
         cell.btnFullAction = { () in
+            
              self.delegate?.goToCLocationDetail(id: objData.catId)
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize(width: 140, height: 140)
+         return CGSize(width: 170, height: 140)
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -219,6 +219,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         }
     }
     
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         switch section {
@@ -237,6 +238,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         continue
                     }
                     if i == 1 {
+//                        cell.oltPopup?.setValue(item.name, forKey: "")
                         cell.oltPopup.setTitle(item.name, for: .normal)
                     }
                     i = i + 1
@@ -413,7 +415,32 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 
                 return cell
             }
+                
+              
+//                if let title = objData.title {
+//                    cell.lblTitle.text = title
+//                }
+//                if let min = objData.searchValDict.min{
+//                    cell.txtMinPrice.placeholder =  min
+//                    cell.rangeSlider.minValue =  CGFloat((min as NSString).floatValue)
+//                }
+//                if let max = objData.searchValDict.max{
+//                    cell.txtMaxPrice.placeholder = max //"250"
+//                    cell.rangeSlider.maxValue =  CGFloat((max as NSString).floatValue)
+//                }
+//                cell.fieldName = objData.fieldTypeName
+//                cell.fieldTypeNam = objData.fieldTypeName
+//                cell.index = indexPath.row
+                
             
+//            if #available(iOS 11.0, *) {
+//                let cell : ClusterMapValueTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ClusterMapValueTableViewCell",for: indexPath) as! ClusterMapValueTableViewCell
+//                cell.delegate = self
+//                return cell
+//            } else {
+//                // Fallback on earlier versions
+//            }
+           
         case 1:
             let cell: SearchNowButtonCell = tableView.dequeueReusableCell(withIdentifier: "SearchNowButtonCell", for: indexPath) as! SearchNowButtonCell
             
@@ -463,6 +490,10 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                                 self.data.append(obj)
                             }
                         }
+//                        let cell: ClusterMapValueTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ClusterMapValueTableViewCell", for: indexPath) as! ClusterMapValueTableViewCell
+                        
+                           
+
                         
 //                        if objData.fieldType == "radio" {
 //                            if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? RadioButtonCell {
@@ -612,7 +643,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 self.newArray = successResponse.data
                 self.searchTitle = successResponse.extra.searchBtn
                 self.tableView.reloadData()
-                
+                UserDefaults.standard.set(successResponse.extra.dialgCancel, forKey: "dialgCancel")
+                UserDefaults.standard.set(successResponse.extra.dialogSend, forKey: "dialogSend")
+
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
@@ -634,6 +667,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 AddsHandler.sharedInstance.objCategoryArray = successResponse.data.ads
                 AddsHandler.sharedInstance.objCategotyAdArray = successResponse.data.featuredAds.ads
                 categoryVC.isFromAdvanceSearch = true
+                categoryVC.topBarObj  = successResponse.topbar
                 categoryVC.featureAddTitle = successResponse.data.featuredAds.text
                 categoryVC.addcategoryTitle = successResponse.topbar.countAds
                 categoryVC.currentPage = successResponse.pagination.currentPage
@@ -656,7 +690,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 }
 
 
-extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue{
+extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue,mKMapDelegate{
+    
+    
     
     
     func selectValue(selectVal: String, selectKey: String, fieldType: String, indexPath: Int, fieldTypeName: String) {
@@ -665,7 +701,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             //print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
             var obj = SearchData()
             obj.fieldType = fieldType
-            obj.fieldVal = selectKey
+            obj.fieldVal = selectVal
             obj.fieldTypeName = fieldTypeName //"textfield_date"
             self.data.append(obj)
         }
@@ -800,6 +836,12 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             obj.fieldTypeName = fieldTypeName
             self.data.append(obj)
         }
+    }
+    func mkMapValues(latitude: String, longitude: String) {
+        let lat = latitude
+        let long = longitude
+        print(lat)
+        print(long)
     }
     
 

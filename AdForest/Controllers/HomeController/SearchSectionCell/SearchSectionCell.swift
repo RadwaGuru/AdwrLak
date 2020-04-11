@@ -162,7 +162,7 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate,refreshdata {
     
     func nokri_dropDownSetup(){
         
-        let mainColor = UserDefaults.standard.string(forKey: "mainColor")
+//        let mainColor = UserDefaults.standard.string(forKey: "mainColor")
         
         var dropDownArr = [String]()
         var dropDownArrKey = [String]()

@@ -379,9 +379,13 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             else {
                 cell.lblFeatured.isHidden = true
             }
-            if let sliderImage = objData.adDetail.sliderImages {
+            if let sliderImage = objData.adDetail.images {
+                var imgArr = [String]()
+                for ob in objData.adDetail.images{
+                    imgArr.append(ob.thumb)
+                }
                 cell.localImages = []
-                cell.localImages = sliderImage
+                cell.localImages = imgArr
                 cell.imageSliderSetting()
             }
             cell.btnMakeFeature = { () in
@@ -426,16 +430,36 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if isShowAdTime {
                 cell.lblTimer.isHidden = false
                 let obj = AddsHandler.sharedInstance.adBidTime
-                if let endDate = obj?.timerTime {
+                let first10 = String(obj!.timerTime.prefix(10))
+                print(first10)
+                cell.lblTimer.isHidden = false
+                
+                if first10 != ""{
+                    let endDate = first10
                     self.isEndTime = endDate
                     Timer.every(1.second) {
                         self.countDown(date: endDate)
                         cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+                        
                     }
                 }
-            } else {
+            }else{
                 cell.lblTimer.isHidden = true
             }
+            //old method
+//            if isShowAdTime {
+//                cell.lblTimer.isHidden = false
+//                let obj = AddsHandler.sharedInstance.adBidTime
+//                if let endDate = obj?.timerTime {
+//                    self.isEndTime = endDate
+//                    Timer.every(1.second) {
+//                        self.countDown(date: endDate)
+//                        cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+//                    }
+//                }
+//            } else {
+//                cell.lblTimer.isHidden = true
+//            }
             return cell
         }
             
@@ -473,6 +497,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 //cell.buttonShare.setTitle(shareText, for: .normal)
                 cell.lblShareOrig.text = shareText
             }
+            if let editText = objData.editTxt {
+                cell.oltEdit.setTitle(editText, for: .normal)
+            }
+            
             if let favouriteText = objData.staticText.favBtn {
                 //cell.buttonFavourite.setTitle(favouriteText, for: .normal)
                 cell.lblShare.text = favouriteText
@@ -512,17 +540,38 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
             }
             cell.btnShare = { () in
+//                let shareTextArray = [objData.shareInfo.title, objData.shareInfo.link]
+//                let activityController = UIActivityViewController(activityItems: shareTextArray as [Any], applicationActivities: nil)
+//                if Constants.isiPadDevice {
+//
+//                        if let popOver = activityController.popoverPresentationController{
+//                            popOver.sourceView = self.tableView
+//                            popOver.sourceRect = self.tableView.frame
+//
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                }
+//                self.presentVC(activityController)
                 let shareTextArray = [objData.shareInfo.title, objData.shareInfo.link]
-                let activityController = UIActivityViewController(activityItems: shareTextArray as [Any], applicationActivities: nil)
-                if Constants.isiPadDevice {
-                    if let popOver = activityController.popoverPresentationController {
-                        popOver.sourceView = self.tableView
-                        popOver.sourceRect = self.tableView.frame
+                let activityVC = UIActivityViewController(activityItems: shareTextArray as [Any], applicationActivities: nil)
+
+                    if  Constants.isiPadDevice {
+                        if let popup = activityVC.popoverPresentationController {
+                            popup.sourceView = cell.buttonShare
+//                            popOver.sourceRect = self.tableView.frame
+                            popup.sourceRect = cell.buttonShare.frame
+//                                CGRect(x: self.view.frame.size.width / 0, y: self.view.frame.size.height / 900, width: 500, height: 450)
+                        }
+                    } else{
                         
-                    }
                 }
-                self.presentVC(activityController)
-            }
+
+                    self.present(activityVC, animated: true, completion: nil)
+                }
+                
+                
+            
             
             if objData.staticText.sendMsgBtnType == "receive" {
                 if self.defaults.bool(forKey: "isLogin") == false {
@@ -550,10 +599,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.lblDescription.text = descriptionText
             }
             
-            
+//            if let fielddata = objData?.fieldsDataColumn{
+//
+//            }
+//            if let Weblink = UserDefaults.standard.string(forKey: "webUrl"){
+//                cell.lblWebUrl.text == Weblink
+//
+//            }
             if let htmlText = objData?.adDetail.adDesc {
-                //cell.lblHtmlText.attributedText = htmlText.html2AttributedString
-            
+//                cell.lblHtmlText.attributedText = htmlText.html2AttributedString
+//
 //                let strokeTextAttributes: [NSAttributedString.Key: Any] = [
 //                    .foregroundColor : UIColor.gray,
 //                    .font : UIFont.systemFont(ofSize: 15)
@@ -569,7 +624,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.webView.loadHTMLString(htmlText, baseURL: nil)
                 //webviewHeightConstraint.constant = webview.scrollView.contentSize.height
                 cell.heightConstraintWebView.constant = cell.webView.scrollView.contentSize.height
-                
+            
                // self.view.layoutIfNeeded()
                 
             }
@@ -577,13 +632,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if let tagTitle = objData?.adDetail.adTagsShow.name {
                 if let addTags = objData?.adDetail.adTagsShow.value {
-                    let tags = ":  \(addTags)"
-                    let attributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12)]
-                    let attributedString = NSMutableAttributedString(string: tagTitle, attributes: attributes)
-                    
-                    let normalString = NSMutableAttributedString(string: tags)
-                    attributedString.append(normalString)
-                    cell.lblTagTitle.attributedText = attributedString
+                    if addTags != ""{
+                        let tags = ":  \(addTags)"
+                        let attributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 12)]
+                        let attributedString = NSMutableAttributedString(string: tagTitle, attributes: attributes)
+                        
+                        let normalString = NSMutableAttributedString(string: tags)
+                        attributedString.append(normalString)
+                        cell.lblTagTitle.attributedText = attributedString
+                    }
+                   
                 }
             }
             
@@ -594,6 +652,10 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.locationValue.text = locationValue
             }
             
+            if let clickUrl = objData?.self.clickHereText{
+                UserDefaults.standard.set(clickUrl, forKey: "webUrl")
+                print(clickUrl)
+                           }
             cell.fieldsArray = self.fieldsArray
             cell.frame = tableView.bounds
             cell.adForest_reload()
@@ -764,16 +826,23 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     if let title = objData.adRatting.title {
                         cell.lblTitle.text = title
                     }
+                    if let txtSectionHeading = objData.adRatting.sectionTitle {
+                        cell.lblSectionTitle.text = txtSectionHeading
+                        
+                    }
+//                    if let txtSectiontagline = objData.adRatting.tagline {
+//                        cell.lblSectionTagline.text = txtSectiontagline
+//                    }
                     if let txtPlaceholder = objData.adRatting.textareaText {
                         cell.txtComment.placeholder = txtPlaceholder
                     }
                     let isShowEditLbl = objData.adRatting.isEditable
                     if isShowEditLbl! {
-                        cell.lblNotEdit.isHidden = true
+                        cell.lblSectionTagline.isHidden = true
                     }
                     else {
                         if let notEditLblText = objData.adRatting.tagline {
-                            cell.lblNotEdit.text = notEditLblText
+                            cell.lblSectionTagline.text = notEditLblText
                         }
                     }
                     if let submitButtonText = objData.adRatting.btn {
@@ -1033,9 +1102,9 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }else{
                 
                 if objData.adRatting.canRate && buttonText != "receive"  {
-                    height = 220
+                    height = 270
                 } else {
-                    height = 50
+                    height = 90
                 }
             }
         }
@@ -1088,18 +1157,18 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
-        let titleLabel = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 20, height: 20))
+//        let titleLabel = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 20, height: 20))
     
-        if section == 3 {
-            titleLabel.text = ratingReviewTitle
-            titleLabel.textAlignment = .center
-        }
-            
-        else if section == 10 {
-            titleLabel.text = similarAdsTitle
-            titleLabel.textAlignment = .left
-        }
-        headerView.addSubview(titleLabel)
+//        if section == 3 {
+//            titleLabel.text = ratingReviewTitle
+//            titleLabel.textAlignment = .center
+//        }
+//
+//        else if section == 10 {
+//            titleLabel.text = similarAdsTitle
+//            titleLabel.textAlignment = .left
+//        }
+//        headerView.addSubview(titleLabel)
         return headerView
     }
     

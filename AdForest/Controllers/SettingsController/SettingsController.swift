@@ -57,13 +57,12 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addBackButtonToNavigationBar()
-         navigationButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.adForest_getAppData()
-        //navigationButtons()
+        navigationButtons()
     }
 
     //MARK:- Custom
