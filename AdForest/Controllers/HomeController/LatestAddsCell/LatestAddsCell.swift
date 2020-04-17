@@ -46,8 +46,8 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var latestVertical: Bool = false
-    var latestHorizontalSingleAd: Bool = true
+    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     
     
     //MARK:- View Life Cycle
@@ -67,7 +67,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     //MARK:- Collection View Delegate Methods
     
     func layoutHorizontalSingleAd(){
-        if latestHorizontalSingleAd{
+        if latestHorizontalSingleAd == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -90,7 +90,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     
     
     func layoutLatest(){
-        if latestVertical{
+        if latestVertical == "vertical" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -126,16 +126,16 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
         
         let cell: LatestAddsCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LatestAddsCollectionCell", for: indexPath) as! LatestAddsCollectionCell
         let objData = dataArray[indexPath.row]
-        if latestHorizontalSingleAd {
+        if latestHorizontalSingleAd == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
                     cell.imageView.sd_setIndicatorStyle(.gray)
                     cell.imageView.sd_setImage(with: imgUrl, completed: nil)
-                    
+
                 }
             }
-            
+
             if let name = objData.adTitle {
                 cell.lblTitle.text = name
                 let word = objData.adTimer.timer
@@ -150,14 +150,14 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
                         self.isEndTime = endDate
                         Timer.every(1.second) {
                             self.countDown(date: endDate)
-                            cell.lblBidTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
-                            
+                            cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+
                         }
                     }
                 }else{
                     cell.lblBidTimer.isHidden = true
                 }
-                
+
             }
             if let location = objData.adLocation.address {
                 cell.lblLocs.text = location
@@ -168,7 +168,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
             cell.btnFullAction = { () in
                 self.delegate?.goToAddDetail(ad_id: objData.adId)
             }
-            
+
         }  else {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
@@ -191,7 +191,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
                         self.isEndTime = endDate
                         Timer.every(1.second) {
                             self.countDown(date: endDate)
-                            cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+                            cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
                             
                         }
                     }
@@ -241,9 +241,9 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if latestVertical{
+        if latestVertical == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if latestHorizontalSingleAd{
+        }else if latestHorizontalSingleAd == "horizental" {
             return CGSize(width:collectionView.frame.width,height: 120)
         }
         else{
@@ -311,7 +311,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
     
     //MARK:- Properties
     var btnFullAction : (()->())?
-    var latestHorizontalSingleAd: Bool = true
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var  imageView: UIImageView!
     var  imageViewLoc: UIImageView!
     var lblTitle: UILabel!
@@ -331,7 +331,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblName.textAlignment = .left
         }
         
-        if latestHorizontalSingleAd   {
+        if latestHorizontalSingleAd == "horizental" {
             //            containerView.backgroundColor = UIColor.systemRed
             imgPicture.isHidden = true
             lblName.isHidden = true
@@ -342,23 +342,23 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             let imageName = "appLogo"
             let image = UIImage(named: imageName)
             imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: 2, y: 2, width: 110, height: 115)
+            imageView.frame = CGRect(x: 2, y: 5, width: 110, height: 110)
             contentView.addSubview(imageView)
             
-            lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 110, height: 28))
+            lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 100, height: 28))
             lblBidTimer.textAlignment = .left
             lblBidTimer.textColor = UIColor.white
-//            lblBidTimer.text = "Bid Timer"
+            //            lblBidTimer.text = "Bid Timer"
             lblBidTimer.backgroundColor = UIColor.systemGray
             //bottomalign label
-//            lblBidTimer.frame.origin.x = 0
-            lblBidTimer.frame.origin.y = 63 + lblBidTimer.frame.height
+            //            lblBidTimer.frame.origin.x = 0
+            lblBidTimer.frame.origin.y = 59 + lblBidTimer.frame.height
             //
             //            lblBidTimer.frame.origin.x = imageView.frame.width + 18
             //            lblBidTimer.frame.origin.y = -8 + lblBidTimer.frame.height
             
             
-            lblBidTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 11.0)
+            lblBidTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 13.0)
             
             contentView.addSubview(lblBidTimer)
             lblTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 28))
@@ -405,6 +405,18 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblPriceHori.text = "$-223"
             contentView.addSubview(lblPriceHori)
             
+            
+        } else {
+            imgPicture.isHidden = false
+            lblName.isHidden = false
+            lblLocation.isHidden = false
+            lblPrice.isHidden = false
+            lblTimer.isHidden = false
+//            imageView.isHidden = true
+//            imageViewLoc.isHidden = true
+//            lblLocs.isHidden = true
+//            lblPriceHori.isHidden = true
+//            lblBidTimer.isHidden = true
             
         }
         

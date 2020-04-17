@@ -106,6 +106,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
                 if let htmlString = successResponse.data.pageContent {
                      self.title = successResponse.data.pageTitle
                     self.webView.loadHTMLString(htmlString, baseURL: nil)
+                    
                 }
             }
             else {

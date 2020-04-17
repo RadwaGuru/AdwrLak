@@ -50,8 +50,8 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var latestVertical: Bool = false
-    var latestHorizontalSingleAd: Bool = true
+    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String =  UserDefaults.standard.string(forKey: "homescreenLayout")!
     
     
     //MARK:- View Life Cycle
@@ -77,7 +77,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     
     //MARK:- Collection View Delegate Methods
     func layoutHorizontalSingleAd(){
-        if latestHorizontalSingleAd{
+        if latestHorizontalSingleAd == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -98,7 +98,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     }
     
     func layoutLatest(){
-        if latestVertical{
+        if latestVertical == "vertical" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -124,7 +124,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:  AddsCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddsCollectionCell", for: indexPath) as! AddsCollectionCell
         let objData = dataArray[indexPath.row]
-        if latestHorizontalSingleAd {
+        if latestHorizontalSingleAd == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
@@ -148,7 +148,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
                         self.isEndTime = endDate
                         Timer.every(1.second) {
                             self.countDown(date: endDate)
-                            cell.lblBidTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+                            cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
                             
                         }
                     }
@@ -189,7 +189,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
                         self.isEndTime = endDate
                         Timer.every(1.second) {
                             self.countDown(date: endDate)
-                            cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+                            cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
                             
                         }
                     }
@@ -234,9 +234,9 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
         second = timeDifference.second!
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if latestVertical{
+        if latestVertical == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if latestHorizontalSingleAd{
+        }else if latestHorizontalSingleAd == "horizental" {
             return CGSize(width:collectionView.frame.width,height: 120)
         }
         else{

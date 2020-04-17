@@ -11077,17 +11077,26 @@
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qKj-uh-O4E">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="32"/>
                                                                             </imageView>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQM-84-mSv">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="36" height="32"/>
+                                                                                <state key="normal" title="Button"/>
+                                                                            </button>
                                                                         </subviews>
                                                                     </view>
                                                                     <constraints>
+                                                                        <constraint firstItem="YQM-84-mSv" firstAttribute="leading" secondItem="Cfe-sW-H5W" secondAttribute="leading" id="ANQ-h9-1EV"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="YQM-84-mSv" secondAttribute="trailing" id="D2T-QK-nPn"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="YQM-84-mSv" secondAttribute="bottom" id="VQ3-8V-MXR"/>
                                                                         <constraint firstItem="qKj-uh-O4E" firstAttribute="top" secondItem="Cfe-sW-H5W" secondAttribute="top" id="Xxp-Zi-keE"/>
                                                                         <constraint firstAttribute="bottom" secondItem="qKj-uh-O4E" secondAttribute="bottom" id="o3m-i1-g0y"/>
                                                                         <constraint firstItem="qKj-uh-O4E" firstAttribute="leading" secondItem="Cfe-sW-H5W" secondAttribute="leading" id="sTH-dC-dmr"/>
+                                                                        <constraint firstItem="YQM-84-mSv" firstAttribute="top" secondItem="Cfe-sW-H5W" secondAttribute="top" id="vZE-qm-OZQ"/>
                                                                         <constraint firstAttribute="trailing" secondItem="qKj-uh-O4E" secondAttribute="trailing" id="zYH-Xs-uf6"/>
                                                                     </constraints>
                                                                     <size key="customSize" width="36" height="32"/>
                                                                     <connections>
                                                                         <outlet property="imgIcon" destination="qKj-uh-O4E" id="TyX-IQ-jkE"/>
+                                                                        <outlet property="socialBtn" destination="YQM-84-mSv" id="EAY-gz-sDP"/>
                                                                     </connections>
                                                                 </collectionViewCell>
                                                             </cells>
@@ -12891,7 +12900,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wph-4d-ump">
-                                                <rect key="frame" x="8" y="418" width="304" height="158"/>
+                                                <rect key="frame" x="8" y="418" width="304" height="238"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWB-mj-5Fg" customClass="FBSDKLoginButton">
                                                         <rect key="frame" x="17" y="4" width="270" height="42"/>
@@ -12936,25 +12945,40 @@
                                                             <action selector="btnAppleClicked:" destination="U3I-Fl-NZu" eventType="touchUpInside" id="fcK-vo-hkE"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJc-fg-N8t">
+                                                        <rect key="frame" x="17" y="160" width="270" height="49"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="Login with LinkedIn" image="linkedin">
+                                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="actionLinkedinSubmit:" destination="U3I-Fl-NZu" eventType="touchUpInside" id="2nG-3L-eqJ"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="HJc-fg-N8t" firstAttribute="top" secondItem="LJv-fu-zR6" secondAttribute="bottom" constant="10" id="2yS-kD-S4H"/>
                                                     <constraint firstAttribute="trailing" secondItem="dVv-Bi-ZHY" secondAttribute="trailing" constant="17" id="9tt-rA-jae"/>
+                                                    <constraint firstItem="HJc-fg-N8t" firstAttribute="leading" secondItem="Wph-4d-ump" secondAttribute="leading" constant="17" id="AYG-qT-vyR"/>
                                                     <constraint firstItem="dVv-Bi-ZHY" firstAttribute="leading" secondItem="Wph-4d-ump" secondAttribute="leading" constant="17" id="Ehh-gk-ujH"/>
                                                     <constraint firstItem="D6P-4O-yZW" firstAttribute="top" secondItem="Wph-4d-ump" secondAttribute="top" constant="4" id="Eka-0B-cBl"/>
                                                     <constraint firstItem="4AG-s0-SWX" firstAttribute="width" secondItem="hWB-mj-5Fg" secondAttribute="width" id="HCE-EP-gpo"/>
                                                     <constraint firstItem="4AG-s0-SWX" firstAttribute="leading" secondItem="Wph-4d-ump" secondAttribute="leading" constant="17" id="J6F-oH-epx"/>
                                                     <constraint firstItem="LJv-fu-zR6" firstAttribute="leading" secondItem="Wph-4d-ump" secondAttribute="leading" constant="17" id="Oh4-Ad-6as"/>
-                                                    <constraint firstAttribute="bottom" secondItem="dVv-Bi-ZHY" secondAttribute="bottom" constant="60" id="U2z-3R-lgZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dVv-Bi-ZHY" secondAttribute="bottom" constant="140" id="U2z-3R-lgZ"/>
                                                     <constraint firstAttribute="trailing" secondItem="LJv-fu-zR6" secondAttribute="trailing" constant="17" id="W8S-ki-KVk"/>
                                                     <constraint firstItem="dVv-Bi-ZHY" firstAttribute="top" secondItem="D6P-4O-yZW" secondAttribute="bottom" constant="3" id="Wb9-1P-k40"/>
                                                     <constraint firstItem="4AG-s0-SWX" firstAttribute="top" secondItem="hWB-mj-5Fg" secondAttribute="bottom" constant="3" id="Wmb-8Q-n6A"/>
                                                     <constraint firstItem="D6P-4O-yZW" firstAttribute="leading" secondItem="Wph-4d-ump" secondAttribute="leading" constant="17" id="XB5-WY-ImC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="HJc-fg-N8t" secondAttribute="trailing" constant="17" id="XFq-Dd-9xE"/>
                                                     <constraint firstItem="LJv-fu-zR6" firstAttribute="top" secondItem="dVv-Bi-ZHY" secondAttribute="bottom" constant="3" id="YAk-mp-obI"/>
-                                                    <constraint firstAttribute="bottom" secondItem="hWB-mj-5Fg" secondAttribute="bottom" constant="112" id="dfk-aH-a2Z"/>
+                                                    <constraint firstItem="HJc-fg-N8t" firstAttribute="height" secondItem="LJv-fu-zR6" secondAttribute="height" id="aYP-zQ-0FK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hWB-mj-5Fg" secondAttribute="bottom" constant="192" id="dfk-aH-a2Z"/>
                                                     <constraint firstItem="dVv-Bi-ZHY" firstAttribute="top" secondItem="hWB-mj-5Fg" secondAttribute="bottom" constant="3" id="dgr-HV-LWq"/>
                                                     <constraint firstAttribute="trailing" secondItem="D6P-4O-yZW" secondAttribute="trailing" constant="17" id="flc-Pb-srJ"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4AG-s0-SWX" secondAttribute="bottom" constant="60" id="gOl-tp-RNy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4AG-s0-SWX" secondAttribute="bottom" constant="140" id="gOl-tp-RNy"/>
                                                     <constraint firstItem="LJv-fu-zR6" firstAttribute="height" secondItem="4AG-s0-SWX" secondAttribute="height" multiplier="0.612245" constant="19" id="lMb-2P-ukl"/>
                                                     <constraint firstItem="dVv-Bi-ZHY" firstAttribute="width" secondItem="hWB-mj-5Fg" secondAttribute="width" id="nFj-LO-Ehw"/>
                                                     <constraint firstItem="hWB-mj-5Fg" firstAttribute="top" secondItem="Wph-4d-ump" secondAttribute="top" constant="4" id="ndo-DW-9UY"/>
@@ -12963,7 +12987,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7D-2x-MHh">
-                                                <rect key="frame" x="8" y="584" width="304" height="49"/>
+                                                <rect key="frame" x="8" y="650" width="304" height="49"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -12980,7 +13004,7 @@
                                             <constraint firstAttribute="trailing" secondItem="a2p-CZ-AQw" secondAttribute="trailing" constant="8" id="AYU-0u-lga"/>
                                             <constraint firstAttribute="trailing" secondItem="QWF-XE-P5p" secondAttribute="trailing" id="Bag-uT-aoV"/>
                                             <constraint firstAttribute="trailing" secondItem="hiE-e8-s1M" secondAttribute="trailing" constant="8" id="ELW-Lv-biX"/>
-                                            <constraint firstItem="Wph-4d-ump" firstAttribute="height" secondItem="qOi-XB-2nz" secondAttribute="height" constant="109" id="JKm-mk-1fQ"/>
+                                            <constraint firstItem="Wph-4d-ump" firstAttribute="height" secondItem="qOi-XB-2nz" secondAttribute="height" constant="189" id="JKm-mk-1fQ"/>
                                             <constraint firstItem="qOi-XB-2nz" firstAttribute="top" secondItem="a2p-CZ-AQw" secondAttribute="bottom" constant="8" id="K6Y-S9-zBh"/>
                                             <constraint firstItem="hiE-e8-s1M" firstAttribute="centerX" secondItem="CZH-nJ-EAG" secondAttribute="centerX" id="MLx-WD-wG9"/>
                                             <constraint firstItem="a2p-CZ-AQw" firstAttribute="leading" secondItem="CZH-nJ-EAG" secondAttribute="leading" constant="8" id="MNd-8X-V93"/>
@@ -12996,7 +13020,7 @@
                                             <constraint firstItem="qOi-XB-2nz" firstAttribute="leading" secondItem="CZH-nJ-EAG" secondAttribute="leading" constant="8" id="bFT-DL-9hu"/>
                                             <constraint firstItem="qOi-XB-2nz" firstAttribute="height" secondItem="CZH-nJ-EAG" secondAttribute="height" multiplier="0.07" id="bqP-Gw-8c1"/>
                                             <constraint firstItem="hiE-e8-s1M" firstAttribute="leading" secondItem="CZH-nJ-EAG" secondAttribute="leading" constant="8" id="ghe-Sz-6ZT"/>
-                                            <constraint firstItem="T7D-2x-MHh" firstAttribute="top" secondItem="Wph-4d-ump" secondAttribute="bottom" constant="8" id="jsd-my-UAy"/>
+                                            <constraint firstItem="T7D-2x-MHh" firstAttribute="top" secondItem="Wph-4d-ump" secondAttribute="bottom" constant="-6" id="jsd-my-UAy"/>
                                             <constraint firstItem="QWF-XE-P5p" firstAttribute="top" secondItem="CZH-nJ-EAG" secondAttribute="top" id="llv-Cx-6Wd"/>
                                             <constraint firstItem="1eH-EV-SxA" firstAttribute="top" secondItem="qOi-XB-2nz" secondAttribute="bottom" constant="8" id="m9e-91-EQH"/>
                                             <constraint firstAttribute="trailing" secondItem="T7D-2x-MHh" secondAttribute="trailing" constant="8" id="mZP-ic-enk"/>
@@ -13067,6 +13091,7 @@
                         <outlet property="buttonForgotPassword" destination="a2p-CZ-AQw" id="L30-RP-lnt"/>
                         <outlet property="buttonGoogleLogin" destination="4AG-s0-SWX" id="QAU-bb-KXt"/>
                         <outlet property="buttonGuestLogin" destination="T7D-2x-MHh" id="Wec-6Q-WS2"/>
+                        <outlet property="buttonLinkedIn" destination="HJc-fg-N8t" id="cba-d0-Inm"/>
                         <outlet property="buttonRegisterWithUs" destination="XZK-y9-AgE" id="xPG-yk-FsH"/>
                         <outlet property="buttonSubmit" destination="qOi-XB-2nz" id="zyF-eM-fxz"/>
                         <outlet property="containerViewImage" destination="QWF-XE-P5p" id="ueA-gn-SCn"/>
@@ -13081,6 +13106,7 @@
                         <outlet property="topConstraintBtnApple" destination="YAk-mp-obI" id="Q6e-Ir-YvR"/>
                         <outlet property="topConstraintBtnGoogle" destination="Wmb-8Q-n6A" id="yHy-bL-qjg"/>
                         <outlet property="topConstraintBtnGoogle2" destination="dgr-HV-LWq" id="D8W-L6-Hkw"/>
+                        <outlet property="topConstraintBtnLinkedIn" destination="2yS-kD-S4H" id="N3B-v9-U96"/>
                         <outlet property="txtEmail" destination="Bmc-YO-1RL" id="ntK-JH-WEl"/>
                         <outlet property="txtPassword" destination="nWw-xd-Oka" id="KKC-AK-yKF"/>
                         <outlet property="viewRegisterWithUs" destination="Os1-cX-aoM" id="NJQ-4k-gat"/>
@@ -13089,6 +13115,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-bi-Oyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="997.5" y="181.69014084507043"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="39A-YZ-luA">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="d7o-8e-zHZ" customClass="WebViewController" customModule="AdForest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ExK-fb-g9a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0RC-vZ-r4O">
+                                <rect key="frame" x="16" y="36" width="343" height="611"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="by4-a8-iEw" firstAttribute="bottom" secondItem="0RC-vZ-r4O" secondAttribute="bottom" constant="20" id="2H6-qG-YUF"/>
+                            <constraint firstItem="0RC-vZ-r4O" firstAttribute="top" secondItem="by4-a8-iEw" secondAttribute="top" constant="36" id="XK3-QY-2cD"/>
+                            <constraint firstItem="by4-a8-iEw" firstAttribute="trailing" secondItem="0RC-vZ-r4O" secondAttribute="trailing" constant="16" id="XaS-U1-A20"/>
+                            <constraint firstItem="0RC-vZ-r4O" firstAttribute="leading" secondItem="by4-a8-iEw" secondAttribute="leading" constant="16" id="lbv-tg-iGg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="by4-a8-iEw"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="0RC-vZ-r4O" id="Bqs-YD-E1x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ybb-uv-GBt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2168.8000000000002" y="189.3553223388306"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Cz1-zh-0vQ">
@@ -13313,13 +13369,27 @@
                                                             <action selector="btnAppleClicked:" destination="Gng-ZP-wtG" eventType="touchUpInside" id="4Vr-JA-jug"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUb-oO-RNC">
+                                                        <rect key="frame" x="8" y="170" width="359" height="48"/>
+                                                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="Login with LinkedIn" image="linkedin">
+                                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="actionLinkedinSubmit:" destination="Gng-ZP-wtG" eventType="touchUpInside" id="nhd-aB-EXK"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="YtM-mb-Rkh" secondAttribute="trailing" constant="11" id="0jx-IC-Ug6"/>
                                                     <constraint firstItem="YtM-mb-Rkh" firstAttribute="top" secondItem="M8n-lQ-H10" secondAttribute="top" id="6gD-JO-cKM"/>
+                                                    <constraint firstItem="aUb-oO-RNC" firstAttribute="leading" secondItem="M8n-lQ-H10" secondAttribute="leading" constant="8" id="7qc-tv-ntv"/>
+                                                    <constraint firstItem="aUb-oO-RNC" firstAttribute="top" secondItem="FaC-oB-1RX" secondAttribute="bottom" constant="8" id="CbO-Mp-lDq"/>
                                                     <constraint firstItem="rnk-1U-0gd" firstAttribute="leading" secondItem="M8n-lQ-H10" secondAttribute="leading" constant="8" id="GDd-U6-LR0"/>
+                                                    <constraint firstItem="aUb-oO-RNC" firstAttribute="height" secondItem="FaC-oB-1RX" secondAttribute="height" id="JBX-u6-DGG"/>
                                                     <constraint firstItem="FaC-oB-1RX" firstAttribute="leading" secondItem="M8n-lQ-H10" secondAttribute="leading" constant="8" id="N5Z-Vy-fxo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aUb-oO-RNC" secondAttribute="trailing" constant="8" id="RYz-cR-PW2"/>
                                                     <constraint firstAttribute="trailing" secondItem="pCf-d8-o59" secondAttribute="trailing" constant="11" id="Tqe-xC-jqA"/>
                                                     <constraint firstItem="pCf-d8-o59" firstAttribute="top" secondItem="xF1-WI-NJM" secondAttribute="bottom" constant="14.5" id="YD0-3x-Ib9"/>
                                                     <constraint firstAttribute="trailing" secondItem="FaC-oB-1RX" secondAttribute="trailing" constant="8" id="azg-Q8-xDb"/>
@@ -13399,6 +13469,7 @@
                         <outlet property="btnApple" destination="FaC-oB-1RX" id="JFx-Il-YCQ"/>
                         <outlet property="btnFb" destination="xF1-WI-NJM" id="taF-wf-U8J"/>
                         <outlet property="btnGoogle" destination="rnk-1U-0gd" id="pu1-vw-QNE"/>
+                        <outlet property="btnLinkedin" destination="aUb-oO-RNC" id="Lqe-ec-EvC"/>
                         <outlet property="buttonAgreeWithTermsConditions" destination="s3H-OE-CcE" id="dTW-oM-0ya"/>
                         <outlet property="buttonAlreadyhaveAccount" destination="poj-Pa-fHG" id="gSw-Jk-qse"/>
                         <outlet property="buttonCheckBox" destination="b9e-zu-C1Y" id="f9c-fX-xtJ"/>
@@ -13448,6 +13519,7 @@
         <image name="empty" width="15" height="15"/>
         <image name="empty (1)" width="64" height="64"/>
         <image name="eyeMost" width="12.5" height="12.5"/>
+        <image name="linkedin" width="22.5" height="22.5"/>
         <image name="location" width="50" height="50"/>
         <image name="logo" width="1024" height="270"/>
         <image name="map" width="375" height="536"/>

@@ -17,16 +17,18 @@ import AuthenticationServices
 import CryptoKit
 import Firebase
 import AuthenticationServices
+import LinkedinSwift
 
 
 class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate, UIScrollViewDelegate{
     
     //MARK:- Outlets
-  
+    
     @IBOutlet weak var topConstraintBtnGoogle2: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnGoogle: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnApple: NSLayoutConstraint!
     @IBOutlet weak var btnApple: UIButton!
+    @IBOutlet weak var topConstraintBtnLinkedIn: NSLayoutConstraint!
     
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -51,6 +53,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     @IBOutlet weak var buttonForgotPassword: UIButton!{
         didSet{
             buttonForgotPassword.contentHorizontalAlignment = .right
+        }
+    }
+    @IBOutlet weak var buttonLinkedIn: UIButton!{
+        didSet{
+            buttonLinkedIn.roundCornors()
+            buttonLinkedIn.layer.borderWidth = 1
+            
         }
     }
     @IBOutlet weak var buttonSubmit: UIButton! {
@@ -104,13 +113,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     let loginManager = LoginManager()
     
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
+    var accessToken: LISDKAccessToken?
+
     
+    
+    let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "DLKDJF46ikMMZADfdfds", permissions:["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"), nativeAppChecker: WebLoginOnly())
     
     // MARK: Application Life Cycle
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         self.hideKeyboard()
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
@@ -119,43 +132,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         btnGoogleLog.isHidden = true
         buttonGuestLogin.isHidden = true
         btnApple.isHidden = true
-       // btnFb.isHidden = true
-       // buttonFBLogin.isHidden = true
+//        buttonLinkedIn.isHidden = true
+        // btnFb.isHidden = true
+        // buttonFBLogin.isHidden = true
         
         
-//        if #available(iOS 13.0, *) {
-//            btnApple.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        //        if #available(iOS 13.0, *) {
+        //            btnApple.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         btnApple.layer.cornerRadius = 10
         btnApple.layer.borderWidth = 1
         btnApple.layer.borderColor = UIColor.black.cgColor
-          
+        
         
         if #available(iOS 13, *) {
-   //         startSignInWithAppleFlow()
-         setUpSignInAppleButton()
-     
+            //         startSignInWithAppleFlow()
+            setUpSignInAppleButton()
+            
         } else {
             // Fallback on earlier versions
         }
-          
+        
     }
     
-//
-//    func createButton() {
-//        if #available(iOS 13.0, *) {
-//            let authorizationButton = ASAuthorizationAppleIDButton()
-////            authorizationButton.addTarget(self, action:
-////                       #selector(handleAuthorizationAppleIDButtonPress),
-////                       for: .touchUpInside)
-////                   myView.addSubview(authorizationButton)
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//
-//    }
+    //
+    //    func createButton() {
+    //        if #available(iOS 13.0, *) {
+    //            let authorizationButton = ASAuthorizationAppleIDButton()
+    ////            authorizationButton.addTarget(self, action:
+    ////                       #selector(handleAuthorizationAppleIDButtonPress),
+    ////                       for: .touchUpInside)
+    ////                   myView.addSubview(authorizationButton)
+    //        } else {
+    //            // Fallback on earlier versions
+    //        }
+    //
+    //    }
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         if #available(iOS 13.0, *) {
@@ -197,75 +211,75 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             authorizationButton.cornerRadius = 10
             
             //Add button on some view or stack
-           // authorizationButton.frame.size = btnApple.frame.size
+            // authorizationButton.frame.size = btnApple.frame.size
             //self.btnApple.addSubview(authorizationButton)
         } else {
             // Fallback on earlier versions
         }
-      
+        
     }
     
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
-//    private func randomNonceString(length: Int = 32) -> String {
-//        precondition(length > 0)
-//        let charset: Array<Character> =
-//            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-//        var result = ""
-//        var remainingLength = length
-//
-//        while remainingLength > 0 {
-//            let randoms: [UInt8] = (0 ..< 16).map { _ in
-//                var random: UInt8 = 0
-//                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-//                if errorCode != errSecSuccess {
-//                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-//                }
-//                return random
-//            }
-//
-//            randoms.forEach { random in
-//                if remainingLength == 0 {
-//                    return
-//                }
-//
-//                if random < charset.count {
-//                    result.append(charset[Int(random)])
-//                    remainingLength -= 1
-//                }
-//            }
-//        }
-//
-//        return result
-//    }
-
+    //    private func randomNonceString(length: Int = 32) -> String {
+    //        precondition(length > 0)
+    //        let charset: Array<Character> =
+    //            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+    //        var result = ""
+    //        var remainingLength = length
+    //
+    //        while remainingLength > 0 {
+    //            let randoms: [UInt8] = (0 ..< 16).map { _ in
+    //                var random: UInt8 = 0
+    //                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+    //                if errorCode != errSecSuccess {
+    //                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+    //                }
+    //                return random
+    //            }
+    //
+    //            randoms.forEach { random in
+    //                if remainingLength == 0 {
+    //                    return
+    //                }
+    //
+    //                if random < charset.count {
+    //                    result.append(charset[Int(random)])
+    //                    remainingLength -= 1
+    //                }
+    //            }
+    //        }
+    //
+    //        return result
+    //    }
+    
     // Unhashed nonce.
-//    fileprivate var currentNonce: String?
-//
-//    @available(iOS 13, *)
-//    func startSignInWithAppleFlow() {
-//      let nonce = randomNonceString()
-//      currentNonce = nonce
-//      let appleIDProvider = ASAuthorizationAppleIDProvider()
-//      let request = appleIDProvider.createRequest()
-//      request.requestedScopes = [.fullName, .email]
-//      request.nonce = sha256(nonce)
-//
-//      let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-//      authorizationController.delegate = self
-//      authorizationController.presentationContextProvider = self
-//      authorizationController.performRequests()
-//    }
-//
-//    @available(iOS 13, *)
-//    private func sha256(_ input: String) -> String {
-//      let inputData = Data(input.utf8)
-//      let hashedData = SHA256.hash(data: inputData)
-//      let hashString = hashedData.compactMap {
-//        return String(format: "%02x", $0)
-//      }.joined()
-//
-//      return hashString
-//    }
+    //    fileprivate var currentNonce: String?
+    //
+    //    @available(iOS 13, *)
+    //    func startSignInWithAppleFlow() {
+    //      let nonce = randomNonceString()
+    //      currentNonce = nonce
+    //      let appleIDProvider = ASAuthorizationAppleIDProvider()
+    //      let request = appleIDProvider.createRequest()
+    //      request.requestedScopes = [.fullName, .email]
+    //      request.nonce = sha256(nonce)
+    //
+    //      let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+    //      authorizationController.delegate = self
+    //      authorizationController.presentationContextProvider = self
+    //      authorizationController.performRequests()
+    //    }
+    //
+    //    @available(iOS 13, *)
+    //    private func sha256(_ input: String) -> String {
+    //      let inputData = Data(input.utf8)
+    //      let hashedData = SHA256.hash(data: inputData)
+    //      let hashString = hashedData.compactMap {
+    //        return String(format: "%02x", $0)
+    //      }.joined()
+    //
+    //      return hashString
+    //    }
     
     
     
@@ -282,7 +296,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
     
     
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.adForest_loginDetails()
@@ -419,7 +433,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             var isShowGoogle = false
             var isShowFacebook = false
             var isShowApple = false
-
+            var isShowLinkedin = false
             
             if let isGoogle = objSettings.data.registerBtnShow.google {
                 isShowGoogle = isGoogle
@@ -430,66 +444,90 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             if let isApple = objSettings.data.registerBtnShow.apple{
                 isShowApple = isApple
             }
+            if let isLinkedin = objSettings.data.registerBtnShow.linkedin{
+                isShowLinkedin = isLinkedin
+            }
             
-            
-            if isShowFacebook || isShowGoogle || isShowApple {
+            if isShowFacebook || isShowGoogle || isShowApple || isShowLinkedin {
                 if let sepratorText = objData?.separator {
                     self.lblOr.text = sepratorText
                 }
             }
             
-            if isShowFacebook && isShowGoogle && isShowApple {
+            if isShowFacebook && isShowGoogle && isShowApple  {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = false
+//                self.buttonLinkedIn.isHidden = false
             }
-            else if isShowFacebook && isShowGoogle == false && isShowApple {
+            else if isShowFacebook && isShowGoogle == false && isShowApple  {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = true
                 self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
                 self.topConstraintBtnApple.constant -= 50
+//                self.buttonLinkedIn.isHidden = false
             }
-            else if isShowFacebook == false && isShowGoogle == false && isShowApple {
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
                 self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.buttonGoogleLogin.isHidden = true
                 self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
                 self.topConstraintBtnApple.constant -= 120
+//                self.buttonLinkedIn.isHidden = false
+                
+                
             }
-            else if isShowFacebook == false && isShowGoogle && isShowApple {
+            else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin {
                 self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = false
-                //self.topConstraintBtnGoogle.constant -= 60
-                //self.topConstraintBtnGoogle2.constant -= 60
+                self.buttonLinkedIn.isHidden = false
+//                self.topConstraintBtnGoogle.constant -= 10
+//                self.topConstraintBtnGoogle2.constant -= 10
             }
-            else if isShowFacebook && isShowGoogle  && isShowApple == false {
+            else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = true
+                self.buttonLinkedIn.isHidden = false
+                self.topConstraintBtnLinkedIn.constant -= 60
+
+                
+                
             }
-            
-            else if isShowFacebook && isShowGoogle == false && isShowApple == false{
+                else if isShowFacebook && isShowGoogle  && isShowApple  {
+                    self.buttonFBLogin.isHidden = false
+                    self.btnFb.isHidden = false
+                    self.buttonGoogleLogin.isHidden = false
+                    self.btnGoogleLog.isHidden = false
+                    self.btnApple.isHidden = false
+//                    self.buttonLinkedIn.isHidden = true
+                }
+                    
+            else if isShowFacebook && isShowGoogle == false && isShowApple == false {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = true
                 self.btnGoogleLog.isHidden = true
                 self.btnApple.isHidden = true
+//                self.buttonLinkedIn.isHidden = true
+                self.topConstraintBtnLinkedIn.constant -= -10
+
                 btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonFBLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
             }
-            
-            else if isShowGoogle && isShowFacebook == false && isShowApple == false {
+                
+            else if isShowGoogle && isShowFacebook == false && isShowApple == false  {
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false // New
                 self.buttonGoogleLogin.translatesAutoresizingMaskIntoConstraints = false
@@ -498,11 +536,73 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
+//                self.buttonLinkedIn.isHidden = true
                 btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
             }
-            else if isShowFacebook == false && isShowGoogle == false && isShowApple == false {
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin {
+                self.buttonGoogleLogin.isHidden = true
+                self.btnGoogleLog.isHidden = true // New
+                self.buttonFBLogin.isHidden = true
+                self.btnFb.isHidden = true
+                self.btnApple.isHidden = true
+                self.buttonLinkedIn.isHidden = false
+//                self.topConstraintBtnLinkedIn.constant -= 140
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+
+            }
+                
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple  && isShowLinkedin {
+                self.buttonGoogleLogin.isHidden = true
+                self.btnGoogleLog.isHidden = true // New
+                self.buttonFBLogin.isHidden = true
+                self.btnFb.isHidden = true
+                self.btnApple.isHidden = false
+                self.topConstraintBtnApple.constant -= 120
+                self.buttonLinkedIn.isHidden = false
+                self.topConstraintBtnLinkedIn.constant -= 90
+            }
+            else if isShowFacebook == false && isShowGoogle  && isShowApple  && isShowLinkedin {
+                self.buttonGoogleLogin.isHidden = false
+                self.btnGoogleLog.isHidden = false // New
+//                self.topConstraintBtnGoogle.constant -= 140
+//                self.topConstraintBtnGoogle2.constant -= 140
+                self.buttonFBLogin.isHidden = true
+                self.btnFb.isHidden = true
+                self.btnApple.isHidden = false
+//                self.topConstraintBtnApple.constant -= 90
+                self.buttonLinkedIn.isHidden = false
+//                self.topConstraintBtnLinkedIn.constant -= 60
+                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+
+            }
+                               
+            else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin {
+                self.buttonGoogleLogin.isHidden = false
+                self.btnGoogleLog.isHidden = false // New
+                self.buttonFBLogin.isHidden = false
+                self.btnFb.isHidden = false
+                self.btnApple.isHidden = false
+                self.buttonLinkedIn.isHidden = false
+
+            }
+//            else if isShowFacebook  && isShowGoogle  && isShowApple == false  && isShowLinkedin {
+//                self.buttonGoogleLogin.isHidden = false
+//                self.btnGoogleLog.isHidden = false // New
+//                self.buttonFBLogin.isHidden = false
+//                self.btnFb.isHidden = false
+//                self.btnApple.isHidden = true
+//                self.buttonLinkedIn.isHidden = false
+//
+//            }
+
+                
+           
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple == false  && isShowLinkedin == false {
                 self.lblOr.isHidden = true
                 
                 self.containerViewSocialButton.isHidden = true
@@ -517,16 +617,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                     self.buttonGuestLogin.isHidden = true
                 }
             }
-         
+            
+
         }
     }
     
     //MARK:- IBActions
-    
-    
   
-    
-    
     @IBAction func actionForgotPassword(_ sender: Any) {
         let forgotPassVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         self.navigationController?.pushViewController(forgotPassVC, animated: true)
@@ -534,6 +631,105 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     @IBAction func actionSubmit(_ sender: Any) {
         self.adForest_logIn()
+    }
+    func loadAccount() { // then & or are handling closures
+    if let token = accessToken {
+        LISDKSessionManager.createSession(with: token)
+        if LISDKSessionManager.hasValidSession() {
+            LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,formatted-name,headline,location,industry,current-share,num-connections,num-connections-capped,summary,specialties,positions,picture-url,picture-urls::(original))?format=json",
+                success: {
+                    response in
+                    print(response?.data)
+//                    then?()
+                },
+                error: {
+                    error in
+                    print(error)
+//                    or?("error")
+                }
+            )
+        }
+    }else {
+        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true,
+                successBlock: {
+                    (state) in
+                    self.accessToken = LISDKSessionManager.sharedInstance().session.accessToken
+                    if LISDKSessionManager.hasValidSession() {
+                        LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,formatted-name,headline,location,industry,current-share,num-connections,num-connections-capped,summary,specialties,positions,picture-url,picture-urls::(original))?format=json",
+                            success: {
+                                response in
+                                print(response?.data)
+//                                then?()
+                            },
+                            error: {
+                                error in
+                                print(error)
+//                                or?("error")
+                            }
+                        )
+                    }
+                },
+                errorBlock: {
+                    (error) in
+//                    switch error. {
+//                    default:
+//                        if let errorUserInfo = error.userInfo["error"] as? NSString {
+//                            or?(errorUserInfo as String)
+//                        } else {
+//                            or?(UIError.Code.Unknown)
+//                        }
+//                    }
+                }
+            )
+        }
+    }
+    @IBAction func actionLinkedinSubmit(_ sender: Any) {
+        
+        
+//
+//        let newViewController = WebViewController()
+//        self.navigationController?.pushViewController(newViewController, animated: true)
+//        self.loadAccount()
+        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
+            
+            print("success called!")
+            let session = LISDKSessionManager.sharedInstance().session
+            }) { (error) -> Void in
+                print("Error: \(error)")
+        }
+        
+        
+        
+        
+//        linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
+//
+//            self.linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+//
+//                print(response)
+//                let dict = response.jsonObject
+//                print(dict!)
+//                let email = dict!["emailAddress"]
+//                print(email!)
+//                let param: [String: Any] = [
+//                    "email":email!,
+//                    "type":"social"
+//                ]
+//                print(param)
+//                self.defaults.set(true, forKey: "isSocial")
+//                self.defaults.set(email, forKey: "email")
+//                self.defaults.set("1122", forKey: "password")
+//                self.defaults.synchronize()
+//                self.adForest_loginUser(parameters: param as NSDictionary)
+//
+//            }) { [unowned self] (error) -> Void in
+//
+//                //self.writeConsoleLine("Encounter error: \(error.localizedDescription)")
+//            }
+//        }, error: { (error) -> Void in
+//            //Encounter error: error.localizedDescription
+//        }, cancel: { () -> Void in
+//            //User Cancelled!
+//        })
     }
     
     func adForest_logIn() {
@@ -615,8 +811,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     @IBAction func btnAppleClicked(_ sender: UIButton) {
         
         if #available(iOS 13.0, *) {
-//            startSignInWithAppleFlow()
-
+            //            startSignInWithAppleFlow()
+            
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             let request = appleIDProvider.createRequest()
             request.requestedScopes = [.fullName, .email]
@@ -626,7 +822,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         } else {
             // Fallback on earlier versions
         }
-       
+        
         
     }
     
@@ -814,59 +1010,57 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
             }else{
                 let alert = Constants.showBasicAlert(message: "Apple id....")
                 self.presentVC(alert)
-
-
+                
+                
             }
-//                         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-//                guard let nonce = currentNonce else {
-//                  fatalError("Invalid state: A login callback was received, but no login request was sent.")
-//                }
-//                guard let appleIDToken = appleIDCredential.identityToken else {
-//                  print("Unable to fetch identity token")
-//                  return
-//                }
-//                guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-//                  print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-//                  return
-//                }
-//
-//                // Initialize a Firebase credential.
-//                let credential = OAuthProvider.credential(withProviderID: "apple.com",
-//                                                          idToken: idTokenString,
-//                                                          accessToken: nonce)
-//                let emApple = UserDefaults.standard.string(forKey: "emailA")
-//
-//                let param: [String: Any] = [
-//                    "email": emApple!,
-//                    "type": "social"
-//                ]
-//                self.defaults.set(true, forKey: "isSocial")
-//                UserDefaults.standard.set(emApple, forKey:"email")
-//                self.defaults.set("1122", forKey: "password")
-//                self.defaults.synchronize()
-//                UserDefaults.standard.set("true", forKey: "apple")
-//                self.adForest_loginUser(parameters: param as NSDictionary)
-//                print(userIdentifier,fullName,email)
-//                // Sign in with Firebase.
-//                Auth.auth().signIn(with: credential) { (authResult, error) in
-//                    if (error != nil) {
-//                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-//                    // you're sending the SHA256-hashed nonce as a hex string with
-//                    // your request to Apple.
-//                        print(error!.localizedDescription)
-//                    return
-//                  }
-//                  // User is signed in to Firebase with Apple.
-//                  // ...
-//                }
-//              }
-//
-//
-//            func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-//              // Handle error.
-//              print("Sign in with Apple errored: \(error)")
-//            }
-
+            //                         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            //                guard let nonce = currentNonce else {
+            //                  fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            //                }
+            //                guard let appleIDToken = appleIDCredential.identityToken else {
+            //                  print("Unable to fetch identity token")
+            //                  return
+            //                }
+            //                guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            //                  print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+            //                  return
+            //                }
+            //
+            //                // Initialize a Firebase credential.
+            //                let credential = OAuthProvider.credential(withProviderID: "apple.com",
+            //                                                          idToken: idTokenString,
+            //                                                          accessToken: nonce)
+            //                let emApple = UserDefaults.standard.string(forKey: "emailA")
+            //
+            //                let param: [String: Any] = [
+            //                    "email": emApple!,
+            //                    "type": "social"
+            //                ]
+            //                self.defaults.set(true, forKey: "isSocial")
+            //                UserDefaults.standard.set(emApple, forKey:"email")
+            //                self.defaults.set("1122", forKey: "password")
+            //                self.defaults.synchronize()
+            //                UserDefaults.standard.set("true", forKey: "apple")
+            //                self.adForest_loginUser(parameters: param as NSDictionary)
+            //                print(userIdentifier,fullName,email)
+            //                // Sign in with Firebase.
+            //                Auth.auth().signIn(with: credential) { (authResult, error) in
+            //                    if (error != nil) {
+            //                    // Error. If error.code == .MissingOrInvalidNonce, make sure
+            //                    // you're sending the SHA256-hashed nonce as a hex string with
+            //                    // your request to Apple.
+            //                        print(error!.localizedDescription)
+            //                    return
+            //                  }
+            //                  // User is signed in to Firebase with Apple.
+            //                  // ...
+            //                }
+            //              }
+            //            func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+            //              // Handle error.
+            //              print("Sign in with Apple errored: \(error)")
+            //            }
+            
         }
     }
     

@@ -14,7 +14,7 @@ struct SettingsRegisterbuttonShow {
     var facebook : Bool!
     var google : Bool!
     var apple : Bool!
-    
+    var linkedin: Bool!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -23,6 +23,7 @@ struct SettingsRegisterbuttonShow {
         facebook = dictionary["facebook"] as? Bool
         google = dictionary["google"] as? Bool
         apple = dictionary["apple"] as? Bool
+        linkedin = dictionary["linkedin"] as? Bool
     }
     
     /**
@@ -39,6 +40,9 @@ struct SettingsRegisterbuttonShow {
         }
         if apple != nil{
             dictionary["apple"] = apple
+        }
+        if linkedin != nil {
+            dictionary["linkedin"] = linkedin
         }
         return dictionary
     }

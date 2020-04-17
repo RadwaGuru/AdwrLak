@@ -58,6 +58,7 @@ struct SettingsData {
     var buyText:String!
     var showHome :Bool!
     var advanceIcon :Bool!
+    var homescreenLayout:String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -150,7 +151,7 @@ struct SettingsData {
         notVerified = dictionary["verified_msg"] as? String
         ImgReqMessage = dictionary["required_img"] as? String
         ImgUplaoding = dictionary["img_uploading"] as? String
-        
+        homescreenLayout = dictionary["homescreen_layout"] as? String
     }
     
     /**
@@ -274,6 +275,9 @@ struct SettingsData {
         }
         if ImgUplaoding != nil{
             dictionary["img_uploading"] = ImgUplaoding
+        }
+        if homescreenLayout != nil {
+            dictionary["homescreen_layout"] = homescreenLayout
         }
 
 

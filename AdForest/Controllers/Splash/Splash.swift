@@ -103,6 +103,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 UserDefaults.standard.set(successResponse.data.gmapLang, forKey: "langCod")
                 self.defaults.set(successResponse.data.notLoginMsg, forKey: "notLogin")
                 self.defaults.set(successResponse.data.ImgReqMessage, forKey:"ImgReqMessage")
+                self.defaults.set(successResponse.data.homescreenLayout, forKey:"homescreenLayout")
                 self.defaults.set(successResponse.data.isAppOpen, forKey: "isAppOpen")
                 self.defaults.set(successResponse.data.showNearby, forKey: "showNearBy")
                 self.defaults.set(successResponse.data.showHome, forKey: "showHome")
@@ -123,8 +124,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 UserDefaults.standard.set(self.isToplocationOn, forKey: "isToplocOn")
                 UserDefaults.standard.set(self.isWplOn, forKey: "isWpOn")
                 UserDefaults.standard.set(successResponse.data.wpml_menu_text, forKey: "meuText")
-                self.uploadingImage = successResponse.data.ImgUplaoding
-                UserDefaults.standard.set(self.uploadingImage, forKey: "Uploading")
+//                self.uploadingImage = successResponse.data.ImgUplaoding
+//                UserDefaults.standard.set(self.uploadingImage, forKey: "Uploading")
                 
                 //Offers title
                 self.defaults.set(successResponse.data.messagesScreen.mainTitle, forKey: "message")

@@ -583,6 +583,7 @@
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
 		9689AEEA242B7ED000344662 /* AppIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689AEE9242B7ED000344662 /* AppIntroViewController.swift */; };
+		96AB43102446E0CC0087F339 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB430F2446E0CC0087F339 /* WebViewController.swift */; };
 		96E0CABF24332959009EEA56 /* ClusterMapValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */; };
 		96E0CAC224334263009EEA56 /* ClustersAdvMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */; };
 		96E0CAC324334263009EEA56 /* ClustersAdvMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */; };
@@ -1197,6 +1198,12 @@
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9674945A23E0879D0035E58E /* EmptyCartRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartRoot.swift; sourceTree = "<group>"; };
 		9689AEE9242B7ED000344662 /* AppIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntroViewController.swift; sourceTree = "<group>"; };
+		96AB430F2446E0CC0087F339 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "linkedin-sdk.framework.zip"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework.zip"; sourceTree = "<group>"; };
+		96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96CBD1422445AC67000DFDAF /* linkedin-sdk */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "linkedin-sdk"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework/linkedin-sdk"; sourceTree = "<group>"; };
+		96D45F7224459622001F656D /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "linkedin-sdk.framework"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework"; sourceTree = "<group>"; };
 		96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterMapValueTableViewCell.swift; sourceTree = "<group>"; };
 		96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClustersAdvMapTableViewCell.swift; sourceTree = "<group>"; };
 		96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClustersAdvMapTableViewCell.xib; sourceTree = "<group>"; };
@@ -2589,6 +2596,7 @@
 				18BBFAF9205154CD0067662F /* LeftMenu */,
 				18BBFABB20510A850067662F /* Login */,
 				18BBFABC20510A8A0067662F /* Splash */,
+				96AB430F2446E0CC0087F339 /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3166,6 +3174,11 @@
 		5DE79EEDB704060570E91B76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96CBD1422445AC67000DFDAF /* linkedin-sdk */,
+				96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */,
+				96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */,
+				96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */,
+				96D45F7224459622001F656D /* linkedin-sdk.framework */,
 				18CCF5AC20DA682000E708BD /* StoreKit.framework */,
 				18244F1C2074B3C700B9BE8C /* SafariServices.framework */,
 				18244F1A2074B3C000B9BE8C /* SystemConfiguration.framework */,
@@ -3402,6 +3415,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
@@ -3416,9 +3430,11 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
@@ -3448,6 +3464,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
@@ -3462,9 +3479,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
@@ -3744,6 +3763,7 @@
 				18BBFADB20510FA90067662F /* SettingsLocationPopup.swift in Sources */,
 				180A4F692328E13E002BC411 /* RejectedAdsCats.swift in Sources */,
 				18B6195A2174A4B80086EB72 /* SettingsShopMenu.swift in Sources */,
+				96AB43102446E0CC0087F339 /* WebViewController.swift in Sources */,
 				962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */,
 				18188E8C206CB01B000DFECB /* BlogPagination.swift in Sources */,
 				182690D220872A8100E2C966 /* CatIcon.swift in Sources */,

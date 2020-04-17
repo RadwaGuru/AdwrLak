@@ -74,6 +74,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         self.googleAnalytics(controllerName: "Edit Profile Controller")
         self.hideKeyboard()
         self.adForest_profileDetails()
+        
         self.adMob()
         if defaults.bool(forKey: "isGuest") {
             self.oltAdPost.isHidden = true
@@ -780,6 +781,15 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        txtFacebook.font = UIFont(name:"Arial Hebrew", size: 20.0)
+        txtTwitter.font = UIFont(name:"Arial Hebrew", size: 20.0)
+        txtLinkedIn.font = UIFont(name:"Arial Hebrew", size: 20.0)
+        txtGooglePlus.font = UIFont(name:"Arial Hebrew", size: 20.0)
+
+        
+
+        print(UIFont.familyNames)
+
     }
 
     //MARK:- Custom

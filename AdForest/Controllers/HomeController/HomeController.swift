@@ -101,17 +101,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
     var showVertical:Bool = false
-    var latestHorizontalSingleAd:Bool = true
-
+    var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         // self.navigationController?.isNavigationBarHidden = false
         inters = GADInterstitial(adUnitID:"ca-app-pub-2596107136418753/4126592208")
         let request = GADRequest()
-       // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
         inters.load(request)
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
@@ -121,29 +122,29 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adForest_homeData()
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
+        
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
             self.oltAddPost.isHidden = false
         }
         currentVc = self
-//        self.adForest_homeData()
-
+        //        self.adForest_homeData()
+        
     }
     
     @objc func refreshTableView() {
-       self.adForest_homeData()
-//        self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
-       tableView.reloadData()
-       self.refreshControl.endRefreshing()
+        self.adForest_homeData()
+        //        self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
+        tableView.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     
-
+    
     
     //MARK:- Topic Message
     func subscribeToTopicMessage() {
@@ -201,7 +202,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.adForest_nearBySearch(param: param as NSDictionary)
         }
     }
-   
+    
     func navigationButtons() {
         
         //Home Button
@@ -210,9 +211,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         HomeButton.setBackgroundImage(ho, for: .normal)
         HomeButton.tintColor = UIColor.white
         HomeButton.setImage(ho, for: .normal)
-//        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-//            HomeButton.isHidden = true
-//        }
+        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+        //            HomeButton.isHidden = true
+        //        }
         if #available(iOS 11, *) {
             searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
             searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -225,13 +226,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             barButtonItems.append(homeItem)
             //self.barButtonItems.append(homeItem)
         }
-      
+        
         //Location Search
         let locationButton = UIButton(type: .custom)
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
             locationButton.isHidden = true
         }
-
+        
         if #available(iOS 11, *) {
             locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
             locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -249,9 +250,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         //Search Button
         let searchButton = UIButton(type: .custom)
-//       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-//           searchButton.isHidden = true
-//       }
+        //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+        //           searchButton.isHidden = true
+        //       }
         if defaults.bool(forKey: "advanceSearch") == true{
             let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
             searchButton.setBackgroundImage(con, for: .normal)
@@ -263,7 +264,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             searchButton.tintColor = UIColor.white
             searchButton.setImage(con, for: .normal)
         }
-    
+        
         if #available(iOS 11, *) {
             searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
             searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -276,15 +277,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             barButtonItems.append(searchItem)
             //self.barButtonItems.append(searchItem)
         }
-    
+        
         self.navigationItem.rightBarButtonItems = barButtonItems
-       
+        
     }
     
     @objc func actionHome() {
         appDelegate.moveToHome()
     }
-
+    
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
         locationVC.delegate = self
@@ -299,7 +300,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- Search Controller
     
     @objc func actionSearch(_ sender: Any) {
-    
+        
         if defaults.bool(forKey: "advanceSearch") == true{
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
@@ -314,7 +315,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.searchBarNavigation.text = ""
                 self.backgroundView.removeFromSuperview()
                 self.addTitleView()
-
+                
             } else {
                 self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
                 self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -381,19 +382,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- AdMob Delegate Methods
-       
-       func swiftyAdDidOpen(_ swiftyAd: SwiftyAd) {
-           print("Open")
-       }
-       
-       func swiftyAdDidClose(_ swiftyAd: SwiftyAd) {
-           print("Close")
-       }
-       
-       func swiftyAd(_ swiftyAd: SwiftyAd, didRewardUserWithAmount rewardAmount: Int) {
-           print(rewardAmount)
-       }
-       
+    
+    func swiftyAdDidOpen(_ swiftyAd: SwiftyAd) {
+        print("Open")
+    }
+    
+    func swiftyAdDidClose(_ swiftyAd: SwiftyAd) {
+        print("Close")
+    }
+    
+    func swiftyAd(_ swiftyAd: SwiftyAd, didRewardUserWithAmount rewardAmount: Int) {
+        print(rewardAmount)
+    }
+    
     
     
     //MARK:- Table View Delegate Methods
@@ -408,7 +409,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var value = 0
         if isAdPositionSort {
-           
+            
             let position = addPosition[section]
             if position == "sliders" {
                 value = dataArray.count
@@ -478,7 +479,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let dataCat = AddsHandler.sharedInstance.objHomeData
                 cell.dataCatLoc = (dataCat?.catLocations)!
                 
-                 if objData.isShow {
+                if objData.isShow {
                     if let imgUrl = URL(string: objData.image) {
                         cell.imgPicture.sd_setShowActivityIndicatorView(true)
                         cell.imgPicture.sd_setIndicatorStyle(.gray)
@@ -563,7 +564,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.delegate = self
                     fetColHeight = Double(cell.collectionView.contentSize.height)
                     print(latColHeight)
-                    if latestHorizontalSingleAd == true {
+                    if latestHorizontalSingleAd == "horizental" {
                         fetColHeight = Double(cell.collectionView.contentSize.height)
                     }
                     cell.collectionView.reloadData()
@@ -590,9 +591,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
                     latColHeight = Double(cell.collectionView.contentSize.height)
                     print(latColHeight)
-                    if latestHorizontalSingleAd == true {
+                    if latestHorizontalSingleAd == "horizental" {
                         latColHeight = Double(cell.collectionView.contentSize.height)
-                     }
+                    }
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -637,7 +638,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 SliderColHeight = Double(cell.collectionView.contentSize.height)
                 
                 print(SliderColHeight)
-                if latestHorizontalSingleAd == true {
+                if latestHorizontalSingleAd == "horizental" {
                     SliderColHeight = Double(cell.collectionView.contentSize.height)
                 }
                 cell.dataArray = objData.data
@@ -651,7 +652,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if self.isShowNearby {
                     let cell: AddsTableCell = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
                     let data = AddsHandler.sharedInstance.objHomeData
-
+                    
                     if let viewAllText = data?.viewAll {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
@@ -956,11 +957,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if dataArray.isEmpty {
                     height = 0
                 }
-               else if showVertical{
+                else if showVerticalAds == "vertical" {
                     height = CGFloat(SliderColHeight) + CGFloat(70 + heightConstraintTitlead)
-                } else if latestHorizontalSingleAd {
-                    height = CGFloat(SliderColHeight) + CGFloat(70 + heightConstraintTitlead)
-
+                } else if latestHorizontalSingleAd == "horizental"{
+                    height = CGFloat(SliderColHeight) + 70
+                    
                 }
                 else {
                     height = CGFloat(290 + heightConstraintTitlead)
@@ -979,9 +980,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     else {
                         height = 270
                     }
-                    if showVertical{
+                    if showVerticalAds == "vertical" {
                         height = CGFloat(fetColHeight) + 70
-                    } else if latestHorizontalSingleAd{
+                    } else if latestHorizontalSingleAd == "horizental" {
                         height = CGFloat(fetColHeight) + 70
                     }
                 } else {
@@ -989,11 +990,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             } else if position ==  "latest_ads" {
                 if self.isShowLatest {
-
-                    if showVertical{
+                    
+                    if showVerticalAds == "vertical" {
                         height = CGFloat(latColHeight) + 70
-                
-                    }else if latestHorizontalSingleAd{
+                        
+                    }else if latestHorizontalSingleAd == "horizental" {
                         height = CGFloat(latColHeight) + 70
                     }
                     else{
@@ -1155,64 +1156,103 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    
+//    private var finishedLoadingInitialTableCells = false
+//     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//        var lastInitialDisplayableCell = false
+//
+//        //change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
+////        if favorites.itemes.count > 0 && !finishedLoadingInitialTableCells {
+//            if let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows,
+//                let lastIndexPath = indexPathsForVisibleRows.last, lastIndexPath.row == indexPath.row {
+//                lastInitialDisplayableCell = true
+//            }
+////        }
+//
+//        if !finishedLoadingInitialTableCells {
+//
+//            if lastInitialDisplayableCell {
+//                finishedLoadingInitialTableCells = true
+//            }
+//
+//            //animates the cell as it is being displayed for the first time
+//            do {
+//                let startFromHeight = tableView.frame.height
+//                cell.layer.transform = CATransform3DMakeTranslation(0, startFromHeight, 0)
+//                let delay = Double(indexPath.row) * 0.2
+//
+//                UIView.animate(withDuration: 0.2, delay: delay, options: UIViewAnimationOptions.transitionFlipFromBottom, animations: {
+//                    do {
+//                        cell.layer.transform = CATransform3DIdentity
+//                    }
+//                }) { (success:Bool) in
+//
+//                }
+//            }
+//        }
+//    }
+
+    
+    
     //MARK:- IBActions
     @IBAction func actionAddPost(_ sender: UIButton) {
         
         let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
-               let can = UserDefaults.standard.bool(forKey: "can")
-               
-               if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-                   
-                   var msgLogin = ""
-                   
-                   if let msg = self.defaults.string(forKey: "notLogin") {
-                       msgLogin = msg
-                   }
-                   
-                   let alert = Constants.showBasicAlert(message: msgLogin)
-                   self.presentVC(alert)
-                   
-               }else if can == false{
-                   
-                   
-                   var buttonOk = ""
-                   var buttonCancel = ""
-                   if let settingsInfo = defaults.object(forKey: "settings") {
-                       let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]
-                       let model = SettingsRoot(fromDictionary: settingObject)
-                       
-                       if let okTitle = model.data.internetDialog.okBtn {
-                           buttonOk = okTitle
-                       }
-                       if let cancelTitle = model.data.internetDialog.cancelBtn {
-                           buttonCancel = cancelTitle
-                       }
-                       
-                       let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
-                       let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
-                           self.appDelegate.moveToProfile()
-                       }
-                       let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
-                       alertController.addAction(okBtn)
-                       alertController.addAction(cancelBtn)
-                       self.presentVC(alertController)
-                       
-                   }
-                   
-               }
-               else{
-                   let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-                   self.navigationController?.pushViewController(adPostVC, animated: true)
-               }
-               
-       
+        let can = UserDefaults.standard.bool(forKey: "can")
+        
+        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+            
+            var msgLogin = ""
+            
+            if let msg = self.defaults.string(forKey: "notLogin") {
+                msgLogin = msg
+            }
+            
+            let alert = Constants.showBasicAlert(message: msgLogin)
+            self.presentVC(alert)
+            
+        }else if can == false{
+            
+            
+            var buttonOk = ""
+            var buttonCancel = ""
+            if let settingsInfo = defaults.object(forKey: "settings") {
+                let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]
+                let model = SettingsRoot(fromDictionary: settingObject)
+                
+                if let okTitle = model.data.internetDialog.okBtn {
+                    buttonOk = okTitle
+                }
+                if let cancelTitle = model.data.internetDialog.cancelBtn {
+                    buttonCancel = cancelTitle
+                }
+                
+                let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
+                    self.appDelegate.moveToProfile()
+                }
+                let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+                
+            }
+            
+        }
+        else{
+            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+            self.navigationController?.pushViewController(adPostVC, animated: true)
+        }
+        
+        
     }
     
     //MARK:- API Call
     
     //get home data
     func adForest_homeData() {
-     
+        
         dataArray.removeAll()
         categoryArray.removeAll()
         featuredArray.removeAll()
@@ -1225,7 +1265,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         AddsHandler.homeData(success: { (successResponse) in
             self.stopAnimating()
-
+            
             if successResponse.success {
                 
                 self.title = successResponse.data.pageTitle
@@ -1331,19 +1371,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     //ca-app-pub-6905547279452514/6461881125
                     if isShowInterstital {
-//                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-//                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
                         
                         
                         self.showAd()
                         
-                       //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
+                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
                         //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
                         
                         self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
                         self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
                         
-
+                        
                     }
                 }
                 // Here I set the Google Analytics Key
@@ -1367,13 +1407,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //Search Section Data
                 self.searchSectionArray = [successResponse.data.searchSection]
                 
-            self.tableView.reloadData()
-             
-                    let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
-                    self.tableView.setContentOffset(scrollPoint, animated: true)
-                        
+                self.tableView.reloadData()
+                
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
+                self.tableView.setContentOffset(scrollPoint, animated: true)
+                
                 self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
-  
+                
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
@@ -1384,7 +1424,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
-
+    
     @objc func nokri_showNavController1(){
         
         let scrollPoint = CGPoint(x: 0, y: 0)
@@ -1447,17 +1487,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 }
 
 extension UIViewController {
-   func setupNavigationBar(title: String) {
+    func setupNavigationBar(title: String) {
         // back button without title
         self.navigationController?.navigationBar.topItem?.title = ""
-
+        
         //set titile
         self.navigationItem.title = title
-
+        
         let rightButton = UIBarButtonItem(image: UIImage(named: "home"), style: .plain, target: nil, action: nil)
-
+        
         //show the Edit button item
         self.navigationItem.rightBarButtonItem = rightButton
-   }
+    }
 }
 

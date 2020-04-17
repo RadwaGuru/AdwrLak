@@ -30,7 +30,7 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
     
     
     var btnFullAction: (()->())?
-    var latestHorizontalSingleAd: Bool = true
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var  imageView: UIImageView!
     var  imageViewLoc: UIImageView!
     var lblTitle: UILabel!
@@ -50,7 +50,7 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
         } else {
             lblName.textAlignment = .left
         }
-        if latestHorizontalSingleAd   {
+        if latestHorizontalSingleAd  == "horizental" {
             //            containerView.backgroundColor = UIColor.systemRed
             imgPicture.isHidden = true
             lblName.isHidden = true
@@ -60,9 +60,9 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             let imageName = "appLogo"
             let image = UIImage(named: imageName)
              imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: 2, y: 2, width: 110, height: 115)
+            imageView.frame = CGRect(x: 2, y: 5, width: 110, height: 113)
             contentView.addSubview(imageView)
-             lblFeature = UILabel(frame: CGRect(x: 2, y: 2, width: 78, height: 28))
+             lblFeature = UILabel(frame: CGRect(x: 2, y: 5, width: 78, height: 28))
             lblFeature.textAlignment = .left
             lblFeature.textColor = UIColor.white
             lblFeature.text = "Featured"
@@ -77,20 +77,20 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             //            label.frame.origin.y = 30
             //            label.frame.origin.x = imageView.frame.width - label.frame.width
             contentView.addSubview(lblFeature)
-            lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 110, height: 28))
+            lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 100, height: 28))
             lblBidTimer.textAlignment = .left
             lblBidTimer.textColor = UIColor.white
             //            lblBidTimer.text = "Bid Timer"
             lblBidTimer.backgroundColor = UIColor.systemGray
             //bottomalign label
             //            lblBidTimer.frame.origin.x = 0
-            lblBidTimer.frame.origin.y = 63 + lblBidTimer.frame.height
+            lblBidTimer.frame.origin.y = 62 + lblBidTimer.frame.height
             //
             //            lblBidTimer.frame.origin.x = imageView.frame.width + 18
             //            lblBidTimer.frame.origin.y = -8 + lblBidTimer.frame.height
             
             
-            lblBidTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 11.0)
+            lblBidTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 13.0)
             
             contentView.addSubview(lblBidTimer)
 

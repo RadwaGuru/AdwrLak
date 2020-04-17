@@ -108,6 +108,9 @@ target 'AdForest' do
      
     #Intro App
     pod 'OnboardKit'
+     #pod 'LinkedinSwift'
+pod 'LinkedinSwift', '>= 1.7.9'
 
-    
+
+   
 end

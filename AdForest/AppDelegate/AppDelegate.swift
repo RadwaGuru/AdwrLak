@@ -20,7 +20,7 @@ import GooglePlacePicker
 import SwiftyStoreKit
 import NotificationBannerSwift
 import GoogleMobileAds
-
+import LinkedinSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
     
@@ -93,11 +93,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
  
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let willHandleByFacebook = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+//        let willHandleByFacebook = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+//
+//        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        // Linkedin sdk handle redirect
+        if LinkedinSwiftHelper.shouldHandle(url) {
+            return LinkedinSwiftHelper.application(app, open: url, sourceApplication: nil, annotation: nil)
+        }
         
-        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-        
-        return willHandleByGoogle || willHandleByFacebook
+        return true
+//        return willHandleByGoogle || willHandleByFacebook
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
