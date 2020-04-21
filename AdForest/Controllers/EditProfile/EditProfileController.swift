@@ -781,12 +781,10 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        txtFacebook.font = UIFont(name:"Arial Hebrew", size: 20.0)
-        txtTwitter.font = UIFont(name:"Arial Hebrew", size: 20.0)
-        txtLinkedIn.font = UIFont(name:"Arial Hebrew", size: 20.0)
-        txtGooglePlus.font = UIFont(name:"Arial Hebrew", size: 20.0)
-
-        
+        txtFacebook.font = UIFont.systemFont(ofSize: 20.0)
+        txtTwitter.font = UIFont.systemFont(ofSize: 20.0)
+        txtLinkedIn.font = UIFont.systemFont(ofSize: 20.0)
+        txtGooglePlus.font = UIFont.systemFont(ofSize: 20.0)
 
         print(UIFont.familyNames)
 

@@ -115,9 +115,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
     var accessToken: LISDKAccessToken?
 
+
+//    let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions:["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"), nativeAppChecker: WebLoginOnly)
     
-    
-    let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "DLKDJF46ikMMZADfdfds", permissions:["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"), nativeAppChecker: WebLoginOnly())
+    private let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions: ["r_basicprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"))
     
     // MARK: Application Life Cycle
     
@@ -550,6 +551,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonLinkedIn.isHidden = false
 //                self.topConstraintBtnLinkedIn.constant -= 140
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                buttonGuestLogin.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
 
             }
                 
@@ -636,7 +638,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     if let token = accessToken {
         LISDKSessionManager.createSession(with: token)
         if LISDKSessionManager.hasValidSession() {
-            LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,formatted-name,headline,location,industry,current-share,num-connections,num-connections-capped,summary,specialties,positions,picture-url,picture-urls::(original))?format=json",
+            LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json",
                 success: {
                     response in
                     print(response?.data)
@@ -655,7 +657,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                     (state) in
                     self.accessToken = LISDKSessionManager.sharedInstance().session.accessToken
                     if LISDKSessionManager.hasValidSession() {
-                        LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,formatted-name,headline,location,industry,current-share,num-connections,num-connections-capped,summary,specialties,positions,picture-url,picture-urls::(original))?format=json",
+                        LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json",
                             success: {
                                 response in
                                 print(response?.data)
@@ -684,28 +686,102 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         }
     }
     @IBAction func actionLinkedinSubmit(_ sender: Any) {
-        
+       // self.loadAccount()
         
 //
 //        let newViewController = WebViewController()
 //        self.navigationController?.pushViewController(newViewController, animated: true)
 //        self.loadAccount()
-        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
-            
-            print("success called!")
-            let session = LISDKSessionManager.sharedInstance().session
-            }) { (error) -> Void in
-                print("Error: \(error)")
-        }
-        
-        
-        
-        
-//        linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
+//        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
 //
-//            self.linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+//            print("success called!")
+//            let session = LISDKSessionManager.sharedInstance().session
+//            }) { (error) -> Void in
+//                print("Error: \(error)")
+//        }
+      
+        
+        let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions: ["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"),nativeAppChecker: WebLoginOnly())
+        linkedinHelper.authorizeSuccess({ (token) in
+
+                print(token)
+
+                let url = "https://api.linkedin.com/v2/me"
+                linkedinHelper.requestURL(url, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+                  let dict = response.jsonObject
+                  print(dict!)
+                  let weatherArray = dict!["profilePicture"] as? [String:Any]
+                    print(weatherArray)
+                    let imgProfile = weatherArray as? [String:Any]
+                    let linkedinImg = imgProfile!["displayImage"]
+                        print(linkedinImg)
+                    
+
+                   let emailurl = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"
+                    linkedinHelper.requestURL(emailurl, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+                        print(response)
+                        let dict = response.jsonObject
+                        print(dict!)
+//                        let user = User(json: response.jsonObject)
+                        if let weatherArray = dict!["elements"] as? [[String:Any]],
+                           let weather = weatherArray.first {
+                            let handle = weather["handle~"]
+                               print(handle)
+                            let email = handle as? [String:Any]
+                            let emilaagay = email!["emailAddress"]
+                            print(emilaagay)
+                            let param: [String: Any] = [
+                                "email":emilaagay!,
+                                "type":"social",
+                                "profile_img":linkedinImg!
+                            ]
+                            print(param)
+                            self.defaults.set(true, forKey: "isSocial")
+                            self.defaults.set(emilaagay, forKey: "email")
+                            self.defaults.set("1122", forKey: "password")
+                            self.defaults.synchronize()
+                            self.adForest_loginUser(parameters: param as NSDictionary)
+                            // the value is an optional.
+                        }
+//                        let data = dict!["elements"]
+//                        print(data)
+                    
+//                       let foo: String!
+//                        var foo = ""
+//                        if  foo = {
 //
-//                print(response)
+//                            // do something with foo
+//                            print(foo)
+//                        } else {
+//                            // item could not be found
+//                        }
+                        
+                    })
+//                    let dict = response.jsonObject
+//                    print(dict!)
+//                    let email = dict!["emailAddress"]
+//                    print(email!)
+//                    let param: [String: Any] = [
+//                        "email":email!,
+//                        "type":"social"
+//                    ]
+//                    print(param)
+//                    self.defaults.set(true, forKey: "isSocial")
+//                    self.defaults.set(email, forKey: "email")
+//                    self.defaults.set("1122", forKey: "password")
+//                    self.defaults.synchronize()
+//                    self.adForest_loginUser(parameters: param as NSDictionary)
+
+                }) {(error) -> Void in
+                    print(error.localizedDescription)
+                    //handle the error
+            }
+//         linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
+//
+//            self.linkedinHelper.requestURL("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={86fohl6w88kexu}&redirect_uri=https://adforest-testapp.scriptsbundle.com/auth/linkedin/callback%2Fauth%2Flinkedin%2Fcallback&state=fooobar&scope=r_liteprofile%20r_emailaddress%20w_member_social", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+//
+//
+//                 print(response)
 //                let dict = response.jsonObject
 //                print(dict!)
 //                let email = dict!["emailAddress"]
@@ -730,6 +806,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 //        }, cancel: { () -> Void in
 //            //User Cancelled!
 //        })
+        }, error: nil)
     }
     
     func adForest_logIn() {
@@ -1067,3 +1144,19 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
     
 }
 
+class User {
+typealias JSON = [String: Any]
+var id: String?
+var firstName: String?
+var lastName: String?
+
+init(json: JSON) {
+
+guard let id = json["id"] as? String, let firstName = json["firstName"] as? String, let lastName = json["lastName"] as? String else { return }
+
+self.id = id
+self.firstName = firstName
+self.lastName = lastName
+    }
+    
+}

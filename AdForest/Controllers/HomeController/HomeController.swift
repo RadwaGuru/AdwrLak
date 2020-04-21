@@ -132,7 +132,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.oltAddPost.isHidden = false
         }
         currentVc = self
-        //        self.adForest_homeData()
+                //self.adForest_homeData()
         
     }
     

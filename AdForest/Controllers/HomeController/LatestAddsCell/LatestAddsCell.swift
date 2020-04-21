@@ -346,10 +346,16 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             contentView.addSubview(imageView)
             
             lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 100, height: 28))
-            lblBidTimer.textAlignment = .left
+            lblBidTimer.textAlignment = .center
             lblBidTimer.textColor = UIColor.white
             //            lblBidTimer.text = "Bid Timer"
-            lblBidTimer.backgroundColor = UIColor.systemGray
+            lblBidTimer.backgroundColor = Constants.hexStringToUIColor(hex: "#575757")
+            
+            //6b6b6b
+                //UIColor.black
+            //                       lblTimer.textColor = Constants.hexStringToUIColor(hex: mainColor)
+
+//
             //bottomalign label
             //            lblBidTimer.frame.origin.x = 0
             lblBidTimer.frame.origin.y = 59 + lblBidTimer.frame.height

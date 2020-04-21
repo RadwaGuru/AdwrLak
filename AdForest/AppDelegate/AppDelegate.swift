@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return LinkedinSwiftHelper.application(app, open: url, sourceApplication: nil, annotation: nil)
         }
         
-        return true
+        return false
 //        return willHandleByGoogle || willHandleByFacebook
     }
     

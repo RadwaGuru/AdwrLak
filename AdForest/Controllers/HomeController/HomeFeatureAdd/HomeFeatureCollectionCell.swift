@@ -63,7 +63,7 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             imageView.frame = CGRect(x: 2, y: 5, width: 110, height: 113)
             contentView.addSubview(imageView)
              lblFeature = UILabel(frame: CGRect(x: 2, y: 5, width: 78, height: 28))
-            lblFeature.textAlignment = .left
+            lblFeature.textAlignment = .center
             lblFeature.textColor = UIColor.white
             lblFeature.text = "Featured"
             lblFeature.backgroundColor = UIColor.red
@@ -78,10 +78,10 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             //            label.frame.origin.x = imageView.frame.width - label.frame.width
             contentView.addSubview(lblFeature)
             lblBidTimer = UILabel(frame: CGRect(x: 2, y: 0, width: 100, height: 28))
-            lblBidTimer.textAlignment = .left
+            lblBidTimer.textAlignment = .center
             lblBidTimer.textColor = UIColor.white
             //            lblBidTimer.text = "Bid Timer"
-            lblBidTimer.backgroundColor = UIColor.systemGray
+            lblBidTimer.backgroundColor = Constants.hexStringToUIColor(hex: "#575757")
             //bottomalign label
             //            lblBidTimer.frame.origin.x = 0
             lblBidTimer.frame.origin.y = 62 + lblBidTimer.frame.height
