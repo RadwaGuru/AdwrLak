@@ -165,7 +165,6 @@
 		182652C520765694007F6A21 /* StripePaymentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C420765694007F6A21 /* StripePaymentData.swift */; };
 		182652C7207656B0007F6A21 /* StripePaymentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C6207656B0007F6A21 /* StripePaymentForm.swift */; };
 		182652C9207656CB007F6A21 /* StripePaymentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182652C8207656CB007F6A21 /* StripePaymentError.swift */; };
-		1826689320C1126400A70B1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1826689220C1126300A70B1C /* GoogleService-Info.plist */; };
 		1826689620C14AED00A70B1C /* UserConfirmationRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689520C14AED00A70B1C /* UserConfirmationRoot.swift */; };
 		1826689820C14AFF00A70B1C /* UserConfirmationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689720C14AFF00A70B1C /* UserConfirmationData.swift */; };
 		1826689B20C167EB00A70B1C /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1826689A20C167EB00A70B1C /* PagesController.swift */; };
@@ -582,8 +581,8 @@
 		962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */; };
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
+		967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967521C324501F9B0007A28C /* GoogleService-Info.plist */; };
 		9689AEEA242B7ED000344662 /* AppIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689AEE9242B7ED000344662 /* AppIntroViewController.swift */; };
-		96AB43102446E0CC0087F339 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AB430F2446E0CC0087F339 /* WebViewController.swift */; };
 		96E0CABF24332959009EEA56 /* ClusterMapValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */; };
 		96E0CAC224334263009EEA56 /* ClustersAdvMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */; };
 		96E0CAC324334263009EEA56 /* ClustersAdvMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */; };
@@ -769,7 +768,6 @@
 		182652C420765694007F6A21 /* StripePaymentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentData.swift; sourceTree = "<group>"; };
 		182652C6207656B0007F6A21 /* StripePaymentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentForm.swift; sourceTree = "<group>"; };
 		182652C8207656CB007F6A21 /* StripePaymentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripePaymentError.swift; sourceTree = "<group>"; };
-		1826689220C1126300A70B1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1826689520C14AED00A70B1C /* UserConfirmationRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmationRoot.swift; sourceTree = "<group>"; };
 		1826689720C14AFF00A70B1C /* UserConfirmationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmationData.swift; sourceTree = "<group>"; };
 		1826689A20C167EB00A70B1C /* PagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
@@ -1197,8 +1195,8 @@
 		962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsViewController.swift; sourceTree = "<group>"; };
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9674945A23E0879D0035E58E /* EmptyCartRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartRoot.swift; sourceTree = "<group>"; };
+		967521C324501F9B0007A28C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/glixen/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9689AEE9242B7ED000344662 /* AppIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntroViewController.swift; sourceTree = "<group>"; };
-		96AB430F2446E0CC0087F339 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "linkedin-sdk.framework.zip"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework.zip"; sourceTree = "<group>"; };
 		96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2498,7 +2496,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				1826689220C1126300A70B1C /* GoogleService-Info.plist */,
+				967521C324501F9B0007A28C /* GoogleService-Info.plist */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
 				18BBFAB7205109960067662F /* AppDelegate */,
@@ -2596,7 +2594,6 @@
 				18BBFAF9205154CD0067662F /* LeftMenu */,
 				18BBFABB20510A850067662F /* Login */,
 				18BBFABC20510A8A0067662F /* Splash */,
-				96AB430F2446E0CC0087F339 /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3375,7 +3372,6 @@
 				181C88182052618A0067B176 /* MessagesCell.xib in Resources */,
 				185B13C4207CA58900914AF0 /* ReplyCell.xib in Resources */,
 				18C55C68213677A700FD07FD /* CalendarCell.xib in Resources */,
-				1826689320C1126400A70B1C /* GoogleService-Info.plist in Resources */,
 				181C882D2052BFAA0067B176 /* ProfileCell.xib in Resources */,
 				180519E2215A19C100F74662 /* AppShareCell.xib in Resources */,
 				18860C8C232FA705003910FC /* SetLocationCell.xib in Resources */,
@@ -3384,6 +3380,7 @@
 				96E0CAC324334263009EEA56 /* ClustersAdvMapTableViewCell.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
+				967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */,
 				18BBFA8C2051098C0067662F /* Main.storyboard in Resources */,
 				181DDA9823339465001FF048 /* sad.gif in Resources */,
 				185B3C79207E374900EDBBB4 /* AddBidsCell.xib in Resources */,
@@ -3763,7 +3760,6 @@
 				18BBFADB20510FA90067662F /* SettingsLocationPopup.swift in Sources */,
 				180A4F692328E13E002BC411 /* RejectedAdsCats.swift in Sources */,
 				18B6195A2174A4B80086EB72 /* SettingsShopMenu.swift in Sources */,
-				96AB43102446E0CC0087F339 /* WebViewController.swift in Sources */,
 				962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */,
 				18188E8C206CB01B000DFECB /* BlogPagination.swift in Sources */,
 				182690D220872A8100E2C966 /* CatIcon.swift in Sources */,

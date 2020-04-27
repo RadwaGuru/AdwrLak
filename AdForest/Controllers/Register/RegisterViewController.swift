@@ -11,6 +11,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import NVActivityIndicatorView
 import AuthenticationServices
+import LinkedinSwift
 
 class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -381,7 +382,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 self.btnGoogle.isHidden = true
                 self.btnApple.isHidden = true
                 self.btnLinkedin.isHidden = false
-                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
+                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
 
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
@@ -440,53 +441,55 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     //MARK: -IBActions
         @IBAction func actionLinkedinSubmit(_ sender: Any) {
             
-            
-    //
-    //        let newViewController = WebViewController()
-    //        self.navigationController?.pushViewController(newViewController, animated: true)
-    //        self.loadAccount()
-            LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
-                
-                print("success called!")
-                let session = LISDKSessionManager.sharedInstance().session
-                }) { (error) -> Void in
-                    print("Error: \(error)")
-            }
-            
-            
-            
-            
-    //        linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
-    //
-    //            self.linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-    //
-    //                print(response)
-    //                let dict = response.jsonObject
-    //                print(dict!)
-    //                let email = dict!["emailAddress"]
-    //                print(email!)
-    //                let param: [String: Any] = [
-    //                    "email":email!,
-    //                    "type":"social"
-    //                ]
-    //                print(param)
-    //                self.defaults.set(true, forKey: "isSocial")
-    //                self.defaults.set(email, forKey: "email")
-    //                self.defaults.set("1122", forKey: "password")
-    //                self.defaults.synchronize()
-    //                self.adForest_loginUser(parameters: param as NSDictionary)
-    //
-    //            }) { [unowned self] (error) -> Void in
-    //
-    //                //self.writeConsoleLine("Encounter error: \(error.localizedDescription)")
-    //            }
-    //        }, error: { (error) -> Void in
-    //            //Encounter error: error.localizedDescription
-    //        }, cancel: { () -> Void in
-    //            //User Cancelled!
-    //        })
-        }
+     
+            let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions: ["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"),nativeAppChecker: WebLoginOnly())
+            linkedinHelper.authorizeSuccess({ (token) in
 
+                    print(token)
+
+                    let url = "https://api.linkedin.com/v2/me"
+                    linkedinHelper.requestURL(url, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+                      let dict = response.jsonObject
+                      print(dict!)
+                      let weatherArray = dict!["profilePicture"] as? [String:Any]
+                        print(weatherArray)
+                        let imgProfile = weatherArray as? [String:Any]
+                        let linkedinImg = imgProfile!["displayImage"]
+                            print(linkedinImg)
+                       let emailurl = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"
+                        linkedinHelper.requestURL(emailurl, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+                            print(response)
+                            let dict = response.jsonObject
+                            print(dict!)
+    //                        let user = User(json: response.jsonObject)
+                            if let weatherArray = dict!["elements"] as? [[String:Any]],
+                               let weather = weatherArray.first {
+                                let handle = weather["handle~"]
+                                   print(handle)
+                                let email = handle as? [String:Any]
+                                let emilaagay = email!["emailAddress"]
+                                print(emilaagay)
+                                let param: [String: Any] = [
+                                    "email":emilaagay!,
+                                    "type":"social",
+                                    "profile_img":linkedinImg!
+                                ]
+                                print(param)
+                                self.defaults.set(true, forKey: "isSocial")
+                                self.defaults.set(emilaagay, forKey: "email")
+                                self.defaults.set("1122", forKey: "password")
+                                self.defaults.synchronize()
+                                self.adForest_loginUser(parameters: param as NSDictionary)
+                                // the value is an optional.
+                            }
+                    })
+                    }) {(error) -> Void in
+                        print(error.localizedDescription)
+                        //handle the error
+                }
+            }, error: nil)
+
+    }
     @IBAction func btnAppleClicked(_ sender: UIButton) {
         
         if #available(iOS 13.0, *) {

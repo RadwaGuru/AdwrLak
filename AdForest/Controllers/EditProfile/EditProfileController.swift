@@ -51,6 +51,8 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var userAddress = ""
     var accountTypeArray = [String]()
     var dataArray = [ProfileDetailsData]()
+    var socialArray = [ProfileDetailsAccountType]()
+
     let defaults = UserDefaults.standard
     
     var nearByTitle = ""
@@ -62,7 +64,11 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-    
+    var facebook = ""
+    var linkedin = ""
+    var twitter = ""
+    var google = ""
+
     
     
     //MARK:- View Life Cycle
@@ -185,6 +191,26 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: "#ffcc00")
                 cell.ratingBar.rating = Double(ratingBar)!
             }
+            for obj in socialArray {
+                if obj.fieldName == "_sb_profile_facebook" {
+                    self.facebook = obj.fieldName
+                    UserDefaults.standard.set(facebook, forKey: "facebook")
+                }
+                if obj.fieldName == "_sb_profile_twitter" {
+                    self.twitter = obj.fieldName
+                    UserDefaults.standard.set(twitter, forKey: "twitter")
+
+                }
+                if obj.fieldName == "_sb_profile_linkedin" {
+                    self.linkedin = obj.fieldName
+                    UserDefaults.standard.set(linkedin, forKey: "linkedin")
+                }
+                if obj.fieldName == "_sb_profile_google-plus" {
+                    self.google = obj.fieldName
+                    UserDefaults.standard.set(google, forKey: "google")
+                }
+            }
+            
             return cell
         }
             
@@ -264,7 +290,20 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     cell.textAddress.text = locationValue
                     
                 }
-                
+                for obj in socialArray {
+                    if obj.fieldName == "_sb_profile_facebook" {
+                        cell.txtFacebook.text = obj.value
+                    }
+                    if obj.fieldName == "_sb_profile_twitter" {
+                        cell.txtTwitter.text = obj.value
+                    }
+                    if obj.fieldName == "_sb_profile_linkedin" {
+                        cell.txtLinkedIn.text = obj.value
+                    }
+                    if obj.fieldName == "_sb_profile_google-plus" {
+                        cell.txtGooglePlus.text = obj.value
+                    }
+                }
                 if let imgText = objData.profileImg.key {
                     cell.lblImage.text = imgText
                 }
@@ -353,7 +392,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         let section = indexPath.section
         var height: CGFloat = 0
         if section == 0 {
-            height = 110
+            height = 140
         }
         else if section == 1 {
             height = 65
@@ -414,6 +453,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
             self.stopAnimating()
             if successResponse.success {
                 self.dataArray = [successResponse.data]
+                self.socialArray = successResponse.data.profileExtra.socialIcons
                 UserHandler.sharedInstance.objProfileDetails = successResponse
                 self.tableView.reloadData()
             }
@@ -963,15 +1003,36 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         guard let introduction = txtIntroduction.text else {
             return
         }
-        
+        guard let facebook = txtFacebook.text else {
+            return
+        }
+        guard let twitter = txtTwitter.text else {
+            return
+        }
+        guard let linkedIn = txtLinkedIn.text else {
+            return
+        }
+        guard let google = txtGooglePlus.text else {
+            return
+        }
+        let custom: [String: Any] = [
+            "_sb_profile_facebook": facebook,
+            "_sb_profile_twitter" : twitter,
+            "_sb_profile_linkedin" : linkedIn,
+            "_sb_profile_google-plus" : google
+        ]
+        print(custom)
+
+
         let parameters: [String: Any] = [
             "user_name": name,
             "phone_number": phone,
             "account_type": accountType,
             "location": location,
             "user_introduction" : introduction,
-            "social_icons": ""
+            "social_icons": custom
         ]
+        
         print(parameters)
         self.adForest_updateProfile(params: parameters as NSDictionary)
     }

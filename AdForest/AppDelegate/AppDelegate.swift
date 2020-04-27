@@ -93,16 +93,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
  
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        let willHandleByFacebook = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-//
-//        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        let willHandleByFacebook = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+
+        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         // Linkedin sdk handle redirect
         if LinkedinSwiftHelper.shouldHandle(url) {
             return LinkedinSwiftHelper.application(app, open: url, sourceApplication: nil, annotation: nil)
         }
         
-        return false
-//        return willHandleByGoogle || willHandleByFacebook
+        return willHandleByGoogle || willHandleByFacebook || false
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

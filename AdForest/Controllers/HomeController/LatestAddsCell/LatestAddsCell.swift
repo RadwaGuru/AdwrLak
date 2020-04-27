@@ -318,6 +318,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
     var lblLocs: UILabel!
     var lblPriceHori: UILabel!
     var lblBidTimer:UILabel!
+    var locsBtn: UIButton!
     //MARK:- IBActions
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
@@ -338,7 +339,6 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblLocation.isHidden = true
             lblPrice.isHidden = true
             lblTimer.isHidden = true
-            
             let imageName = "appLogo"
             let image = UIImage(named: imageName)
             imageView = UIImageView(image: image!)
@@ -382,6 +382,8 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             //            label.frame.origin.y = 30
             //            label.frame.origin.x = imageView.frame.width - label.frame.width
             contentView.addSubview(lblTitle)
+            
+            
             let imageNameLoc = "location"
             let imageLoc = UIImage(named: imageNameLoc)
             imageViewLoc = UIImageView(image: imageLoc!)

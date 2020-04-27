@@ -704,6 +704,13 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         if indexPath.section == 2{
+            if defaults.bool(forKey: "isLogin") == false {
+                if let menu = OtherGuestMenues(rawValue: indexPath.row) {
+                    print(menu)
+//                    self.changeGuestMenu(menu)
+                }
+            }
+            else{
             let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
             switch img.lowercased() {
             case "top_location_text":
@@ -734,11 +741,14 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
                 return 40
             }
-        }else{
-            return 40
-        }
-        
-        //return 40
+            
+//        else{
+//            return 40
+//        }
+            }
+    }
+        return 40
+
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -831,6 +841,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(isSetting)
                 
             }
+
             if let isLocation = objData?.menu.isShowMenu.toplocation {
                 isShowLocation = isLocation
                 
@@ -841,7 +852,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.isWpmlActive = isWpmlActive
                 print(isWpmlActive)
                 
-            }
+                }
+                
+            
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
                     self.changeGuestMenu(menu)

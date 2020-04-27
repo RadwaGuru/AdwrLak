@@ -14,7 +14,7 @@ class Constants {
     struct  URL {
         
 
-        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
+        static let ipAddress = "https://adforest-testapp.scriptsbundle.com/"
 
 
         
@@ -119,7 +119,7 @@ class Constants {
 //        //Test
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-       
+      
         
         
               

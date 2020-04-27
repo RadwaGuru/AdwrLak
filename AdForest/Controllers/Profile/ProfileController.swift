@@ -36,9 +36,13 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     
     //MARK:- Properties
     var dataArray = [ProfileDetailsData]()
+    var socialArray = [ProfileDetailsAccountType]()
     let defaults = UserDefaults.standard
     
-    
+    var google = ""
+    var facebook = ""
+    var linkedin = ""
+    var twitter = ""
     
     var nearByTitle = ""
     var latitude: Double = 0
@@ -178,7 +182,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let objData = dataArray[indexPath.row]
-        
+
         if section == 0 {
             let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
             
@@ -209,6 +213,32 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                 cell.ratingBar.rating = Double(ratingBar)!
             }
 
+            for obj in socialArray {
+                if obj.fieldName == "_sb_profile_linkedin" {
+                    self.linkedin = obj.value
+                    cell.btnLinkedIn.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_facebook" {
+                    self.facebook = obj.value
+                    cell.btnFB.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_twitter" {
+                    self.twitter = obj.value
+                    cell.btnTwitter.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_google-plus" {
+                    self.google = obj.value
+                    cell.btnGoogle.setTitle(obj.value, for: .normal)
+
+                }
+            }
+            
+            cell.btnLinkedIn.addTarget(self, action: #selector(ProfileController.linkedinClicked(_:)), for: .touchUpInside)
+            cell.btnFB.addTarget(self, action: #selector(ProfileController.fbClicked(_:)), for: .touchUpInside)
+            cell.btnTwitter.addTarget(self, action: #selector(ProfileController.twitterClicked(_:)), for: .touchUpInside)
+            cell.btnGoogle.addTarget(self, action: #selector(ProfileController.googleClicked(_:)), for: .touchUpInside)
+            
+            
             if let editButtonTitle = objData.profileExtra.editText {
                 cell.buttonEditProfile.setTitle(editButtonTitle, for: .normal)
             }
@@ -366,7 +396,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         }
         return UITableViewCell()
     }
-    
+     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         if section == 0 {
@@ -381,7 +411,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         let section = indexPath.section
         switch section {
         case 0:
-            return 110
+            return 140
         case 1:
             return 65
         case 2:
@@ -428,8 +458,105 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         }
      
     }
+    //action social Icons Clicked
+    @objc func linkedinClicked(_ sender: UIButton){
+        print(sender.currentTitle)
+          let inValidUrl:String = "Invalid url"
+                 
+                 if #available(iOS 10.0, *) {
+                     if verifyUrl(urlString: linkedin) == false {
+                         Constants.showBasicAlert(message: inValidUrl)
+                     }else{
+                        print(linkedin)
+                         UIApplication.shared.open(URL(string: linkedin)!, options: [:], completionHandler: nil)
+                     }
+                     
+                 } else {
+                     if verifyUrl(urlString: linkedin) == false {
+                         Constants.showBasicAlert(message: inValidUrl)
+                     }else{
+                         UIApplication.shared.openURL(URL(string: linkedin)!)
+                     }
+                 }
+          print(sender.currentTitle)
+          
+          
+      }
+    @objc func fbClicked(_ sender: UIButton){
+            let inValidUrl:String = "Invalid url"
+
+                   if #available(iOS 10.0, *) {
+                       if verifyUrl(urlString: facebook) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.open(URL(string: facebook)!, options: [:], completionHandler: nil)
+                       }
+
+                   } else {
+                       if verifyUrl(urlString: facebook) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.openURL(URL(string: facebook)!)
+                       }
+                   }
+            print(sender.currentTitle)
+
+
+        }
+    @objc func twitterClicked(_ sender: UIButton){
+            let inValidUrl:String = "Invalid url"
+
+                   if #available(iOS 10.0, *) {
+                       if verifyUrl(urlString: twitter) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.open(URL(string: twitter)!, options: [:], completionHandler: nil)
+                       }
+
+                   } else {
+                       if verifyUrl(urlString: twitter) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.openURL(URL(string: twitter)!)
+                       }
+                   }
+            print(sender.currentTitle)
+
+
+        }
+    @objc func googleClicked(_ sender: UIButton){
+            let inValidUrl:String = "Invalid url"
+
+                   if #available(iOS 10.0, *) {
+                       if verifyUrl(urlString: google) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.open(URL(string: google)!, options: [:], completionHandler: nil)
+                       }
+
+                   } else {
+                       if verifyUrl(urlString: google) == false {
+                           Constants.showBasicAlert(message: inValidUrl)
+                       }else{
+                           UIApplication.shared.openURL(URL(string: google)!)
+                       }
+                   }
+            print(sender.currentTitle)
+
+
+        }
     
-    
+      func verifyUrl (urlString: String?) -> Bool {
+             //Check for nil
+             if let urlString = urlString {
+                 // create NSURL instance
+                 if let url = NSURL(string: urlString) {
+                     // check if your application can open the NSURL instance
+                     return UIApplication.shared.canOpenURL(url as URL)
+                 }
+             }
+             return false
+         }
     //MARK:- API Call
     
     // Profile Details
@@ -439,6 +566,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             self.stopAnimating()
             if successResponse.success {
                 self.dataArray = [successResponse.data]
+                self.socialArray = successResponse.data.socialIcons
                 self.title = successResponse.extraText.profileTitle
                 UserHandler.sharedInstance.objProfileDetails = successResponse
                 self.tableView.reloadData()

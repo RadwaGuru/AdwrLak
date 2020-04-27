@@ -28,6 +28,7 @@ struct ProfileDetailsExtra {
     var rateBar : ProfileDetailsRateBar!
     var simpleAds : String!
     var socialIcons : [ProfileDetailsAccountType]!
+    
     var userEmail : String!
     var verifyButon : ProfileDetailsVerifyButton!
     

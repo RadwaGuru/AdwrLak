@@ -958,7 +958,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     height = 0
                 }
                 else if showVerticalAds == "vertical" {
-                    height = CGFloat(SliderColHeight) + CGFloat(70 + heightConstraintTitlead)
+                    height = CGFloat(SliderColHeight) + 70 
                 } else if latestHorizontalSingleAd == "horizental"{
                     height = CGFloat(SliderColHeight) + 70
                     
@@ -1409,9 +1409,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 self.tableView.reloadData()
                 
-                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
+//                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
+//                self.tableView.setContentOffset(scrollPoint, animated: true)
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
                 self.tableView.setContentOffset(scrollPoint, animated: true)
-                
                 self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
                 
             } else {

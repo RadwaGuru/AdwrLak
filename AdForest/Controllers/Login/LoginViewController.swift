@@ -478,10 +478,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonGoogleLogin.isHidden = true
                 self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
-                self.topConstraintBtnApple.constant -= 120
-//                self.buttonLinkedIn.isHidden = false
-                
-                
+                btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 18).isActive = true
+                self.buttonLinkedIn.isHidden = false
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.btnApple.bottomAnchor, constant: 8).isActive = true
             }
             else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin {
                 self.buttonFBLogin.isHidden = true
@@ -801,12 +800,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 //
 //                //self.writeConsoleLine("Encounter error: \(error.localizedDescription)")
 //            }
-//        }, error: { (error) -> Void in
-//            //Encounter error: error.localizedDescription
-//        }, cancel: { () -> Void in
-//            //User Cancelled!
-//        })
-        }, error: nil)
+        }, error: { (error) -> Void in
+            //Encounter error: error.localizedDescription
+        }, cancel: { () -> Void in
+            //User Cancelled!
+        })
+//        }, error: nil)
     }
     
     func adForest_logIn() {

@@ -75,9 +75,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             if isAppOpen {
                 self.appDelegate.moveToHome()
             } else {
-                let newViewController = AppIntroViewController()
-                self.navigationController?.pushViewController(newViewController, animated: true)
-//                self.appDelegate.moveToLogin()
+//                let newViewController = AppIntroViewController()
+//                self.navigationController?.pushViewController(newViewController, animated: true)
+                self.appDelegate.moveToLogin()
             }
         }
     }
