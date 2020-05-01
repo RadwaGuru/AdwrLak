@@ -583,9 +583,6 @@
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
 		967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967521C324501F9B0007A28C /* GoogleService-Info.plist */; };
 		9689AEEA242B7ED000344662 /* AppIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689AEE9242B7ED000344662 /* AppIntroViewController.swift */; };
-		96E0CABF24332959009EEA56 /* ClusterMapValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */; };
-		96E0CAC224334263009EEA56 /* ClustersAdvMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */; };
-		96E0CAC324334263009EEA56 /* ClustersAdvMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */; };
 		96E0CAC524334375009EEA56 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC424334374009EEA56 /* HomeController.swift */; };
 		AB5D6118CFB004420A4C06D3 /* Pods_AdForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */; };
 /* End PBXBuildFile section */
@@ -1202,9 +1199,6 @@
 		96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CBD1422445AC67000DFDAF /* linkedin-sdk */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "linkedin-sdk"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework/linkedin-sdk"; sourceTree = "<group>"; };
 		96D45F7224459622001F656D /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "linkedin-sdk.framework"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework"; sourceTree = "<group>"; };
-		96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterMapValueTableViewCell.swift; sourceTree = "<group>"; };
-		96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClustersAdvMapTableViewCell.swift; sourceTree = "<group>"; };
-		96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClustersAdvMapTableViewCell.xib; sourceTree = "<group>"; };
 		96E0CAC424334374009EEA56 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		DCCFEF33A568B86FBFCB0E9A /* Pods_AdForestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2853,9 +2847,6 @@
 				07DF08B92202DD24008F9736 /* RadioColorTableViewCell.swift */,
 				07DF08BB2202DD3A008F9736 /* RadioColorCollectionViewCell.swift */,
 				07EF456A2204173B000570E6 /* RangeValuesTableViewCell.swift */,
-				96E0CABE24332959009EEA56 /* ClusterMapValueTableViewCell.swift */,
-				96E0CAC024334263009EEA56 /* ClustersAdvMapTableViewCell.swift */,
-				96E0CAC124334263009EEA56 /* ClustersAdvMapTableViewCell.xib */,
 			);
 			path = AdvancedSearch;
 			sourceTree = "<group>";
@@ -3377,7 +3368,6 @@
 				18860C8C232FA705003910FC /* SetLocationCell.xib in Resources */,
 				18BBFA912051098C0067662F /* Assets.xcassets in Resources */,
 				18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */,
-				96E0CAC324334263009EEA56 /* ClustersAdvMapTableViewCell.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
 				967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */,
@@ -3773,7 +3763,6 @@
 				07787373225B552C006E15C3 /* AdMobDelegate.swift in Sources */,
 				182690C820872A1700E2C966 /* AddPrice.swift in Sources */,
 				18C2CCF4206A4F1C00235E0E /* MyAdsText.swift in Sources */,
-				96E0CABF24332959009EEA56 /* ClusterMapValueTableViewCell.swift in Sources */,
 				180519D6215A0BA300F74662 /* AppSettingRating.swift in Sources */,
 				07891CB022019609002C8D7D /* CheckBox.swift in Sources */,
 				184EDAEE2078979300A25228 /* AddDetailNotification.swift in Sources */,
@@ -3868,7 +3857,6 @@
 				182652C9207656CB007F6A21 /* StripePaymentError.swift in Sources */,
 				18605F86214F7C9600B3B567 /* SearchDropDown.swift in Sources */,
 				07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */,
-				96E0CAC224334263009EEA56 /* ClustersAdvMapTableViewCell.swift in Sources */,
 				18AD93B1206CD7B500330ABF /* ChangePasswordController.swift in Sources */,
 				1852B0EA208354020014AF99 /* OfferOnAdDetailItem.swift in Sources */,
 				18BBFA872051098B0067662F /* AppDelegate.swift in Sources */,

@@ -25,6 +25,11 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
             containerViewProfile.addShadowToView()
         }
     }
+    
+    @IBOutlet weak var btnGoogle: UIButton!
+    @IBOutlet weak var btnLinkedIn: UIButton!
+    @IBOutlet weak var btnTwitter: UIButton!
+    @IBOutlet weak var btnFB: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblVerification: UILabel!
     @IBOutlet weak var lblLastLogin: UILabel!
@@ -51,6 +56,7 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
     
     //MARK:- Properties
     var dataArray = [PublicProfileAdd]()
+    var socialArray = [PublicProfileIntro]()
     let defaults = UserDefaults.standard
     var userID = ""
     var authorID = 0
@@ -64,6 +70,10 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
+    var google = ""
+    var facebook = ""
+    var linkedin = ""
+    var twitter = ""
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -156,6 +166,32 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
             if let ratingText = objData?.profileExtra.rateBar.text {
                 self.ratingBar.text = ratingText
             }
+           
+            for obj in socialArray {
+                if obj.fieldName == "_sb_profile_linkedin" {
+                    self.linkedin = obj.value
+                    self.btnLinkedIn.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_facebook" {
+                    self.facebook = obj.value
+                    self.btnFB.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_twitter" {
+                    self.twitter = obj.value
+                    self.btnTwitter.setTitle(obj.value, for: .normal)
+                }
+                if obj.fieldName == "_sb_profile_google-plus" {
+                    self.google = obj.value
+                    self.btnGoogle.setTitle(obj.value, for: .normal)
+                    
+                }
+            }
+            self.btnLinkedIn.addTarget(self, action: #selector(UserPublicProfile.linkedinClicked(_:)), for: .touchUpInside)
+            self.btnFB.addTarget(self, action: #selector(UserPublicProfile.fbClicked(_:)), for: .touchUpInside)
+            self.btnTwitter.addTarget(self, action: #selector(UserPublicProfile.twitterClicked(_:)), for: .touchUpInside)
+            self.btnGoogle.addTarget(self, action: #selector(UserPublicProfile.googleClicked(_:)), for: .touchUpInside)
+            
+                       
             
             guard let introText = objData?.introduction.value else {return}
             
@@ -285,7 +321,109 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
         ratingVC.adAuthorID = String(authorID)
         self.navigationController?.pushViewController(ratingVC, animated: true)
     }
+    //action social Icons Clicked
+    @objc func linkedinClicked(_ sender: UIButton){
+        print(sender.currentTitle)
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: linkedin) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)
+            }else{
+                print(linkedin)
+                UIApplication.shared.open(URL(string: linkedin)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: linkedin) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: linkedin)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
+    @objc func fbClicked(_ sender: UIButton){
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: facebook) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)                       }else{
+                UIApplication.shared.open(URL(string: facebook)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: facebook) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: facebook)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
+    @objc func twitterClicked(_ sender: UIButton){
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: twitter) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)                       }else{
+                UIApplication.shared.open(URL(string: twitter)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: twitter) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: twitter)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
+    @objc func googleClicked(_ sender: UIButton){
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: google) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)
+                
+            }else{
+                UIApplication.shared.open(URL(string: google)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: google) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: google)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
     
+    func verifyUrl (urlString: String?) -> Bool {
+           //Check for nil
+           if let urlString = urlString {
+               // create NSURL instance
+               if let url = NSURL(string: urlString) {
+                   // check if your application can open the NSURL instance
+                   return UIApplication.shared.canOpenURL(url as URL)
+               }
+           }
+           return false
+       }
+
     //MARK:- Api Calls
     func adForest_publicProfileData(parameter: NSDictionary) {
         self.showLoader()
@@ -295,6 +433,7 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
                 print(successResponse.data)
                 self.dataArray = successResponse.data.ads
                 UserHandler.sharedInstance.objPublicProfile = successResponse.data
+                self.socialArray = successResponse.data.socialIcons
                 self.adForest_populateData()
                 self.collectionViewAds.reloadData()
             }

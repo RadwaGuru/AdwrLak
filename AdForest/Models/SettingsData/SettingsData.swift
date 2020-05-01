@@ -55,6 +55,7 @@ struct SettingsData {
     var notVerified: String!
     var ImgReqMessage: String!
     var ImgUplaoding: String!
+    var InValidUrl: String!
     var buyText:String!
     var showHome :Bool!
     var advanceIcon :Bool!
@@ -150,8 +151,9 @@ struct SettingsData {
         location_text = dictionary["app_location_text"] as? String
         notVerified = dictionary["verified_msg"] as? String
         ImgReqMessage = dictionary["required_img"] as? String
-        ImgUplaoding = dictionary["img_uploading"] as? String
+        ImgUplaoding = dictionary["uploading_label"] as? String
         homescreenLayout = dictionary["homescreen_layout"] as? String
+        InValidUrl = dictionary["invalid_url"] as? String
     }
     
     /**
@@ -274,12 +276,14 @@ struct SettingsData {
             dictionary["is_top_location"] = is_Top_Location
         }
         if ImgUplaoding != nil{
-            dictionary["img_uploading"] = ImgUplaoding
+            dictionary["uploading_label"] = ImgUplaoding
         }
         if homescreenLayout != nil {
             dictionary["homescreen_layout"] = homescreenLayout
         }
-
+        if InValidUrl != nil {
+            dictionary["invalid_url"] = InValidUrl
+        }
 
         return dictionary
     }

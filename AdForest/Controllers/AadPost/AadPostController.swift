@@ -136,6 +136,25 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         obj.fieldTypeName = fieldTitle
                         obj.fieldType = "select"
                         data.append(obj)
+                        
+//                        if obj.fieldTypeName == "ad_price_type" {
+//                            if id == "on_call"{
+//                                if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? TextFieldCell {
+//                                   if isShow == false{
+//
+//                                    cell.isHidden = true
+//                                    print(id)
+//                                    //                                if fieldTitle == "ad_currency" {
+//                                    //                                cell.lblType.isHidden = true
+//                                    //                                cell.oltPopup.isHidden = true
+//
+//                                    //                                }
+//                                    }
+//                                }
+//
+//                            }
+//                        }
+                        
                         if fieldTitle == self.dataArray[index].fieldTypeName {
                             self.dataArray[index].fieldVal = selectedText
                             cell.oltPopup.setTitle(selectedText, for: .normal)
@@ -145,18 +164,18 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 
                 
                 
-                //if objData.fieldType == "select" {
+//                if objData.fieldType == "select" {
                     if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? TextFieldCell {
-                       
                         if objData.fieldTypeName == "ad_price_type"{
-                            
+                        
                             if isShow == false{
+                                print("IamHere")
                                  cell.isHidden = true
                             }
                         }
                         
-                    }
-               // }
+//                    }
+                }
                 
                 
             }
@@ -185,6 +204,13 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                 self.adTitle = txtTitle
                             }
                         }
+                        if cell.fieldName == "ad_price" {
+                            if txtTitle == "" {
+                                cell.txtType.shake(6, withDelta: 10, speed: 0.06)
+                            }else {
+                                self.adTitle = txtTitle
+                            }
+                        }
                         
 
        
@@ -201,25 +227,35 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         data.append(obj)
                         print(selectOption)
                         option = obj.fieldVal
+                       if obj.fieldTypeName == "ad_type" {
+                           //index == 7 &&
+                           if option == "" {
+                               value = cell.oltPopup.currentTitle!
+                               cell.oltPopup.titleLabel?.textColor = UIColor.red
+                               cell.oltPopup.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+
+                           }
+                       }
                        
-                        if id == ""{
-                            print("No..")
-                            value = cell.oltPopup.currentTitle!
-                            cell.oltPopup.titleLabel?.textColor = UIColor.red
-                            
-                        }else{
-                            print("Yes..")
-                            cell.oltPopup.titleLabel?.textColor = UIColor.gray
-                        }
+
+//                        if id == ""{
+//                            print("No..")
+//                            value = cell.oltPopup.currentTitle!
+//                            cell.oltPopup.titleLabel?.textColor = UIColor.red
+//
+//                        }else{
+//                            print("Yes..")
+//                            cell.oltPopup.titleLabel?.textColor = UIColor.gray
+//                        }
                         
                     }
                 }
             }
         }
         
-        
-        if self.adTitle == "" ||  id == "" {
-
+//        ||  id == ""
+        if self.adTitle == "" || option == "" {
+             
         }
         else {
             let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
@@ -448,6 +484,48 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+
+}
+extension UIView {
+
+
+    // Using CAMediaTimingFunction
+    func shake(duration: TimeInterval = 0.5, values: [CGFloat]) {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+
+        // Swift 4.2 and above
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+
+        // Swift 4.1 and below
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+
+
+        animation.duration = duration // You can set fix duration
+        animation.values = values  // You can set fix values here also
+        self.layer.add(animation, forKey: "shake")
+    }
+
+
+    // Using SpringWithDamping
+    func shake(duration: TimeInterval = 0.5, xValue: CGFloat = 12, yValue: CGFloat = 0) {
+        self.transform = CGAffineTransform(translationX: xValue, y: yValue)
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform.identity
+        }, completion: nil)
+
+    }
+
+
+    // Using CABasicAnimation
+    func shake(duration: TimeInterval = 0.05, shakeCount: Float = 6, xValue: CGFloat = 12, yValue: CGFloat = 0){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = duration
+        animation.repeatCount = shakeCount
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - xValue, y: self.center.y - yValue))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + xValue, y: self.center.y - yValue))
+        self.layer.add(animation, forKey: "shake")
     }
 
 }

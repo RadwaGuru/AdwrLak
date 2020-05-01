@@ -14,6 +14,10 @@ class PublicProfileCell: UICollectionViewCell {
             containerView.addShadowToView()
         }
     }
+    
+    
+    
+    
     @IBOutlet weak var imgPic: UIImageView!
     @IBOutlet weak var lblType: UILabel!
     @IBOutlet weak var lblName: UILabel!

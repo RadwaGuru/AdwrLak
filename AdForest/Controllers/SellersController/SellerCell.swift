@@ -78,25 +78,25 @@ class SellerCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDat
         } else if objData.key == "Google+" {
             cell.socialBtn.setTitle(objData.value, for: .normal)
             cell.socialBtn.tag = 3
-            cell.imgIcon.image = UIImage(named: "google+")
+            cell.imgIcon.image = UIImage(named: "googleSocial")
         }
         cell.socialBtn.addTarget(self, action: #selector(SellerCell.btnClicked(_:)), for: .touchUpInside)
 
         return cell
     }
     @objc func btnClicked(_ sender: UIButton){
-         let inValidUrl:String = "Invalid url"
-                
+         let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
                 if #available(iOS 10.0, *) {
                     if verifyUrl(urlString: sender.currentTitle) == false {
-                        Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                     }else{
                         UIApplication.shared.open(URL(string: sender.currentTitle!)!, options: [:], completionHandler: nil)
                     }
                     
                 } else {
                     if verifyUrl(urlString: sender.currentTitle) == false {
-                        Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                     }else{
                         UIApplication.shared.openURL(URL(string: sender.currentTitle!)!)
                     }

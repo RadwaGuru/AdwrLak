@@ -104,7 +104,8 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     let url = Constants.URL.baseUrl+Constants.URL.subCategory
                     print(url)
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
-                     self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                    //self.selectedValue
+                    self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
             }
         }
@@ -130,13 +131,15 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 print(url)
                 self.selectedKey = String(id)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
-                 self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                 self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
         }
         else {
             oltPopup.setTitle(name, for: .normal)
             self.selectedKey = String(id)
             self.selectedValue = name
+        
+            self.delegate?.selectValue(selectVal: String(id), selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
         }
     }
     

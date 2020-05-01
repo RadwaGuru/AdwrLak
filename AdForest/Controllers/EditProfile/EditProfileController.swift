@@ -392,7 +392,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         let section = indexPath.section
         var height: CGFloat = 0
         if section == 0 {
-            height = 140
+            height = 105
         }
         else if section == 1 {
             height = 65
@@ -718,7 +718,6 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         let progressBar = JGProgressHUD(style: .dark)
         progressBar.indicatorView = JGProgressHUDRingIndicatorView()
         let ImgUplaoding = UserDefaults.standard.string(forKey: "Uploading")
-
         progressBar.textLabel.text = ImgUplaoding
         return progressBar
     }()

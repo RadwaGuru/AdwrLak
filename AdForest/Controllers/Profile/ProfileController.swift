@@ -216,18 +216,22 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             for obj in socialArray {
                 if obj.fieldName == "_sb_profile_linkedin" {
                     self.linkedin = obj.value
+                    cell.btnLinkedIn.isHidden = false
                     cell.btnLinkedIn.setTitle(obj.value, for: .normal)
                 }
                 if obj.fieldName == "_sb_profile_facebook" {
                     self.facebook = obj.value
+                    cell.btnFB.isHidden = false
                     cell.btnFB.setTitle(obj.value, for: .normal)
                 }
                 if obj.fieldName == "_sb_profile_twitter" {
                     self.twitter = obj.value
+                    cell.btnTwitter.isHidden = false
                     cell.btnTwitter.setTitle(obj.value, for: .normal)
                 }
                 if obj.fieldName == "_sb_profile_google-plus" {
                     self.google = obj.value
+                    cell.btnGoogle.isHidden = false
                     cell.btnGoogle.setTitle(obj.value, for: .normal)
 
                 }
@@ -411,7 +415,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         let section = indexPath.section
         switch section {
         case 0:
-            return 140
+            return 105
         case 1:
             return 65
         case 2:
@@ -459,13 +463,15 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
      
     }
     //action social Icons Clicked
+
     @objc func linkedinClicked(_ sender: UIButton){
         print(sender.currentTitle)
-          let inValidUrl:String = "Invalid url"
-                 
+          let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+
                  if #available(iOS 10.0, *) {
                      if verifyUrl(urlString: linkedin) == false {
-                         Constants.showBasicAlert(message: inValidUrl)
+                        let alert = Constants.showBasicAlert(message: inValidUrl!)
+                        self.presentVC(alert)
                      }else{
                         print(linkedin)
                          UIApplication.shared.open(URL(string: linkedin)!, options: [:], completionHandler: nil)
@@ -473,7 +479,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                      
                  } else {
                      if verifyUrl(urlString: linkedin) == false {
-                         Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                      }else{
                          UIApplication.shared.openURL(URL(string: linkedin)!)
                      }
@@ -483,18 +489,18 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
           
       }
     @objc func fbClicked(_ sender: UIButton){
-            let inValidUrl:String = "Invalid url"
+            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
 
                    if #available(iOS 10.0, *) {
                        if verifyUrl(urlString: facebook) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
-                       }else{
+                        let alert = Constants.showBasicAlert(message: inValidUrl!)
+                           self.presentVC(alert)                       }else{
                            UIApplication.shared.open(URL(string: facebook)!, options: [:], completionHandler: nil)
                        }
 
                    } else {
                        if verifyUrl(urlString: facebook) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                        }else{
                            UIApplication.shared.openURL(URL(string: facebook)!)
                        }
@@ -504,18 +510,18 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
 
         }
     @objc func twitterClicked(_ sender: UIButton){
-            let inValidUrl:String = "Invalid url"
+            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
 
                    if #available(iOS 10.0, *) {
                        if verifyUrl(urlString: twitter) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
-                       }else{
+                        let alert = Constants.showBasicAlert(message: inValidUrl!)
+                           self.presentVC(alert)                       }else{
                            UIApplication.shared.open(URL(string: twitter)!, options: [:], completionHandler: nil)
                        }
 
                    } else {
                        if verifyUrl(urlString: twitter) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                        }else{
                            UIApplication.shared.openURL(URL(string: twitter)!)
                        }
@@ -525,18 +531,20 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
 
         }
     @objc func googleClicked(_ sender: UIButton){
-            let inValidUrl:String = "Invalid url"
+            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
 
                    if #available(iOS 10.0, *) {
                        if verifyUrl(urlString: google) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
+                        let alert = Constants.showBasicAlert(message: inValidUrl!)
+                        self.presentVC(alert)
+
                        }else{
                            UIApplication.shared.open(URL(string: google)!, options: [:], completionHandler: nil)
                        }
 
                    } else {
                        if verifyUrl(urlString: google) == false {
-                           Constants.showBasicAlert(message: inValidUrl)
+                        Constants.showBasicAlert(message: inValidUrl!)
                        }else{
                            UIApplication.shared.openURL(URL(string: google)!)
                        }
@@ -545,7 +553,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
 
 
         }
-    
+
       func verifyUrl (urlString: String?) -> Bool {
              //Check for nil
              if let urlString = urlString {

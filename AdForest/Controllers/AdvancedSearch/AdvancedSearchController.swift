@@ -690,7 +690,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 }
 
 
-extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue,mKMapDelegate{
+extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue{
     
     
     
@@ -837,12 +837,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             self.data.append(obj)
         }
     }
-    func mkMapValues(latitude: String, longitude: String) {
-        let lat = latitude
-        let long = longitude
-        print(lat)
-        print(long)
-    }
+   
     
 
 }
