@@ -13,17 +13,11 @@ import NVActivityIndicatorView
 import WebKit
 import IQKeyboardManagerSwift
 
-class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
+class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate,WKUIDelegate,WKNavigationDelegate {
 
     //MARK:- Outlets
-    @IBOutlet weak var webView: UIWebView!{
-        didSet {
-
-            webView.delegate =  self
-            webView.isOpaque = false
-            webView.backgroundColor = UIColor.clear
-        }
-    }
+  
+    @IBOutlet weak var wkWebView: WKWebView!
     
     //MARK:- Properties
     var delegate :leftMenuProtocol?
@@ -46,6 +40,18 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
     
     
     //MARK:- View Life Cycle
+    override func loadView() {
+        super.loadView()
+        let webConfiguration = WKWebViewConfiguration()
+        //        wkWebView == WKWebView(frame: .zero, configuration: webConfiguration)
+        //        wkWebView.backgroundColor = UIColor.clear
+        //        wkWebView.isOpaque = false
+        //        wkWebView.navigationDelegate = self
+        //        wkWebView.uiDelegate = self
+        ////        view = wkWebView
+        //        self.view.addSubview(wkWebView)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Pages"
@@ -73,7 +79,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
-            self.webView.loadRequest(request)
+            self.wkWebView.load(request)
         }
         
         navigationButtons()
@@ -105,7 +111,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable, UIWebViewD
                 
                 if let htmlString = successResponse.data.pageContent {
                      self.title = successResponse.data.pageTitle
-                    self.webView.loadHTMLString(htmlString, baseURL: nil)
+                    self.wkWebView.loadHTMLString(htmlString, baseURL: nil)
                     
                 }
             }

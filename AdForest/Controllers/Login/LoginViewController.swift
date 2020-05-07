@@ -17,10 +17,9 @@ import AuthenticationServices
 import CryptoKit
 import Firebase
 import AuthenticationServices
-import LinkedinSwift
 
 
-class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable, GIDSignInUIDelegate, GIDSignInDelegate, UIScrollViewDelegate{
+class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable,GIDSignInDelegate, UIScrollViewDelegate{
     
     //MARK:- Outlets
     
@@ -113,12 +112,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     let loginManager = LoginManager()
     
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
-    var accessToken: LISDKAccessToken?
+    var linkedInId = ""
+     var linkedInFirstName = ""
+     var linkedInLastName = ""
+     var linkedInEmail = ""
+     var linkedInProfilePicURL = ""
+     var linkedInAccessToken = ""
 
-
-//    let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions:["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"), nativeAppChecker: WebLoginOnly)
-    
-    private let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions: ["r_basicprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"))
     
     // MARK: Application Life Cycle
     
@@ -126,7 +126,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         super.viewDidLoad()
         
         self.hideKeyboard()
-        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+
+//        GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         //self.adForest_loginDetails()
         txtFieldsWithRtl()
@@ -455,13 +459,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 }
             }
             
-            if isShowFacebook && isShowGoogle && isShowApple  {
+            if isShowFacebook && isShowGoogle && isShowApple  && isShowLinkedin == false {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = false
-//                self.buttonLinkedIn.isHidden = false
+                self.buttonLinkedIn.isHidden = true
             }
             else if isShowFacebook && isShowGoogle == false && isShowApple  {
                 self.buttonFBLogin.isHidden = false
@@ -591,6 +595,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonLinkedIn.isHidden = false
 
             }
+                
+          
+                
+                
 //            else if isShowFacebook  && isShowGoogle  && isShowApple == false  && isShowLinkedin {
 //                self.buttonGoogleLogin.isHidden = false
 //                self.btnGoogleLog.isHidden = false // New
@@ -633,180 +641,60 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     @IBAction func actionSubmit(_ sender: Any) {
         self.adForest_logIn()
     }
-    func loadAccount() { // then & or are handling closures
-    if let token = accessToken {
-        LISDKSessionManager.createSession(with: token)
-        if LISDKSessionManager.hasValidSession() {
-            LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json",
-                success: {
-                    response in
-                    print(response?.data)
-//                    then?()
-                },
-                error: {
-                    error in
-                    print(error)
-//                    or?("error")
-                }
-            )
-        }
-    }else {
-        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true,
-                successBlock: {
-                    (state) in
-                    self.accessToken = LISDKSessionManager.sharedInstance().session.accessToken
-                    if LISDKSessionManager.hasValidSession() {
-                        LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url,picture-urls::(original),positions,public-profile-url,date-of-birth,phone-numbers,location)?format=json",
-                            success: {
-                                response in
-                                print(response?.data)
-//                                then?()
-                            },
-                            error: {
-                                error in
-                                print(error)
-//                                or?("error")
-                            }
-                        )
-                    }
-                },
-                errorBlock: {
-                    (error) in
-//                    switch error. {
-//                    default:
-//                        if let errorUserInfo = error.userInfo["error"] as? NSString {
-//                            or?(errorUserInfo as String)
-//                        } else {
-//                            or?(UIError.Code.Unknown)
-//                        }
-//                    }
-                }
-            )
-        }
-    }
     @IBAction func actionLinkedinSubmit(_ sender: Any) {
-       // self.loadAccount()
-        
-//
-//        let newViewController = WebViewController()
-//        self.navigationController?.pushViewController(newViewController, animated: true)
-//        self.loadAccount()
-//        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
-//
-//            print("success called!")
-//            let session = LISDKSessionManager.sharedInstance().session
-//            }) { (error) -> Void in
-//                print("Error: \(error)")
-//        }
-      
-        
-        let linkedinHelper = LinkedinSwiftHelper(configuration: LinkedinSwiftConfiguration(clientId: "86fohl6w88kexu", clientSecret: "YAOoXObs6wU3aUg9", state: "dwweewg43v", permissions: ["r_liteprofile", "r_emailaddress"], redirectUrl: "https://adforest-testapp.scriptsbundle.com/"),nativeAppChecker: WebLoginOnly())
-        linkedinHelper.authorizeSuccess({ (token) in
-
-                print(token)
-
-                let url = "https://api.linkedin.com/v2/me"
-                linkedinHelper.requestURL(url, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-                  let dict = response.jsonObject
-                  print(dict!)
-                  let weatherArray = dict!["profilePicture"] as? [String:Any]
-                    print(weatherArray)
-                    let imgProfile = weatherArray as? [String:Any]
-                    let linkedinImg = imgProfile!["displayImage"]
-                        print(linkedinImg)
-                    
-
-                   let emailurl = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))"
-                    linkedinHelper.requestURL(emailurl, requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-                        print(response)
-                        let dict = response.jsonObject
-                        print(dict!)
-//                        let user = User(json: response.jsonObject)
-                        if let weatherArray = dict!["elements"] as? [[String:Any]],
-                           let weather = weatherArray.first {
-                            let handle = weather["handle~"]
-                               print(handle)
-                            let email = handle as? [String:Any]
-                            let emilaagay = email!["emailAddress"]
-                            print(emilaagay)
-                            let param: [String: Any] = [
-                                "email":emilaagay!,
-                                "type":"social",
-                                "profile_img":linkedinImg!
-                            ]
-                            print(param)
-                            self.defaults.set(true, forKey: "isSocial")
-                            self.defaults.set(emilaagay, forKey: "email")
-                            self.defaults.set("1122", forKey: "password")
-                            self.defaults.synchronize()
-                            self.adForest_loginUser(parameters: param as NSDictionary)
-                            // the value is an optional.
-                        }
-//                        let data = dict!["elements"]
-//                        print(data)
-                    
-//                       let foo: String!
-//                        var foo = ""
-//                        if  foo = {
-//
-//                            // do something with foo
-//                            print(foo)
-//                        } else {
-//                            // item could not be found
-//                        }
-                        
-                    })
-//                    let dict = response.jsonObject
-//                    print(dict!)
-//                    let email = dict!["emailAddress"]
-//                    print(email!)
-//                    let param: [String: Any] = [
-//                        "email":email!,
-//                        "type":"social"
-//                    ]
-//                    print(param)
-//                    self.defaults.set(true, forKey: "isSocial")
-//                    self.defaults.set(email, forKey: "email")
-//                    self.defaults.set("1122", forKey: "password")
-//                    self.defaults.synchronize()
-//                    self.adForest_loginUser(parameters: param as NSDictionary)
-
-                }) {(error) -> Void in
-                    print(error.localizedDescription)
-                    //handle the error
-            }
-//         linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
-//
-//            self.linkedinHelper.requestURL("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={86fohl6w88kexu}&redirect_uri=https://adforest-testapp.scriptsbundle.com/auth/linkedin/callback%2Fauth%2Flinkedin%2Fcallback&state=fooobar&scope=r_liteprofile%20r_emailaddress%20w_member_social", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-//
-//
-//                 print(response)
-//                let dict = response.jsonObject
-//                print(dict!)
-//                let email = dict!["emailAddress"]
-//                print(email!)
-//                let param: [String: Any] = [
-//                    "email":email!,
-//                    "type":"social"
-//                ]
-//                print(param)
-//                self.defaults.set(true, forKey: "isSocial")
-//                self.defaults.set(email, forKey: "email")
-//                self.defaults.set("1122", forKey: "password")
-//                self.defaults.synchronize()
-//                self.adForest_loginUser(parameters: param as NSDictionary)
-//
-//            }) { [unowned self] (error) -> Void in
-//
-//                //self.writeConsoleLine("Encounter error: \(error.localizedDescription)")
-//            }
-        }, error: { (error) -> Void in
-            //Encounter error: error.localizedDescription
-        }, cancel: { () -> Void in
-            //User Cancelled!
-        })
-//        }, error: nil)
+        linkedInAuthVC()
     }
+    
+    
+    var webView = WKWebView()
+    func linkedInAuthVC() {
+        // Create linkedIn Auth ViewController
+        let linkedInVC = UIViewController()
+        // Create WebView
+        let webView = WKWebView()
+        webView.navigationDelegate = self
+        linkedInVC.view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: linkedInVC.view.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: linkedInVC.view.leadingAnchor),
+            webView.bottomAnchor.constraint(equalTo: linkedInVC.view.bottomAnchor),
+            webView.trailingAnchor.constraint(equalTo: linkedInVC.view.trailingAnchor)
+            ])
+
+        let state = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+
+        let authURLFull = Constants.LinkedInConstants.AUTHURL + "?response_type=code&client_id=" + Constants.LinkedInConstants.CLIENT_ID + "&scope=" + Constants.LinkedInConstants.SCOPE + "&state=" + state + "&redirect_uri=" + Constants.LinkedInConstants.REDIRECT_URI
+
+
+        let urlRequest = URLRequest.init(url: URL.init(string: authURLFull)!)
+        webView.load(urlRequest)
+
+        // Create Navigation Controller
+        let navController = UINavigationController(rootViewController: linkedInVC)
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
+        linkedInVC.navigationItem.leftBarButtonItem = cancelButton
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refreshAction))
+        linkedInVC.navigationItem.rightBarButtonItem = refreshButton
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navController.navigationBar.titleTextAttributes = textAttributes
+        linkedInVC.navigationItem.title = "linkedin.com"
+        navController.navigationBar.isTranslucent = false
+        navController.navigationBar.tintColor = UIColor.white
+//        navController.navigationBar.barTintColor = UIColor.colorFromHex("#0072B1")
+        navController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        navController.modalTransitionStyle = .coverVertical
+
+        self.present(navController, animated: true, completion: nil)
+    }
+    @objc func cancelAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    @objc func refreshAction() {
+        self.webView.reload()
+    }
+
     
     func adForest_logIn() {
         guard let email = txtEmail.text else {
@@ -1158,4 +1046,154 @@ self.firstName = firstName
 self.lastName = lastName
     }
     
+}
+extension LoginViewController: WKNavigationDelegate {
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        RequestForCallbackURL(request: navigationAction.request)
+        
+        //Close the View Controller after getting the authorization code
+        if let urlStr = navigationAction.request.url?.absoluteString {
+            if urlStr.contains("?code=") {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        decisionHandler(.allow)
+    }
+
+    func RequestForCallbackURL(request: URLRequest) {
+        // Get the authorization code string after the '?code=' and before '&state='
+        let requestURLString = (request.url?.absoluteString)! as String
+        if requestURLString.hasPrefix(Constants.LinkedInConstants.REDIRECT_URI) {
+            if requestURLString.contains("?code=") {
+                if let range = requestURLString.range(of: "=") {
+                    let linkedinCode = requestURLString[range.upperBound...]
+                    if let range = linkedinCode.range(of: "&state=") {
+                        let linkedinCodeFinal = linkedinCode[..<range.lowerBound]
+                        handleAuth(linkedInAuthorizationCode: String(linkedinCodeFinal))
+                    }
+                }
+            }
+        }
+    }
+
+    func handleAuth(linkedInAuthorizationCode: String) {
+        linkedinRequestForAccessToken(authCode: linkedInAuthorizationCode)
+    }
+
+    func linkedinRequestForAccessToken(authCode: String) {
+        let grantType = "authorization_code"
+
+        // Set the POST parameters.
+        let postParams = "grant_type=" + grantType + "&code=" + authCode + "&redirect_uri=" + Constants.LinkedInConstants.REDIRECT_URI + "&client_id=" + Constants.LinkedInConstants.CLIENT_ID + "&client_secret=" + Constants.LinkedInConstants.CLIENT_SECRET
+        let postData = postParams.data(using: String.Encoding.utf8)
+        let request = NSMutableURLRequest(url: URL(string: Constants.LinkedInConstants.TOKENURL)!)
+        request.httpMethod = "POST"
+        request.httpBody = postData
+        request.addValue("application/x-www-form-urlencoded;", forHTTPHeaderField: "Content-Type")
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task: URLSessionDataTask = session.dataTask(with: request as URLRequest) { (data, response, error) -> Void in
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            if statusCode == 200 {
+                let results = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [AnyHashable: Any]
+
+                let accessToken = results?["access_token"] as! String
+                print("accessToken is: \(accessToken)")
+
+                let expiresIn = results?["expires_in"] as! Int
+                print("expires in: \(expiresIn)")
+
+                // Get user's id, first name, last name, profile pic url
+                self.fetchLinkedInUserProfile(accessToken: accessToken)
+            }
+        }
+        task.resume()
+    }
+
+
+    func fetchLinkedInUserProfile(accessToken: String) {
+        let tokenURLFull = "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token=\(accessToken)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let verify: NSURL = NSURL(string: tokenURLFull!)!
+        let request: NSMutableURLRequest = NSMutableURLRequest(url: verify as URL)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            if error == nil {
+                let linkedInProfileModel = try? JSONDecoder().decode(LinkedInProfileModel.self, from: data!)
+                
+                //AccessToken
+                print("LinkedIn Access Token: \(accessToken)")
+                self.linkedInAccessToken = accessToken
+                
+                // LinkedIn Id
+                let linkedinId: String! = linkedInProfileModel?.id
+                print("LinkedIn Id: \(linkedinId ?? "")")
+                self.linkedInId = linkedinId
+
+                // LinkedIn First Name
+                let linkedinFirstName: String! = linkedInProfileModel?.firstName.localized.enUS
+                print("LinkedIn First Name: \(linkedinFirstName ?? "")")
+                self.linkedInFirstName = linkedinFirstName
+
+                // LinkedIn Last Name
+                let linkedinLastName: String! = linkedInProfileModel?.lastName.localized.enUS
+                print("LinkedIn Last Name: \(linkedinLastName ?? "")")
+                self.linkedInLastName = linkedinLastName
+
+                // LinkedIn Profile Picture URL
+                let linkedinProfilePic: String!
+
+                /*
+                 Change row of the 'elements' array to get diffrent size of the profile url
+                 elements[0] = 100x100
+                 elements[1] = 200x200
+                 elements[2] = 400x400
+                 elements[3] = 800x800
+                */
+                if let pictureUrls = linkedInProfileModel?.profilePicture.displayImage.elements[2].identifiers[0].identifier {
+                    linkedinProfilePic = pictureUrls
+                } else {
+                    linkedinProfilePic = "Not exists"
+                }
+                print("LinkedIn Profile Avatar URL: \(linkedinProfilePic ?? "")")
+                self.linkedInProfilePicURL = linkedinProfilePic
+
+                // Get user's email address
+                self.fetchLinkedInEmailAddress(accessToken: accessToken)
+            }
+        }
+        task.resume()
+    }
+
+    func fetchLinkedInEmailAddress(accessToken: String) {
+        let tokenURLFull = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=\(accessToken)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let verify: NSURL = NSURL(string: tokenURLFull!)!
+        let request: NSMutableURLRequest = NSMutableURLRequest(url: verify as URL)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            if error == nil {
+                let linkedInEmailModel = try? JSONDecoder().decode(LinkedInEmailModel.self, from: data!)
+
+                // LinkedIn Email
+                let linkedinEmail: String! = linkedInEmailModel?.elements[0].elementHandle.emailAddress
+                print("LinkedIn Email: \(linkedinEmail ?? "")")
+                self.linkedInEmail = linkedinEmail
+
+                DispatchQueue.main.async {
+                    let param: [String: Any] = [
+                        "email": linkedinEmail!,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(linkedinEmail, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+//                    self.performSegue(withIdentifier: "detailseg", sender: self)
+                }
+            }
+        }
+        task.resume()
+    }
+
+
 }

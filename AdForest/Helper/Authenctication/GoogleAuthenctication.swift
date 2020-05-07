@@ -18,7 +18,8 @@ class GoogleAuthenctication {
     }
     
     class var isLooggedIn: Bool {
-        return getInstance().hasAuthInKeychain()
+        return (getInstance().currentUser != nil)
+        //hasAuthInKeychain()
     }
     
     class func signIn() {
@@ -26,7 +27,7 @@ class GoogleAuthenctication {
     }
     
     class func signInSilenty() {
-        getInstance().signInSilently()
+//        getInstance().signInSilently()
     }
     
     class func signOut() {

@@ -577,12 +577,13 @@
 		18F5C8EE2135641B006710AC /* AdPostURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C8EC2135641B006710AC /* AdPostURLCell.swift */; };
 		18F5C8EF2135641B006710AC /* AdPostURLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F5C8ED2135641B006710AC /* AdPostURLCell.xib */; };
 		18FE9C58236811A500E8756F /* MapBoxPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */; };
+		9601E7C52463CF3B00036649 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9601E7C42463CF3900036649 /* GoogleService-Info.plist */; };
+		9601E7C82463E49600036649 /* LinkedInEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C72463E49600036649 /* LinkedInEmailModel.swift */; };
+		9601E7CA2463E4B500036649 /* LinkedInProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */; };
 		9627990823D6B67D007726EA /* logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9627990723D6B67D007726EA /* logout.swift */; };
 		962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */; };
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
-		967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967521C324501F9B0007A28C /* GoogleService-Info.plist */; };
-		9689AEEA242B7ED000344662 /* AppIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689AEE9242B7ED000344662 /* AppIntroViewController.swift */; };
 		96E0CAC524334375009EEA56 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC424334374009EEA56 /* HomeController.swift */; };
 		AB5D6118CFB004420A4C06D3 /* Pods_AdForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */; };
 /* End PBXBuildFile section */
@@ -1188,12 +1189,13 @@
 		27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2A49835B1E8A0B4FBE203B /* Pods_AdForestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40669BC4F56DF9BA67C9F467 /* Pods-AdForest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdForest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdForest/Pods-AdForest.debug.xcconfig"; sourceTree = "<group>"; };
+		9601E7C42463CF3900036649 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Users/glixen/Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9601E7C72463E49600036649 /* LinkedInEmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedInEmailModel.swift; sourceTree = "<group>"; };
+		9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedInProfileModel.swift; sourceTree = "<group>"; };
 		9627990723D6B67D007726EA /* logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logout.swift; sourceTree = "<group>"; };
 		962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsViewController.swift; sourceTree = "<group>"; };
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9674945A23E0879D0035E58E /* EmptyCartRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartRoot.swift; sourceTree = "<group>"; };
-		967521C324501F9B0007A28C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/glixen/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9689AEE9242B7ED000344662 /* AppIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntroViewController.swift; sourceTree = "<group>"; };
 		96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "linkedin-sdk.framework.zip"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework.zip"; sourceTree = "<group>"; };
 		96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2490,7 +2492,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				967521C324501F9B0007A28C /* GoogleService-Info.plist */,
+				9601E7C42463CF3900036649 /* GoogleService-Info.plist */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
 				18BBFAB7205109960067662F /* AppDelegate */,
@@ -2535,7 +2537,6 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9689AEE2242B715700344662 /* IntrooApp */,
 				962C7C7823D828CF00F6FC25 /* MostVisitedAds */,
 				1890A0AA2382A49C00CDAD1F /* ExpireAds */,
 				18FE9C562368118A00E8756F /* MapBoxPlaces */,
@@ -2656,6 +2657,7 @@
 		18BBFACB20510F620067662F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9601E7C62463E3CF00036649 /* LinkedIn */,
 				9674945923E087860035E58E /* EmptyCart */,
 				9627990623D6B669007726EA /* logout */,
 				189E4093231FDA5C00605804 /* BlockedUserChatList */,
@@ -3184,6 +3186,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9601E7C62463E3CF00036649 /* LinkedIn */ = {
+			isa = PBXGroup;
+			children = (
+				9601E7C72463E49600036649 /* LinkedInEmailModel.swift */,
+				9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */,
+			);
+			path = LinkedIn;
+			sourceTree = "<group>";
+		};
 		9627990623D6B669007726EA /* logout */ = {
 			isa = PBXGroup;
 			children = (
@@ -3207,14 +3218,6 @@
 				9674945A23E0879D0035E58E /* EmptyCartRoot.swift */,
 			);
 			path = EmptyCart;
-			sourceTree = "<group>";
-		};
-		9689AEE2242B715700344662 /* IntrooApp */ = {
-			isa = PBXGroup;
-			children = (
-				9689AEE9242B7ED000344662 /* AppIntroViewController.swift */,
-			);
-			path = IntrooApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3350,6 +3353,7 @@
 				18196DFD2149185100F6515E /* CategoryDetailCell.xib in Resources */,
 				18E9FB922058F4AF00B998A6 /* WebViewCell.xib in Resources */,
 				18D8DCB121A6C46D008888BA /* CustomHeader.xib in Resources */,
+				9601E7C52463CF3B00036649 /* GoogleService-Info.plist in Resources */,
 				185B3C70207E03A800EDBBB4 /* AdRatingCell.xib in Resources */,
 				18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */,
 				181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */,
@@ -3370,7 +3374,6 @@
 				18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
-				967521C424501F9D0007A28C /* GoogleService-Info.plist in Resources */,
 				18BBFA8C2051098C0067662F /* Main.storyboard in Resources */,
 				181DDA9823339465001FF048 /* sad.gif in Resources */,
 				185B3C79207E374900EDBBB4 /* AddBidsCell.xib in Resources */,
@@ -3402,39 +3405,32 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/F6FDF133-0198-394E-9C8F-5043F94B4790.bcsymbolmap",
 				"${BUILT_PRODUCTS_DIR}/MapboxGeocoder.swift/MapboxGeocoder.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/OnboardKit/OnboardKit.framework",
 				"${BUILT_PRODUCTS_DIR}/OpalImagePicker/OpalImagePicker.framework",
-				"${BUILT_PRODUCTS_DIR}/PersonalizedAdConsent/PersonalizedAdConsent.framework",
 				"${BUILT_PRODUCTS_DIR}/Popover/Popover.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RangeSeekSlider/RangeSeekSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
@@ -3446,44 +3442,37 @@
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextField+Shake/UITextField_Shake.framework",
 				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
-				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
-				"${BUILT_PRODUCTS_DIR}/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
-				"${BUILT_PRODUCTS_DIR}/F6FDF133-0198-394E-9C8F-5043F94B4790.bcsymbolmap",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxGeocoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OnboardKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpalImagePicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PersonalizedAdConsent.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Popover.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RangeSeekSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
@@ -3495,7 +3484,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextField_Shake.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3554,6 +3543,7 @@
 			files = (
 				189E886F2072509B00ABB6A3 /* UpdateImageData.swift in Sources */,
 				18683F9520A0203700FF616C /* SubCategoryData.swift in Sources */,
+				9601E7C82463E49600036649 /* LinkedInEmailModel.swift in Sources */,
 				182B4B5D209072E500324D4E /* AdPostCell.swift in Sources */,
 				18860C88232FA66E003910FC /* SetLocationController.swift in Sources */,
 				1858CE432057A382003422F1 /* Button.swift in Sources */,
@@ -3828,7 +3818,6 @@
 				18513F51206B599E00FCD1F5 /* InactiveAdsRoot.swift in Sources */,
 				18605F8A214F7D3200B3B567 /* SearchTwoTextField.swift in Sources */,
 				18276133205D006F00ADAC4C /* AddDetailController.swift in Sources */,
-				9689AEEA242B7ED000344662 /* AppIntroViewController.swift in Sources */,
 				18188E8A206CB003000DFECB /* BlogCat.swift in Sources */,
 				184EDB06207898DE00A25228 /* AddDetailLocation.swift in Sources */,
 				185B13CB207CD2A400914AF0 /* AddDetailDescriptionCell.swift in Sources */,
@@ -3890,6 +3879,7 @@
 				18188E80206CAF67000DFECB /* BlogRoot.swift in Sources */,
 				18F0C7E2206F71E3003E16A5 /* SettingsFeaturedScroll.swift in Sources */,
 				18AD93AC206CBFD400330ABF /* PhoneVerificationRoot.swift in Sources */,
+				9601E7CA2463E4B500036649 /* LinkedInProfileModel.swift in Sources */,
 				180A4F4C2328C41E002BC411 /* RejectedAds.swift in Sources */,
 				18A550362134005D002FCD02 /* HomeSearchSection.swift in Sources */,
 				18BBFAFD205154F40067662F /* LeftController.swift in Sources */,
@@ -4188,7 +4178,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4241,7 +4231,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -4262,11 +4252,11 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = adforestDevPro;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
@@ -4289,13 +4279,13 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = testiosAdForest;
+				PROVISIONING_PROFILE_SPECIFIER = AdForestLive2.3.7;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

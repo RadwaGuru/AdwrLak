@@ -20,9 +20,15 @@ import GooglePlacePicker
 import SwiftyStoreKit
 import NotificationBannerSwift
 import GoogleMobileAds
-import LinkedinSwift
+//import LinkedinSwift
+import GoogleSignIn
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
+    
+    
+    
+    
     
     var window: UIWindow?
     
@@ -67,11 +73,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         // For Facebook and Google SignIn
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
+         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+
+        
 
         defaults.removeObject(forKey: "isGuest")
         defaults.synchronize()
-
+        
         //For in App Purchase
         SwiftyStoreKit.completeTransactions(atomically: true) { (purchases) in
             for purchase in purchases {
@@ -94,14 +103,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
  
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let willHandleByFacebook = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-
-        let willHandleByGoogle =  GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-        // Linkedin sdk handle redirect
-        if LinkedinSwiftHelper.shouldHandle(url) {
-            return LinkedinSwiftHelper.application(app, open: url, sourceApplication: nil, annotation: nil)
-        }
+       
+        let willHandleByGoogle = GIDSignIn.sharedInstance().handle(url)
         
-        return willHandleByGoogle || willHandleByFacebook || false
+//        let willHandleByGoogle = GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        // Linkedin sdk handle redirect
+//        if LinkedinSwiftHelper.shouldHandle(url) {
+//            return LinkedinSwiftHelper.application(app, open: url, sourceApplication: nil, annotation: nil)
+//        }
+        //|| false
+        
+        return  willHandleByGoogle || willHandleByFacebook
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -316,15 +328,28 @@ extension AppDelegate  {
         
         Messaging.messaging().apnsToken = deviceToken
         
-        if let refreshedToken = InstanceID.instanceID().token() {
-            print("Firebase: InstanceID token: \(refreshedToken)")
-            self.deviceFcmToken = refreshedToken
-            let defaults =  UserDefaults.standard
-            defaults.setValue(deviceToken, forKey: "fcmToken")
-            defaults.synchronize()
-        }else{
-            
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+                self.deviceFcmToken = result.token
+                let defaults =  UserDefaults.standard
+                defaults.setValue(deviceToken, forKey: "fcmToken")
+                defaults.synchronize()
+            }
         }
+        
+        
+//        if let refreshedToken = InstanceID.instanceID().token(withAuthorizedEntity: nil, scope: nil, handler: <#InstanceIDTokenHandler#>) {
+//            print("Firebase: InstanceID token: \(refreshedToken)")
+//            self.deviceFcmToken = refreshedToken
+//            let defaults =  UserDefaults.standard
+//            defaults.setValue(deviceToken, forKey: "fcmToken")
+//            defaults.synchronize()
+//        }else{
+//            
+//        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

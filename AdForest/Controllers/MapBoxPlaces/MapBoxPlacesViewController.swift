@@ -8,7 +8,7 @@
 
 import UIKit
 import MapboxGeocoder
-import Mapbox
+//import Mapbox
 
 import Alamofire
 import SwiftyJSON
@@ -20,14 +20,14 @@ protocol latLongitudePro {
 }
 
 let MapboxAccessToken = "pk.eyJ1IjoiZ2xpeGVuIiwiYSI6ImNrMmFkNXdjbjJpeHgzbG16bW5kZ3R5OGkifQ.sUMfX4HRKF9l3YorJ4a02A"
-
-class MapBoxPlacesViewController: UIViewController,MGLMapViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+//,MGLMapViewDelegate
+class MapBoxPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
    
 
     
     // MARK: - Variables
 
-      var mapView: MGLMapView!
+//      var mapView: MGLMapView!
       var resultsLabel: UILabel!
       var geocoder: Geocoder!
       var geocodingDataTask: URLSessionDataTask?
@@ -134,23 +134,23 @@ class MapBoxPlacesViewController: UIViewController,MGLMapViewDelegate, UITableVi
         return searchedPlaces.count
        }
       
-       func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
-           geocodingDataTask?.cancel()
-       }
-       
-       func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-           geocodingDataTask?.cancel()
-           let options = ReverseGeocodeOptions(coordinate: mapView.centerCoordinate)
-           geocodingDataTask = geocoder.geocode(options) { [unowned self] (placemarks, attribution, error) in
-               if let error = error {
-                   NSLog("%@", error)
-               } else if let placemarks = placemarks, !placemarks.isEmpty {
-                   self.resultsLabel.text = placemarks[0].qualifiedName
-               } else {
-                   self.resultsLabel.text = "No results"
-               }
-           }
-       }
+//       func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+//           geocodingDataTask?.cancel()
+//       }
+//
+//       func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+//           geocodingDataTask?.cancel()
+//           let options = ReverseGeocodeOptions(coordinate: mapView.centerCoordinate)
+//           geocodingDataTask = geocoder.geocode(options) { [unowned self] (placemarks, attribution, error) in
+//               if let error = error {
+//                   NSLog("%@", error)
+//               } else if let placemarks = placemarks, !placemarks.isEmpty {
+//                   self.resultsLabel.text = placemarks[0].qualifiedName
+//               } else {
+//                   self.resultsLabel.text = "No results"
+//               }
+//           }
+//       }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

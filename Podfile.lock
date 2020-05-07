@@ -1,26 +1,16 @@
 PODS:
   - ActionSheetPicker-3.0 (2.3.0)
-  - AFNetworking (4.0.0):
-    - AFNetworking/NSURLSession (= 4.0.0)
-    - AFNetworking/Reachability (= 4.0.0)
-    - AFNetworking/Security (= 4.0.0)
-    - AFNetworking/Serialization (= 4.0.0)
-    - AFNetworking/UIKit (= 4.0.0)
-  - AFNetworking/NSURLSession (4.0.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.0)
-  - AFNetworking/Security (4.0.0)
-  - AFNetworking/Serialization (4.0.0)
-  - AFNetworking/UIKit (4.0.0):
-    - AFNetworking/NSURLSession
   - Alamofire (4.9.1)
   - Alamofire-SwiftyJSON (3.0.0):
     - Alamofire (~> 4.5)
     - SwiftyJSON (~> 4.0.0)
   - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
+  - AppAuth (1.3.0):
+    - AppAuth/Core (= 1.3.0)
+    - AppAuth/ExternalUserAgent (= 1.3.0)
+  - AppAuth/Core (1.3.0)
+  - AppAuth/ExternalUserAgent (1.3.0)
   - Cosmos (13.0.0)
   - DeviceKit (1.4.0)
   - DropDown (2.0.2)
@@ -38,43 +28,72 @@ PODS:
     - FBSDKShareKit/Share (= 5.10.0)
   - FBSDKShareKit/Share (5.10.0):
     - FBSDKCoreKit (~> 5.0)
-  - Firebase/Auth (4.8.0):
-    - Firebase/Core
-    - FirebaseAuth (= 4.4.1)
-  - Firebase/Core (4.8.0):
-    - FirebaseAnalytics (= 4.0.5)
-    - FirebaseCore (= 4.0.13)
-  - Firebase/Messaging (4.8.0):
-    - Firebase/Core
-    - FirebaseMessaging (= 2.0.8)
-  - FirebaseAnalytics (4.0.5):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - nanopb (~> 0.3)
-  - FirebaseAuth (4.4.1):
-    - FirebaseAnalytics (~> 4.0)
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.13):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseInstanceID (2.0.8):
-    - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.8):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.1)
-  - Google-Mobile-Ads-SDK (7.50.0):
-    - GoogleAppMeasurement (~> 6.0)
-  - GoogleAnalytics (3.17.0)
-  - GoogleAppMeasurement (6.1.1):
+  - Firebase/Auth (6.9.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 6.2.3)
+  - Firebase/Core (6.9.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.1.2)
+  - Firebase/CoreOnly (6.9.0):
+    - FirebaseCore (= 6.3.0)
+  - Firebase/Messaging (6.9.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.1.4)
+  - FirebaseAnalytics (6.1.2):
+    - FirebaseCore (~> 6.3)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.1.2)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.5.0)
+  - FirebaseAuth (6.2.3):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseAuthInterop (1.1.0)
+  - FirebaseCore (6.3.0):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.2.4):
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleDataTransportCCTSupport (~> 3.0)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseInstanceID (4.2.7):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.10):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
+    - Protobuf (>= 3.9.2, ~> 3.9)
+  - Google-Mobile-Ads-SDK (7.58.0):
+    - GoogleAppMeasurement (~> 6.0)
+  - GoogleAnalytics (3.17.0)
+  - GoogleAppMeasurement (6.1.2):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - GoogleDataTransport (6.1.0)
+  - GoogleDataTransportCCTSupport (3.0.0):
+    - GoogleDataTransport (~> 6.0)
+    - nanopb (~> 0.3.901)
   - GoogleMaps (3.1.0):
     - GoogleMaps/Maps (= 3.1.0)
   - GoogleMaps/Base (3.1.0)
@@ -85,40 +104,31 @@ PODS:
     - GooglePlaces (= 3.1.0)
   - GooglePlaces (3.1.0):
     - GoogleMaps/Base (= 3.1.0)
-  - GoogleSignIn (4.1.1):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMOAuth2 (~> 1.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/Defines (2.1.3)
-  - GoogleToolboxForMac/Logger (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3)":
-    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
-  - GoogleUtilities/AppDelegateSwizzler (6.3.0):
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.3.0)
-  - GoogleUtilities/Logger (6.3.0):
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.3.0):
+  - GoogleUtilities/MethodSwizzler (6.6.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.3.0):
+  - GoogleUtilities/Network (6.6.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.3.0)"
-  - GoogleUtilities/Reachability (6.3.0):
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
     - GoogleUtilities/Logger
-  - GTMOAuth2 (1.1.6):
+  - GoogleUtilities/UserDefaults (6.6.0):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.1.12):
     - GTMSessionFetcher/Full (= 1.1.12)
@@ -131,21 +141,15 @@ PODS:
     - AlamofireImage (~> 3.0)
     - ImageSlideshow/Core
   - ImageSlideshow/Core (1.8.1)
-  - IOSLinkedInAPIFix (2.0.4):
-    - AFNetworking (>= 2.0.0)
   - IQKeyboardManagerSwift (5.0.7)
   - JGProgressHUD (2.0.3)
-  - LinkedinSwift (1.7.9):
-    - AFNetworking (>= 3.1.0)
-    - IOSLinkedInAPIFix (>= 2.0.4)
-  - Mapbox-iOS-SDK (5.4.0)
   - MapboxGeocoder.swift (0.11.0)
   - MarqueeLabel/Swift (3.2.0)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - NotificationBannerSwift (1.7.1):
     - MarqueeLabel/Swift (~> 3.2.0)
     - SnapKit (~> 4.0.1)
@@ -154,9 +158,9 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.1.1)
   - OnboardKit (1.0.0)
   - OpalImagePicker (2.0.0)
-  - PersonalizedAdConsent (1.0.3)
   - Popover (1.2.2)
-  - Protobuf (3.5.0)
+  - PromisesObjC (1.2.8)
+  - Protobuf (3.11.4)
   - RangeSeekSlider (1.7.0)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
@@ -170,7 +174,7 @@ PODS:
   - TextFieldEffects (1.4.0)
   - "UITextField+Shake (1.2.1)"
   - XLPagerTabStrip (8.1.0)
-  - YouTubePlayer (0.4.0)
+  - YoutubePlayer-in-WKWebView (0.3.4)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
@@ -195,14 +199,11 @@ DEPENDENCIES:
   - ImageSlideshow/Alamofire
   - IQKeyboardManagerSwift
   - JGProgressHUD
-  - LinkedinSwift (>= 1.7.9)
-  - Mapbox-iOS-SDK (~> 5.4)
   - MapboxGeocoder.swift (~> 0.11)
   - NotificationBannerSwift
   - NVActivityIndicatorView
   - OnboardKit
   - OpalImagePicker
-  - PersonalizedAdConsent
   - Popover
   - RangeSeekSlider
   - SDWebImage
@@ -213,15 +214,15 @@ DEPENDENCIES:
   - TextFieldEffects
   - "UITextField+Shake"
   - XLPagerTabStrip (~> 8.1)
-  - YouTubePlayer
+  - YoutubePlayer-in-WKWebView (~> 0.3.0)
 
 SPEC REPOS:
   trunk:
     - ActionSheetPicker-3.0
-    - AFNetworking
     - Alamofire
     - Alamofire-SwiftyJSON
     - AlamofireImage
+    - AppAuth
     - Cosmos
     - DeviceKit
     - DropDown
@@ -230,27 +231,29 @@ SPEC REPOS:
     - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
     - FirebaseInstanceID
     - FirebaseMessaging
     - Google-Mobile-Ads-SDK
     - GoogleAnalytics
     - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
     - GoogleMaps
     - GooglePlacePicker
     - GooglePlaces
     - GoogleSignIn
-    - GoogleToolboxForMac
     - GoogleUtilities
-    - GTMOAuth2
+    - GTMAppAuth
     - GTMSessionFetcher
     - ImageSlideshow
-    - IOSLinkedInAPIFix
     - IQKeyboardManagerSwift
     - JGProgressHUD
-    - LinkedinSwift
-    - Mapbox-iOS-SDK
     - MapboxGeocoder.swift
     - MarqueeLabel
     - nanopb
@@ -258,8 +261,8 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - OnboardKit
     - OpalImagePicker
-    - PersonalizedAdConsent
     - Popover
+    - PromisesObjC
     - Protobuf
     - RangeSeekSlider
     - SDWebImage
@@ -272,53 +275,55 @@ SPEC REPOS:
     - TextFieldEffects
     - "UITextField+Shake"
     - XLPagerTabStrip
-    - YouTubePlayer
+    - YoutubePlayer-in-WKWebView
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
-  AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Alamofire-SwiftyJSON: 2b3649d57dc7bb2880fb8b86f8bb969397666916
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
+  AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   Cosmos: af3973becc045af335b64498c9812034876b7661
   DeviceKit: fa74d97499660e88081718b16688e19217595dba
   DropDown: 75562633a203f57a917021b4edb96c76f293b0ec
   FBSDKCoreKit: f9bae468a078f20c05c73450825ccd54cfafbbb7
   FBSDKLoginKit: 4ece964272a52c4e1363d5c048a545e33761491b
   FBSDKShareKit: 09c3b7166802a3629970fa00d45d59cf6942df37
-  Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
-  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
-  FirebaseAuth: dc0dd403beca5b2b016aac89c2d0b8dad1c81926
-  FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
-  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
-  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
-  Google-Mobile-Ads-SDK: d48dbaf5bae1ab7a94a9786f493c26c454bc6f16
+  Firebase: 2d750c54cda57d5a6ae31212cfe5cc813c6be7e4
+  FirebaseAnalytics: 5d9ccbf46ed25d3ec9304d263f85bddf1e93e2d2
+  FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
+  FirebaseAuth: e7f86c2dfc57281cd01f7da5e4b40e01e4510a4a
+  FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
+  FirebaseCore: 8b2765c445d40db7137989b7146a3aa3f91b5529
+  FirebaseCoreDiagnostics: b59c024493a409f8aecba02c99928d0d8431d159
+  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
+  FirebaseMessaging: 089b7a4991425783384acc8bcefcd78c0af913bd
+  Google-Mobile-Ads-SDK: 7052557293c75c676db55feb707ace9b790f32c1
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleAppMeasurement: 86a82f0e1f20b8eedf8e20326530138fd71409de
+  GoogleAppMeasurement: 0ae90be1cc4dad40f4a27fc767ef59fa032ec87b
+  GoogleDataTransport: f6f8eba931df03ebd2232ff4645aa85f8f47b5ab
+  GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
-  GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
-  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GoogleUtilities: 9c2c544202301110b29f7974a82e77fdcf12bf51
-  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   ImageSlideshow: 634865d7d4e96f21e3830a31b51bde768cc94cea
-  IOSLinkedInAPIFix: a520fd805a03dade35f42904c7d89ded2a84c752
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
-  LinkedinSwift: f92083bf0404938768cc2cfd8c277205b566236f
-  Mapbox-iOS-SDK: 2b58f752d94e57e95b8e54f3b52569199f6efdba
   MapboxGeocoder.swift: b78a3d2f42bef7d51edbb2444768634e5de722db
   MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NotificationBannerSwift: 5d0191ae57c4b38e484dab4912e32d1ed99fce61
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   OnboardKit: 6828f2a4cd8a0f5451f7ebcaa308f84a29df3d1e
   OpalImagePicker: efc91612ef5b3849314801f68fddc26200da9435
-  PersonalizedAdConsent: b50a8a5d6065b6db23121e8fcc0dce2ae983f6ea
   Popover: 21e357f86d45c8d9e29a41a4adbca3664d6e511f
-  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RangeSeekSlider: 0386c5a9aa5ebcb2fa5238e8a627280cf46c7c0a
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
@@ -330,8 +335,8 @@ SPEC CHECKSUMS:
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
-  YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
+  YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
 
-PODFILE CHECKSUM: c98625f0c9e89c05146bf424e2e10e367010d11b
+PODFILE CHECKSUM: 851aa0055df8f213912d35f8ba9beda20fdb94e8
 
 COCOAPODS: 1.9.1

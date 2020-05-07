@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIWebViewDelegate {
+import WebKit
+class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,WKUIDelegate,WKNavigationDelegate {
    
     
     //MARK:- Outlets
@@ -16,13 +16,13 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
     
     
     @IBOutlet weak var heightConstraintWebView: NSLayoutConstraint!
-    @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var containerView: UIView! {
         didSet {
             containerView.addShadowToView()
         }
     }
     @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var wkWebView: WKWebView!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
@@ -56,8 +56,7 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
        // cstCollectionHeight.constant = self.collectionView.contentSize.height
         //collectionView.reloadData()
         self.setupView()
-        webView.scrollView.isScrollEnabled = false
-        webView.delegate = self
+        
 //        let objData = AddsHandler.sharedInstance.objAddDetails?.adDetail
 //        
 //        UserDefaults.standard.set(objData?.fieldsDataColumn, forKey: "fieldsDataColumn")
@@ -120,7 +119,7 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
         if objData.type == "textfield_url"{
             let webUrl = objData.value
             self.btnUrlvalue = objData.value
-            cell.lblWebUrl.isHidden = true
+//            cell.lblWebUrl.isHidden = true
             cell.btnWebUrlClick.isHidden = false
             cell.lblDescription.isHidden = true
             let viewLink = UserDefaults.standard.string(forKey: "webUrl")
@@ -132,7 +131,7 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
 
         }
         else{
-            cell.lblWebUrl.isHidden = true
+//            cell.lblWebUrl.isHidden = true
         }
 
        //cstCollectionHeight.constant = 300 //collectionView.contentSize.height + cell.lblCategory.frame.height - collectionView.contentSize.height
@@ -217,7 +216,7 @@ class AddDetailDescriptionCollectionCell : UICollectionViewCell {
     @IBOutlet weak var lblDescription: UILabel!
     
     @IBOutlet weak var btnWebUrlClick: UIButton!
-    @IBOutlet weak var lblWebUrl: UILabel!
+//    @IBOutlet weak var lblWebUrl: UILabel!
     @IBOutlet weak var contHeightTitle: NSLayoutConstraint!
     @IBOutlet weak var constHeightDetail: NSLayoutConstraint!
     

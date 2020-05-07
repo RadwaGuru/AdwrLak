@@ -13,12 +13,8 @@ import DeviceKit
 class Constants {
     struct  URL {
         
+        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
 
-        static let ipAddress = "https://adforest-testapp.scriptsbundle.com/"
-
-
-        
-        
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -116,24 +112,29 @@ class Constants {
     
     struct customCodes {
        
-//        //Test
+        
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-      
         
-        
-              
-
     }
     
+
+    struct LinkedInConstants {
+        
+        static let CLIENT_ID = "86fohl6w88kexu"
+        static let CLIENT_SECRET = "YAOoXObs6wU3aUg9"
+        static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/"
+        static let SCOPE = "r_liteprofile%20r_emailaddress" //Get lite profile info and e-mail address
+        
+        static let AUTHURL = "https://www.linkedin.com/oauth/v2/authorization"
+        static let TOKENURL = "https://www.linkedin.com/oauth/v2/accessToken"
+    }
 
     
     
     struct googlePlacesAPIKey {
-        //AIzaSyC10EmGBoQfFAr1kAuj1gNLreO043Dqr9w
-        //AIzaSyDorvTuNOQlyBP3TmhpCaRWjgfjl4P46MYM
-        
-        static let placesKey =  "AIzaSyDigOS_q3eWaEok7EiOxMMOYE9RWbLKlXk"
+
+        static let placesKey =  "AIzaSyABvyqYlTNqGzpi13f7ptJMYghjWfSVnzU"
         
     }
     
@@ -199,19 +200,12 @@ class Constants {
         case loadingMessage = ""
     }
     
-//    static func showBasicAlert (message: String) -> UIAlertController{
-//        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//        return alert
-//    }
     static func showBasicAlert (message: String) -> UIAlertController{
-        let al = UserDefaults.standard.string(forKey: "aler")
-        let ok = UserDefaults.standard.string(forKey: "okbtnNew")
-        //let cancel = UserDefaults.standard.string(forKey: "cancelbtnNew")
-        let alert = UIAlertController(title: al, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: ok, style: UIAlertActionStyle.default, handler: nil))
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         return alert
     }
+    
     //Convert data to json string
     static func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {

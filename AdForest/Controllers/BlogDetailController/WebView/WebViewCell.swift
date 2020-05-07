@@ -7,17 +7,18 @@
 //
 
 import UIKit
-
+import WebKit
 class WebViewCell: UITableViewCell {
 
     @IBOutlet weak var heightWebView: NSLayoutConstraint!
-    @IBOutlet weak var webView: UIWebView! {
-        didSet {
-           // webView.delegate = self
-            webView.isOpaque = false
-        }
-    }
     
+    @IBOutlet weak var wkWebView: WKWebView!{
+        didSet {
+                   wkWebView.isOpaque = false
+                   wkWebView.backgroundColor = UIColor.white
+
+               }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,11 +29,7 @@ class WebViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    //to set webview size with amount of data
-    
-//    func webViewDidFinishLoad(_ webView: UIWebView) {
-//        webView.frame.size.height = 1
-//        webView.frame.size = webView.sizeThatFits(.zero)
-//    }
+
+
     
 }

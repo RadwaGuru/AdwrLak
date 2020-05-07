@@ -14,7 +14,7 @@ import AlamofireImage
 import MapKit
 import SwiftyGif
 import IQKeyboardManagerSwift
-
+import WebKit
 class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable , SimilarAdsDelegate, ReportPopToHomeDelegate, moveTomessagesDelegate,UISearchBarDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate {
     
     //MARK:- Outlets
@@ -245,8 +245,9 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 if isShowInterstital {
 //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
 //                    SwiftyAd.shared.showInterstitial(from: self)
-                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
-                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
+                    self.showAd()
+//                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
+//                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
@@ -621,9 +622,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
 //
 //                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
 
-                cell.webView.loadHTMLString(htmlText, baseURL: nil)
-                //webviewHeightConstraint.constant = webview.scrollView.contentSize.height
-                cell.heightConstraintWebView.constant = cell.webView.scrollView.contentSize.height
+                cell.wkWebView.loadHTMLString(htmlText, baseURL: nil)
+                cell.heightConstraintWebView.constant = cell.wkWebView.scrollView.contentSize.height
             
                // self.view.layoutIfNeeded()
                 
@@ -983,7 +983,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let objData = addVideoArray[indexPath.row]
             
             if let videoUrl = objData.videoId {
-                cell.playerView.loadVideoID(videoUrl)
+                cell.playerView.load(withVideoId: videoUrl)
+//                loadVideoID(videoUrl)
             }
             return cell
         }

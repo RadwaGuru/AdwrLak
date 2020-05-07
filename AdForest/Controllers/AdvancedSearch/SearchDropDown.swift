@@ -131,14 +131,17 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 print(url)
                 self.selectedKey = String(id)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
+                oltPopup.setTitle(name, for: .normal)
+                self.selectedKey = String(id)
+                self.selectedValue = name
                  self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+            
             }
         }
         else {
             oltPopup.setTitle(name, for: .normal)
             self.selectedKey = String(id)
             self.selectedValue = name
-        
             self.delegate?.selectValue(selectVal: String(id), selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
         }
     }

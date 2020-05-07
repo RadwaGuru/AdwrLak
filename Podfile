@@ -55,7 +55,7 @@ target 'AdForest' do
     pod 'SDWebImage'
     
     #Youtube Video Player
-    pod 'YouTubePlayer'
+    #pod 'YouTubePlayer'
     
     #For Image Sliding
     pod 'ImageSlideshow'
@@ -72,7 +72,7 @@ target 'AdForest' do
     
     #AdMob
     pod 'Google-Mobile-Ads-SDK'
-    pod 'PersonalizedAdConsent'
+    #pod 'PersonalizedAdConsent'
     
     #In App Purchases
     pod 'SwiftyStoreKit'
@@ -103,14 +103,15 @@ target 'AdForest' do
     
     
     pod 'MapboxGeocoder.swift', '~> 0.11'
-    pod 'Mapbox-iOS-SDK', '~> 5.4'
+    #pod 'Mapbox-iOS-SDK', '~> 5.4'
     pod 'Alamofire-SwiftyJSON'
      
     #Intro App
     pod 'OnboardKit'
      #pod 'LinkedinSwift'
-pod 'LinkedinSwift', '>= 1.7.9'
+#pod 'LinkedinSwift', '>= 1.7.9'
 
+pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
 
    
 end

@@ -11,6 +11,7 @@ import SlideMenuControllerSwift
 import NVActivityIndicatorView
 import Firebase
 import FirebaseMessaging
+import GoogleSignIn
 
 enum leftMenues : Int {
     case main
@@ -42,8 +43,8 @@ enum HideGuestPackage: Int {
 enum OtherGuestMenues: Int {
     case blog = 1
     case settings
-    //    case location
-    //    case Wpml
+//    case location
+//    case Wpml
 }
 enum OtherMenues: Int {
     case blog
@@ -417,9 +418,9 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.viewSettings = UINavigationController(rootViewController: settingsView)
         
         let topLocation = storyboard?.instantiateViewController(withIdentifier: SetLocationController.className) as! SetLocationController
-        viewToplocation = UINavigationController(rootViewController: topLocation)
+        self.viewToplocation = UINavigationController(rootViewController: topLocation)
         let language = storyboard?.instantiateViewController(withIdentifier: LangViewController.className) as! LangViewController
-        langController = UINavigationController(rootViewController: language)
+        self.langController = UINavigationController(rootViewController: language)
         
     }
     
@@ -479,7 +480,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewBlog, close: true)
         case .settings:
             self.slideMenuController()?.changeMainViewController(self.viewSettings, close: true)
-            
         }
     }
     
@@ -517,6 +517,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.defaults.set(false, forKey: "isSocial")
                 FacebookAuthentication.signOut()
                 GoogleAuthenctication.signOut()
+                GIDSignIn.sharedInstance().signOut()
                 self.appDelegate.moveToLogin()
                 self.stopAnimating()
             }

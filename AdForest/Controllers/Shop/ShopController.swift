@@ -8,17 +8,12 @@
 
 import UIKit
 import DropDown
-
-class ShopController: UIViewController, UIWebViewDelegate {
+import WebKit
+class ShopController: UIViewController,WKUIDelegate,WKNavigationDelegate  {
 
     //MARK:- Outlets
-    @IBOutlet weak var webView: UIWebView!{
-        didSet {
-            webView.delegate =  self
-            webView.isOpaque = false
-            webView.backgroundColor = UIColor.clear
-        }
-    }
+    @IBOutlet weak var wkWebView: WKWebView!
+
     
     @IBOutlet weak var AdPostCircleButton: UIButton!{
         didSet{
@@ -44,6 +39,18 @@ class ShopController: UIViewController, UIWebViewDelegate {
     
     
     //MARK:- View Life Cycle
+    override func loadView() {
+        super.loadView()
+        let webConfiguration = WKWebViewConfiguration()
+        //        wkWebView == WKWebView(frame: .zero, configuration: webConfiguration)
+        //        wkWebView.backgroundColor = UIColor.clear
+        //        wkWebView.isOpaque = false
+        //        wkWebView.navigationDelegate = self
+        //        wkWebView.uiDelegate = self
+        ////        view = wkWebView
+        //        self.view.addSubview(wkWebView)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if let shopTitle = defaults.string(forKey: "shopTitle") {
@@ -72,7 +79,7 @@ class ShopController: UIViewController, UIWebViewDelegate {
                         if UserDefaults.standard.bool(forKey: "isSocial") {
                             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
                         }
-                        self.webView.loadRequest(request)
+                        self.wkWebView.load(request)
               }
             //navigationButtons()
         
@@ -138,31 +145,6 @@ class ShopController: UIViewController, UIWebViewDelegate {
 //      navigationButtons()
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if navigationType == .linkClicked {
-            var userEmail = ""
-            var userPassword = ""
-            if let email = defaults.string(forKey: "email") {
-                userEmail = email
-            }
-            if let password = defaults.string(forKey: "password") {
-                userPassword = password
-            }
-            let emailPass = "\(userEmail):\(userPassword)"
-            let encodedString = emailPass.data(using: String.Encoding.utf8)!
-            let base64String = encodedString.base64EncodedString(options: [])
-            print(base64String)
-            var urlRequest = request
-            urlRequest.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
-            urlRequest.setValue("body", forHTTPHeaderField: "Adforest-Shop-Request")
-            if UserDefaults.standard.bool(forKey: "isSocial") {
-                urlRequest.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
-            }
-            self.webView.loadRequest(urlRequest)
-            return true
-        }
-        return true
-    }
     
     //MARK:- Custom
     
@@ -280,7 +262,8 @@ class ShopController: UIViewController, UIWebViewDelegate {
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
-            self.webView.loadRequest(request)
+            self.wkWebView.load(request)
+
         }
     }
 }

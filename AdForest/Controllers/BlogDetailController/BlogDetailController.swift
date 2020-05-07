@@ -9,8 +9,8 @@
 import UIKit
 import NVActivityIndicatorView
 import IQKeyboardManagerSwift
-
-class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UIWebViewDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
+import WebKit
+class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, WKUIDelegate,WKNavigationDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
 
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -196,16 +196,16 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             let objData = dataArray[indexPath.row]
             let htmlString = objData.post.desc
             let htmlHeight = contentHeight[indexPath.row]
-            cell.webView.tag = indexPath.row
-            cell.webView.delegate = self
-            cell.webView.loadHTMLString(htmlString!, baseURL: nil)
-            cell.webView.scrollView.isScrollEnabled = false
+            cell.wkWebView.tag = indexPath.row
+//            cell.wkWebView.delegate = self
+            cell.wkWebView.loadHTMLString(htmlString!, baseURL: nil)
+            cell.wkWebView.scrollView.isScrollEnabled = true
 //            let stringSimple = htmlString?.html2String
 //            print(stringSimple!)
 //            let requestURL = URL(string:stringSimple!)
 //            let request = URLRequest(url: requestURL!)
 //            cell.webView.loadRequest(request)
-            cell.webView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
+            cell.wkWebView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
             
             return cell
         }
@@ -380,13 +380,6 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         return height
     }
 
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        if contentHeight[webView.tag] != 0.0 {
-            return
-        }
-        contentHeight[webView.tag] = webView.scrollView.contentSize.height
-        tableView.reloadRows(at: [IndexPath(row: webView.tag, section: 0)], with: .automatic )
-    }
     
     
     //MARK:- IBActions

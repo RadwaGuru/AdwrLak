@@ -7,12 +7,13 @@
 //
 
 import UIKit
-import YouTubePlayer
-
+//import YouTubePlayer
+import YoutubePlayer_in_WKWebView
 class YouTubeVideoCell: UITableViewCell {
 
+    @IBOutlet weak var playerView: WKYTPlayerView!
     
-    @IBOutlet weak var playerView: YouTubePlayerView!
+    
  
     override func awakeFromNib() {
         super.awakeFromNib()

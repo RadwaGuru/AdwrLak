@@ -8,8 +8,8 @@
 
 import UIKit
 import NVActivityIndicatorView
-
-class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActivityIndicatorViewable, UIWebViewDelegate {
+import WebKit
+class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActivityIndicatorViewable, WKUIDelegate,WKNavigationDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var scrollBar: UIScrollView! {
@@ -19,16 +19,16 @@ class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActiv
             scrollBar.showsVerticalScrollIndicator = true
         }
     }
+    @IBOutlet weak var wkWebView: WKWebView!{
+        didSet{
+            wkWebView.backgroundColor = UIColor.white
+
+        }
+    }
     @IBOutlet weak var buttonCancel: UIButton!
     @IBOutlet weak var imgLogo: UIImageView!
     @IBOutlet weak var lblResponse: UILabel!
-    @IBOutlet weak var webView: UIWebView! {
-        didSet {
-            webView.delegate = self
-            webView.isOpaque = false
-            webView.backgroundColor = UIColor.white
-        }
-    }
+    
     
     //MARK:- Properties
     var dataArray = [PaymentSuccessData]()
@@ -64,17 +64,13 @@ class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActiv
                     self.lblResponse.text = responseText
                 }
                 if let webViewData = items.data {
-                    self.webView.loadHTMLString(webViewData, baseURL: nil)
+                    self.wkWebView.loadHTMLString(webViewData, baseURL: nil)
                 }
             }
         }
     }
     
-    //to set webview size with amount of data
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        webView.frame.size.height = 1
-        webView.frame.size = webView.sizeThatFits(.zero)
-    }
+   
     
     
     //MARK:- IBActions
