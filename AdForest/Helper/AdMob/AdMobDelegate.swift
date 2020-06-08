@@ -38,34 +38,34 @@ class AdMobDelegate: NSObject, GADInterstitialDelegate {
         }
     }
     
-    func interstitialDidReceiveAd(_ ad: DFPInterstitial) {
+    private func interstitialDidReceiveAd(_ ad: DFPInterstitial) {
         print("Ad Received")
         if ad.isReady {
             interstitialView.present(fromRootViewController: currentVc)
         }
     }
     
-    func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
+    private func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
         print("Did Dismiss Screen")
     }
     
-    func interstitialWillDismissScreen(_ ad: DFPInterstitial) {
+    private func interstitialWillDismissScreen(_ ad: DFPInterstitial) {
         print("Will Dismiss Screen")
     }
     
-    func interstitialWillPresentScreen(_ ad: DFPInterstitial) {
+    private func interstitialWillPresentScreen(_ ad: DFPInterstitial) {
         print("Will present screen")
     }
     
-    func interstitialWillLeaveApplication(_ ad: DFPInterstitial) {
+    private func interstitialWillLeaveApplication(_ ad: DFPInterstitial) {
         print("Will leave application")
     }
     
-    func interstitialDidFail(toPresentScreen ad: DFPInterstitial) {
+    private func interstitialDidFail(toPresentScreen ad: DFPInterstitial) {
         print("Failed to present screen")
     }
     
-    func interstitial(_ ad: DFPInterstitial, didFailToReceiveAdWithError error: GADRequestError!) {
-        print("\(ad) did fail to receive ad with error \(error)")
+    private func interstitial(_ ad: DFPInterstitial, didFailToReceiveAdWithError error: GADRequestError!) {
+        print("\(ad) did fail to receive ad with error \(String(describing: error))")
     }
 }

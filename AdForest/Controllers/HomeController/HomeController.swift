@@ -150,7 +150,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func subscribeToTopicMessage() {
         if defaults.bool(forKey: "isLogin") {
             Messaging.messaging().shouldEstablishDirectChannel = true
+//            Messaging.messaging().subscribe(toTopic: "global")
+            //global
             Messaging.messaging().subscribe(toTopic: "global")
+            { error in
+              print("Subscribed to weather topic")
+            }
         }
     }
     
@@ -931,7 +936,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if Constants.isiPhone5 {
                             totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 120)
                         } else {
-                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 110)
+                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 130)
                         }
                         height =  totalHeight
                     }

@@ -57,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
-
+        UNUserNotificationCenter.current().delegate = self
+        
         if #available(iOS 11, *) {
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in
@@ -75,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
          GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
 
         
 
@@ -298,6 +300,7 @@ extension AppDelegate {
 extension AppDelegate  {
     // MARK: UNUserNotificationCenter Delegate
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
         //  let content = notification.request.content
         completionHandler([.alert, .sound, .badge])
     }
@@ -305,6 +308,9 @@ extension AppDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
         case UNNotificationDefaultActionIdentifier:
+            print(response.notification.request.content.body)
+            print(response.notification.request.content.userInfo)
+
             print("Open App")
         case "chat":
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -327,18 +333,33 @@ extension AppDelegate  {
         #endif
         
         Messaging.messaging().apnsToken = deviceToken
-        
+//        var token = ""
+//        for i in 0..<deviceToken.count {
+//            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+//        }
+//        //        print("Notification token = \(token)")
+        let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        print("this will return '32 bytes' in iOS 13+ rather than the token \(tokenString)")
+        self.deviceFcmToken = tokenString
+                let defaults =  UserDefaults.standard
+                defaults.setValue(deviceToken, forKey: "fcmToken")
+                defaults.synchronize()
+
         InstanceID.instanceID().instanceID { (result, error) in
             if let error = error {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
                 print("Remote instance ID token: \(result.token)")
+                Messaging.messaging().subscribe(toTopic: "global")
+
                 self.deviceFcmToken = result.token
                 let defaults =  UserDefaults.standard
                 defaults.setValue(deviceToken, forKey: "fcmToken")
                 defaults.synchronize()
             }
         }
+        
+
         
         
 //        if let refreshedToken = InstanceID.instanceID().token(withAuthorizedEntity: nil, scope: nil, handler: <#InstanceIDTokenHandler#>) {

@@ -577,12 +577,12 @@
 		18F5C8EE2135641B006710AC /* AdPostURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C8EC2135641B006710AC /* AdPostURLCell.swift */; };
 		18F5C8EF2135641B006710AC /* AdPostURLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F5C8ED2135641B006710AC /* AdPostURLCell.xib */; };
 		18FE9C58236811A500E8756F /* MapBoxPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */; };
-		9601E7C52463CF3B00036649 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9601E7C42463CF3900036649 /* GoogleService-Info.plist */; };
 		9601E7C82463E49600036649 /* LinkedInEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C72463E49600036649 /* LinkedInEmailModel.swift */; };
 		9601E7CA2463E4B500036649 /* LinkedInProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */; };
 		9627990823D6B67D007726EA /* logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9627990723D6B67D007726EA /* logout.swift */; };
 		962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */; };
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
+		96514D80248E6D2E00BBE42A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96514D7F248E6D2D00BBE42A /* GoogleService-Info.plist */; };
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
 		96E0CAC524334375009EEA56 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC424334374009EEA56 /* HomeController.swift */; };
 		AB5D6118CFB004420A4C06D3 /* Pods_AdForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */; };
@@ -1189,12 +1189,12 @@
 		27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2A49835B1E8A0B4FBE203B /* Pods_AdForestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40669BC4F56DF9BA67C9F467 /* Pods-AdForest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdForest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdForest/Pods-AdForest.debug.xcconfig"; sourceTree = "<group>"; };
-		9601E7C42463CF3900036649 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Users/glixen/Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9601E7C72463E49600036649 /* LinkedInEmailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedInEmailModel.swift; sourceTree = "<group>"; };
 		9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedInProfileModel.swift; sourceTree = "<group>"; };
 		9627990723D6B67D007726EA /* logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logout.swift; sourceTree = "<group>"; };
 		962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsViewController.swift; sourceTree = "<group>"; };
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
+		96514D7F248E6D2D00BBE42A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../firebase /GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9674945A23E0879D0035E58E /* EmptyCartRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartRoot.swift; sourceTree = "<group>"; };
 		96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "linkedin-sdk.framework.zip"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework.zip"; sourceTree = "<group>"; };
@@ -2492,7 +2492,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				9601E7C42463CF3900036649 /* GoogleService-Info.plist */,
+				96514D7F248E6D2D00BBE42A /* GoogleService-Info.plist */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
 				18BBFAB7205109960067662F /* AppDelegate */,
@@ -3353,7 +3353,7 @@
 				18196DFD2149185100F6515E /* CategoryDetailCell.xib in Resources */,
 				18E9FB922058F4AF00B998A6 /* WebViewCell.xib in Resources */,
 				18D8DCB121A6C46D008888BA /* CustomHeader.xib in Resources */,
-				9601E7C52463CF3B00036649 /* GoogleService-Info.plist in Resources */,
+				96514D80248E6D2E00BBE42A /* GoogleService-Info.plist in Resources */,
 				185B3C70207E03A800EDBBB4 /* AdRatingCell.xib in Resources */,
 				18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */,
 				181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */,

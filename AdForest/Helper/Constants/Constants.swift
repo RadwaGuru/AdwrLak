@@ -14,7 +14,7 @@ class Constants {
     struct  URL {
         
         static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
-
+        
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -106,35 +106,33 @@ class Constants {
         static let reactEmojis = "ad_post/ad_rating/rating_emojies"
         static let logout = "logout"
         static let cartEmpty = "cart-empty"
-
+        
     }
     
     
     struct customCodes {
-       
         
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
         
     }
     
-
+    
     struct LinkedInConstants {
-        
-        static let CLIENT_ID = "86fohl6w88kexu"
-        static let CLIENT_SECRET = "YAOoXObs6wU3aUg9"
-        static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/"
+        static let CLIENT_ID = "86tji4rrl6tgq5"
+        static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
+        static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
         static let SCOPE = "r_liteprofile%20r_emailaddress" //Get lite profile info and e-mail address
         
         static let AUTHURL = "https://www.linkedin.com/oauth/v2/authorization"
-        static let TOKENURL = "https://www.linkedin.com/oauth/v2/accessToken"
-    }
-
+        static let TOKENURL = "https://www.linkedin.com/oauth/v2/accessToken"    }
+    
     
     
     struct googlePlacesAPIKey {
-
-        static let placesKey =  "AIzaSyABvyqYlTNqGzpi13f7ptJMYghjWfSVnzU"
+        
+        static let placesKey = "AIzaSyAMLLcIffxcQT1EcyK4oW_8trj1cHZg5sY"
+//        "AIzaSyABvyqYlTNqGzpi13f7ptJMYghjWfSVnzU"
         
     }
     

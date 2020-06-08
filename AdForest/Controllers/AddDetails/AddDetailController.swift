@@ -15,6 +15,8 @@ import MapKit
 import SwiftyGif
 import IQKeyboardManagerSwift
 import WebKit
+import GoogleMobileAds
+
 class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable , SimilarAdsDelegate, ReportPopToHomeDelegate, moveTomessagesDelegate,UISearchBarDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate {
     
     //MARK:- Outlets
@@ -112,13 +114,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
     
-    
+    var interstitial: GADInterstitial!
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
         self.hideKeyboard()
-        self.adMob()
+//        self.adMob()
+        self.createAndLoadInterstitial()
+
         self.googleAnalytics(controllerName: "Add Detail Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateAddDetails), object: nil, queue: nil) {[unowned self] (notification) in
             if self.isFromRejectedAd {
@@ -245,23 +250,37 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 if isShowInterstital {
 //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
 //                    SwiftyAd.shared.showInterstitial(from: self)
-                    self.showAd()
+//                    self.showAd()
 //                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
 //                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
     }
-    
-    @objc func showAd(){
-        currentVc = self
-        admobDelegate.showAd()
+    fileprivate func createAndLoadInterstitial() {
+      interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+      let request = GADRequest()
+      // Request test ads on devices you specify. Your test device ID is printed to the console when
+      // an ad request is made.
+      request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
+      interstitial.load(request)
+        if self.interstitial.isReady {
+          self.interstitial.present(fromRootViewController: self)
+        } else {
+          print("Ad wasn't ready")
+        }
     }
+
     
-    @objc func showAd2(){
-        currentVc = self
-        admobDelegate.showAd()
-    }
+//    @objc func showAd(){
+//        currentVc = self
+//        admobDelegate.showAd()
+//    }
+    
+//    @objc func showAd2(){
+//        currentVc = self
+////        admobDelegate.showAd()
+//    }
     //MARK:- Counter
     func countDown(date: String) {
       

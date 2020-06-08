@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.170168176816-cni27t9d6mkg9mmidp62hhm0urm4vlfn</string>
+				<string>com.googleusercontent.apps.521441895009-r0c178t65dos7pggndnppulbn523aqkq</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,6 +41,8 @@
 	<string>182768595667719</string>
 	<key>FacebookDisplayName</key>
 	<string>Adforest</string>
+	<key>FirebaseDataCollectionDefaultEnabled</key>
+	<false/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
 	<key>LSApplicationQueriesSchemes</key>
