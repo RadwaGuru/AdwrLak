@@ -64,7 +64,7 @@ class PaymentSuccessController: UIViewController , UIScrollViewDelegate, NVActiv
                     self.lblResponse.text = responseText
                 }
                 if let webViewData = items.data {
-                    self.wkWebView.loadHTMLString(webViewData, baseURL: nil)
+                    self.wkWebView.loadHTMLStringWithMagic(content: webViewData, baseURL: nil)
                 }
             }
         }

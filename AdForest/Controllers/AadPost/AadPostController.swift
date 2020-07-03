@@ -173,11 +173,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                  cell.isHidden = true
                             }
                         }
-                        
 //                    }
                 }
-                
-                
             }
         }
     }
@@ -211,9 +208,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                 self.adTitle = txtTitle
                             }
                         }
-                        
-
-       
                     }
                 }
                 else if objData.fieldType == "select" {
@@ -236,8 +230,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
 
                            }
                        }
-                       
-
 //                        if id == ""{
 //                            print("No..")
 //                            value = cell.oltPopup.currentTitle!
@@ -253,30 +245,61 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             }
         }
         
-//        ||  id == ""
-        if self.adTitle == "" || option == "" {
-             
-        }
-        else {
-            let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
-            if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                self.refreshArray = dataArray
-                self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
-                postVC.fieldsArray = self.refreshArray
-                postVC.objArray = data
-                postVC.isfromEditAd = self.isFromEditAd
+        if isFromEditAd == false{
+            if self.adTitle == "" ||  id == ""{
+                 
             }
             else {
-                postVC.objArray = data
-                postVC.fieldsArray = self.dataArray
-                postVC.isfromEditAd = self.isFromEditAd
+                let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
+                if AddsHandler.sharedInstance.isCategoeyTempelateOn {
+                    self.refreshArray = dataArray
+                    self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                    postVC.fieldsArray = self.refreshArray
+                    postVC.objArray = data
+                    postVC.isfromEditAd = self.isFromEditAd
+                }
+                else {
+                    postVC.objArray = data
+                    postVC.fieldsArray = self.dataArray
+                    postVC.isfromEditAd = self.isFromEditAd
+                }
+                postVC.imageArray = self.imagesArray
+                postVC.imageIDArray = self.imageIDArray
+                postVC.isBid = self.isBidding
+                postVC.isImg = self.isImage
+                
+                self.navigationController?.pushViewController(postVC, animated: true)
             }
-            postVC.imageArray = self.imagesArray
-            postVC.imageIDArray = self.imageIDArray
-            postVC.isBid = self.isBidding
-            postVC.isImg = self.isImage
             
-            self.navigationController?.pushViewController(postVC, animated: true)
+        }
+        else{
+            if self.adTitle == "" {
+                 
+            }
+            else {
+                let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
+                if AddsHandler.sharedInstance.isCategoeyTempelateOn {
+                    self.refreshArray = dataArray
+                    self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                    postVC.fieldsArray = self.refreshArray
+                    postVC.objArray = data
+                    postVC.isfromEditAd = self.isFromEditAd
+                }
+                else {
+                    postVC.objArray = data
+                    postVC.fieldsArray = self.dataArray
+                    postVC.isfromEditAd = self.isFromEditAd
+                }
+                postVC.imageArray = self.imagesArray
+                postVC.imageIDArray = self.imageIDArray
+                postVC.isBid = self.isBidding
+                postVC.isImg = self.isImage
+                
+                self.navigationController?.pushViewController(postVC, animated: true)
+        }
+        
+//
+        
         }
     }
     
@@ -440,7 +463,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 UserDefaults.standard.set(successResponse.extra.dialgCancel, forKey: "dialgCancel")
                 UserDefaults.standard.set(successResponse.extra.dialogSend, forKey: "dialogSend")
                 
-                self.tableView.reloadData() 
+                self.tableView.reloadData()
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
                   self.navigationController?.popViewController(animated: true)
@@ -487,8 +510,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     }
 
 }
-extension UIView {
 
+extension UIView {
 
     // Using CAMediaTimingFunction
     func shake(duration: TimeInterval = 0.5, values: [CGFloat]) {

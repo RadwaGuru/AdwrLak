@@ -350,8 +350,6 @@ extension AppDelegate  {
                 print("Error fetching remote instange ID: \(error)")
             } else if let result = result {
                 print("Remote instance ID token: \(result.token)")
-                Messaging.messaging().subscribe(toTopic: "global")
-
                 self.deviceFcmToken = result.token
                 let defaults =  UserDefaults.standard
                 defaults.setValue(deviceToken, forKey: "fcmToken")

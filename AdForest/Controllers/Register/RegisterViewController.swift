@@ -142,6 +142,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         btnApple.layer.borderWidth = 1
         btnApple.layer.borderColor = UIColor.black.cgColor
         setUpSignInAppleButton()
+        if #available(iOS 13.0, *) {
+            self.checkStatusOfAppleSignIn()
+        } else {
+            // Fallback on earlier versions
+        }
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -841,37 +847,160 @@ extension RegisterViewController: ASAuthorizationControllerPresentationContextPr
         return self.view.window!
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+//        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+//            let userIdentifier = appleIDCredential.user
+//            let fullName = appleIDCredential.fullName
+//
+//            let email = appleIDCredential.email
+//            if email != nil{
+//                UserDefaults.standard.set(email, forKey:"emailA")
+//            }
+//            let emApple = UserDefaults.standard.string(forKey: "emailA")
+//            if emApple != nil{
+//                let param: [String: Any] = [
+//                    "email": emApple!,
+//                    "type": "social"
+//                ]
+//                print(param)
+//                self.defaults.set(true, forKey: "isSocial")
+//                UserDefaults.standard.set(emApple, forKey:"email")
+//                self.defaults.set("1122", forKey: "password")
+//                self.defaults.synchronize()
+//                UserDefaults.standard.set("true", forKey: "apple")
+//                self.adForest_loginUser(parameters: param as NSDictionary)
+//                print(userIdentifier,fullName,email)
+//            }else{
+//                let alert = Constants.showBasicAlert(message: "Apple id....")
+//                self.presentVC(alert)
+//            }
+//
+//        }
+//    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    {
+        switch authorization.credential {
             
-            let email = appleIDCredential.email
-            if email != nil{
-                UserDefaults.standard.set(email, forKey:"emailA")
+        case let credentials as ASAuthorizationAppleIDCredential:
+            DispatchQueue.main.async {
+                
+                if "\(credentials.user)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if credentials.email != nil {
+
+                    UserDefaults.standard.set("\(credentials.email!)", forKey: "User_Email")
+                }
+                if credentials.fullName!.givenName != nil {
+
+                    UserDefaults.standard.set("\(credentials.fullName!.givenName!)", forKey: "User_FirstName")
+                }
+                if credentials.fullName!.familyName != nil {
+
+                    UserDefaults.standard.set("\(credentials.fullName!.familyName!)", forKey: "User_LastName")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
+               
+                
             }
-            let emApple = UserDefaults.standard.string(forKey: "emailA")
-            if emApple != nil{
-                let param: [String: Any] = [
-                    "email": emApple!,
-                    "type": "social"
-                ]
-                print(param)
-                self.defaults.set(true, forKey: "isSocial")
-                UserDefaults.standard.set(emApple, forKey:"email")
-                self.defaults.set("1122", forKey: "password")
-                self.defaults.synchronize()
-                UserDefaults.standard.set("true", forKey: "apple")
-                self.adForest_loginUser(parameters: param as NSDictionary)
-                print(userIdentifier,fullName,email)
-            }else{
-                let alert = Constants.showBasicAlert(message: "Apple id....")
-                self.presentVC(alert)
+            
+        case let credentials as ASPasswordCredential:
+            DispatchQueue.main.async {
+            
+                if "\(credentials.user)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if "\(credentials.password)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.password)", forKey: "User_Password")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
+            }
+            
+        default :
+            let alert: UIAlertController = UIAlertController(title: "Apple Sign In", message: "Something went wrong with your Apple Sign In!", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+            break
+        }
+    }
+    func checkStatusOfAppleSignIn()
+      {
+          let appleIDProvider = ASAuthorizationAppleIDProvider()
+          appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
+              
+              switch credentialState {
+              case .authorized:
+                  self.setupUserInfoAndOpenView()
+                  break
+              default:
+                  break
+              }
+          }
+      }
+    func setupUserInfoAndOpenView()
+    {
+        DispatchQueue.main.async {
+            
+            
+            if "\(UserDefaults.standard.value(forKey: "User_FirstName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_LastName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_Email")!)" != "" {
+                let emApple = UserDefaults.standard.value(forKey: "User_Email")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+                    
+                }
+                
+                
+                
+                
+                
+            } else {
+                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+                    
+                }
+                
             }
             
         }
     }
-    
+
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+    {
+        let alert: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 extension RegisterViewController: WKNavigationDelegate {

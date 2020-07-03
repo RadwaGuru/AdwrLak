@@ -330,7 +330,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //            self.presentVC(alert)
 //        }
 //        else if isValidUrl == false {
-//            
+//
 //        }
        // else {
         if isDragAdpost == true{
@@ -598,33 +598,43 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     if item.id == "" {
                         continue
                     }
-                    if (defaults.string(forKey: "value") != nil) {
-                        if indexPath.row == selectedIndex {
-                            let name = UserDefaults.standard.string(forKey: "value")
-                            cell.oltPopup.setTitle(name, for: .normal)
-                        }
-                    }
+//                    if (defaults.string(forKey: "value") != nil) {
+//                        if indexPath.row == selectedIndex {
+//                            let name = UserDefaults.standard.string(forKey: "value")
+//                            cell.oltPopup.setTitle(name, for: .normal)
+//                        }
+//                    }
                     if isEditStart == true {
                     if i == 1 {
-                        
                          print(cell.selectedValue)
-                        
                         if isfromEditAd {
                             cell.oltPopup.setTitle(item.name, for: .normal)
                             cell.selectedKey = String(item.id)
                         }else{
-                            if cell.selectedValue == ""{
-                                cell.oltPopup.setTitle(objData.values[1].name, for: .normal)
+                           if cell.selectedValue == ""{
+                                cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
                                 cell.selectedKey = String(item.id)
                             }else{
-                                cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
-                                cell.selectedKey = String(item.id)
+                            cell.oltPopup.setTitle(objData.fieldVal, for: .normal)
+                               cell.selectedKey = String(item.id)
                             }
                         }
                       //  cell.oltPopup.setTitle(item.name, for: .normal)
                       //  cell.selectedKey = String(item.id)
                     }
                     i = i + 1
+                    }else{
+                        
+//                        if isfromEditAd == false{
+//                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+//                            cell.selectedKey = String(item.id)
+//                        }else{
+//
+//                        }
+//
+                        
+                        cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                        cell.selectedKey = String(item.id)
                     }
                     
                 }
@@ -648,7 +658,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 }
                 cell.param = objData.fieldTypeName
                 cell.selectedIndex = indexPath.row
-                cell.index = indexPath.row
+                cell.indexP = indexPath.row
                 cell.section = 2
                 cell.fieldNam = objData.fieldTypeName
                 cell.delegate = self

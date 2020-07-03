@@ -299,9 +299,14 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                     if obj.fieldName == "_sb_profile_linkedin" {
                         cell.txtLinkedIn.text = obj.value
+                    
                     }
                     if obj.fieldName == "_sb_profile_google-plus" {
                         cell.txtGooglePlus.text = obj.value
+                    }
+                    if obj.disable == "true"{
+                        cell.txtLinkedIn.isUserInteractionEnabled = false
+                        cell.txtLinkedIn.isEnabled = false
                     }
                 }
                 if let imgText = objData.profileImg.key {

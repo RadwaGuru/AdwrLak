@@ -641,7 +641,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
 //
 //                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
 
-                cell.wkWebView.loadHTMLString(htmlText, baseURL: nil)
+                cell.wkWebView.loadHTMLStringWithMagic(content:htmlText, baseURL: nil)
                 cell.heightConstraintWebView.constant = cell.wkWebView.scrollView.contentSize.height
             
                // self.view.layoutIfNeeded()
@@ -1306,8 +1306,14 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.presentVC(alert)
             }
             else {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.presentVC(alert)
+
+                self.showToast(message: successResponse.message)
+                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 1.5)
+
+              
+
+//                let alert = Constants.showBasicAlert(message: successResponse.message)
+//                self.presentVC(alert)
             }
             
         }) { (error) in
@@ -1315,6 +1321,12 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+    @objc func nokri_showNavController1(){
+        
+        let packageView = self.storyboard?.instantiateViewController(withIdentifier: PackagesController.className) as! PackagesController
+        self.navigationController?.pushViewController(packageView, animated: true)
+        
     }
     
     //MARK:- Make Add Favourite
@@ -1609,5 +1621,15 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+}
+extension WKWebView {
+    ///
+    //// - Parameters:
+    ///   - content: HTML content which we need to load in the webview.
+    ///   - baseURL: Content base url. It is optional.
+    func loadHTMLStringWithMagic(content:String,baseURL:URL?){
+        let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no '></header>"
+        loadHTMLString( headerString + content , baseURL: baseURL)
     }
 }

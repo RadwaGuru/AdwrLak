@@ -169,7 +169,8 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
                 self.delegate?.goToAddDetail(ad_id: objData.adId)
             }
 
-        }  else {
+        }
+        else {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imgPicture.sd_setShowActivityIndicatorView(true)

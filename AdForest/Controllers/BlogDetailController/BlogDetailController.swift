@@ -63,6 +63,8 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
+    var heightWk: CGFloat = 0.0
+
     
     
     //MARK:- View Life Cycle
@@ -195,17 +197,19 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             let cell: WebViewCell = tableView.dequeueReusableCell(withIdentifier: "WebViewCell", for: indexPath) as! WebViewCell
             let objData = dataArray[indexPath.row]
             let htmlString = objData.post.desc
-            let htmlHeight = contentHeight[indexPath.row]
+            //            let htmlHeight = contentHeight[indexPath.row]
             cell.wkWebView.tag = indexPath.row
-//            cell.wkWebView.delegate = self
-            cell.wkWebView.loadHTMLString(htmlString!, baseURL: nil)
-            cell.wkWebView.scrollView.isScrollEnabled = true
-//            let stringSimple = htmlString?.html2String
-//            print(stringSimple!)
-//            let requestURL = URL(string:stringSimple!)
-//            let request = URLRequest(url: requestURL!)
-//            cell.webView.loadRequest(request)
-            cell.wkWebView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
+            cell.wkWebView.navigationDelegate = self
+            
+            //            cell.wkWebView.delegate = self
+            cell.wkWebView.loadHTMLStringWithMagic(content:htmlString!, baseURL: nil)
+            cell.wkWebView.scrollView.isScrollEnabled = false
+            //            let stringSimple = htmlString?.html2String
+            //            print(stringSimple!)
+            //            let requestURL = URL(string:stringSimple!)
+            //            let request = URLRequest(url: requestURL!)
+            //            cell.webView.loadRequest(request)
+            //            cell.wkWebView.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: htmlHeight)
             
             return cell
         }
@@ -342,6 +346,13 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         return UITableViewCell()
     }
     
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+           heightWk = webView.scrollView.contentSize.height
+            tableView.reloadData()
+           print(webView.scrollView.contentSize.height)
+       }
+
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
         var height: CGFloat = 0.0
@@ -355,7 +366,9 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if section == 1 {
-            height = contentHeight[indexPath.row] + 80
+            height = heightWk
+
+//                contentHeight[indexPath.row] + 80
         }
         else if section == 2 {
             height = UITableViewAutomaticDimension

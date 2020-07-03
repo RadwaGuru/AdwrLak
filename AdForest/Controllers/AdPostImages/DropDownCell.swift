@@ -38,7 +38,7 @@ class DropDownCell: UITableViewCell {
     var selectedKey = ""
     var selectedValue = ""
     var param = ""
-    var index = 0
+    var indexP = 0
     var section = 0
     var delegate:textSelectDropDown?
     var fieldNam = ""
@@ -91,7 +91,7 @@ class DropDownCell: UITableViewCell {
             self.objSaved.fieldVal = item
             //self.delegate?.addToFieldsArray(obj: self.objSaved, index: self.selectedIndex, isFrom: "select", title: item)
             self.defaults.set(item, forKey: "value")
-            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: index, fieldType: "select", section: self.section,fieldName : self.fieldNam,isShow: self.isShow, valueName: item)
+            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: self.indexP, fieldType: "select", section: self.section,fieldName : self.fieldNam,isShow: self.isShow, valueName: item)
             self.defaults.synchronize()
             print(self.fieldNam,self.bidOnOfCell)
             

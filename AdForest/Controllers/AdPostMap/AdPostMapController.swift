@@ -111,7 +111,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var popUpText = ""
     
     let map = GMSMapView()
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     let newPin = MKPointAnnotation()
     let regionRadius: CLLocationDistance = 1000
     var initialLocation = CLLocation(latitude: 25.276987, longitude: 55.296249)
@@ -164,7 +164,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
-        
+        addMapTrackingButton()
         for item in objArray {
             print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
         }
@@ -192,7 +192,9 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             txtTermCondition.textAlignment = .left
             oltPopup.contentHorizontalAlignment = .left
         }
-  
+        txtLatitude.isUserInteractionEnabled = false
+        txtLongitude.isUserInteractionEnabled = false
+           
     }
     
     
@@ -283,6 +285,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 self.txtTermCondition.text = termsCond.termsCondition
                 self.btnTermCondition.setTitle(termsCond.termsUrl, for: .normal)
                 self.termCondURL = termsCond.termsUrl
+
             }
             
             var isPhoneEdit = false
@@ -511,7 +514,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     //MARK:- Map View Delegate Methods
     
-    func setupView (){
+     func setupView (){
         mapView.delegate = self
         mapView.showsUserLocation = true
         if (CLLocationManager.locationServicesEnabled()) {
@@ -565,7 +568,147 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         self.txtLatitude.text = self.latitude
         self.txtLongitude.text = self.longitude
         self.mapView.setRegion(region, animated: true)
+        
+        
+            }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+       print(error.localizedDescription)
     }
+    
+    func addMapTrackingButton(){
+        let image = UIImage(named: "cursor") as UIImage?
+        let button   = UIButton(type: UIButtonType.custom) as UIButton
+        button.frame = CGRect(origin: CGPoint(x:320, y: 10), size: CGSize(width: 35, height: 35))
+        button.setImage(image, for: .normal)
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(currentLocationButtonAction), for:.touchUpInside)
+
+        mapView.addSubview(button)
+        
+    }
+    
+
+    @objc func currentLocationButtonAction(sender: UIBarButtonItem) {
+       locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        var currentLoc: CLLocation!
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+        CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            currentLoc = locationManager.location
+//            locationManager.startUpdatingLocation()
+           print(currentLoc.coordinate.latitude)
+           print(currentLoc.coordinate.longitude)
+            let oahuCenter = CLLocation(latitude: currentLoc.coordinate.latitude, longitude: currentLoc.coordinate.longitude)
+            let region = MKCoordinateRegionMakeWithDistance(
+                oahuCenter.coordinate,
+                500000,
+                600000)
+            if #available(iOS 13.0, *) {
+            
+                mapView.setCameraBoundary(
+                    MKMapView.CameraBoundary(coordinateRegion: region),
+                    animated: true)
+                let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 2000000)
+                mapView.setCameraZoomRange(zoomRange, animated: true)
+                self.mapView.setRegion(region, animated: true)
+//                openMapForPlace()
+            } else {
+                // Fallback on earlier versions
+            }
+            
+           
+
+      }
+    }
+    
+    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = Double("\(pdblLatitude)")!
+        //21.228124
+        let lon: Double = Double("\(pdblLongitude)")!
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
+                    }
+                    if pm.thoroughfare != nil {
+                        addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+                    if pm.postalCode != nil {
+                        addressString = addressString + pm.postalCode! + " "
+                    }
+                    
+                    
+                    print(addressString)
+                    self.txtAddress.text = addressString
+                }
+        })
+        
+    }
+   
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let bounds = mapView.region
+        initialLocation = CLLocation(latitude: Double(bounds.center.latitude), longitude: Double(bounds.center.longitude))
+        let latClicked = bounds.center.latitude
+        let longCliked = bounds.center.longitude
+        self.txtLatitude.text = String(latClicked)
+        self.txtLongitude.text = String(longCliked)
+        getAddressFromLatLon(pdblLatitude: String(latClicked), withLongitude: String(longCliked))
+//        self.addAnnotations(coords: [initialLocation])
+
+//        print("TopLeft: \(bounds[0])\nTopRight: \(bounds[1])\nBottomRight: \(bounds[2])\nBottomLeft: \(bounds[3])")
+//        for (i, coordinate) in bounds.enumerated() {
+//            self.annotations[i].coordinate = coordinate
+//        }
+    }
+
+//to open Apple map for specific lat lng
+    func openMapForPlace() {
+
+            let latitude: CLLocationDegrees = 37.2
+            let longitude: CLLocationDegrees = 22.9
+
+            let regionDistance:CLLocationDistance = 10000
+            let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+            let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+            let options = [
+                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+            ]
+            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: placemark)
+            mapItem.name = "Place Name"
+            mapItem.openInMaps(launchOptions: options)
+        }
     
     //MARK:- IBActions
     

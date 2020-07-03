@@ -119,9 +119,13 @@ class Constants {
     
     
     struct LinkedInConstants {
-        static let CLIENT_ID = "86tji4rrl6tgq5"
-        static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
-        static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
+//        static let CLIENT_ID = "86tji4rrl6tgq5"
+//        static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
+//        static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
+        
+        static let CLIENT_ID = "864iqrnf6d0ivz";//Enter Your LINKEDIN_CLIENT_ID here
+        static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
+        static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/";//Enter Your LINKEDIN_REDIRECT_URL here
         static let SCOPE = "r_liteprofile%20r_emailaddress" //Get lite profile info and e-mail address
         
         static let AUTHURL = "https://www.linkedin.com/oauth/v2/authorization"

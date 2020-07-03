@@ -113,12 +113,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
     var linkedInId = ""
-     var linkedInFirstName = ""
-     var linkedInLastName = ""
-     var linkedInEmail = ""
-     var linkedInProfilePicURL = ""
-     var linkedInAccessToken = ""
-
+    var linkedInFirstName = ""
+    var linkedInLastName = ""
+    var linkedInEmail = ""
+    var linkedInProfilePicURL = ""
+    var linkedInAccessToken = ""
+    
     
     // MARK: Application Life Cycle
     
@@ -129,15 +129,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         GIDSignIn.sharedInstance()?.presentingViewController = self
         // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-
-//        GIDSignIn.sharedInstance().uiDelegate = self
+        
+        //        GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         //self.adForest_loginDetails()
         txtFieldsWithRtl()
         btnGoogleLog.isHidden = true
         buttonGuestLogin.isHidden = true
         btnApple.isHidden = true
-//        buttonLinkedIn.isHidden = true
+        //        buttonLinkedIn.isHidden = true
         // btnFb.isHidden = true
         // buttonFBLogin.isHidden = true
         
@@ -155,10 +155,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         if #available(iOS 13, *) {
             //         startSignInWithAppleFlow()
             setUpSignInAppleButton()
+            self.checkStatusOfAppleSignIn()
             
         } else {
             // Fallback on earlier versions
         }
+        
         
     }
     
@@ -474,7 +476,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
                 self.topConstraintBtnApple.constant -= 50
-//                self.buttonLinkedIn.isHidden = false
+                //                self.buttonLinkedIn.isHidden = false
+            }
+            else if isShowFacebook && isShowGoogle && isShowApple == false && isShowLinkedin {
+                self.buttonFBLogin.isHidden = false
+                self.btnFb.isHidden = false
+                self.buttonGoogleLogin.isHidden = false
+                self.btnGoogleLog.isHidden = false //New
+                self.btnApple.isHidden = true
+                self.buttonLinkedIn.isHidden = false
+                self.topConstraintBtnLinkedIn.constant -= 60
+                
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
                 self.buttonFBLogin.isHidden = true
@@ -493,8 +505,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = false
-//                self.topConstraintBtnGoogle.constant -= 10
-//                self.topConstraintBtnGoogle2.constant -= 10
+                //                self.topConstraintBtnGoogle.constant -= 10
+                //                self.topConstraintBtnGoogle2.constant -= 10
             }
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
                 self.buttonFBLogin.isHidden = false
@@ -504,28 +516,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
                 self.topConstraintBtnLinkedIn.constant -= 60
-
+                
                 
                 
             }
-                else if isShowFacebook && isShowGoogle  && isShowApple  {
-                    self.buttonFBLogin.isHidden = false
-                    self.btnFb.isHidden = false
-                    self.buttonGoogleLogin.isHidden = false
-                    self.btnGoogleLog.isHidden = false
-                    self.btnApple.isHidden = false
-//                    self.buttonLinkedIn.isHidden = true
-                }
-                    
+            else if isShowFacebook && isShowGoogle  && isShowApple  {
+                self.buttonFBLogin.isHidden = false
+                self.btnFb.isHidden = false
+                self.buttonGoogleLogin.isHidden = false
+                self.btnGoogleLog.isHidden = false
+                self.btnApple.isHidden = false
+                //                    self.buttonLinkedIn.isHidden = true
+            }
+                
             else if isShowFacebook && isShowGoogle == false && isShowApple == false {
                 self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = true
                 self.btnGoogleLog.isHidden = true
                 self.btnApple.isHidden = true
-//                self.buttonLinkedIn.isHidden = true
+                //                self.buttonLinkedIn.isHidden = true
                 self.topConstraintBtnLinkedIn.constant -= -10
-
+                
                 btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonFBLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
@@ -540,7 +552,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-//                self.buttonLinkedIn.isHidden = true
+                //                self.buttonLinkedIn.isHidden = true
                 btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
@@ -552,10 +564,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
-//                self.topConstraintBtnLinkedIn.constant -= 140
+                //                self.topConstraintBtnLinkedIn.constant -= 140
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-//                buttonGuestLogin.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
-
+                //                buttonGuestLogin.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
+                
             }
                 
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  && isShowLinkedin {
@@ -571,21 +583,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             else if isShowFacebook == false && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false // New
-//                self.topConstraintBtnGoogle.constant -= 140
-//                self.topConstraintBtnGoogle2.constant -= 140
+                //                self.topConstraintBtnGoogle.constant -= 140
+                //                self.topConstraintBtnGoogle2.constant -= 140
                 self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = false
-//                self.topConstraintBtnApple.constant -= 90
+                //                self.topConstraintBtnApple.constant -= 90
                 self.buttonLinkedIn.isHidden = false
-//                self.topConstraintBtnLinkedIn.constant -= 60
+                //                self.topConstraintBtnLinkedIn.constant -= 60
                 btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-
+                
             }
-                               
+                
             else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false // New
@@ -593,24 +605,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.btnFb.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = false
-
+                
             }
                 
-          
                 
                 
-//            else if isShowFacebook  && isShowGoogle  && isShowApple == false  && isShowLinkedin {
-//                self.buttonGoogleLogin.isHidden = false
-//                self.btnGoogleLog.isHidden = false // New
-//                self.buttonFBLogin.isHidden = false
-//                self.btnFb.isHidden = false
-//                self.btnApple.isHidden = true
-//                self.buttonLinkedIn.isHidden = false
-//
-//            }
-
                 
-           
+                //            else if isShowFacebook  && isShowGoogle  && isShowApple == false  && isShowLinkedin {
+                //                self.buttonGoogleLogin.isHidden = false
+                //                self.btnGoogleLog.isHidden = false // New
+                //                self.buttonFBLogin.isHidden = false
+                //                self.btnFb.isHidden = false
+                //                self.btnApple.isHidden = true
+                //                self.buttonLinkedIn.isHidden = false
+                //
+                //            }
+                
+                
+                
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false  && isShowLinkedin == false {
                 self.lblOr.isHidden = true
                 
@@ -627,12 +639,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 }
             }
             
-
+            
         }
     }
     
     //MARK:- IBActions
-  
+    
     @IBAction func actionForgotPassword(_ sender: Any) {
         let forgotPassVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         self.navigationController?.pushViewController(forgotPassVC, animated: true)
@@ -660,16 +672,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             webView.leadingAnchor.constraint(equalTo: linkedInVC.view.leadingAnchor),
             webView.bottomAnchor.constraint(equalTo: linkedInVC.view.bottomAnchor),
             webView.trailingAnchor.constraint(equalTo: linkedInVC.view.trailingAnchor)
-            ])
-
+        ])
+        
         let state = "linkedin\(Int(NSDate().timeIntervalSince1970))"
-
+        
         let authURLFull = Constants.LinkedInConstants.AUTHURL + "?response_type=code&client_id=" + Constants.LinkedInConstants.CLIENT_ID + "&scope=" + Constants.LinkedInConstants.SCOPE + "&state=" + state + "&redirect_uri=" + Constants.LinkedInConstants.REDIRECT_URI
-
-
+        
+        
         let urlRequest = URLRequest.init(url: URL.init(string: authURLFull)!)
         webView.load(urlRequest)
-
+        
         // Create Navigation Controller
         let navController = UINavigationController(rootViewController: linkedInVC)
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
@@ -681,20 +693,46 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         linkedInVC.navigationItem.title = "linkedin.com"
         navController.navigationBar.isTranslucent = false
         navController.navigationBar.tintColor = UIColor.white
-//        navController.navigationBar.barTintColor = UIColor.colorFromHex("#0072B1")
+        //        navController.navigationBar.barTintColor = UIColor.colorFromHex("#0072B1")
         navController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         navController.modalTransitionStyle = .coverVertical
-
+        
         self.present(navController, animated: true, completion: nil)
     }
     @objc func cancelAction() {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @objc func refreshAction() {
         self.webView.reload()
     }
-
+    @objc func actionHandleAppleSignin()
+    {
+        DispatchQueue.main.async {
+            
+            //               self.vwUserDetail.isHidden = true
+            //
+            //               self.lblID.text = ""
+            //               self.lblFirstname.text = ""
+            //               self.lblLastname.text = ""
+            //               self.lblEmail.text = ""
+        }
+        
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+    }
     
     func adForest_logIn() {
         guard let email = txtEmail.text else {
@@ -773,19 +811,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     
     @IBAction func btnAppleClicked(_ sender: UIButton) {
-        
-        if #available(iOS 13.0, *) {
-            //            startSignInWithAppleFlow()
-            
-            let appleIDProvider = ASAuthorizationAppleIDProvider()
-            let request = appleIDProvider.createRequest()
-            request.requestedScopes = [.fullName, .email]
-            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-            authorizationController.delegate = self
-            authorizationController.performRequests()
-        } else {
-            // Fallback on earlier versions
-        }
+        actionHandleAppleSignin()
+        //        if #available(iOS 13.0, *) {
+        //            //            startSignInWithAppleFlow()
+        //
+        //            let appleIDProvider = ASAuthorizationAppleIDProvider()
+        //            let request = appleIDProvider.createRequest()
+        //            request.requestedScopes = [.fullName, .email]
+        //            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        //            authorizationController.delegate = self
+        //            authorizationController.performRequests()
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         
         
     }
@@ -947,61 +985,183 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
         return self.view.window!
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
+    //    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    //        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+    //            let userIdentifier = appleIDCredential.user
+    //            let fullName = appleIDCredential.fullName
+    //
+    //            let email = appleIDCredential.email
+    //            if email != nil{
+    //                UserDefaults.standard.set(email, forKey:"emailA")
+    //            }
+    //
+    //            let emApple = UserDefaults.standard.string(forKey: "emailA")
+    //            if emApple != nil{
+    //                let param: [String: Any] = [
+    //                    "email": emApple!,
+    //                    "type": "social"
+    //                ]
+    //                print(param)
+    //                self.defaults.set(true, forKey: "isSocial")
+    //                UserDefaults.standard.set(emApple, forKey:"email")
+    //                self.defaults.set("1122", forKey: "password")
+    //                self.defaults.synchronize()
+    //                UserDefaults.standard.set("true", forKey: "apple")
+    //                self.adForest_loginUser(parameters: param as NSDictionary)
+    //                print(userIdentifier,fullName,email)
+    //            }else{
+    //                let alert = Constants.showBasicAlert(message: "Apple id....")
+    //                self.presentVC(alert)
+    //
+    //
+    //            }
+    //
+    //        }
+    //    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    {
+        switch authorization.credential {
             
-            let email = appleIDCredential.email
-            if email != nil{
-                UserDefaults.standard.set(email, forKey:"emailA")
-            }
-            
-            let emApple = UserDefaults.standard.string(forKey: "emailA")
-            if emApple != nil{
-                let param: [String: Any] = [
-                    "email": emApple!,
-                    "type": "social"
-                ]
-                print(param)
-                self.defaults.set(true, forKey: "isSocial")
-                UserDefaults.standard.set(emApple, forKey:"email")
-                self.defaults.set("1122", forKey: "password")
-                self.defaults.synchronize()
-                UserDefaults.standard.set("true", forKey: "apple")
-                self.adForest_loginUser(parameters: param as NSDictionary)
-                print(userIdentifier,fullName,email)
-            }else{
-                let alert = Constants.showBasicAlert(message: "Apple id....")
-                self.presentVC(alert)
+        case let credentials as ASAuthorizationAppleIDCredential:
+            DispatchQueue.main.async {
+                
+                if "\(credentials.user)" != "" {
+                    
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if credentials.email != nil {
+                    
+                    UserDefaults.standard.set("\(credentials.email!)", forKey: "User_Email")
+                }
+                if credentials.fullName!.givenName != nil {
+                    
+                    UserDefaults.standard.set("\(credentials.fullName!.givenName!)", forKey: "User_FirstName")
+                }
+                if credentials.fullName!.familyName != nil {
+                    
+                    UserDefaults.standard.set("\(credentials.fullName!.familyName!)", forKey: "User_LastName")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
                 
                 
             }
-   
+            
+        case let credentials as ASPasswordCredential:
+            DispatchQueue.main.async {
+                
+                if "\(credentials.user)" != "" {
+                    
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if "\(credentials.password)" != "" {
+                    
+                    UserDefaults.standard.set("\(credentials.password)", forKey: "User_Password")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
+            }
+            
+        default :
+            let alert: UIAlertController = UIAlertController(title: "Apple Sign In", message: "Something went wrong with your Apple Sign In!", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+            break
+        }
+    }
+    func setupUserInfoAndOpenView()
+    {
+        DispatchQueue.main.async {
+            
+            
+            if "\(UserDefaults.standard.value(forKey: "User_FirstName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_LastName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_Email")!)" != "" {
+                let emApple = UserDefaults.standard.value(forKey: "User_Email")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+                    
+                }
+                
+                
+                
+                
+                
+            } else {
+                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+                    
+                }
+                
+            }
+            
         }
     }
     
+    func checkStatusOfAppleSignIn()
+    {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
+            
+            switch credentialState {
+            case .authorized:
+                self.setupUserInfoAndOpenView()
+                break
+            default:
+                break
+            }
+        }
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+    {
+        let alert: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 
 class User {
-typealias JSON = [String: Any]
-var id: String?
-var firstName: String?
-var lastName: String?
-
-init(json: JSON) {
-
-guard let id = json["id"] as? String, let firstName = json["firstName"] as? String, let lastName = json["lastName"] as? String else { return }
-
-self.id = id
-self.firstName = firstName
-self.lastName = lastName
+    typealias JSON = [String: Any]
+    var id: String?
+    var firstName: String?
+    var lastName: String?
+    
+    init(json: JSON) {
+        
+        guard let id = json["id"] as? String, let firstName = json["firstName"] as? String, let lastName = json["lastName"] as? String else { return }
+        
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
     }
     
 }
 extension LoginViewController: WKNavigationDelegate {
-
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         RequestForCallbackURL(request: navigationAction.request)
         
@@ -1013,7 +1173,7 @@ extension LoginViewController: WKNavigationDelegate {
         }
         decisionHandler(.allow)
     }
-
+    
     func RequestForCallbackURL(request: URLRequest) {
         // Get the authorization code string after the '?code=' and before '&state='
         let requestURLString = (request.url?.absoluteString)! as String
@@ -1029,14 +1189,14 @@ extension LoginViewController: WKNavigationDelegate {
             }
         }
     }
-
+    
     func handleAuth(linkedInAuthorizationCode: String) {
         linkedinRequestForAccessToken(authCode: linkedInAuthorizationCode)
     }
-
+    
     func linkedinRequestForAccessToken(authCode: String) {
         let grantType = "authorization_code"
-
+        
         // Set the POST parameters.
         let postParams = "grant_type=" + grantType + "&code=" + authCode + "&redirect_uri=" + Constants.LinkedInConstants.REDIRECT_URI + "&client_id=" + Constants.LinkedInConstants.CLIENT_ID + "&client_secret=" + Constants.LinkedInConstants.CLIENT_SECRET
         let postData = postParams.data(using: String.Encoding.utf8)
@@ -1049,21 +1209,21 @@ extension LoginViewController: WKNavigationDelegate {
             let statusCode = (response as! HTTPURLResponse).statusCode
             if statusCode == 200 {
                 let results = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [AnyHashable: Any]
-
+                
                 let accessToken = results?["access_token"] as! String
                 print("accessToken is: \(accessToken)")
-
+                
                 let expiresIn = results?["expires_in"] as! Int
                 print("expires in: \(expiresIn)")
-
+                
                 // Get user's id, first name, last name, profile pic url
                 self.fetchLinkedInUserProfile(accessToken: accessToken)
             }
         }
         task.resume()
     }
-
-
+    
+    
     func fetchLinkedInUserProfile(accessToken: String) {
         let tokenURLFull = "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))&oauth2_access_token=\(accessToken)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let verify: NSURL = NSURL(string: tokenURLFull!)!
@@ -1080,27 +1240,27 @@ extension LoginViewController: WKNavigationDelegate {
                 let linkedinId: String! = linkedInProfileModel?.id
                 print("LinkedIn Id: \(linkedinId ?? "")")
                 self.linkedInId = linkedinId
-
+                
                 // LinkedIn First Name
                 let linkedinFirstName: String! = linkedInProfileModel?.firstName.localized.enUS
                 print("LinkedIn First Name: \(linkedinFirstName ?? "")")
                 self.linkedInFirstName = linkedinFirstName
-
+                
                 // LinkedIn Last Name
                 let linkedinLastName: String! = linkedInProfileModel?.lastName.localized.enUS
                 print("LinkedIn Last Name: \(linkedinLastName ?? "")")
                 self.linkedInLastName = linkedinLastName
-
+                
                 // LinkedIn Profile Picture URL
                 let linkedinProfilePic: String!
-
+                
                 /*
                  Change row of the 'elements' array to get diffrent size of the profile url
                  elements[0] = 100x100
                  elements[1] = 200x200
                  elements[2] = 400x400
                  elements[3] = 800x800
-                */
+                 */
                 if let pictureUrls = linkedInProfileModel?.profilePicture.displayImage.elements[2].identifiers[0].identifier {
                     linkedinProfilePic = pictureUrls
                 } else {
@@ -1108,14 +1268,14 @@ extension LoginViewController: WKNavigationDelegate {
                 }
                 print("LinkedIn Profile Avatar URL: \(linkedinProfilePic ?? "")")
                 self.linkedInProfilePicURL = linkedinProfilePic
-
+                
                 // Get user's email address
                 self.fetchLinkedInEmailAddress(accessToken: accessToken)
             }
         }
         task.resume()
     }
-
+    
     func fetchLinkedInEmailAddress(accessToken: String) {
         let tokenURLFull = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=\(accessToken)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let verify: NSURL = NSURL(string: tokenURLFull!)!
@@ -1123,15 +1283,16 @@ extension LoginViewController: WKNavigationDelegate {
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if error == nil {
                 let linkedInEmailModel = try? JSONDecoder().decode(LinkedInEmailModel.self, from: data!)
-
+                
                 // LinkedIn Email
                 let linkedinEmail: String! = linkedInEmailModel?.elements[0].elementHandle.emailAddress
                 print("LinkedIn Email: \(linkedinEmail ?? "")")
                 self.linkedInEmail = linkedinEmail
-
+                
                 DispatchQueue.main.async {
                     let param: [String: Any] = [
                         "email": linkedinEmail!,
+                        "LinkedIn_img":self.linkedInProfilePicURL,
                         "type": "social"
                     ]
                     print(param)
@@ -1140,12 +1301,12 @@ extension LoginViewController: WKNavigationDelegate {
                     self.defaults.set("1122", forKey: "password")
                     self.defaults.synchronize()
                     self.adForest_loginUser(parameters: param as NSDictionary)
-//                    self.performSegue(withIdentifier: "detailseg", sender: self)
+                    //                    self.performSegue(withIdentifier: "detailseg", sender: self)
                 }
             }
         }
         task.resume()
     }
-
-
+    
+    
 }

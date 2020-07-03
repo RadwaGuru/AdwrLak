@@ -150,12 +150,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func subscribeToTopicMessage() {
         if defaults.bool(forKey: "isLogin") {
             Messaging.messaging().shouldEstablishDirectChannel = true
-//            Messaging.messaging().subscribe(toTopic: "global")
-            //global
             Messaging.messaging().subscribe(toTopic: "global")
-            { error in
-              print("Subscribed to weather topic")
-            }
+
         }
     }
     

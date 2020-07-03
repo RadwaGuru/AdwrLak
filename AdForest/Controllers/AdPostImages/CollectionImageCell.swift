@@ -165,7 +165,9 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         let objData = dataArray[indexPath.row]
 
         for id in dataArray{
-            imageIdArrAd.append(id.imgId)
+            if id.imgId != nil{
+                imageIdArrAd.append(id.imgId)
+            }
         }
         print(imageIdArrAd)
 //        if let imgUrl = URL(string: objData.thumb ){

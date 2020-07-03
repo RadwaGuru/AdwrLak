@@ -710,6 +710,15 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(menu)
 //                    self.changeGuestMenu(menu)
                 }
+                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                switch img.lowercased() {
+                case "top_location_text":
+                    return 0
+                case "wpml_menu_text":
+                    return 0
+                default:
+                    return 40
+                }
             }
             else{
             let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]

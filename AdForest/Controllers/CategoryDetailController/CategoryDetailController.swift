@@ -59,7 +59,10 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-       searchBar.setValue("Done", forKey: "_cancelButtonText")
+//       searchBar.setValue("Done", forKey: "_cancelButtonText")
+//        IOS 13 fixed search bar issue
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Done"
+
         shouldShowSearchResults = true
         tableView.reloadData()
     }

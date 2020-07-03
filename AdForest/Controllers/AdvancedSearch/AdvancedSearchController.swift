@@ -201,6 +201,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         
     }
     
+
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -233,14 +234,40 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 }
                 
                 var i = 1
+//                for item in objData.values {
+//                    if item.id == "" {
+//                        continue
+//                    }
+//                    if i == 1 {
+//                        //                        cell.oltPopup?.setValue(item.name, forKey: "")
+//                        cell.oltPopup.setTitle(item.name, for: .normal)
+//                    }
+//                    i = i + 1
+//                }
                 for item in objData.values {
-                    if item.id == "" {
-                        continue
+                    if cell.hasCategoryTempelate == true {
+                        if item.id == "" {
+                            continue
+                        }
+                    } else {
+//                    if item.id == "-1" || item.id == "" {
+//                        cell.oltPopup.setTitle(item.name, for: .normal)
+//                        //
+//                        //                        continue
+//                        }
+                        if i == 1 {
+                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
+                            cell.oltPopup.setTitle(item.name, for: .normal)
+                        }
                     }
-                    if i == 1 {
-//                        cell.oltPopup?.setValue(item.name, forKey: "")
-                        cell.oltPopup.setTitle(item.name, for: .normal)
-                    }
+
+//                    if cell.hasCategoryTempelate == false {
+//                        if i == 1 {
+//                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
+//                            cell.oltPopup.setTitle(item.name, for: .normal)
+//                        }
+//
+//                    }
                     i = i + 1
                 }
                 cell.btnPopupAction = { () in

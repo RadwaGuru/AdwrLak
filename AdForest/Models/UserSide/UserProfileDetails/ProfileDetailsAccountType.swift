@@ -13,7 +13,7 @@ struct ProfileDetailsAccountType {
     var fieldName : String!
     var key : String!
     var value : String!
-    
+    var disable : String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -23,6 +23,7 @@ struct ProfileDetailsAccountType {
         fieldName = dictionary["field_name"] as? String
         key = dictionary["key"] as? String
         value = dictionary["value"] as? String
+        disable = dictionary["disable"] as? String
     }
     
     /**
@@ -39,6 +40,9 @@ struct ProfileDetailsAccountType {
         }
         if value != nil{
             dictionary["value"] = value
+        }
+        if disable != nil{
+            dictionary["disable"] = disable
         }
         return dictionary
     }

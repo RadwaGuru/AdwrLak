@@ -65,6 +65,8 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
         selectionStyle = .none
     }
     
+    
+    
     //MARK:- SetUp Drop Down
     func accountDropDown() {
         valueDropDown.anchorView = oltPopup
@@ -95,7 +97,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(url)
                     let param: [String: Any] = ["ad_country": self.selectedKey]
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
-                     self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
                 else {
                       
@@ -105,7 +107,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(url)
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
                     //self.selectedValue
-                    self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
                 }
             }
         }
@@ -122,7 +124,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 let param: [String: Any] = ["ad_country": id]
                 print(param)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
-                 self.delegate?.selectValue(selectVal: "", selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
+                self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", indexPath: index, fieldTypeName: self.fieldNam)
             }
             else {
                 let param: [String: Any] = ["subcat": id]
