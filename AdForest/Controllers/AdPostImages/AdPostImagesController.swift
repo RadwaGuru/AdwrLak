@@ -73,6 +73,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isValidUrl = false
     var isBid = true
     var isImg = true
+    var isReqired = false
     var imagesMsg = ""
     var isShowPrice = true
     var isImagesRequired = "true"
@@ -91,7 +92,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             print(ite.fieldTypeName, ite.fieldName, ite.fieldVal, ite.fieldType)
         }
         self.dataArray = fieldsArray
-        
         let valuesArray = ["ad_title","ad_cats1" ,"ad_price_type", "ad_price", "ad_currency", "ad_condition", "ad_warranty", "ad_type", "ad_yvideo", "checkbox"]
         let valueToremove = ["ad_title","ad_cats1"]
         
@@ -116,6 +116,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         fieldsArray = dataArray
+        print(fieldsArray)
+
         self.adForest_populateData()
         self.tableView.reloadData()
 //        self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
@@ -205,8 +207,11 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //    }
     
     @objc func onForwardButtonClciked() {
-
+//        var sectionRequired = 0
+//        var indexRequired = 0
+        var requiredCheck = false
         localVariable = ""
+        print(fieldsArray)
         for index in  0..<fieldsArray.count {
             if let objData = fieldsArray[index] as? AdPostField {
                 if objData.fieldType == "select"  {
@@ -214,6 +219,20 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         var obj = AdPostField()
                         obj.fieldType = "select"
                         obj.fieldTypeName = cell.param
+                        if  objData.isRequired == true{
+                            if objData.fieldVal == ""{
+                                requiredCheck = true
+                                showToast(message: "Please fill all required fields")
+                                cell.oltPopup.setTitleColor(UIColor.red, for: .normal)
+                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+                                print("agay ni jana beta")
+                            }
+                            
+                        }else{
+                            cell.oltPopup.setTitleColor(UIColor.gray, for: .normal)
+
+                        }
+
                         print(cell.param)
                         obj.fieldVal = cell.selectedKey
                         objArray.append(obj)
@@ -226,6 +245,21 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             obj.fieldType = "textfield"
                             obj.fieldVal = cell.txtType.text
                             obj.fieldTypeName = cell.fieldName
+                        if  objData.isRequired == true{
+                            if objData.fieldVal == "" || objData.fieldVal == nil {
+                                requiredCheck = true
+                                showToast(message: "Please fill all required fields")
+//                                cell.txtType.backgroundColor = UIColor.red
+                                let imageName = "close"
+                                let image = UIImage(named: imageName)
+                                cell.s = UIImageView(image: image!)
+                                cell.s.frame = CGRect(x: 370, y: 25, width: 20, height: 20)
+                                cell.contentView.addSubview(cell.s)
+//                                    .setTitleColor(UIColor.red, for: .normal)
+                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+                                print("agay ni jana beta")
+                            }
+                        }
                             objArray.append(obj)
                             customArray.append(obj)
                     }
@@ -242,10 +276,22 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //                        customArray.append(obj)
 //                    }
 //                }
+                    
                 else if objData.fieldType == "checkbox" {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CheckBoxCell {
                         var obj = AdPostField()
                         obj.fieldTypeName = cell.fieldName
+//                        if  objData.isRequired == true{
+//                            if objData.fieldVal == ""{
+//                                requiredCheck = true
+//                                showToast(message: "Please fill all required fields")
+//                                cell.lblName.textColor = UIColor.red
+//                                //                                    .setTitleColor(UIColor.red, for: .normal)
+//                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+//                                print("agay ni jana beta")
+//                            }
+//                        }
+
                         objArray.append(obj)
                         customArray.append(obj)
                         localVariable = ""
@@ -267,6 +313,16 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             cell.txtUrl.shake(6, withDelta: 10, speed: 0.06)
                             self.isValidUrl = false
                         }
+                        if  objData.isRequired == true{
+                            if objData.fieldVal == ""{
+                                requiredCheck = true
+                                showToast(message: "Please fill all required fields")
+                                cell.txtUrl.textColor = UIColor.red
+                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+                                print("agay ni jana beta")
+                            }
+                        }
+
                         objArray.append(obj)
                         customArray.append(obj)
                     }
@@ -318,6 +374,16 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         var obj = AdPostField()
                         obj.fieldTypeName = "number_range" //cell.fieldName
                         obj.fieldVal = cell.txtMinPrice.text
+                        if  objData.isRequired == true{
+                            if objData.fieldVal == ""{
+                                requiredCheck = true
+                                showToast(message: "Please fill all required fields")
+                                cell.txtMinPrice.textColor = UIColor.red
+                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+                                print("agay ni jana beta")
+                            }
+                        }
+
                         objArray.append(obj)
                         customArray.append(obj)
                     }
@@ -345,10 +411,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             adPostVC.localVariable = self.localVariable
             adPostVC.valueArray = self.valueArray
             adPostVC.localDictionary = self.localDictionary
-        
+
         let objData = AddsHandler.sharedInstance.objAdPost
         if self.isImagesRequired == objData?.data.images.isRequired{
-    
+
             let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
             if imgCtrlCount == 0{
                 let alert = Constants.showBasicAlert(message: msgImg!)
@@ -358,12 +424,18 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 self.navigationController?.pushViewController(adPostVC, animated: true)
 
             }
-            
-        }
-            else{
-                self.navigationController?.pushViewController(adPostVC, animated: true)
 
-            }
+        }
+        if requiredCheck == true{
+            let alert = Constants.showBasicAlert(message: "Altu jalatu")
+            self.presentVC(alert)
+//            let index = IndexPath(row: indexRequired, section: sectionRequired)
+//            tableView.scrollToRow(at: index, at: .top, animated: true)
+        }
+        else{
+            self.navigationController?.pushViewController(adPostVC, animated: true)
+
+        }
         
     }
     
@@ -580,7 +652,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             else if objData.fieldType == "select"  {
                
                 let cell: DropDownCell = tableView.dequeueReusableCell(withIdentifier: "DropDownCell", for: indexPath) as! DropDownCell
-               
                 if objData.fieldTypeName == "ad_bidding"{
                     if isBid == false{
                         cell.isHidden = true
@@ -588,7 +659,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         cell.isHidden = false
                     }
                 }
-                
                 if let title = objData.title {
                     cell.lblName.text = title
                 }
@@ -921,7 +991,9 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldVal = rVal
             obj.fieldTypeName = fieldNam //"radio"
             self.fieldsArray[indexPath].tempIsSelected = isSelected
+            self.fieldsArray[indexPath].isRequired = false
             self.dataArray.append(obj)
+            isEditStart = true
             self.fieldsArray.append(obj)
             objArray.append(obj)
             customArray.append(obj)
@@ -935,8 +1007,11 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldVal = colorCode
             obj.fieldTypeName = fieldNam //"select_colors"
             self.fieldsArray[indexPath].tempIsSelected = isSelected
+            self.fieldsArray[indexPath].isRequired = false
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
+            isEditStart = true
+
             objArray.append(obj)
             customArray.append(obj)
         }
@@ -949,6 +1024,7 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldVal = value
             obj.fieldTypeName = fieldName
             isShowPrice = isShow
+//            self.fieldsArray[indexPath].isRequired = false
             self.fieldsArray[indexPath].fieldVal = valueName
             self.dataArray[indexPath].fieldVal = valueName
             self.dataArray.append(obj)
@@ -967,8 +1043,10 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldVal = value
             obj.fieldTypeName = fieldNam //"date_input"
             self.fieldsArray[indexPath].fieldVal = value
+            self.fieldsArray[indexPath].isRequired = false
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
+            isEditStart = true
             objArray.append(obj)
             customArray.append(obj)
         }
@@ -982,9 +1060,12 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldTypeName = fieldNam  //"ad_description"
             print(value)
             self.fieldsArray[indexPath].fieldVal = value
+            self.fieldsArray[indexPath].isRequired = false
             //self.dataArray.append(obj)
             self.fieldsArray.append(obj)
             objArray.append(obj)
+            isEditStart = true
+
             //customArray.append(obj)
         }
     }
@@ -996,8 +1077,11 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldVal = value
             obj.fieldTypeName = fieldNam //fieldType
             self.fieldsArray[indexPath].fieldVal = value
+            self.fieldsArray[indexPath].isRequired = false
             self.dataArray.append(obj)
             self.fieldsArray.append(obj)
+            isEditStart = true
+
             objArray.append(obj)
             customArray.append(obj)
             

@@ -57,6 +57,13 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             buttonAgreeWithTermsConditions.contentHorizontalAlignment = .left
         }
     }
+    @IBOutlet weak var btnCheckBoxSubscriber: UIButton!
+    @IBOutlet weak var btnTextSubscriber: UIButton! {
+        didSet{
+            btnTextSubscriber.contentHorizontalAlignment = .left
+
+        }
+    }
     @IBOutlet weak var buttonCheckBox: UIButton!
     @IBOutlet weak var buttonRegister: UIButton! {
         didSet {
@@ -112,7 +119,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     @IBOutlet weak var containerViewSocialButton: UIView!
     
     //MARK:- Properties
-    
+    var isAgreeSubscriber = false
     var isAgreeTerms = false
     var page_id = ""
     var defaults = UserDefaults.standard
@@ -125,7 +132,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     var linkedInEmail = ""
     var linkedInProfilePicURL = ""
     var linkedInAccessToken = ""
-    
+    var subscriberPostValue = ""
+    var SubscribertExt = ""
+var checkBoxselectedBtn = false
     //MARK:- Application Life Cycle
     
     override func viewDidLoad() {
@@ -142,8 +151,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         btnApple.layer.borderWidth = 1
         btnApple.layer.borderColor = UIColor.black.cgColor
         setUpSignInAppleButton()
+        btnCheckBoxSubscriber.isHidden = true
+        btnTextSubscriber.isHidden = true
         if #available(iOS 13.0, *) {
-            self.checkStatusOfAppleSignIn()
+//            self.checkStatusOfAppleSignIn()
         } else {
             // Fallback on earlier versions
         }
@@ -262,6 +273,16 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             }
             if let registerText = objData?.formBtn {
                 self.buttonRegister.setTitle(registerText, for: .normal)
+            }
+            if let subscriberBool = objData?.btnSubscriber {
+                self.isAgreeSubscriber = subscriberBool
+            }
+            if let subscriberText = objData?.subscriberCheckBoxText{
+                self.btnTextSubscriber.setTitle(subscriberText, for: .normal)
+                self.SubscribertExt = subscriberText
+            }
+            if let postSubscriberVal = objData?.subscriber_CheckboxPOST{
+                self.subscriberPostValue = postSubscriberVal
             }
             
             if let loginText = objData?.loginText {
@@ -456,7 +477,28 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             //                self.buttonLinkedIn.isHidden = false
             //
             //            }
-            //
+            //\
+//            if SubscribertExt != "" {
+            if isAgreeSubscriber == true {
+                btnCheckBoxSubscriber.isHidden = false
+                btnTextSubscriber.isHidden = false
+            }  else{
+                btnCheckBoxSubscriber.isHidden = true
+                btnTextSubscriber.isHidden = true
+            }
+            
+//            if SubscribertExt  == "" {
+//                 btnCheckBoxSubscriber.isHidden = true
+//                btnTextSubscriber.isHidden = true
+//            }else{
+//                btnCheckBoxSubscriber.isHidden = false
+//                btnTextSubscriber.isHidden = false
+//            }
+            
+            
+            
+        
+          
         }
     }
     
@@ -535,12 +577,26 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         
         
     }
+    @IBAction func checkBoxSubscriber(_ sender: UIButton) {
+        
+        if sender.imageView?.image == #imageLiteral(resourceName: "uncheck") {
+            btnCheckBoxSubscriber.setImage(#imageLiteral(resourceName: "check"), for: .normal)
+            checkBoxselectedBtn = true
+        }
+        else{
+            btnCheckBoxSubscriber.setImage( #imageLiteral(resourceName: "uncheck"), for: .normal)
+            checkBoxselectedBtn = false
+            
+        }
+        
+    }
     
     @IBAction func checkBox(_ sender: UIButton) {
         
         if isAgreeTerms == false {
             buttonCheckBox.setBackgroundImage(#imageLiteral(resourceName: "check"), for: .normal)
             isAgreeTerms = true
+        
         }
         else if isAgreeTerms {
             buttonCheckBox.setBackgroundImage(#imageLiteral(resourceName: "uncheck"), for: .normal)
@@ -601,16 +657,33 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             self.presentVC(alert)
         }
         else {
+            if checkBoxselectedBtn == true {
+            let parameters : [String: Any] = [
+                "name": name,
+                "email": email,
+                "phone": phone,
+                "password": password,
+                subscriberPostValue: subscriberPostValue
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+                defaults.set(password, forKey: "password")
+                self.adForest_registerUser(param: parameters as NSDictionary)
+            }
+            else{
             let parameters : [String: Any] = [
                 "name": name,
                 "email": email,
                 "phone": phone,
                 "password": password
-            ]
-            print(parameters)
-            defaults.set(email, forKey: "email")
-            defaults.set(password, forKey: "password")
-            self.adForest_registerUser(param: parameters as NSDictionary)
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+                defaults.set(password, forKey: "password")
+                self.adForest_registerUser(param: parameters as NSDictionary)
+        }
+
+            
         }
     }
     

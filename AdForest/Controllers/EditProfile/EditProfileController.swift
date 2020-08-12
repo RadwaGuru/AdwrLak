@@ -303,6 +303,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                     if obj.fieldName == "_sb_profile_google-plus" {
                         cell.txtGooglePlus.text = obj.value
+                        cell.txtGooglePlus.isHidden = true
                     }
                     if obj.disable == "true"{
                         cell.txtLinkedIn.isUserInteractionEnabled = false
@@ -1016,14 +1017,14 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         guard let linkedIn = txtLinkedIn.text else {
             return
         }
-        guard let google = txtGooglePlus.text else {
-            return
-        }
+//        guard let google = txtGooglePlus.text else {
+//            return
+//        }
         let custom: [String: Any] = [
             "_sb_profile_facebook": facebook,
             "_sb_profile_twitter" : twitter,
             "_sb_profile_linkedin" : linkedIn,
-            "_sb_profile_google-plus" : google
+//            "_sb_profile_google-plus" : google
         ]
         print(custom)
 
@@ -1102,15 +1103,20 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             self.appDel.presentController(ShowVC: alert)
         }
     }
-    
+    @objc func adFroest_showNavController1(){
+        appDel.moveToProfile()
+    }
     func adForest_updateProfile(params: NSDictionary) {
         let editprofile = EditProfileController()
         editprofile.showLoader()
         UserHandler.profileUpdate(parameters: params, success: { (successResponse) in
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             if successResponse.success {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.appDel.presentController(ShowVC: alert)
+                
+                self.showToast(message: successResponse.message)
+                self.perform(#selector(self.adFroest_showNavController1), with: nil, afterDelay: 1.5)
+//                let alert = Constants.showBasicAlert(message: successResponse.message)
+//                self.appDel.presentController(ShowVC: alert)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -1122,4 +1128,21 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             self.appDel.presentController(ShowVC: alert)
         }
     }
+    func showToast(message : String) {
+           let toastLabel = UILabel(frame: CGRect(x: 50, y: self.contentView.frame.size.height-100, width: self.contentView.frame.width - 100, height: 35))
+           toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+           toastLabel.textColor = UIColor.white
+           toastLabel.textAlignment = .center;
+           toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+           toastLabel.text = message
+           toastLabel.alpha = 1.0
+           toastLabel.layer.cornerRadius = 10;
+           toastLabel.clipsToBounds  =  true
+           self.contentView.addSubview(toastLabel)
+           UIView.animate(withDuration: 6.0, delay: 0.3, options: .curveEaseOut, animations: {
+               toastLabel.alpha = 0.0
+           }, completion: {(isCompleted) in
+               toastLabel.removeFromSuperview()
+           })
+       }
 }

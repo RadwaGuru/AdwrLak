@@ -91,7 +91,8 @@ class DropDownCell: UITableViewCell {
             self.objSaved.fieldVal = item
             //self.delegate?.addToFieldsArray(obj: self.objSaved, index: self.selectedIndex, isFrom: "select", title: item)
             self.defaults.set(item, forKey: "value")
-            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: self.indexP, fieldType: "select", section: self.section,fieldName : self.fieldNam,isShow: self.isShow, valueName: item)
+            self.oltPopup.setTitleColor(UIColor.gray, for: .normal)
+            self.delegate?.textValSelecrDrop(value: self.selectedKey, indexPath: self.indexP, fieldType: "select", section: self.section,fieldName : self.fieldNam,isShow: self.isShow,valueName: item)
             self.defaults.synchronize()
             print(self.fieldNam,self.bidOnOfCell)
             

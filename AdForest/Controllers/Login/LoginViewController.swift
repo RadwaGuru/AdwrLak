@@ -155,7 +155,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         if #available(iOS 13, *) {
             //         startSignInWithAppleFlow()
             setUpSignInAppleButton()
-            self.checkStatusOfAppleSignIn()
+//            self.checkStatusOfAppleSignIn()
             
         } else {
             // Fallback on earlier versions

@@ -86,6 +86,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var buttonText = ""
     var isShowAdTime = false
     var isRatingSectionShow = false
+    var isRatingReactionShow = false
     let gifManager = SwiftyGifManager(memoryLimit: 100)
     
     var day: Int = 0
@@ -708,6 +709,40 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let replyButtontext = objData.replyText {
                 cell.oltReply.setTitle(replyButtontext, for: .normal)
             }
+            print(isRatingReactionShow)
+            if isRatingReactionShow == false {
+//                cell.imgThumb.isHidden = true
+//                cell.imgHeart.isHidden = true
+//                cell.imgWow.isHidden = true
+//                cell.imgAndry.isHidden = true
+//                cell.lblThumb.isHidden = true
+//                cell.lblHeart.isHidden = true
+//                cell.lblWow.isHidden = true
+//                cell.lblSad.isHidden = true
+                cell.containerViewReactions.isHidden = true
+
+//                isHidden = true
+//                cell.btnThumb.isHidden = true
+//                cell.btnSad.isHidden = true
+//                cell.btnWow.isHidden = true
+
+                
+            }else{
+                cell.containerViewReactions.isHidden = false
+//                cell.imgThumb.isHidden = false
+//                cell.imgHeart.isHidden = false
+//                cell.imgWow.isHidden = false
+//                cell.imgAndry.isHidden = false
+//                cell.lblThumb.isHidden = false
+//                cell.lblHeart.isHidden = false
+//                cell.lblWow.isHidden = false
+//                cell.lblSad.isHidden = false
+////                cell.btnLove.
+//                isHidden = false
+//                cell.btnThumb.isHidden = false
+//                cell.btnSad.isHidden = false
+//                cell.btnWow.isHidden = false
+            }
             cell.imgThumb.setGifImage(UIImage(gifName: "thumb"), manager: gifManager, loopCount: -1)
             cell.imgHeart.setGifImage(UIImage(gifName: "heart"), manager: gifManager, loopCount: -1)
             cell.imgWow.setGifImage(UIImage(gifName: "wow"), manager: gifManager, loopCount: -1)
@@ -1270,6 +1305,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.addVideoArray = [successResponse.data.adDetail.adVideo]
                 self.dataArray = [successResponse.data]
                 self.isRatingSectionShow = successResponse.data.adRatting.ratingShow
+                self.isRatingReactionShow = successResponse.data.adRatting.adRatingEmojies
                 self.fieldsArray = successResponse.data.adDetail.fieldsData
                 self.relatedAdsArray = successResponse.data.adDetail.relatedAds
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting

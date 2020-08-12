@@ -41,7 +41,8 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     var section = 0
     var delegate : textValDelegate?
     var fieldType = "textfield"
-    
+    var s = UIImageView()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -52,11 +53,18 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
         objSaved.fieldVal = txtType.text
+        if txtType.text == "" || txtType.text == nil {
+            s.isHidden = false
+        }else{
+            s.isHidden = true
+        }
        // self.delegate?.addToFieldsArray(obj: objSaved, index: selectedIndex, isFrom: "textfield", title: "")
     }
     
     @IBAction func txtEditingStart(_ sender: UITextField) {
+//        s.isHidden = true
         if fieldName == "ad_bidding_time" && fieldType == "textfield"{
             sender.isEnabled = false
             let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date, selectedDate: Date(), doneBlock: {
@@ -81,6 +89,7 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     
     @IBAction func txtEditingChanged(_ sender: UITextField) {
         if let text = sender.text {
+            s.isHidden = true
             delegate?.textVal(value: text, indexPath: inde,fieldType: "textfield",section:section,fieldNam: fieldName)
         }
     }

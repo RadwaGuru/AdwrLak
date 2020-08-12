@@ -15,7 +15,6 @@ target 'AdForest' do
     #Google Login With Firebase
     pod 'GoogleSignIn'
     pod 'Firebase/Auth'
-    pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'GoogleAnalytics'
     

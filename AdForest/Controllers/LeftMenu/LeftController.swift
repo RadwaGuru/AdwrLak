@@ -43,8 +43,8 @@ enum HideGuestPackage: Int {
 enum OtherGuestMenues: Int {
     case blog = 1
     case settings
-//    case location
-//    case Wpml
+    //    case location
+    //    case Wpml
 }
 enum OtherMenues: Int {
     case blog
@@ -568,7 +568,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if defaults.bool(forKey: "isLogin") == false {
                 return (settingArr?.count)!
             } else {
-
+                
                 value = UserHandler.sharedInstance.otherValuesArray.count
             }
         }
@@ -708,10 +708,12 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row) {
                     print(menu)
-//                    self.changeGuestMenu(menu)
+                    //                    self.changeGuestMenu(menu)
                 }
                 let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
                 switch img.lowercased() {
+                case "blog":
+                    return 0
                 case "top_location_text":
                     return 0
                 case "wpml_menu_text":
@@ -721,44 +723,44 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
             else{
-            let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
-            switch img.lowercased() {
-            case "top_location_text":
-                if toplocation == true{
-                    return 40
-                }else{
-                    return 0
-                }
-            case "blog":
-                if blog == true{
-                    return 40
-                }else{
-                    return 0
-                }
+                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                switch img.lowercased() {
+                case "top_location_text":
+                    if toplocation == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
+                case "blog":
+                    if blog == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
                 case "app_settings":
-                if settings == true{
+                    if settings == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
+                case "wpml_menu_text":
+                    if wpml == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
+                    
+                default:
                     return 40
-                }else{
-                    return 0
-                }
-            case "wpml_menu_text":
-                if wpml == true{
-                    return 40
-                }else{
-                    return 0
                 }
                 
-            default:
-                return 40
+                //        else{
+                //            return 40
+                //        }
             }
-            
-//        else{
-//            return 40
-//        }
-            }
-    }
+        }
         return 40
-
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -851,7 +853,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(isSetting)
                 
             }
-
+            
             if let isLocation = objData?.menu.isShowMenu.toplocation {
                 isShowLocation = isLocation
                 
@@ -862,29 +864,29 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.isWpmlActive = isWpmlActive
                 print(isWpmlActive)
                 
-                }
-                
+            }
+            
             
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
                     self.changeGuestMenu(menu)
                 }
             }
-            
-//            if isShowBlog {
-//                if let menu = OtherMenues(rawValue: indexPath.row) {
-//                    self.changeMenu(menu)
-//                }
-//            }
                 
-        
-            
-        else {
-            let objData = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
-            changeOtherMenues(controllerName: objData)
+                //            if isShowBlog {
+                //                if let menu = OtherMenues(rawValue: indexPath.row) {
+                //                    self.changeMenu(menu)
+                //                }
+                //            }
+                
+                
+                
+            else {
+                let objData = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                changeOtherMenues(controllerName: objData)
+            }
         }
     }
-}
-
-
+    
+    
 }

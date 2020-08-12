@@ -71,12 +71,6 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
-            //       layout.scrollDirection = .vertical //.horizontal
-            //       layout.itemSize = cellSize
-            
-            //            let width = (view.frame.width-20)/2
-            //            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            //layout.itemSize = CGSize(width: 334, height: 500)
             layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
@@ -91,23 +85,11 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     
     func layoutLatest(){
         if latestVertical == "vertical" {
-            //    let cellSize = CGSize(width:80 , height:180)
-            
             let layout = UICollectionViewFlowLayout()
-            //            let layout = UICollectionViewLayout()
-            
-            //                   layout.scrollDirection = .vertical //.horizontal
-            //       layout.itemSize = cellSize
-            
-            //            let width = (view.frame.width-20)/2
-            //            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            //layout.itemSize = CGSize(width: 334, height: 500)
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
             collectionView.isScrollEnabled = false
-            //            let  height =   layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
-            
             let  height = self.collectionView.collectionViewLayout.collectionViewContentSize.height;
             collectionView.setCollectionViewLayout(layout, animated: true)
             collectionView.reloadData()

@@ -119,16 +119,18 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
         if objData.type == "textfield_url"{
             let webUrl = objData.value
             self.btnUrlvalue = objData.value
-//            cell.lblWebUrl.isHidden = true
+            print(btnUrlvalue)
+            
+            //            cell.lblWebUrl.isHidden = true
             cell.btnWebUrlClick.isHidden = false
-            cell.lblDescription.isHidden = true
+            cell.lblDescription.isHidden = false
             let viewLink = UserDefaults.standard.string(forKey: "webUrl")
             print(viewLink!)
-            let myNormalAttributedTitle = NSAttributedString(string: viewLink!,
-                attributes: [NSAttributedStringKey.foregroundColor : UIColor.blue])
-            cell.btnWebUrlClick.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-
-
+            cell.lblDescription.text = viewLink
+            cell.lblDescription.textColor = UIColor.blue
+            cell.btnWebUrlClick.setTitle(btnUrlvalue, for: .normal)
+            cell.btnWebUrlClick.setTitleColor(UIColor.clear, for: .normal)
+            cell.btnWebUrlClick.backgroundColor = UIColor.clear
         }
         else{
 //            cell.lblWebUrl.isHidden = true
@@ -142,17 +144,17 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
          let inValidUrl:String = "Invalid url"
          
          if #available(iOS 10.0, *) {
-             if verifyUrl(urlString: btnUrlvalue) == false {
+            if verifyUrl(urlString: sender.titleLabel?.text) == false {
                  Constants.showBasicAlert(message: inValidUrl)
              }else{
-                 UIApplication.shared.open(URL(string: btnUrlvalue)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: (sender.titleLabel?.text)!)!, options: [:], completionHandler: nil)
              }
              
          } else {
-             if verifyUrl(urlString: btnUrlvalue) == false {
+             if verifyUrl(urlString: sender.titleLabel?.text) == false {
                  Constants.showBasicAlert(message: inValidUrl)
              }else{
-                 UIApplication.shared.openURL(URL(string: btnUrlvalue)!)
+                UIApplication.shared.openURL(URL(string: (sender.titleLabel?.text)!)!)
              }
          }
      }

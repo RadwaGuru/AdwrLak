@@ -63,6 +63,7 @@ struct AddDetailAdRating {
         textareaText = dictionary["textarea_text"] as? String
         textareaValue = dictionary["textarea_value"] as? String
         title = dictionary["title"] as? String
+        adRatingEmojies = dictionary["ad_rating_emojies"]as? Bool
     }
     
     /**
@@ -128,6 +129,9 @@ struct AddDetailAdRating {
         }
         if title != nil{
             dictionary["title"] = title
+        }
+        if adRatingEmojies != nil {
+            dictionary["ad_rating_emojies"] = adRatingEmojies
         }
         return dictionary
     }

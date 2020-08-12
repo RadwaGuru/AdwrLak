@@ -26,8 +26,9 @@ struct RegisterData {
     var termsText : String!
     var termPageId : String!
     var isVerifyOn : Bool!
-
-    
+    var btnSubscriber:Bool!
+    var subscriberCheckBoxText: String!
+    var subscriber_CheckboxPOST:String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -47,8 +48,11 @@ struct RegisterData {
         separator = dictionary["separator"] as? String
         termsText = dictionary["terms_text"] as? String
         termPageId = dictionary["term_page_id"] as? String
-        
         isVerifyOn = dictionary["is_verify_on"] as? Bool
+        btnSubscriber = dictionary["subscriber_is_show"] as? Bool
+        subscriberCheckBoxText = dictionary["subscriber_checkbox_text"] as? String
+        subscriber_CheckboxPOST = dictionary["subscriber_checkbox"] as? String
+
     }
     
     /**

@@ -669,6 +669,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     
                     
                     print(addressString)
+                    self.address = addressString
                     self.txtAddress.text = addressString
                 }
         })

@@ -55,7 +55,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
-        self.forwardButton()
+//        self.forwardButton()
         self.googleAnalytics(controllerName: "Add Post Controller")
         if isFromEditAd {
             let param: [String: Any] = ["is_update": ad_id]
@@ -217,7 +217,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "select"
                         value = cell.selectedKey
-                        print(obj.fieldVal, obj.fieldTypeName, obj.fieldType)
+                        obj.isRequired = dataArray[index].isRequired
+                        print(obj.fieldVal, obj.fieldTypeName, obj.fieldType, obj.isRequired)
                         data.append(obj)
                         print(selectOption)
                         option = obj.fieldVal
@@ -254,7 +255,9 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 if AddsHandler.sharedInstance.isCategoeyTempelateOn {
                     self.refreshArray = dataArray
                     self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                    print(AddsHandler.sharedInstance.objAdPostData)
                     postVC.fieldsArray = self.refreshArray
+
                     postVC.objArray = data
                     postVC.isfromEditAd = self.isFromEditAd
                 }
@@ -433,6 +436,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 self.dataArray = successResponse.data.fields
                 self.newArray = successResponse.data.fields
                 self.imagesArray = successResponse.data.adImages
+                self.forwardButton()
+
                 for imageId in self.imagesArray {
                     if imageId.imgId == nil {
                         continue

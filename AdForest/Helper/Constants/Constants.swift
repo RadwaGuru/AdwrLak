@@ -14,7 +14,8 @@ class Constants {
     struct  URL {
         
         static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
-        
+//        static let ipAddress =  "http://faiyd.com/"    //write your domain name here
+  
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -114,6 +115,11 @@ class Constants {
         
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
+
+        
+//        static let purchaseCode = "778b55ae-cce5-4599-baec-23ea04d1992b"
+//        static let securityCode = "Hisham3001!!"
+
         
     }
     

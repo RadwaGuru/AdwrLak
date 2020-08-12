@@ -70,6 +70,7 @@ class RatingReviewsController: UIViewController, UITableViewDelegate, UITableVie
 //                self.title = title
                 lblTitle.text = title
             }
+            
             if let loadMoreButton = objData?.loadmoreBtn {
                 oltLoadMore.setTitle(loadMoreButton, for: .normal)
             }

@@ -22,6 +22,7 @@ class ReplyReactionCell: UITableViewCell {
             imgProfile.round()
         }
     }
+    @IBOutlet weak var containerViewReactions: UIView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var oltReply: UIButton!
     @IBOutlet weak var ratingBar: CosmosView!

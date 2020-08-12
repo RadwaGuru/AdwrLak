@@ -231,7 +231,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                 }
                 if obj.fieldName == "_sb_profile_google-plus" {
                     self.google = obj.value
-                    cell.btnGoogle.isHidden = false
+                    cell.btnGoogle.isHidden = true
                     cell.btnGoogle.setTitle(obj.value, for: .normal)
 
                 }

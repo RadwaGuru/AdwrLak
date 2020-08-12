@@ -19,7 +19,7 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
-            tableView.separatorStyle = .singleLineEtched
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
             tableView.register(UINib(nibName: AboutAppCell.className, bundle: nil), forCellReuseIdentifier: AboutAppCell.className)
             tableView.register(UINib(nibName: AppShareCell.className, bundle: nil), forCellReuseIdentifier: AppShareCell.className)
             tableView.register(UINib(nibName: CategoryDetailCell.className, bundle: nil), forCellReuseIdentifier: CategoryDetailCell.className)
@@ -200,7 +200,19 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
             
             let shareVC = UIActivityViewController(activityItems: [shareText, shareUrl], applicationActivities: nil)
             shareVC.popoverPresentationController?.sourceView = self.view
-            self.presentVC(shareVC)
+            //            self.presentVC(shareVC)
+            
+            if  Constants.isiPadDevice {
+                if let popup = shareVC.popoverPresentationController {
+                    popup.sourceView = self.view
+                    popup.sourceRect = shareVC.accessibilityFrame
+                }
+            } else{
+                
+            }
+            
+            self.present(shareVC, animated: true, completion: nil)
+            
         case 4:
            let feedbackVC = self.storyboard?.instantiateViewController(withIdentifier: FeedbackController.className) as! FeedbackController
            feedbackVC.formData = objData?.feedback.form
