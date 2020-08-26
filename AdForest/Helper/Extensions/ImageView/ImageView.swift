@@ -70,6 +70,17 @@ extension UIImageView {
         layer.cornerRadius = cornor
         clipsToBounds = true
     }
+    func makeRounded() {
+        
+        self.layer.borderWidth = 1
+        self.layer.masksToBounds = false
+        self.layer.borderColor = UIColor.black.cgColor
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
+    }
+    
+
 }
 
 extension UIImageView {

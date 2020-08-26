@@ -23,7 +23,10 @@ struct SellersSocial {
         if let socialIconsArray = dictionary["social_icons"] as? [[String:Any]]{
             for dic in socialIconsArray{
                 let value = SellersSocialIcon(fromDictionary: dic)
-                socialIcons.append(value)
+                if value.key != "Google+"{
+                     socialIcons.append(value)
+                }
+               
             }
         }
     }

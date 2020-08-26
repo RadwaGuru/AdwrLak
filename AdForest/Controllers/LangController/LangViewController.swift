@@ -13,9 +13,9 @@ import SDWebImage
 import IQKeyboardManagerSwift
 
 class LangViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
-   
     
-
+    
+    
     //MARK:- IBOutlets
     
     @IBOutlet weak var lblPick: UILabel!
@@ -42,11 +42,11 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     let searchBarNavigation = UISearchBar()
     var isNavSearchBarShowing = false
     var nearByTitle = ""
-     var latitude: Double = 0
-     var longitude: Double = 0
-     var searchDistance:CGFloat = 0
+    var latitude: Double = 0
+    var longitude: Double = 0
+    var searchDistance:CGFloat = 0
     var backgroundView = UIView()
-
+    
     //-->> View Life Cycle
     
     override func viewDidLoad() {
@@ -54,16 +54,9 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         collectionView.delegate = self
         collectionView.dataSource = self
         settingsdata()
-
-        if langArr.count == 0{
-                   collectionView.setEmptyMessage("No Data")
-               }else{
-                    collectionView.setEmptyMessage("")
-               }
-               print(langArr)
-               navigationButtons()
-
-
+        navigationButtons()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,12 +72,12 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
             self.addLeftBarButtonWithImage()
             //addBackButtonToNavigationBar()
         }
-         UserDefaults.standard.setValue("1", forKey: "langFirst")
+        UserDefaults.standard.setValue("1", forKey: "langFirst")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-       // self.navigationController?.isNavigationBarHidden = false
+        // self.navigationController?.isNavigationBarHidden = false
         
         let isLang = UserDefaults.standard.string(forKey: "langFirst")
         if isLang != "1"{
@@ -127,7 +120,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         cell.imgCountry.sd_setImage(with:URL(string: url!) , completed: nil)
         cell.lblLanguage.text = langArr[indexPath.row].native_name
         cell.btnCode.setTitle(langArr[indexPath.row].code, for: .normal)
-                return cell
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -141,20 +134,20 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     @objc func showHome(){
-         //appDelegate.moveToLanguageCtrl()
+        //appDelegate.moveToLanguageCtrl()
         let ctrl = storyboard?.instantiateViewController(withIdentifier: "Splash")
         self.navigationController?.pushViewController(ctrl!, animated: true)
     }
     
-   
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat =  0
         let collectionViewSize = collectionView.frame.size.width - padding
         if Constants.isiPadDevice{
             if languageStyle == "1"{
-                 return CGSize(width: collectionViewSize, height:65)
+                return CGSize(width: collectionViewSize, height:65)
             }else{
-                 return CGSize(width: collectionViewSize, height:65)
+                return CGSize(width: collectionViewSize, height:65)
             }
         }
         else{
@@ -165,7 +158,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
             }
         }
     }
- 
+    
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if collectionView.isDragging {
@@ -177,7 +170,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-
+        
         UIView.animate(withDuration: 0.4,
                        animations: {
                         if let cell = collectionView.cellForItem(at: indexPath) as? LangCollectionViewCell {
@@ -185,7 +178,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
                                 cell.viewBg.backgroundColor = UIColor(hex: mainColor)
                             }
-
+                            
                         }
         },
                        completion: { _ in
@@ -194,7 +187,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                                 cell.viewBg.transform = CGAffineTransform.identity
                                 cell.viewBg.backgroundColor = UIColor.white
                             }
-
+                            
                         }
         })
     }
@@ -202,9 +195,9 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     //-->> Api Calls
     
     func settingsdata() {
-       // self.showLoader()
+        // self.showLoader()
         UserHandler.settingsdata(success: { (successResponse) in
-           // self.stopAnimating()
+            // self.stopAnimating()
             if successResponse.success {
                 self.defaults.set(successResponse.data.mainColor, forKey: "mainColor")
                 self.appDelegate.customizeNavigationBar(barTintColor: Constants.hexStringToUIColor(hex: successResponse.data.mainColor))
@@ -239,42 +232,42 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                 UserDefaults.standard.set(self.settingBlogArr, forKey: "setArr")
                 UserDefaults.standard.set(self.imagesArr, forKey: "setArrImg")
                 print(self.imagesArr)
-            
+                
                 self.imagesAr = successResponse.data.langData
                 self.langArr = successResponse.data.langData
                 self.lblPick.text = successResponse.data.wpml_header_title_1
                 self.lblLang.text = successResponse.data.wpml_header_title_2
                 self.imgLogo.sd_setImage(with: URL(string: successResponse.data.wpml_logo), completed: nil)
-               // self.languageStyle = successResponse.data.language_style
-//                self.title = successResponse.data.wpml_menu_text
-               
+                // self.languageStyle = successResponse.data.language_style
+                //                self.title = successResponse.data.wpml_menu_text
+                
                 self.collectionView.reloadData()
-            
+                
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
             }
         }) { (error) in
-           // self.stopAnimating()
+            // self.stopAnimating()
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
     }
     //MARK:- Near by search Delaget method
-            func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
-                self.latitude = lat
-                self.longitude = long
-                self.searchDistance = searchDistance
-                if isSearch {
-                    let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
-                    print(param)
-                    self.adForest_nearBySearch(param: param as NSDictionary)
-                } else {
-                    let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
-                    print(param)
-                    self.adForest_nearBySearch(param: param as NSDictionary)
-                }
-            }
+    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
+        self.latitude = lat
+        self.longitude = long
+        self.searchDistance = searchDistance
+        if isSearch {
+            let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        } else {
+            let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        }
+    }
     func navigationButtons() {
         
         //Home Button
@@ -315,17 +308,17 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
         //Search Button
         let searchButton = UIButton(type: .custom)
-       if defaults.bool(forKey: "advanceSearch") == true{
-           let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
-           searchButton.setBackgroundImage(con, for: .normal)
-           searchButton.tintColor = UIColor.white
-           searchButton.setImage(con, for: .normal)
-       }else{
-           let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
-           searchButton.setBackgroundImage(con, for: .normal)
-           searchButton.tintColor = UIColor.white
-           searchButton.setImage(con, for: .normal)
-       }
+        if defaults.bool(forKey: "advanceSearch") == true{
+            let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
+            searchButton.setBackgroundImage(con, for: .normal)
+            searchButton.tintColor = UIColor.white
+            searchButton.setImage(con, for: .normal)
+        }else{
+            let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
+            searchButton.setBackgroundImage(con, for: .normal)
+            searchButton.tintColor = UIColor.white
+            searchButton.setImage(con, for: .normal)
+        }
         if #available(iOS 11, *) {
             searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
             searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -447,9 +440,9 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     //MARK:- Near By Search
     func adForest_nearBySearch(param: NSDictionary) {
-//        self.showLoader()
+        //        self.showLoader()
         AddsHandler.nearbyAddsSearch(params: param, success: { (successResponse) in
-//            self.stopAnimating()
+            //            self.stopAnimating()
             if successResponse.success {
                 let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
                 categoryVC.latitude = self.latitude
@@ -462,7 +455,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                 self.presentVC(alert)
             }
         }) { (error) in
-//            self.stopAnimating()
+            //            self.stopAnimating()
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }

@@ -168,19 +168,23 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
             }
            
             for obj in socialArray {
-                if obj.fieldName == "_sb_profile_linkedin" {
+                if obj.fieldName == "_sb_profile_linkedin"  && obj.value.isEmpty ==  false {
+                    self.btnLinkedIn.isHidden = false
                     self.linkedin = obj.value
                     self.btnLinkedIn.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_facebook" {
+                if obj.fieldName == "_sb_profile_facebook" && obj.value.isEmpty ==  false {
+                    self.btnFB.isHidden = false
                     self.facebook = obj.value
                     self.btnFB.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_twitter" {
+                if obj.fieldName == "_sb_profile_twitter" && obj.value.isEmpty ==  false {
+                    self.btnTwitter.isHidden = false
                     self.twitter = obj.value
                     self.btnTwitter.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_google-plus" {
+                if obj.fieldName == "_sb_profile_instagram" && obj.value.isEmpty ==  false {
+                    self.btnGoogle.isHidden = false
                     self.google = obj.value
                     self.btnGoogle.setTitle(obj.value, for: .normal)
                     

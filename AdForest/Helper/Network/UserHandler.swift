@@ -611,4 +611,16 @@ class UserHandler {
              failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
+    //MARK:- ContactSeller
+      class func contactSeller(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {
+          let url = Constants.URL.baseUrl+Constants.URL.contactSeller
+          print(url)
+          NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+              let dictionary = successResponse as! [String: Any]
+              let objFeedback = UserForgot(fromDictionary: dictionary)
+              success(objFeedback)
+          }) { (error) in
+               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+          }
+      }
 }

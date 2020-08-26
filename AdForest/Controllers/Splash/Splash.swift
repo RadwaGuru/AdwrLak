@@ -102,6 +102,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.mainColor, forKey: "mainColor")
                 self.appDelegate.customizeNavigationBar(barTintColor: Constants.hexStringToUIColor(hex: successResponse.data.mainColor))
                 self.defaults.set(successResponse.data.isRtl, forKey: "isRtl")
+                UserDefaults.standard.set(successResponse.data.locationType, forKey: "locType")
+
                 UserDefaults.standard.set(successResponse.data.gmapLang, forKey: "langCod")
                 self.defaults.set(successResponse.data.notLoginMsg, forKey: "notLogin")
                 self.defaults.set(successResponse.data.ImgReqMessage, forKey:"ImgReqMessage")

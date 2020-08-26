@@ -26,6 +26,7 @@ class AddDetailProfileCell: UITableViewCell {
     @IBOutlet weak var oltBlockButton: UIButton!
     
     
+    
     //MARK:- Properties
     var btnCoverAction : (()->())?
     var btnBlock: (()->())?
@@ -56,7 +57,6 @@ class AddDetailProfileCell: UITableViewCell {
     @IBAction func coverButtonAction(_ sender: Any) {
         self.btnCoverAction?()
     }
-    
     @IBAction func actionDelete(_ sender: UIButton) {
         self.btnBlock?()
     }

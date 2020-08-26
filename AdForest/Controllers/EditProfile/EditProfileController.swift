@@ -205,9 +205,9 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     self.linkedin = obj.fieldName
                     UserDefaults.standard.set(linkedin, forKey: "linkedin")
                 }
-                if obj.fieldName == "_sb_profile_google-plus" {
+                if obj.fieldName == "_sb_profile_instagram" {
                     self.google = obj.fieldName
-                    UserDefaults.standard.set(google, forKey: "google")
+                    UserDefaults.standard.set(google, forKey: "instagram")
                 }
             }
             
@@ -301,9 +301,10 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                         cell.txtLinkedIn.text = obj.value
                     
                     }
-                    if obj.fieldName == "_sb_profile_google-plus" {
+                    
+                    if obj.fieldName == "_sb_profile_instagram" {
                         cell.txtGooglePlus.text = obj.value
-                        cell.txtGooglePlus.isHidden = true
+                       
                     }
                     if obj.disable == "true"{
                         cell.txtLinkedIn.isUserInteractionEnabled = false

@@ -932,7 +932,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if Constants.isiPhone5 {
                             totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 120)
                         } else {
-                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 130)
+                            totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 210)
                         }
                         height =  totalHeight
                     }

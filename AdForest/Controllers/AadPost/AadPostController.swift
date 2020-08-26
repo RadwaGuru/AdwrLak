@@ -213,7 +213,13 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 else if objData.fieldType == "select" {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostPopupCell {
                         var obj = AdPostField()
-                        obj.fieldVal = cell.selectedKey
+                        if isFromEditAd{
+                            obj.fieldVal = self.catID
+                        }
+                        else{
+                            obj.fieldVal = cell.selectedKey
+
+                        }
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "select"
                         value = cell.selectedKey

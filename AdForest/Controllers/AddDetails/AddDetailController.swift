@@ -31,6 +31,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.register(UINib(nibName: ShareCell.className, bundle: nil), forCellReuseIdentifier: ShareCell.className)
             tableView.register(UINib(nibName: YouTubeVideoCell.className, bundle: nil), forCellReuseIdentifier: YouTubeVideoCell.className)
             tableView.register(UINib(nibName: AddDetailProfileCell.className, bundle: nil), forCellReuseIdentifier: AddDetailProfileCell.className)
+            tableView.register(UINib(nibName: ContactWithSellerCellTableViewCell.className, bundle: nil), forCellReuseIdentifier: ContactWithSellerCellTableViewCell.className)
             tableView.register(UINib(nibName: AdRatingCell.className, bundle: nil), forCellReuseIdentifier: AdRatingCell.className)
             tableView.register(UINib(nibName: AddBidsCell.className, bundle: nil), forCellReuseIdentifier: AddBidsCell.className)
 //            tableView.register(UINib(nibName: ReplyCell.className, bundle: nil), forCellReuseIdentifier: ReplyCell.className)
@@ -114,7 +115,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-    
+    var isShowContactSeller : Bool!
     var interstitial: GADInterstitial!
 
     //MARK:- View Life Cycle
@@ -306,7 +307,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 11
+        return 12
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -328,8 +329,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         else if section == 5 {
             return 1
         }
+            else if section == 8 {
+            return dataArray.count
+        }
             
-        else if section == 8 {
+        else if section == 9 {
             if addVideoArray.isEmpty {
                 return 0
             }
@@ -337,7 +341,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 return addVideoArray.count
             }
         }
-        else if section == 9 {
+            
+        else if section == 10 {
             if bidsArray.isEmpty {
                 return 0
             }
@@ -348,6 +353,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         else if section == 10 {
             return 1
         }
+        
         return dataArray.count
     }
     
@@ -1031,8 +1037,51 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             return cell
         }
+               else if section == 8 {
+            let cell: ContactWithSellerCellTableViewCell = tableView.dequeueReusableCell(withIdentifier: ContactWithSellerCellTableViewCell.className, for: indexPath) as! ContactWithSellerCellTableViewCell
+           let objData = dataArray[indexPath.row]
+            cell.lblMainHeading.text = objData.sellerContact.titleContactSeller
+            cell.lblSubHeading.text = objData.sellerContact.subtitleContactSeller
+            isShowContactSeller = objData.sellerContact.isShow
             
-        else if section == 8 {
+            
+            cell.ContactSeller = { () in
+                let contactSellerVC = self.storyboard?.instantiateViewController(withIdentifier: ContactWithSellerViewController.className) as! ContactWithSellerViewController
+                contactSellerVC.ad_ID = objData.adDetail.adId
+                contactSellerVC.nameTitle = objData.sellerContact.popupName.title
+                contactSellerVC.nameKey = objData.sellerContact.popupName.key
+                contactSellerVC.nameRequired = objData.sellerContact.popupName.isRequired
+                
+                
+                
+                contactSellerVC.emailTitle = objData.sellerContact.popupEmail.title
+                contactSellerVC.emailKey = objData.sellerContact.popupEmail.key
+                contactSellerVC.emailRequired = objData.sellerContact.popupEmail.isRequired
+
+                contactSellerVC.phoneNumberTitle = objData.sellerContact.popupPhone.title
+                contactSellerVC.phoneNumberKey = objData.sellerContact.popupPhone.key
+                contactSellerVC.phoneNumberRequired = objData.sellerContact.popupPhone.isRequired
+                
+                contactSellerVC.messageTitle = objData.sellerContact.popupMessage.title
+                contactSellerVC.messageKey = objData.sellerContact.popupMessage.key
+                contactSellerVC.messageRequired = objData.sellerContact.popupMessage.isRequired
+
+                contactSellerVC.btnSubmitText = objData.sellerContact.btnSend
+                contactSellerVC.btnCancelText = objData.sellerContact.btnCancel
+
+                contactSellerVC.modalPresentationStyle = .overCurrentContext
+                self.presentVC(contactSellerVC)
+
+            }
+//                        let objData = addVideoArray[indexPath.row]
+//
+//                        if let videoUrl = objData.videoId {
+//                            cell.playerView.load(withVideoId: videoUrl)
+//            //                loadVideoID(videoUrl)
+//                        }
+                        return cell
+                    }
+        else if section == 9 {
             let cell: YouTubeVideoCell = tableView.dequeueReusableCell(withIdentifier: YouTubeVideoCell.className, for: indexPath) as! YouTubeVideoCell
             let objData = addVideoArray[indexPath.row]
             
@@ -1043,7 +1092,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             return cell
         }
             
-        else if section == 9 {
+        else if section == 10 {
             let cell: AddBidsCell = tableView.dequeueReusableCell(withIdentifier: AddBidsCell.className, for: indexPath) as! AddBidsCell
             let objData = bidsArray[indexPath.row]
             let data = AddsHandler.sharedInstance.objAddDetails
@@ -1093,7 +1142,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             return cell
         }
             
-        else if section == 10 {
+        else if section == 11 {
             let cell : SimilarAdsTableCell = tableView.dequeueReusableCell(withIdentifier: SimilarAdsTableCell.className, for: indexPath) as! SimilarAdsTableCell
             
             cell.relatedAddsArray = self.relatedAdsArray
@@ -1169,15 +1218,27 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
             
         else if section == 8 {
-            let objdata = addVideoArray[indexPath.row]
-            if objdata.videoId == "" {
+            let objData = dataArray[indexPath.row]
+           isShowContactSeller = objData.sellerContact.isShow
+            if isShowContactSeller == false {
                 height = 0
             }
-            else {
-                height = 230
+            else{
+                height = 110
             }
+            
         }
-        else if section == 9 {
+            else if section == 9 {
+                let objdata = addVideoArray[indexPath.row]
+                if objdata.videoId == "" {
+                    height = 0
+                }
+                else {
+                    height = 230
+                }
+            }
+
+        else if section == 10 {
             let isBidEnable = AddsHandler.sharedInstance.objAddDetails?.staticText.adBidsEnable
             if isBidEnable! {
                 height = 120
@@ -1187,7 +1248,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
             
-        else if section == 10 {
+        else if section == 11 {
             height = 230
         }
         return height
@@ -1372,6 +1433,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             self.stopAnimating()
             if successResponse.success {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
+
                 self.presentVC(alert)
             }
             else {

@@ -15,7 +15,7 @@ class NetworkHandler {
     class func postRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
-        
+        var locID = UserDefaults.standard.string(forKey: "locId")
         if langCode == nil {
             langCode = "en"
         }
@@ -29,7 +29,9 @@ class NetworkHandler {
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
-                    "Adforest-Lang-Locale" : langCode
+                    "Adforest-Lang-Locale" : langCode,
+                    "Adforest-Location-ID" : locID
+
                     ] as! HTTPHeaders
             }
              if UserDefaults.standard.bool(forKey: "isSocial") {
@@ -52,7 +54,9 @@ class NetworkHandler {
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
-                     "Adforest-Lang-Locale" : langCode
+                     "Adforest-Lang-Locale" : langCode,
+                     "Adforest-Location-ID" : locID
+
                     ] as! HTTPHeaders
             }
             else {
@@ -74,7 +78,9 @@ class NetworkHandler {
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
-                     "Adforest-Lang-Locale" : langCode
+                     "Adforest-Lang-Locale" : langCode,
+                     "Adforest-Location-ID" : locID
+
                     ] as! HTTPHeaders
             }
             let manager = Alamofire.SessionManager.default
@@ -145,7 +151,8 @@ class NetworkHandler {
     class func postDataRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
-        
+        var locID = UserDefaults.standard.string(forKey: "locId")
+
         if Network.isAvailable {
             
             var headers: HTTPHeaders
@@ -175,7 +182,9 @@ class NetworkHandler {
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
                      "Adforest-Request-From" : "ios",
-                      "Adforest-Lang-Locale" : langCode
+                      "Adforest-Lang-Locale" : langCode,
+                    "Adforest-Location-ID" : locID
+
                     ] as! HTTPHeaders
             }
             
@@ -226,7 +235,8 @@ class NetworkHandler {
     class func getRequest(url: String, parameters: Parameters?, success: @escaping (Any?) -> Void, failure: @escaping (NetworkError) -> Void) {
         
         var langCode = UserDefaults.standard.string(forKey: "langCode")
-        
+        var locID = UserDefaults.standard.string(forKey: "locId")
+
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
         

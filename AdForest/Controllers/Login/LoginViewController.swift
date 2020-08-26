@@ -79,10 +79,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     @IBOutlet weak var buttonFBLogin: FBLoginButton!
     @IBOutlet weak var btnGoogleLog: GIDSignInButton!
     @IBOutlet weak var socialLoginHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var buttonGoogleLogin: GIDSignInButton! {
+    
+    
+    
+    
+    
+    @IBOutlet weak var buttonGoogleLogin: UIButton! {
         didSet {
             buttonGoogleLogin.roundCorners()
-            buttonGoogleLogin.isHidden = true
+            buttonGoogleLogin.isHidden = false
         }
     }
     
@@ -134,7 +139,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         GIDSignIn.sharedInstance().delegate = self
         //self.adForest_loginDetails()
         txtFieldsWithRtl()
-        btnGoogleLog.isHidden = true
+//        btnGoogleLog.isHidden = true
         buttonGuestLogin.isHidden = true
         btnApple.isHidden = true
         //        buttonLinkedIn.isHidden = true
@@ -521,10 +526,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 
             }
             else if isShowFacebook && isShowGoogle  && isShowApple  {
-                self.buttonFBLogin.isHidden = false
+//                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false
+//                self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = false
                 //                    self.buttonLinkedIn.isHidden = true
             }

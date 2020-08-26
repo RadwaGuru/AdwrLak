@@ -32,13 +32,21 @@ class SellerCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDat
     //MARK:- Properties
     
     var dataArray = [SellersSocialIcon]()
-
+    var socialStringArr = [String]()
+    var iconsArr = [UIImage]()
     var btnUrlvalue = ""
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        
+        print(socialStringArr)
+        
+        
+        
+        
+        
         print(dataArray)
     }
     
@@ -48,95 +56,112 @@ class SellerCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataArray.count
+        return 4
+        
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionIconCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionIconCell", for: indexPath) as! CollectionIconCell
+        
+        
+        if indexPath.row == 0{
+            cell.imgIcon.image = UIImage(named: "facebook")
+        }else if indexPath.row == 1{
+            cell.imgIcon.image = UIImage(named: "twitter")
+        }else if indexPath.row == 2{
+            cell.imgIcon.image = UIImage(named: "linkedin")
+        }else{
+            cell.imgIcon.image = UIImage(named: "instagram")
+        }
+        
+        
+        
+        
         let objData = dataArray[indexPath.row]
         
-//        btnUrlvalue = objData.value
-//        print(objData.value)
-        
-        if objData.key == "Facebook" {
-            cell.imgIcon.image = UIImage(named: "facebook")
+        btnUrlvalue = objData.value
+        print(objData.value)
+        if objData.key == "Facebook" && objData.value.isEmpty == false {
+            cell.socialBtn.isHidden = false
+            cell.imgIcon.isHidden = false
             cell.socialBtn.tag = 0
             cell.socialBtn.setTitle(objData.value, for: .normal)
-
-        } else if objData.key == "Twitter" {
-            cell.imgIcon.image = UIImage(named: "twitter")
-        cell.socialBtn.tag = 1
+        } else if objData.key == "Twitter" && objData.value.isEmpty == false {
+            cell.socialBtn.isHidden = false
+            cell.imgIcon.isHidden = false
+            cell.socialBtn.tag = 1
             cell.socialBtn.setTitle(objData.value, for: .normal)
-
-
-
-        } else if objData.key == "Linkedin" {
-            self.btnUrlvalue = objData.value
+        } else if objData.key == "Linkedin" &&  objData.value.isEmpty == false {
+            cell.socialBtn.isHidden = false
+            cell.imgIcon.isHidden = false
             print(self.btnUrlvalue)
             cell.socialBtn.tag = 2
             cell.socialBtn.setTitle(objData.value, for: .normal)
-            cell.imgIcon.image = UIImage(named: "linkedin")
-        } else if objData.key == "Google+" {
-            cell.socialBtn.setTitle(objData.value, for: .normal)
-            cell.socialBtn.tag = 3
-            cell.imgIcon.image = UIImage(named: "googleSocial")
         }
+        else if objData.key == "Instagram" &&  objData.value.isEmpty == false {
+            cell.socialBtn.isHidden = false
+            cell.imgIcon.isHidden = false
+            cell.socialBtn.setTitle(objData.value, for: .normal)
+            cell.socialBtn.tag = 4
+        }
+        
+        
         cell.socialBtn.addTarget(self, action: #selector(SellerCell.btnClicked(_:)), for: .touchUpInside)
-
+        
         return cell
     }
     @objc func btnClicked(_ sender: UIButton){
-         let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
-
-                if #available(iOS 10.0, *) {
-                    if verifyUrl(urlString: sender.currentTitle) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                    }else{
-                        UIApplication.shared.open(URL(string: sender.currentTitle!)!, options: [:], completionHandler: nil)
-                    }
-                    
-                } else {
-                    if verifyUrl(urlString: sender.currentTitle) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                    }else{
-                        UIApplication.shared.openURL(URL(string: sender.currentTitle!)!)
-                    }
-                }
-         print(sender.currentTitle)
-         
-         
-     }
-//    @IBAction func btnWebUrlClick(_ sender: UIButton) {
-//
-//         let inValidUrl:String = "Invalid url"
-//
-//         if #available(iOS 10.0, *) {
-//             if verifyUrl(urlString: btnUrlvalue) == false {
-//                 Constants.showBasicAlert(message: inValidUrl)
-//
-//             }else{
-//                 UIApplication.shared.open(URL(string: btnUrlvalue)!, options: [:], completionHandler: nil)
-//             }
-//
-//         } else {
-//             if verifyUrl(urlString: btnUrlvalue) == false {
-//                 Constants.showBasicAlert(message: inValidUrl)
-//             }else{
-//                 UIApplication.shared.openURL(URL(string: btnUrlvalue)!)
-//             }
-//         }
-//     }
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+        print(sender.currentTitle)
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: sender.currentTitle) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.open(URL(string: sender.currentTitle!)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: sender.currentTitle) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: sender.currentTitle!)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
+    //    @IBAction func btnWebUrlClick(_ sender: UIButton) {
+    //
+    //         let inValidUrl:String = "Invalid url"
+    //
+    //         if #available(iOS 10.0, *) {
+    //             if verifyUrl(urlString: btnUrlvalue) == false {
+    //                 Constants.showBasicAlert(message: inValidUrl)
+    //
+    //             }else{
+    //                 UIApplication.shared.open(URL(string: btnUrlvalue)!, options: [:], completionHandler: nil)
+    //             }
+    //
+    //         } else {
+    //             if verifyUrl(urlString: btnUrlvalue) == false {
+    //                 Constants.showBasicAlert(message: inValidUrl)
+    //             }else{
+    //                 UIApplication.shared.openURL(URL(string: btnUrlvalue)!)
+    //             }
+    //         }
+    //     }
     func verifyUrl (urlString: String?) -> Bool {
-           //Check for nil
-           if let urlString = urlString {
-               // create NSURL instance
-               if let url = NSURL(string: urlString) {
-                   // check if your application can open the NSURL instance
-                   return UIApplication.shared.canOpenURL(url as URL)
-               }
-           }
-           return false
-       }
-//       
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
+    //
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if Constants.isiPadDevice {
             return CGSize(width: 25, height: 25)

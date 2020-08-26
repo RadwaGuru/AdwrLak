@@ -219,20 +219,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         var obj = AdPostField()
                         obj.fieldType = "select"
                         obj.fieldTypeName = cell.param
-                        if  objData.isRequired == true{
-                            if objData.fieldVal == ""{
-                                requiredCheck = true
-                                showToast(message: "Please fill all required fields")
-                                cell.oltPopup.setTitleColor(UIColor.red, for: .normal)
-                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-                                print("agay ni jana beta")
-                            }
-                            
-                        }else{
-                            cell.oltPopup.setTitleColor(UIColor.gray, for: .normal)
-
-                        }
-
+                        
                         print(cell.param)
                         obj.fieldVal = cell.selectedKey
                         objArray.append(obj)
@@ -245,21 +232,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             obj.fieldType = "textfield"
                             obj.fieldVal = cell.txtType.text
                             obj.fieldTypeName = cell.fieldName
-                        if  objData.isRequired == true{
-                            if objData.fieldVal == "" || objData.fieldVal == nil {
-                                requiredCheck = true
-                                showToast(message: "Please fill all required fields")
-//                                cell.txtType.backgroundColor = UIColor.red
-                                let imageName = "close"
-                                let image = UIImage(named: imageName)
-                                cell.s = UIImageView(image: image!)
-                                cell.s.frame = CGRect(x: 370, y: 25, width: 20, height: 20)
-                                cell.contentView.addSubview(cell.s)
-//                                    .setTitleColor(UIColor.red, for: .normal)
-                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-                                print("agay ni jana beta")
-                            }
-                        }
+                    
                             objArray.append(obj)
                             customArray.append(obj)
                     }
@@ -313,15 +286,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             cell.txtUrl.shake(6, withDelta: 10, speed: 0.06)
                             self.isValidUrl = false
                         }
-                        if  objData.isRequired == true{
-                            if objData.fieldVal == ""{
-                                requiredCheck = true
-                                showToast(message: "Please fill all required fields")
-                                cell.txtUrl.textColor = UIColor.red
-                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-                                print("agay ni jana beta")
-                            }
-                        }
+                       
 
                         objArray.append(obj)
                         customArray.append(obj)
@@ -374,15 +339,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         var obj = AdPostField()
                         obj.fieldTypeName = "number_range" //cell.fieldName
                         obj.fieldVal = cell.txtMinPrice.text
-                        if  objData.isRequired == true{
-                            if objData.fieldVal == ""{
-                                requiredCheck = true
-                                showToast(message: "Please fill all required fields")
-                                cell.txtMinPrice.textColor = UIColor.red
-                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-                                print("agay ni jana beta")
-                            }
-                        }
+                       
 
                         objArray.append(obj)
                         customArray.append(obj)
@@ -426,12 +383,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
 
         }
-        if requiredCheck == true{
-            let alert = Constants.showBasicAlert(message: "Altu jalatu")
-            self.presentVC(alert)
-//            let index = IndexPath(row: indexRequired, section: sectionRequired)
-//            tableView.scrollToRow(at: index, at: .top, animated: true)
-        }
+       
         else{
             self.navigationController?.pushViewController(adPostVC, animated: true)
 

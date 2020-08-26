@@ -214,24 +214,35 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             }
 
             for obj in socialArray {
-                if obj.fieldName == "_sb_profile_linkedin" {
+//                if obj.value == "" {
+//                    cell.btnLinkedIn.isHidden = true
+//                    cell.btnFB.isHidden = true
+//                    cell.btnGoogle.isHidden = true
+//
+//                } else {
+//                    cell.btnLinkedIn.isHidden = false
+//                    cell.btnFB.isHidden = false
+//                    cell.btnGoogle.isHidden = false
+//                }
+                if obj.fieldName == "_sb_profile_linkedin" && obj.value.isEmpty == false {
                     self.linkedin = obj.value
                     cell.btnLinkedIn.isHidden = false
                     cell.btnLinkedIn.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_facebook" {
+                if obj.fieldName == "_sb_profile_facebook" && obj.value.isEmpty == false {
                     self.facebook = obj.value
                     cell.btnFB.isHidden = false
                     cell.btnFB.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_twitter" {
+                if obj.fieldName == "_sb_profile_twitter" && obj.value.isEmpty == false {
                     self.twitter = obj.value
                     cell.btnTwitter.isHidden = false
                     cell.btnTwitter.setTitle(obj.value, for: .normal)
                 }
-                if obj.fieldName == "_sb_profile_google-plus" {
+
+                if obj.fieldName == "_sb_profile_instagram" && obj.value.isEmpty == false {
                     self.google = obj.value
-                    cell.btnGoogle.isHidden = true
+                    cell.btnGoogle.isHidden = false
                     cell.btnGoogle.setTitle(obj.value, for: .normal)
 
                 }

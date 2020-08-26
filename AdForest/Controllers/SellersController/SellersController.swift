@@ -152,6 +152,26 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
             cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
         }
         //adding social icons to sellers array
+        for item in objData.authorSocial.socialIcons{
+            if item.value != "" {
+                print(item.value)
+
+            }
+            if item.key == "Facebook"{
+                cell.socialStringArr.append(item.value)
+
+            }
+            if item.key == "Twitter"{
+                cell.socialStringArr.append(item.value)
+            }
+            if item.key == "Linkedin"{
+                cell.socialStringArr.append(item.value)
+            }
+            if item.key == "Instagram"{
+                cell.socialStringArr.append(item.value)
+            }
+        }
+        
         cell.dataArray = objData.authorSocial.socialIcons
         cell.collectionView.reloadData()
         return cell
@@ -175,7 +195,8 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
                 cell.transform = CGAffineTransform.identity
             })
         }
-        if indexPath.row == dataArray.count && currentPage < maximumPage  {
+        print(indexPath.row,dataArray.count,currentPage)
+        if indexPath.row == dataArray.count - 1 && currentPage < maximumPage  {
             currentPage = currentPage + 1
             let param: [String: Any] = ["page_number": currentPage]
             adForest_loadMoreData(param: param as NSDictionary)

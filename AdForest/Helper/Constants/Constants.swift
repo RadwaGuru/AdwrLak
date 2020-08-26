@@ -14,8 +14,7 @@ class Constants {
     struct  URL {
         
         static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
-//        static let ipAddress =  "http://faiyd.com/"    //write your domain name here
-  
+
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -107,31 +106,34 @@ class Constants {
         static let reactEmojis = "ad_post/ad_rating/rating_emojies"
         static let logout = "logout"
         static let cartEmpty = "cart-empty"
-        
+        static let contactSeller = "ad_post/seller_contact/"
+
     }
     
     
     struct customCodes {
         
+        
+        
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-
-        
-//        static let purchaseCode = "778b55ae-cce5-4599-baec-23ea04d1992b"
-//        static let securityCode = "Hisham3001!!"
 
         
     }
     
     
     struct LinkedInConstants {
-//        static let CLIENT_ID = "86tji4rrl6tgq5"
-//        static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
-//        static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
-        
+//            static let CLIENT_ID = "86tji4rrl6tgq5"
+//                static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
+//                static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
+                
         static let CLIENT_ID = "864iqrnf6d0ivz";//Enter Your LINKEDIN_CLIENT_ID here
-        static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
-        static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/";//Enter Your LINKEDIN_REDIRECT_URL here
+              static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
+              static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/";//Enter Your LINKEDIN_REDIRECT_URL here
+            
+//        static let CLIENT_ID = "Enter Your LINKEDIN_CLIENT_ID here";//Enter Your LINKEDIN_CLIENT_ID here
+//        static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
+//        static let REDIRECT_URI = "Enter Your LINKEDIN_REDIRECT_URL here";//Enter Your LINKEDIN_REDIRECT_URL here
         static let SCOPE = "r_liteprofile%20r_emailaddress" //Get lite profile info and e-mail address
         
         static let AUTHURL = "https://www.linkedin.com/oauth/v2/authorization"
@@ -141,8 +143,7 @@ class Constants {
     
     struct googlePlacesAPIKey {
         
-        static let placesKey = "AIzaSyAMLLcIffxcQT1EcyK4oW_8trj1cHZg5sY"
-//        "AIzaSyABvyqYlTNqGzpi13f7ptJMYghjWfSVnzU"
+        static let placesKey = "placeskey "
         
     }
     

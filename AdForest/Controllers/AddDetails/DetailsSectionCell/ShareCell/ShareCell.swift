@@ -37,6 +37,7 @@ class ShareCell: UITableViewCell {
             }
         }
     }
+    @IBOutlet weak var imgFavourite: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var imgDate: UIImageView!
     @IBOutlet weak var lblDate: UILabel!

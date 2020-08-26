@@ -22,7 +22,7 @@ struct AddDetailData {
     var reportPopup : AddDetailReportPopup!
     var shareInfo : AddDetailShareInfo!
     var staticText : AddDetailStaticText!
-    
+    var sellerContact : AdDetailContactSeller!
     var cantReportTxt : String!
     var clickHereText : String!
     var editTxt : String!
@@ -62,6 +62,9 @@ struct AddDetailData {
         }
         if let staticTextData = dictionary["static_text"] as? [String:Any]{
             staticText = AddDetailStaticText(fromDictionary: staticTextData)
+        }
+        if let sellerContactData = dictionary["seller_contact"] as? [String:Any]{
+            sellerContact = AdDetailContactSeller(fromDictionary: sellerContactData)
         }
         cantReportTxt = dictionary["cant_report_txt"] as? String
         clickHereText = dictionary["click_here_text"] as? String

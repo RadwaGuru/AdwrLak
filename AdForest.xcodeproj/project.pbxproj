@@ -583,7 +583,15 @@
 		962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */; };
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
 		96514D80248E6D2E00BBE42A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96514D7F248E6D2D00BBE42A /* GoogleService-Info.plist */; };
+		96542F9924EE7CC10053AEC6 /* AdDetailContactSeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9824EE7CC10053AEC6 /* AdDetailContactSeller.swift */; };
+		96542F9D24EE810E0053AEC6 /* ContactSellerPopupName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9C24EE810E0053AEC6 /* ContactSellerPopupName.swift */; };
+		96542F9F24EE854C0053AEC6 /* ContactSellerPopupEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9E24EE854C0053AEC6 /* ContactSellerPopupEmail.swift */; };
+		96542FA124EE86890053AEC6 /* ContactSellerPopupPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542FA024EE86890053AEC6 /* ContactSellerPopupPhone.swift */; };
+		96542FA324EE87430053AEC6 /* ContactSellerPopupMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542FA224EE87430053AEC6 /* ContactSellerPopupMessage.swift */; };
 		9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674945A23E0879D0035E58E /* EmptyCartRoot.swift */; };
+		96A29F9524EBC299000B4B1C /* ContactWithSellerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A29F9424EBC299000B4B1C /* ContactWithSellerCellTableViewCell.swift */; };
+		96A29F9724EBC3F6000B4B1C /* ContactWithSellerCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A29F9624EBC3F5000B4B1C /* ContactWithSellerCellTableViewCell.xib */; };
+		96B6E97524EA7503006F6C2C /* ContactWithSellerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B6E97424EA7503006F6C2C /* ContactWithSellerViewController.swift */; };
 		96E0CAC524334375009EEA56 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0CAC424334374009EEA56 /* HomeController.swift */; };
 		AB5D6118CFB004420A4C06D3 /* Pods_AdForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */; };
 /* End PBXBuildFile section */
@@ -1195,7 +1203,15 @@
 		962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsViewController.swift; sourceTree = "<group>"; };
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
 		96514D7F248E6D2D00BBE42A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../firebase /GoogleService-Info.plist"; sourceTree = "<group>"; };
+		96542F9824EE7CC10053AEC6 /* AdDetailContactSeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailContactSeller.swift; sourceTree = "<group>"; };
+		96542F9C24EE810E0053AEC6 /* ContactSellerPopupName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupName.swift; sourceTree = "<group>"; };
+		96542F9E24EE854C0053AEC6 /* ContactSellerPopupEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupEmail.swift; sourceTree = "<group>"; };
+		96542FA024EE86890053AEC6 /* ContactSellerPopupPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupPhone.swift; sourceTree = "<group>"; };
+		96542FA224EE87430053AEC6 /* ContactSellerPopupMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupMessage.swift; sourceTree = "<group>"; };
 		9674945A23E0879D0035E58E /* EmptyCartRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCartRoot.swift; sourceTree = "<group>"; };
+		96A29F9424EBC299000B4B1C /* ContactWithSellerCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactWithSellerCellTableViewCell.swift; sourceTree = "<group>"; };
+		96A29F9624EBC3F5000B4B1C /* ContactWithSellerCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactWithSellerCellTableViewCell.xib; sourceTree = "<group>"; };
+		96B6E97424EA7503006F6C2C /* ContactWithSellerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactWithSellerViewController.swift; sourceTree = "<group>"; };
 		96CBD13C2445A993000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CBD13E2445ABC7000DFDAF /* linkedin-sdk.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "linkedin-sdk.framework.zip"; path = "../../../../Users/glixen/Downloads/linkedin-sdk.framework.zip"; sourceTree = "<group>"; };
 		96CBD1402445ABFA000DFDAF /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1961,6 +1977,11 @@
 				184EDB0F2078995300A25228 /* AddDetailAdPrice.swift */,
 				18F2AA0721393BEF007B1AD0 /* AddDetailAdTimer.swift */,
 				1844FD51213D4028005CD5FF /* AddDetailAdTypeBar.swift */,
+				96542F9824EE7CC10053AEC6 /* AdDetailContactSeller.swift */,
+				96542F9C24EE810E0053AEC6 /* ContactSellerPopupName.swift */,
+				96542F9E24EE854C0053AEC6 /* ContactSellerPopupEmail.swift */,
+				96542FA024EE86890053AEC6 /* ContactSellerPopupPhone.swift */,
+				96542FA224EE87430053AEC6 /* ContactSellerPopupMessage.swift */,
 			);
 			path = AddDetailData;
 			sourceTree = "<group>";
@@ -2537,6 +2558,7 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96B6E97324EA74CB006F6C2C /* ContactWithSellerController */,
 				962C7C7823D828CF00F6FC25 /* MostVisitedAds */,
 				1890A0AA2382A49C00CDAD1F /* ExpireAds */,
 				18FE9C562368118A00E8756F /* MapBoxPlaces */,
@@ -3107,6 +3129,7 @@
 		18DA073F205F96050021FA7E /* DetailsSectionCell */ = {
 			isa = PBXGroup;
 			children = (
+				96B6E97824EAB742006F6C2C /* ContactWithSellerCell */,
 				181DDA87233356E6001FF048 /* ReplyReactionCell */,
 				18B34B942164B4E700F8FA89 /* LoadMoreCell */,
 				186A9FA62080F54D008E646C /* AddDetailProfileCell */,
@@ -3218,6 +3241,23 @@
 				9674945A23E0879D0035E58E /* EmptyCartRoot.swift */,
 			);
 			path = EmptyCart;
+			sourceTree = "<group>";
+		};
+		96B6E97324EA74CB006F6C2C /* ContactWithSellerController */ = {
+			isa = PBXGroup;
+			children = (
+				96B6E97424EA7503006F6C2C /* ContactWithSellerViewController.swift */,
+			);
+			path = ContactWithSellerController;
+			sourceTree = "<group>";
+		};
+		96B6E97824EAB742006F6C2C /* ContactWithSellerCell */ = {
+			isa = PBXGroup;
+			children = (
+				96A29F9424EBC299000B4B1C /* ContactWithSellerCellTableViewCell.swift */,
+				96A29F9624EBC3F5000B4B1C /* ContactWithSellerCellTableViewCell.xib */,
+			);
+			path = ContactWithSellerCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3370,6 +3410,7 @@
 				181C882D2052BFAA0067B176 /* ProfileCell.xib in Resources */,
 				180519E2215A19C100F74662 /* AppShareCell.xib in Resources */,
 				18860C8C232FA705003910FC /* SetLocationCell.xib in Resources */,
+				96A29F9724EBC3F6000B4B1C /* ContactWithSellerCellTableViewCell.xib in Resources */,
 				18BBFA912051098C0067662F /* Assets.xcassets in Resources */,
 				18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
@@ -3697,6 +3738,7 @@
 				184CAFA820B2827E008046C1 /* TermsConditionsRoot.swift in Sources */,
 				1884DD6E2056823400059DEE /* EditProfileController.swift in Sources */,
 				18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */,
+				96542FA124EE86890053AEC6 /* ContactSellerPopupPhone.swift in Sources */,
 				182690F92087652900E2C966 /* CategoryTimer.swift in Sources */,
 				0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */,
 				18BBFAEA205112D70067662F /* ForgotPasswordViewController.swift in Sources */,
@@ -3718,6 +3760,7 @@
 				184EDB102078995300A25228 /* AddDetailAdPrice.swift in Sources */,
 				18630F77206943D600DC16DC /* VerifyNumberController.swift in Sources */,
 				18C32C4621412F520005D568 /* SellersSocialIcon.swift in Sources */,
+				96542FA324EE87430053AEC6 /* ContactSellerPopupMessage.swift in Sources */,
 				1852B0E4208353A70014AF99 /* OfferOnAdDetailData.swift in Sources */,
 				182652B92075F8CE007F6A21 /* PaymentSuccessData.swift in Sources */,
 				189DC78B213FA35B007FC150 /* UserPublicReply.swift in Sources */,
@@ -3843,6 +3886,7 @@
 				07EF456B2204173B000570E6 /* RangeValuesTableViewCell.swift in Sources */,
 				18392416209C351400BC35F7 /* SearchSortArray.swift in Sources */,
 				18247CD220974C9A000B9303 /* BidOnOffCell.swift in Sources */,
+				96B6E97524EA7503006F6C2C /* ContactWithSellerViewController.swift in Sources */,
 				182652C9207656CB007F6A21 /* StripePaymentError.swift in Sources */,
 				18605F86214F7C9600B3B567 /* SearchDropDown.swift in Sources */,
 				07891CAB22017960002C8D7D /* CheckBoxesTableViewCell.swift in Sources */,
@@ -3875,6 +3919,7 @@
 				181EED9120919E7D0018BB03 /* AdPostImagesController.swift in Sources */,
 				1826F8342085D205002BF69A /* AddsTableCell.swift in Sources */,
 				186A9F8D2080D974008E646C /* PublicProfileUserTypeButton.swift in Sources */,
+				96A29F9524EBC299000B4B1C /* ContactWithSellerCellTableViewCell.swift in Sources */,
 				18188E82206CAFA8000DFECB /* BlogExtra.swift in Sources */,
 				18188E80206CAF67000DFECB /* BlogRoot.swift in Sources */,
 				18F0C7E2206F71E3003E16A5 /* SettingsFeaturedScroll.swift in Sources */,
@@ -3889,12 +3934,14 @@
 				18513F5E206B7DD800FCD1F5 /* AdRemovedRoot.swift in Sources */,
 				1818888C2081D320008736F7 /* OfferAdsReceivedOffer.swift in Sources */,
 				182652C520765694007F6A21 /* StripePaymentData.swift in Sources */,
+				96542F9D24EE810E0053AEC6 /* ContactSellerPopupName.swift in Sources */,
 				18191A5B20737CE500FF67C8 /* UserRatingData.swift in Sources */,
 				183287B520EC9B9E0096A21E /* AdMob.swift in Sources */,
 				1826689B20C167EB00A70B1C /* PagesController.swift in Sources */,
 				18711CEB2089DA6B00474737 /* BlogPostData.swift in Sources */,
 				18C6C361205FEA100079E914 /* RegisterData.swift in Sources */,
 				182C8B8B2158E2710007DFF9 /* AppSettingRoot.swift in Sources */,
+				96542F9F24EE854C0053AEC6 /* ContactSellerPopupEmail.swift in Sources */,
 				18C817322073B0D500674C90 /* PackagesData.swift in Sources */,
 				18513F53206B59C500FCD1F5 /* InactiveAdsData.swift in Sources */,
 				187467F4214F828400B7F28E /* SearchNowButtonCell.swift in Sources */,
@@ -4044,6 +4091,7 @@
 				182C7FF02068D5130080A391 /* ProfileDetailsAccountType.swift in Sources */,
 				9627990823D6B67D007726EA /* logout.swift in Sources */,
 				186A9FA32080DA99008E646C /* PublicProfileAdImage.swift in Sources */,
+				96542F9924EE7CC10053AEC6 /* AdDetailContactSeller.swift in Sources */,
 				181EED972091F2030018BB03 /* DescriptionTableCell.swift in Sources */,
 				182690AC208728E000E2C966 /* HomeData.swift in Sources */,
 				18A31FED213E9F5C00A5B6EB /* UserPublicRatingData.swift in Sources */,
@@ -4249,12 +4297,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.3.8;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
@@ -4276,16 +4324,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.3.8;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = AdForestLive2.3.7;
+				PROVISIONING_PROFILE_SPECIFIER = AdForestLive2.3.9;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

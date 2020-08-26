@@ -213,6 +213,21 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 if objData?.data.profile.map.mapStyle == "google_map"{
                     let searchVC = GMSAutocompleteViewController()
                     searchVC.delegate = self
+                
+                    let filter = GMSAutocompleteFilter()
+                    if let addressFilter = UserDefaults.standard.string(forKey: "locType"){
+                        print(addressFilter)
+                        if addressFilter == "regions" {
+
+                            filter.type = .region
+                        }else{
+
+                            filter.type = .city
+                            
+                        }
+                    }
+                    
+
                     searchVC.modalPresentationStyle = .fullScreen
                     self.presentVC(searchVC)
                 }else{
@@ -379,11 +394,13 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 containerViewAddress.translatesAutoresizingMaskIntoConstraints = false
                 containerViewAddress.topAnchor.constraint(equalTo: self.txtNumber.bottomAnchor, constant: 8).isActive = true
             }
-            
-            if let locationText = objData?.data.profile.adCountry.title {
-                self.lblLocation.text = locationText
+            if isShowCountry == true {
+                
+                if let locationText = objData?.data.profile.adCountry.title {
+                    self.lblLocation.text = locationText
+                }
+                
             }
-            
             guard let featuredAdBuy = objData?.data.profile.featuredAdBuy else {
                 return
             }
