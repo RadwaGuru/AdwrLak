@@ -1007,7 +1007,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 height = 0
             }
-        } else {
+        }
+        else {
             if featurePosition == "1" {
                 if section == 0 {
                     let objData = searchSectionArray[indexPath.row]

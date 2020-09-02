@@ -43,6 +43,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             txtEmail.delegate = self
         }
     }
+    
+    @IBOutlet weak var btnViewPassword: UIButton!
     @IBOutlet weak var imgPassword: UIImageView!
     @IBOutlet weak var txtPassword: UITextField! {
         didSet {
@@ -123,7 +125,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var linkedInEmail = ""
     var linkedInProfilePicURL = ""
     var linkedInAccessToken = ""
-    
+    var iconClick = true
+
     
     // MARK: Application Life Cycle
     
@@ -650,6 +653,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     //MARK:- IBActions
     
+    @IBAction func actionShowPassword(_ sender: Any) {
+    
+        if(iconClick == true) {
+            txtPassword.isSecureTextEntry = false
+        } else {
+            txtPassword.isSecureTextEntry = true
+        }
+
+        iconClick = !iconClick
+    }
+    
     @IBAction func actionForgotPassword(_ sender: Any) {
         let forgotPassVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         self.navigationController?.pushViewController(forgotPassVC, animated: true)
@@ -969,7 +983,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 } else {
                     self.defaults.set(true, forKey: "isLogin")
                     self.defaults.synchronize()
-                    self.appDelegate.moveToHome()
+                    self.appDelegate.moveToMarvelHome()
+//                    self.appDelegate.moveToHome()
                 }
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

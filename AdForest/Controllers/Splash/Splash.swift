@@ -286,7 +286,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             if successResponse.success {
                 self.defaults.set(true, forKey: "isLogin")
                 self.defaults.synchronize()
-                self.appDelegate.moveToHome()
+//                self.appDelegate.moveToHome()
+                self.appDelegate.moveToMarvelHome()
+
             }
             else {
                 self.appDelegate.moveToLogin()

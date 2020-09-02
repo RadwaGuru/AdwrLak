@@ -16,6 +16,10 @@ class NetworkHandler {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
         var locID = UserDefaults.standard.string(forKey: "locId")
+        if locID == nil {
+            locID = ""
+        }
+        
         if langCode == nil {
             langCode = "en"
         }
@@ -152,7 +156,9 @@ class NetworkHandler {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
         var locID = UserDefaults.standard.string(forKey: "locId")
-
+        if locID == nil {
+                   locID = ""
+               }
         if Network.isAvailable {
             
             var headers: HTTPHeaders
@@ -236,7 +242,9 @@ class NetworkHandler {
         
         var langCode = UserDefaults.standard.string(forKey: "langCode")
         var locID = UserDefaults.standard.string(forKey: "locId")
-
+        if locID == nil {
+                   locID = ""
+               }
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
         
