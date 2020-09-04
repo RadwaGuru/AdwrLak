@@ -585,6 +585,7 @@
 		9627990823D6B67D007726EA /* logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9627990723D6B67D007726EA /* logout.swift */; };
 		962C7C7C23D8293A00F6FC25 /* MostVisitedAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */; };
 		962C7C7E23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */; };
+		9643C67D250124F700631A99 /* SOTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643C67C250124F700631A99 /* SOTabBarViewController.swift */; };
 		96542F9924EE7CC10053AEC6 /* AdDetailContactSeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9824EE7CC10053AEC6 /* AdDetailContactSeller.swift */; };
 		96542F9D24EE810E0053AEC6 /* ContactSellerPopupName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9C24EE810E0053AEC6 /* ContactSellerPopupName.swift */; };
 		96542F9F24EE854C0053AEC6 /* ContactSellerPopupEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96542F9E24EE854C0053AEC6 /* ContactSellerPopupEmail.swift */; };
@@ -1217,6 +1218,7 @@
 		9627990723D6B67D007726EA /* logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logout.swift; sourceTree = "<group>"; };
 		962C7C7B23D8293A00F6FC25 /* MostVisitedAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsViewController.swift; sourceTree = "<group>"; };
 		962C7C7D23D82BAA00F6FC25 /* MostVisitedAdsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostVisitedAdsCollectionViewCell.swift; sourceTree = "<group>"; };
+		9643C67C250124F700631A99 /* SOTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOTabBarViewController.swift; sourceTree = "<group>"; };
 		96542F9824EE7CC10053AEC6 /* AdDetailContactSeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailContactSeller.swift; sourceTree = "<group>"; };
 		96542F9C24EE810E0053AEC6 /* ContactSellerPopupName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupName.swift; sourceTree = "<group>"; };
 		96542F9E24EE854C0053AEC6 /* ContactSellerPopupEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerPopupEmail.swift; sourceTree = "<group>"; };
@@ -3322,6 +3324,7 @@
 				96BFE9E924F78C5500B4B2F7 /* Marvel Categories Cell */,
 				96BFE9E724F78B3700B4B2F7 /* MarvelHomeViewController.swift */,
 				965D25B024FE712E00CF58BA /* DynmicHeightCollectionView.swift */,
+				9643C67C250124F700631A99 /* SOTabBarViewController.swift */,
 			);
 			path = "Marvel Home Controller";
 			sourceTree = "<group>";
@@ -3559,6 +3562,7 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RangeSeekSlider/RangeSeekSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SOTabBar/SOTabBar.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCheckboxDialog/SwiftCheckboxDialog.framework",
@@ -3601,6 +3605,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RangeSeekSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SOTabBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCheckboxDialog.framework",
@@ -3799,6 +3804,7 @@
 				181C8820205281FD0067B176 /* OffersonAdsDetailController.swift in Sources */,
 				182B4B5B20906A2200324D4E /* AdPostField.swift in Sources */,
 				1826689620C14AED00A70B1C /* UserConfirmationRoot.swift in Sources */,
+				9643C67D250124F700631A99 /* SOTabBarViewController.swift in Sources */,
 				184CAFAA20B28297008046C1 /* TermsConditionsData.swift in Sources */,
 				18D8F566206B84E200D19830 /* AlertView.swift in Sources */,
 				181CDE2A214A2D3200BD0B0C /* InactiveCollectionCell.swift in Sources */,
@@ -4391,7 +4397,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Muhammad Jawad Arshad (299YT2HJN8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
@@ -4402,7 +4408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = adforestDevPro;
+				PROVISIONING_PROFILE_SPECIFIER = AdForestDevProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;

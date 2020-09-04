@@ -18,6 +18,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     //MARK:- Outlets
     
     
+    @IBOutlet weak var topConstraintBtnFb: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnGoogle2: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnGoogle: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnApple: NSLayoutConstraint!
@@ -343,15 +344,39 @@ var checkBoxselectedBtn = false
                 
                 
             }
-            else if isShowFacebook && isShowGoogle == false && isShowApple {
+            else if isShowFacebook && isShowGoogle == false && isShowApple && isShowLinkedin == false {
 //                self.buttonFB.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogle.isHidden = true
-//                self.btnGoogle.isHidden = true
+                self.btnLinkedin.isHidden = true
                 self.btnApple.isHidden = false
-                self.topConstraintBtnApple.constant -= 80
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
+
+//                self.topConstraintBtnApple.constant -= 80
             }
+            else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin == false{
+                self.btnFb.isHidden = false
+                self.buttonGoogle.isHidden = false
+                self.btnApple.isHidden = true
+                self.btnLinkedin.isHidden = true
+
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+
+
+            }
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple && isShowLinkedin {
+                self.btnFb.isHidden = true
+                self.buttonGoogle.isHidden = true
+                self.btnApple.isHidden = false
+                self.btnLinkedin.isHidden = false
                 
+                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.btnLinkedin.bottomAnchor, constant: 8).isActive = true
+                
+                
+            }
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
 //                self.buttonFB.isHidden = false
                 self.btnFb.isHidden = false
@@ -360,7 +385,10 @@ var checkBoxselectedBtn = false
                 self.btnApple.isHidden = true
                 self.btnLinkedin.isHidden = false
 //                btnLinkedin.topAnchor.constraint(equalTo: self.btnGoogle.bottomAnchor, constant: 8).isActive = true
-                
+                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+
                 
             }
             else if isShowFacebook == false && isShowGoogle  && isShowApple == false && isShowLinkedin {
@@ -375,15 +403,29 @@ var checkBoxselectedBtn = false
                 
                 
             }
-                
-            else if isShowFacebook == false && isShowGoogle && isShowApple{
+            else if isShowFacebook && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
+                self.buttonGoogle.isHidden = true
+                self.btnFb.isHidden = false
+                //                self.buttonFB.isHidden = true
+                //                self.btnGoogle.isHidden = true
+                self.btnApple.isHidden = true
+                self.btnLinkedin.isHidden = true
+                self.topConstraintBtnFb.constant -= 80
+//                btnLinkedin.topAnchor.consraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
+
+            }
+            else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin ==  false {
                 self.btnFb.isHidden = true
 //                self.buttonFB.isHidden = true
 //                self.btnGoogle.isHidden = false
                 self.buttonGoogle.isHidden = false //New
                 self.btnApple.isHidden = false
-                self.topConstraintBtnGoogle.constant -= 80
-                self.topConstraintBtnGoogle2.constant -= 80
+                self.btnLinkedin.isHidden = true
+//                self.topConstraintBtnGoogle.constant -= 80
+                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.buttonGoogle.bottomAnchor, constant: 8).isActive = true
+
+//                self.topConstraintBtnGoogle2.constant -= 80
             }
                 
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
@@ -392,7 +434,9 @@ var checkBoxselectedBtn = false
                 self.buttonGoogle.isHidden = true
 //                self.btnGoogle.isHidden = true
                 self.btnApple.isHidden = false
-                self.topConstraintBtnApple.constant -= 155
+//                self.topConstraintBtnApple.constant -= 155
+                btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 18).isActive = true
+
             }
                 
             else if isShowGoogle && isShowFacebook == false && isShowApple == false {
@@ -401,8 +445,8 @@ var checkBoxselectedBtn = false
                 self.btnFb.isHidden = true
 //                self.btnGoogle.isHidden = false
                 self.btnApple.isHidden = true
-                topGoogle.constant -= 80
-                topGoogleNew.constant -= 80
+//                topGoogle.constant -= 80
+                 topGoogleNew.constant -= 80
                 self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
                 self.heightConstraintSocial.constant -= 55
             }

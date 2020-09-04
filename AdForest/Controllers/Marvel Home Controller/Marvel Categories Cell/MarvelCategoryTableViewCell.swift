@@ -16,7 +16,13 @@ class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UIC
     
     
     @IBOutlet weak var lblCatsHeading: UILabel!
-    @IBOutlet weak var btnViewAllCats: UIButton!
+    @IBOutlet weak var btnViewAllCats: UIButton!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                btnViewAllCats.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet {
             collectionView.delegate = self

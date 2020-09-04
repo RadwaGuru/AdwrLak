@@ -19,7 +19,14 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
     }
     @IBOutlet weak var heightConstraintTitle: NSLayoutConstraint!
     
-    @IBOutlet weak var oltViewAll: UIButton!
+    @IBOutlet weak var heightContraintCollectionView: NSLayoutConstraint!
+    @IBOutlet weak var oltViewAll: UIButton!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                oltViewAll.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var lblSectionTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
@@ -119,29 +126,27 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
                 
             }
         }
-        
+        //    //            let word = objData.adTimer.timer
+                //            if objData.adTimer.isShow {
+                //                let first10 = String(word!.prefix(10))
+                //                print(first10)
+                //                //                           cell.lblTimer.isHidden = true
+                //                //                           cell.lblBidTimer.isHidden = false
+                //
+                //                if first10 != ""{
+                //                    let endDate = first10
+                //                    self.isEndTime = endDate
+                //                    Timer.every(1.second) {
+                //                        //                                   self.countDown(date: endDate)
+                //                        //                                   cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                //
+                //                    }
+                //                }
+                //            }else{
+                //                //                           cell.lblBidTimer.isHidden = true
+                //            }
         if let name = objData.adTitle {
             cell.lblTitle.text = name
-            //            let word = objData.adTimer.timer
-            //            if objData.adTimer.isShow {
-            //                let first10 = String(word!.prefix(10))
-            //                print(first10)
-            //                //                           cell.lblTimer.isHidden = true
-            //                //                           cell.lblBidTimer.isHidden = false
-            //
-            //                if first10 != ""{
-            //                    let endDate = first10
-            //                    self.isEndTime = endDate
-            //                    Timer.every(1.second) {
-            //                        //                                   self.countDown(date: endDate)
-            //                        //                                   cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-            //
-            //                    }
-            //                }
-            //            }else{
-            //                //                           cell.lblBidTimer.isHidden = true
-            //            }
-            //
         }
         if let location = objData.adLocation.address {
             cell.lblLocation.text = location

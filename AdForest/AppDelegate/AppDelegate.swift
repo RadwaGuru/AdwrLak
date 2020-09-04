@@ -207,7 +207,7 @@ extension AppDelegate {
     }
     
  func moveToMarvelHome() {
-    let HomeVC = storyboard.instantiateViewController(withIdentifier: MarvelHomeViewController.className) as! MarvelHomeViewController
+    let HomeVC = storyboard.instantiateViewController(withIdentifier: SOTabBarViewController.className) as! SOTabBarViewController
      if defaults.bool(forKey: "isRtl") {
          let rightViewController = storyboard.instantiateViewController(withIdentifier: LeftController.className) as! LeftController
          let navi: UINavigationController = UINavigationController(rootViewController: HomeVC)

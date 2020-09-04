@@ -15,8 +15,8 @@ protocol MarvelLatestAddDetailDelegate{
 class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     
-//    @IBOutlet weak var heightConstraintCollectionView: NSLayoutConstraint!
 
+    @IBOutlet weak var heightConstraintCollectionView: NSLayoutConstraint!
     @IBOutlet weak var OltViewAll: UIButton!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
@@ -60,13 +60,7 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-//        height = collectionView.contentSize.height
-//        //collectionViewLayout.collectionViewContentSize.height
-//        heightConstraintCollectionView.constant = height
-//        print(height)
-////        self.contentView.setNeedsLayout()
-//      self.contentView.layoutIfNeeded()
+  
     }
     
     

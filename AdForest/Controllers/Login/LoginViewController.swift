@@ -44,7 +44,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         }
     }
     
-    @IBOutlet weak var btnViewPassword: UIButton!
+    @IBOutlet weak var btnViewPassword: UIButton!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                let image = UIImage(named: "eye")?.withRenderingMode(.alwaysTemplate)
+                btnViewPassword.setImage(image, for: .normal)
+                mainBtnColor = mainColor
+                print(mainBtnColor)
+//                btnViewPassword.tintColor = UIColor.red
+//                btnViewPassword.image = btnViewPassword.image?.withRenderingMode(.alwaysTemplate)
+            }
+        }
+        
+    }
     @IBOutlet weak var imgPassword: UIImageView!
     @IBOutlet weak var txtPassword: UITextField! {
         didSet {
@@ -118,6 +130,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var isVerifyOn = false
     let loginManager = LoginManager()
     
+    
+    var mainBtnColor = ""
     var isDelFb = UserDefaults.standard.bool(forKey: "delFb")
     var linkedInId = ""
     var linkedInFirstName = ""
@@ -470,105 +484,107 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
             
             if isShowFacebook && isShowGoogle && isShowApple  && isShowLinkedin == false {
-                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = true
             }
-            else if isShowFacebook && isShowGoogle == false && isShowApple  {
-                self.buttonFBLogin.isHidden = false
+            else if isShowFacebook && isShowGoogle == false && isShowApple && isShowLinkedin == false {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = true
-                self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
-                self.topConstraintBtnApple.constant -= 50
-                //                self.buttonLinkedIn.isHidden = false
+                self.buttonLinkedIn.isHidden = true
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
+                socialLoginHeightConstraint.constant -= 90
             }
             else if isShowFacebook && isShowGoogle && isShowApple == false && isShowLinkedin {
-                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
-                self.topConstraintBtnLinkedIn.constant -= 60
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                socialLoginHeightConstraint.constant -= 100
                 
             }
-            else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
-                self.buttonFBLogin.isHidden = true
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple && isShowLinkedin ==  false {
                 self.btnFb.isHidden = true
                 self.buttonGoogleLogin.isHidden = true
-                self.btnGoogleLog.isHidden = true //New
                 self.btnApple.isHidden = false
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 18).isActive = true
-                self.buttonLinkedIn.isHidden = false
-                buttonLinkedIn.topAnchor.constraint(equalTo: self.btnApple.bottomAnchor, constant: 8).isActive = true
+                self.buttonLinkedIn.isHidden = true
             }
-            else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin {
-                self.buttonFBLogin.isHidden = true
+            else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin == false {
                 self.btnFb.isHidden = true
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false
+                self.btnApple.isHidden = false
+                self.buttonLinkedIn.isHidden = true
+                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.buttonGoogleLogin.bottomAnchor, constant: 8).isActive = true
+            }
+            else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin {
+                self.btnFb.isHidden = true
+                self.buttonGoogleLogin.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = false
-                //                self.topConstraintBtnGoogle.constant -= 10
-                //                self.topConstraintBtnGoogle2.constant -= 10
             }
+            else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin == false{
+                self.btnFb.isHidden = false
+                self.buttonGoogleLogin.isHidden = false
+                self.btnApple.isHidden = true
+                self.buttonLinkedIn.isHidden = true
+                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                socialLoginHeightConstraint.constant -= 120
+            }
+
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
-                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
                 self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
                 self.topConstraintBtnLinkedIn.constant -= 60
-                
-                
-                
             }
-            else if isShowFacebook && isShowGoogle  && isShowApple  {
-//                self.buttonFBLogin.isHidden = false
-                self.btnFb.isHidden = false
-                self.buttonGoogleLogin.isHidden = false
-//                self.btnGoogleLog.isHidden = false
-                self.btnApple.isHidden = false
-                //                    self.buttonLinkedIn.isHidden = true
-            }
+//            else if isShowFacebook && isShowGoogle  && isShowApple  {
+//                self.btnFb.isHidden = false
+//                self.buttonGoogleLogin.isHidden = false
+//                self.btnApple.isHidden = false
+//            }
                 
-            else if isShowFacebook && isShowGoogle == false && isShowApple == false {
-                self.buttonFBLogin.isHidden = false
+            else if isShowFacebook && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = true
-                self.btnGoogleLog.isHidden = true
                 self.btnApple.isHidden = true
-                //                self.buttonLinkedIn.isHidden = true
-                self.topConstraintBtnLinkedIn.constant -= -10
-                
+                self.buttonLinkedIn.isHidden = true
+                //Constraints
                 btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                buttonFBLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
             }
                 
-            else if isShowGoogle && isShowFacebook == false && isShowApple == false  {
+            else if isShowGoogle && isShowFacebook == false && isShowApple == false && isShowLinkedin == false {
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false // New
                 self.buttonGoogleLogin.translatesAutoresizingMaskIntoConstraints = false
-                self.btnGoogleLog.translatesAutoresizingMaskIntoConstraints = false // New
                 socialLoginHeightConstraint.constant -= 50
-                self.buttonFBLogin.isHidden = true
+
+
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-                //                self.buttonLinkedIn.isHidden = true
-                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                self.buttonLinkedIn.isHidden = true
+                
+                //Constraints
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = true
-                self.btnGoogleLog.isHidden = true // New
-                self.buttonFBLogin.isHidden = true
+//                self.btnGoogleLog.isHidden = true // New
+//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
@@ -580,26 +596,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = true
-                self.btnGoogleLog.isHidden = true // New
-                self.buttonFBLogin.isHidden = true
+//                self.btnGoogleLog.isHidden = true // New
+//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = false
-                self.topConstraintBtnApple.constant -= 120
+//                self.topConstraintBtnApple.constant -= 120
                 self.buttonLinkedIn.isHidden = false
-                self.topConstraintBtnLinkedIn.constant -= 90
+                buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                btnApple.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
+
+//                buttonLinkedIn.frame.origin.x = 120
+                    //lblOr.frame.origin.y
+//                self.topConstraintBtnLinkedIn.constant -= 90
             }
             else if isShowFacebook == false && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false // New
+//                self.btnGoogleLog.isHidden = false // New
                 //                self.topConstraintBtnGoogle.constant -= 140
                 //                self.topConstraintBtnGoogle2.constant -= 140
-                self.buttonFBLogin.isHidden = true
+//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = false
                 //                self.topConstraintBtnApple.constant -= 90
                 self.buttonLinkedIn.isHidden = false
                 //                self.topConstraintBtnLinkedIn.constant -= 60
-                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
@@ -608,8 +629,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 
             else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false // New
-                self.buttonFBLogin.isHidden = false
+//                self.btnGoogleLog.isHidden = false // New
+//                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = false
@@ -654,10 +675,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     //MARK:- IBActions
     
     @IBAction func actionShowPassword(_ sender: Any) {
-    
+        
         if(iconClick == true) {
             txtPassword.isSecureTextEntry = false
+            btnViewPassword.tintColor = UIColor(hex: mainBtnColor)
+            
         } else {
+            btnViewPassword.tintColor = UIColor.gray
             txtPassword.isSecureTextEntry = true
         }
 

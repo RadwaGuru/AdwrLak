@@ -111,6 +111,8 @@ target 'AdForest' do
 #pod 'LinkedinSwift', '>= 1.7.9'
 
 pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
+pod 'SOTabBar'
+
 
    
 end
