@@ -1,68 +1,46 @@
 //
-//  MarvelHomeLatestAddTableCell.swift
+//  MarvelHomeLatestVerticalDefaultTableViewCell.swift
 //  AdForest
 //
-//  Created by Charlie on 01/09/2020.
+//  Created by Charlie on 11/09/2020.
 //  Copyright © 2020 apple. All rights reserved.
 //
 
 import UIKit
-protocol MarvelLatestAddDetailDelegate{
-    func goToAddDetail(ad_id : Int)
-}
 
-
-class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class MarvelHomeLatestVerticalDefaultTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    
-    
-    @IBOutlet weak var heightConstraintCollectionView: NSLayoutConstraint!
-    @IBOutlet weak var OltViewAll: UIButton!{
-        didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                OltViewAll.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-            }
-        }
-    }
-    @IBOutlet weak var containerView: UIView!{
-        didSet{
-            containerView.backgroundColor = UIColor.clear
-            containerView.marvelRoundCorners()
-            
-        }
-    }
+    @IBOutlet weak var OltViewAll: UIButton!
     @IBOutlet weak var lblSectionTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!{
-        didSet{
+        didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
-            collectionView.isScrollEnabled = false
             
         }
     }
+    @IBOutlet weak var containerView: UIView!
+        {
+        didSet {
+            containerView.backgroundColor = UIColor.clear
+        }
+    }
     
+    
+    @IBOutlet weak var heightConstraintCollectionView: NSLayoutConstraint!
     //MARK:- Properties
     var delegate : MarvelLatestAddDetailDelegate?
     var dataArray = [HomeAdd]()
     var btnViewAll: (()->())?
-    var day: Int = 0
-    var hour: Int = 0
-    var minute: Int = 0
-    var second: Int = 0
-    var serverTime = ""
-    var isEndTime = ""
-    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     
-    var height : CGFloat = 0.0
+    
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        // Initialization code
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -73,26 +51,25 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
         return 1
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MarvelHomeLatestAddCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MarvelHomeLatestAddCollectionViewCell", for: indexPath) as! MarvelHomeLatestAddCollectionViewCell
+        
+        let cell: MarvelHomeLatestVerticalDefaultCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MarvelHomeLatestVerticalDefaultCollectionViewCell", for: indexPath) as! MarvelHomeLatestVerticalDefaultCollectionViewCell
         let objData = dataArray[indexPath.row]
         for item in objData.adImages {
             if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                 cell.adImg.sd_setShowActivityIndicatorView(true)
                 cell.adImg.sd_setIndicatorStyle(.gray)
                 cell.adImg.sd_setImage(with: imgUrl, completed: nil)
-                
             }
         }
         
         if let name = objData.adTitle {
-            cell.lblTitle.text = name
-            
+            cell.adTitle.text = name
         }
         
         if objData.adTimer.isShow {
@@ -102,30 +79,71 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
             cell.minStr = objData.adTimer.timerStrings.minutes
             cell.secStr = objData.adTimer.timerStrings.seconds
 
-
-
             cell.lblTimer.isHidden = false
         }else{
             cell.lblTimer.isHidden = true
         }
         
         if let location = objData.adLocation.address {
-            cell.lblLocation.text = location
+            cell.lbllocation.text = location
         }
+        
         if let price = objData.adPrice.price {
             cell.lblPrice.text = price
         }
-        
         cell.btnFullAction = { () in
             self.delegate?.goToAddDetail(ad_id: objData.adId)
         }
+        
+        
+        
         return cell
         
+        
     }
+    func validateIFSC(code : String) -> Bool {
+        let regex = try! NSRegularExpression(pattern: "^[A-Za-z]{4}0.{6}$")
+        return regex.numberOfMatches(in: code, range: NSRange(code.startIndex..., in: code)) == 1
+    }
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width:collectionView.frame.width,height: 110)
+        return CGSize(width:collectionView.frame.width/2 , height:210)
     }
-    //MARK:- Actions
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //        self.collectionView.decelerationRate = 0.6
+        
+        
+        if collectionView.isDragging {
+            
+            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.transform = CGAffineTransform.identity
+                
+            })
+        }
+    }
+    
+    
     @IBAction func actionViewAll(_ sender: Any) {
         self.btnViewAll?()
     }

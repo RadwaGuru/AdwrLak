@@ -123,7 +123,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     var localVariable = ""
     var isSimpleAddress = true
-    
+    var isfromEditAd = false
+
     
     
     
@@ -866,7 +867,10 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 "ad_bump_ad": isBump,
                 "name": self.txtName.text!
             ]
-      
+            
+            if isfromEditAd {
+            parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
+            }
             print(parameter)
             let dataArray = objArray
             print(objArray)

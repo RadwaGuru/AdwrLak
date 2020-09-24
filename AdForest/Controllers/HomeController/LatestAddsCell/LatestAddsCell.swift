@@ -28,11 +28,13 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
             }
         }
     }
+    
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
+            
         }
     }
     
@@ -40,12 +42,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     var delegate : AddDetailDelegate?
     var dataArray = [HomeAdd]()
     var btnViewAll: (()->())?
-    var day: Int = 0
-    var hour: Int = 0
-    var minute: Int = 0
-    var second: Int = 0
-    var serverTime = ""
-    var isEndTime = ""
+    
     var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     
@@ -114,32 +111,34 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
                     cell.imageView.sd_setShowActivityIndicatorView(true)
                     cell.imageView.sd_setIndicatorStyle(.gray)
                     cell.imageView.sd_setImage(with: imgUrl, completed: nil)
-
+                    
                 }
             }
-
+            
             if let name = objData.adTitle {
                 cell.lblTitle.text = name
-                let word = objData.adTimer.timer
+                //                let word = objData.adTimer.timer
                 if objData.adTimer.isShow {
-                    let first10 = String(word!.prefix(10))
-                    print(first10)
+                    //                    let first10 = String(word!)
+                    //                    print(first10)
+                    cell.futureDate = objData.adTimer.timer
+                    
                     cell.lblTimer.isHidden = true
                     cell.lblBidTimer.isHidden = false
-
-                    if first10 != ""{
-                        let endDate = first10
-                        self.isEndTime = endDate
-                        Timer.every(1.second) {
-                            self.countDown(date: endDate)
-                            cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-
-                        }
-                    }
+                    
+                    //                    if first10 != ""{
+                    //                        let endDate = first10
+                    ////                        self.isEndTime = endDate
+                    ////                        Timer.every(1.second) {
+                    ////                            self.countDown(date: endDate)
+                    ////                            cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                    ////
+                    ////                        }
+                    //                    }
                 }else{
                     cell.lblBidTimer.isHidden = true
                 }
-
+                
             }
             if let location = objData.adLocation.address {
                 cell.lblLocs.text = location
@@ -150,7 +149,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
             cell.btnFullAction = { () in
                 self.delegate?.goToAddDetail(ad_id: objData.adId)
             }
-
+            
         }
         else {
             for item in objData.adImages {
@@ -163,21 +162,28 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
             
             if let name = objData.adTitle {
                 cell.lblName.text = name
-                let word = objData.adTimer.timer
+                //                let word = objData.adTimer.timer
                 if objData.adTimer.isShow {
-                    let first10 = String(word!.prefix(10))
-                    print(first10)
+                    cell.futureDate = objData.adTimer.timer
                     cell.lblTimer.isHidden = false
-                    
-                    if first10 != ""{
-                        let endDate = first10
-                        self.isEndTime = endDate
-                        Timer.every(1.second) {
-                            self.countDown(date: endDate)
-                            cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                            
-                        }
-                    }
+                    //                    let first10 = String(word!)
+                    //                    print(first10)
+                    //                    cell.lblTimer.isHidden = false
+                    //
+                    ////                    if first10 != ""{
+                    ////                        let endDate = first10
+                    ////                        self.isEndTime = endDate
+                    //                        cell.buttonTimer.isHidden = false
+                    ////                        cell.buttonTimer.setTitle(endDate, for: .normal)
+                    ////                        Timer.every(1.second) {
+                    ////                            self.countDown(date: endDate)
+                    //                            cell.lblTimer.isHidden = true
+                    //
+                    //
+                    ////                            cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                    //
+                    ////                        }
+                    ////                    }
                 }else{
                     cell.lblTimer.isHidden = true
                 }
@@ -203,23 +209,6 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
         let regex = try! NSRegularExpression(pattern: "^[A-Za-z]{4}0.{6}$")
         return regex.numberOfMatches(in: code, range: NSRange(code.startIndex..., in: code)) == 1
     }
-    //MARK:- Counter
-    func countDown(date: String) {
-        
-        let calendar = Calendar.current
-        let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let timeNow = Date()
-        guard let dateis = dateFormatter.date(from: date) else {
-            return
-        }
-        let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
-        day = timeDifference.day!
-        hour = timeDifference.hour!
-        minute = timeDifference.minute!
-        second = timeDifference.second!
-    }
     
     
     
@@ -235,6 +224,10 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
         
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        collectionView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
@@ -249,10 +242,15 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //        self.collectionView.decelerationRate = 0.6
+        
+        
         if collectionView.isDragging {
+            
             cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform.identity
+                
             })
         }
     }
@@ -261,7 +259,14 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     @IBAction func actionViewAll(_ sender: Any) {
         self.btnViewAll?()
     }
+    
+    
 }
+
+
+
+
+
 
 
 class LatestAddsCollectionCell : UICollectionViewCell {
@@ -281,6 +286,10 @@ class LatestAddsCollectionCell : UICollectionViewCell {
         }
         
     }
+    
+    
+    
+    
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
@@ -302,6 +311,17 @@ class LatestAddsCollectionCell : UICollectionViewCell {
     var lblPriceHori: UILabel!
     var lblBidTimer:UILabel!
     var locsBtn: UIButton!
+    
+    
+    
+    var futureDate = ""
+    var day: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
+    var second: Int = 0
+    var isEndTime = ""
+    
+    
     //MARK:- IBActions
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
@@ -336,10 +356,10 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblBidTimer.backgroundColor = Constants.hexStringToUIColor(hex: "#575757")
             
             //6b6b6b
-                //UIColor.black
+            //UIColor.black
             //                       lblTimer.textColor = Constants.hexStringToUIColor(hex: mainColor)
-
-//
+            
+            //
             //bottomalign label
             //            lblBidTimer.frame.origin.x = 0
             lblBidTimer.frame.origin.y = 59 + lblBidTimer.frame.height
@@ -404,18 +424,41 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblLocation.isHidden = false
             lblPrice.isHidden = false
             lblTimer.isHidden = false
-//            imageView.isHidden = true
-//            imageViewLoc.isHidden = true
-//            lblLocs.isHidden = true
-//            lblPriceHori.isHidden = true
-//            lblBidTimer.isHidden = true
             
         }
         
         
+        Timer.every(1.second) {
+            self.countDown(date: self.futureDate)
+            if self.latestHorizontalSingleAd == "horizental" {
+                self.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                
+            }
+            else{
+                self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                
+            }
+            
+        }
+    }
+    //MARK:- Counter
+    func countDown(date: String) {
+        
+        let calendar = Calendar.current
+        let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timeNow = Date()
+        guard let dateis = dateFormatter.date(from: date) else {
+            return
+        }
+        let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
+        day = timeDifference.day!
+        hour = timeDifference.hour!
+        minute = timeDifference.minute!
+        second = timeDifference.second!
         
     }
-    
 }
 
 

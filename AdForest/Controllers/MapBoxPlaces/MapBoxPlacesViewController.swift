@@ -134,23 +134,7 @@ class MapBoxPlacesViewController: UIViewController, UITableViewDelegate, UITable
         return searchedPlaces.count
        }
       
-//       func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
-//           geocodingDataTask?.cancel()
-//       }
-//
-//       func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-//           geocodingDataTask?.cancel()
-//           let options = ReverseGeocodeOptions(coordinate: mapView.centerCoordinate)
-//           geocodingDataTask = geocoder.geocode(options) { [unowned self] (placemarks, attribution, error) in
-//               if let error = error {
-//                   NSLog("%@", error)
-//               } else if let placemarks = placemarks, !placemarks.isEmpty {
-//                   self.resultsLabel.text = placemarks[0].qualifiedName
-//               } else {
-//                   self.resultsLabel.text = "No results"
-//               }
-//           }
-//       }
+
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

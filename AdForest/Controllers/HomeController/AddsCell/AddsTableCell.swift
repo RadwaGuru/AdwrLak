@@ -138,7 +138,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
                 cell.lblTitle.text = name
                 let word = objData.adTimer.timer
                 if objData.adTimer.isShow {
-                    let first10 = String(word!.prefix(10))
+                    let first10 = String(word!)
                     print(first10)
                     cell.lblTimer.isHidden = true
                     cell.lblBidTimer.isHidden = false
@@ -180,7 +180,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
                 cell.lblName.text = name
                 let word = objData.adTimer.timer
                 if objData.adTimer.isShow {
-                    let first10 = String(word!.prefix(10))
+                    let first10 = String(word!)
                     print(first10)
                     cell.lblTimer.isHidden = false
                     
@@ -189,7 +189,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
                         self.isEndTime = endDate
                         Timer.every(1.second) {
                             self.countDown(date: endDate)
-                            cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                            cell.lblTimer.text = "\(self.day)  : \(self.hour) : \(self.minute) : \(self.second) "
                             
                         }
                     }
@@ -222,7 +222,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
         let calendar = Calendar.current
         let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let timeNow = Date()
         guard let dateis = dateFormatter.date(from: date) else {
             return

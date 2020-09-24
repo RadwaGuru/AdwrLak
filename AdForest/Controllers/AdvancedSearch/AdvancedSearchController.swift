@@ -233,7 +233,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.lblName.text = title
                 }
                 
-                var i = 1
+                
+                
+                
+//
+//                var i = 1
 //                for item in objData.values {
 //                    if item.id == "" {
 //                        continue
@@ -244,32 +248,73 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 //                    }
 //                    i = i + 1
 //                }
-                for item in objData.values {
-                    if cell.hasCategoryTempelate == true {
-                        if item.id == "" {
-                            continue
-                        }
-                    } else {
-//                    if item.id == "-1" || item.id == "" {
-//                        cell.oltPopup.setTitle(item.name, for: .normal)
-//                        //
-//                        //                        continue
+//                for item in objData.values {
+//                    if cell.hasCategoryTempelate == true {
+//                        if item.id == "" {
+//                            continue
 //                        }
-                        if i == 1 {
-                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
-                            cell.oltPopup.setTitle(item.name, for: .normal)
-                        }
+//                    } else {
+//
+//
+//
+//
+//
+//
+////                    if item.id == "-1" || item.id == "" {
+////                        cell.oltPopup.setTitle(item.name, for: .normal)
+////                        //
+////                        //                        continue
+////                        }
+//                        //if i == 1 {
+////                            if objData.fieldVal == ""{
+////                                cell.oltPopup.setTitle(item.name, for: .normal)
+////                            }
+//
+//
+//                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
+//                           // cell.oltPopup.setTitle(item.name, for: .normal)
+//                        //}
+////                    }
+//
+////                    if cell.hasCategoryTempelate == false {
+////                        if i == 1 {
+////                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
+////                            cell.oltPopup.setTitle(item.name, for: .normal)
+////                        }
+////
+////                    }
+//                    i = i + 1
+//                    }
+//
+//                }
+              
+                
+                
+                
+                
+                
+                 var i = 1
+                for item in objData.values {
+                    if item.id == "" {
+                        continue
                     }
 
-//                    if cell.hasCategoryTempelate == false {
-//                        if i == 1 {
-//                            //                        cell.oltPopup?.setValue(item.name, forKey: "")
+                    if i == 1 {
+                        print(cell.selectedValue)
+
+//                        if cell.selectedValue == ""{
+////                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+//                            cell.selectedKey = String(item.id)
+//                        }else{
 //                            cell.oltPopup.setTitle(item.name, for: .normal)
-//                        }
-//
-//                    }
+                            cell.selectedKey = String(item.id)
+                        //}
+
+                    }
                     i = i + 1
                 }
+                
+                
                 cell.btnPopupAction = { () in
                     cell.dropDownKeysArray = []
                     cell.dropDownValuesArray = []
@@ -287,12 +332,14 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         cell.fieldTypeName.append(objData.fieldTypeName)
                         cell.hasSubArray.append(item.hasSub)
                         cell.hasTemplateArray.append(item.hasTemplate)
+                        if objData.hasCatTemplate != nil {
                         cell.hasCategoryTempelateArray.append(objData.hasCatTemplate)
+                        }
                         cell.hasCategoryTempelateArray.append(true)
                     }
                     cell.accountDropDown()
                     cell.valueDropDown.show()
-                   
+                    cell.section = 0
                     cell.fieldNam = objData.fieldTypeName
                     cell.index = indexPath.row
                     cell.delegate = self
@@ -351,16 +398,17 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 
             else if objData.fieldType == "glocation_textfield" {
                 let cell: SearchAutoCompleteTextField = tableView.dequeueReusableCell(withIdentifier: "SearchAutoCompleteTextField", for: indexPath) as! SearchAutoCompleteTextField
-                
+                cell.txtAutoComplete.text = cell.fullAddress
                 if let txtTitle = objData.title {
                     cell.txtAutoComplete.placeholder = txtTitle
                 }
-                
+
                 if let fieldValue = objData.fieldVal {
                     cell.txtAutoComplete.text = fieldValue
                 }
                 cell.fieldName = objData.fieldTypeName
                 cell.delegate = self
+                
                 cell.index = indexPath.row
                 return cell
             }
@@ -719,17 +767,17 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 
 extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue{
     
-    
-    
-    
-    func selectValue(selectVal: String, selectKey: String, fieldType: String, indexPath: Int, fieldTypeName: String) {
+
+    func selectValue(selectVal: String, selectKey: String, fieldType: String, section: Int,indexPath: Int, fieldTypeName: String) {
         
         if fieldType == "select" {
             //print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = selectVal
-            obj.fieldTypeName = fieldTypeName //"textfield_date"
+            dataArray[indexPath].fieldVal = selectVal
+            obj.fieldTypeName = fieldTypeName
+          //  self.dataArray.append(obj)
             self.data.append(obj)
         }
         
@@ -741,6 +789,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = radioVal
+            dataArray[indexPath].fieldVal  = radioVal
             obj.fieldTypeName = fieldName //"textfield_date"
             self.data.append(obj)
         }
@@ -754,6 +803,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = "\(MinDate)|\(MaxDate)"
+            dataArray[indexPath].fieldVal = "\(MinDate)|\(MaxDate)"
             obj.fieldTypeName = fieldTypeName //"textfield_date"
             self.data.append(obj)
         }
@@ -795,6 +845,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = seekBarVal
+            dataArray[indexPath].fieldVal = seekBarVal
             obj.fieldTypeName = fieldTypeName //"seekbar"
             self.data.append(obj)
         }
@@ -806,6 +857,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = searchAuto
+            dataArray[indexPath].fieldVal = searchAuto
             obj.fieldTypeName = fieldTypeName //"glocation_textfield"
             self.data.append(obj)
         }
@@ -818,6 +870,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = searchText
+            dataArray[indexPath].fieldVal = searchText
             obj.fieldTypeName = fieldTypeName //"textfield_input"
             self.data.append(obj)
         }
@@ -832,6 +885,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = selectedText.joined(separator: ",")
+            dataArray[indexPath].fieldVal = selectedText.joined(separator: ",")
             obj.fieldTypeName = fieldTypeName
             self.data.append(obj)
         }
@@ -845,6 +899,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
         var obj = SearchData()
         obj.fieldType = fieldType
         obj.fieldVal = "\(colorCode)"
+         dataArray[indexPath].fieldVal =  "\(colorCode)"
         obj.fieldTypeName = fieldTypeNam //"select_colors"  //"select_colors"
         self.data.append(obj)
         }
@@ -856,7 +911,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             //print("Index Path Selected \(indexPath, minRange, maxRange, fieldType)")
             let intMin = Int(minRange)
             let intMax = Int(maxRange)
-            //dataArray[indexPath].fieldVal = "\(intMin)-\(intMax)"
+            dataArray[indexPath].fieldVal = "\(intMin)-\(intMax)"
             var obj = SearchData()
             obj.fieldType = fieldType
             obj.fieldVal = "\(intMin)-\(intMax)"

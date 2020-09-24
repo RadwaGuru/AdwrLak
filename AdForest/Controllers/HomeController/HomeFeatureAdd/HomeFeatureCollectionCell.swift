@@ -15,7 +15,15 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             containerView.addShadowToView()
         }
     }
-    @IBOutlet weak var lblTimer: UILabel!
+    @IBOutlet weak var lblTimer: UILabel!{
+        didSet{
+            if let mainColor =  UserDefaults.standard.string(forKey: "mainColor"){
+                lblTimer.textColor = UIColor.white
+                    
+                    //Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblLocation: UILabel!
@@ -38,6 +46,20 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
     var lblPriceHori: UILabel!
     var lblFeature: UILabel!
     var lblBidTimer: UILabel!
+    var butnTimer: UIButton!
+    
+    
+    var futureDate = ""
+    var day: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
+    var second: Int = 0
+    var isEndTime = ""
+
+    
+    
+    
+    
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
     }
@@ -93,6 +115,22 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             lblBidTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 13.0)
             
             contentView.addSubview(lblBidTimer)
+//            butnTimer = UIButton(frame: CGRect(x: 2, y: 0, width: 100, height: 28))
+////            butnTimer.textAlignment = .center
+//            butnTimer.titleLabel!.textColor = UIColor.white
+//            //            lblBidTimer.text = "Bid Timer"
+//            butnTimer.backgroundColor = Constants.hexStringToUIColor(hex: "#575757")
+//            //bottomalign label
+//            //            lblBidTimer.frame.origin.x = 0
+//            butnTimer.frame.origin.y = 62 + btnTimer.frame.height
+//            //
+//            //            lblBidTimer.frame.origin.x = imageView.frame.width + 18
+//            //            lblBidTimer.frame.origin.y = -8 + lblBidTimer.frame.height
+//
+//
+////            butnTimer.font = UIFont(name:"HelveticaNeue-Bold", size: 13.0)!
+//
+//            contentView.addSubview(butnTimer)
 
             lblTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 28))
             lblTitle.textAlignment = .left
@@ -138,87 +176,37 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
             lblPriceHori.text = "$-223"
             contentView.addSubview(lblPriceHori)
             
+        
+
+        }
+        
+        Timer.every(1.second) {
+            self.countDown(date: self.futureDate)
+            if self.latestHorizontalSingleAd == "horizental" {
+                self.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+            }else{
+                self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+                
+            }
             
         }
-
-//        if latestHorizontalSingleAd   {
-//            //            containerView.backgroundColor = UIColor.systemRed
-//            imgPicture.isHidden = true
-//            lblName.isHidden = true
-//            lblLocation.isHidden = true
-//            lblPrice.isHidden = true
-//            let imageName = "appLogo"
-//            let image = UIImage(named: imageName)
-//            let imageView = UIImageView(image: image!)
-//            imageView.frame = CGRect(x: 2, y: 2, width: 110, height: 125)
-//            contentView.addSubview(imageView)
-//
-//            let lblFeature = UILabel(frame: CGRect(x: 0, y: 0, width: 78, height: 28))
-//            lblFeature.textAlignment = .left
-//            lblFeature.textColor = UIColor.white
-//            lblFeature.text = "Featured"
-//            lblFeature.backgroundColor = UIColor.red
-//            //bottomalign label
-////            lblFeature.frame.origin.x = imageView.frame.width + 18
-////            lblFeature.frame.origin.y = 5 + lblFeature.frame.height
-//            lblFeature.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
-//
-//            //imageView.frame.height
-//            //top right with x = 0
-//            //            label.frame.origin.y = 30
-//            //            label.frame.origin.x = imageView.frame.width - label.frame.width
-//            contentView.addSubview(lblFeature)
-//
-//            let lblTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 28))
-//            lblTitle.textAlignment = .left
-//            lblTitle.textColor = UIColor.black
-//            lblTitle.text = "Ad Title"
-//
-//            //bottomalign label
-//            lblTitle.frame.origin.x = imageView.frame.width + 18
-//            lblTitle.frame.origin.y = 5 + lblTitle.frame.height
-//            lblTitle.font = UIFont(name:"HelveticaNeue-Bold", size: 15.0)
-//
-//            //imageView.frame.height
-//            //top right with x = 0
-//            //            label.frame.origin.y = 30
-//            //            label.frame.origin.x = imageView.frame.width - label.frame.width
-//            contentView.addSubview(lblTitle)
-//            let imageNameLoc = "location"
-//            let imageLoc = UIImage(named: imageNameLoc)
-//            let imageViewLoc = UIImageView(image: imageLoc!)
-//            imageViewLoc.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-//            imageViewLoc.frame.origin.y = 68
-//            imageViewLoc.frame.origin.x = lblLocation.frame.width + (imageViewLoc.frame.width)
-//            contentView.addSubview(imageViewLoc)
-//            let lblLocation = UILabel(frame: CGRect(x: 0, y: 0, width: 210, height: 28))
-//            lblLocation.textAlignment = .left
-//            //                        lblLocation.backgroundColor = UIColor.blue
-//            lblLocation.textColor = UIColor.lightGray
-//            lblLocation.font = lblLocation.font.withSize(15)
-//            lblLocation.center.x = lblTitle.center.x - 3
-//            lblLocation.numberOfLines = 2
-//            lblLocation.frame.origin.y = lblTitle.frame.origin.y + (lblLocation.frame.height) + 6
-//            lblLocation.text = "Model Town Link Road Lahore Punjab Pakistan"
-//            contentView.addSubview(lblLocation)
-//
-//            let lblPrice = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 28))
-//            lblPrice.textAlignment = .left
-//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-//                lblPrice.textColor = Constants.hexStringToUIColor(hex: mainColor)
-//            }
-//
-//            lblPrice.center.x = lblTitle.center.x - 3
-//            lblPrice.frame.origin.y = imageViewLoc.frame.origin.y + (lblPrice.frame.height) + 2
-//            lblPrice.text = "$-223"
-//            contentView.addSubview(lblPrice)
-//
-//
-//        }
-        
-        
-        
-        
-        
     }
+    //MARK:- Counter
+               func countDown(date: String) {
+                   
+                   let calendar = Calendar.current
+                   let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
+                   let dateFormatter = DateFormatter()
+                   dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                   let timeNow = Date()
+                   guard let dateis = dateFormatter.date(from: date) else {
+                       return
+                   }
+                   let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
+                   day = timeDifference.day!
+                   hour = timeDifference.hour!
+                   minute = timeDifference.minute!
+                   second = timeDifference.second!
+
+               }
 }

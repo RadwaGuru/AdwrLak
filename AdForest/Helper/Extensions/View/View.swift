@@ -89,6 +89,16 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func marveladdShadowToView() {
+        backgroundColor = UIColor.white
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOpacity = 1
+        layer.shadowOffset = CGSize.zero
+        layer.shadowRadius = 2
+        layer.cornerRadius = 10
+    }
+}
 
 
 //class BubbleView: UIView {

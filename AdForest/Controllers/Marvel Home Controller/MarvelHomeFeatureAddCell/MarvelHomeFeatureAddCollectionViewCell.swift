@@ -16,7 +16,7 @@ class MarvelHomeFeatureAddCollectionViewCell: UICollectionViewCell {
                 lblPrice.textColor = Constants.hexStringToUIColor(hex: mainColor)
             }
         }
-
+        
     }
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
@@ -27,43 +27,90 @@ class MarvelHomeFeatureAddCollectionViewCell: UICollectionViewCell {
         }
         
     }
-
     
+    
+    @IBOutlet weak var lblTimer: UILabel!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                lblTimer.textColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var btnViewAd: UIButton!
     @IBOutlet weak var locationIcon: UIImageView!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
                 locationIcon.image = locationIcon.image?.withRenderingMode(.alwaysTemplate)
                 locationIcon.tintColor = UIColor(hex: mainColor)
-
-
+                
+                
             }
             
         }
         
     }
     
-    @IBOutlet weak var featuredStarImg: UIImageView!
+    @IBOutlet weak var featuredStarImg: UIImageView!{
+        didSet{
+        featuredStarImg.featuredRoundCorners(.topRight, radius: 5)
+        }
+    }
     @IBOutlet weak var containerView: UIView!{
         didSet{
-//            containerView.backgroundColor = UIColor.clear
+            //            containerView.backgroundColor = UIColor.clear
             containerView.addShadowToView()
             containerView.marvelRoundCorners()
             
-
+            
         }
     }
-   
     
-    
-    
-    
-    override class func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    var futureDate = ""
+    var day: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
+    var second: Int = 0
+    var isEndTime = ""
 
-    var btnFullAction: (()->())?
-       @IBAction func actionFullButton(_ sender: Any) {
-           self.btnFullAction?()
+    var hourStr = ""
+    var minStr = ""
+    var secStr = ""
+    var dayStr = ""
+
+    override func awakeFromNib() {
+           super.awakeFromNib()
+           Timer.every(1.second) {
+               self.countDown(date: self.futureDate)
+               self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"
+           }
        }
+       
+       //MARK:- Counter
+       func countDown(date: String) {
+           
+           let calendar = Calendar.current
+           let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           let timeNow = Date()
+           guard let dateis = dateFormatter.date(from: date) else {
+               return
+           }
+           let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
+           day = timeDifference.day!
+           hour = timeDifference.hour!
+           minute = timeDifference.minute!
+           second = timeDifference.second!
+           
+       }
+   
+    var btnFullAction: (()->())?
+    @IBAction func actionFullButton(_ sender: Any) {
+        self.btnFullAction?()
+    }
+    
+    
+  
 }
+
+    

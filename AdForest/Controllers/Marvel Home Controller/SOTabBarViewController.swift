@@ -8,11 +8,13 @@
 
 import UIKit
 import SOTabBar
-
+import FanMenu
+import Macaw
 class SOTabBarViewController: SOTabBarController {
     var defaults = UserDefaults.standard
     var barButtonItems = [UIBarButtonItem]()
     let searchBarNavigation = UISearchBar()
+    var fanMenu: FanMenu!
 
     override func loadView() {
         super.loadView()
@@ -31,10 +33,10 @@ class SOTabBarViewController: SOTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
+//        self.navigationItem.title = "Marvel Home"
         self.delegate = self
         let homeStoryboard = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MarvelHomeViewController")
         let chatStoryboard = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AdvancedSearchController")
@@ -50,12 +52,89 @@ class SOTabBarViewController: SOTabBarController {
         
         viewControllers = [homeStoryboard, chatStoryboard,sleepStoryboard,musicStoryboard,meStoryboard]
         
-        
-        
-        
-    }
+ 
+     }
     
-    
+        func navigationButtons() {
+            
+            //Home Button
+    //
+            let HomeButton = UIButton(type: .custom)
+            let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
+            HomeButton.setBackgroundImage(ho, for: .normal)
+            HomeButton.tintColor = UIColor.white
+            HomeButton.setImage(ho, for: .normal)
+            //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+            //            HomeButton.isHidden = true
+            //        }
+            if #available(iOS 11, *) {
+                searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            } else {
+                HomeButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            }
+    //        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+            let homeItem = UIBarButtonItem(customView: HomeButton)
+            if defaults.bool(forKey: "showHome") {
+                barButtonItems.append(homeItem)
+                //self.barButtonItems.append(homeItem)
+            }
+            
+                    //Location Search
+                    let locationButton = UIButton(type: .custom)
+                    if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+                        locationButton.isHidden = true
+                    }
+            
+                    if #available(iOS 11, *) {
+                        locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                        locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                    }
+                    else {
+                        locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+                    }
+                    let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
+                    locationButton.setBackgroundImage(image, for: .normal)
+                    locationButton.tintColor = UIColor.white
+            //        locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
+                    let barButtonLocation = UIBarButtonItem(customView: locationButton)
+                    if defaults.bool(forKey: "showNearBy") {
+                        self.barButtonItems.append(barButtonLocation)
+                    }
+                    //Search Button
+                    let searchButton = UIButton(type: .custom)
+                    //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+                    //           searchButton.isHidden = true
+                    //       }
+                    if defaults.bool(forKey: "advanceSearch") == true{
+                        let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
+                        searchButton.setBackgroundImage(con, for: .normal)
+                        searchButton.tintColor = UIColor.white
+                        searchButton.setImage(con, for: .normal)
+                    }else{
+                        let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
+                        searchButton.setBackgroundImage(con, for: .normal)
+                        searchButton.tintColor = UIColor.white
+                        searchButton.setImage(con, for: .normal)
+                    }
+            
+                    if #available(iOS 11, *) {
+                        searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                        searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                    } else {
+                        searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                    }
+            //        searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
+                    let searchItem = UIBarButtonItem(customView: searchButton)
+                    if defaults.bool(forKey: "showSearch") {
+                        barButtonItems.append(searchItem)
+                        //self.barButtonItems.append(searchItem)
+                    }
+            
+            self.navigationItem.rightBarButtonItems = barButtonItems
+            
+        }
+
     /*
      // MARK: - Navigation
      
@@ -65,88 +144,13 @@ class SOTabBarViewController: SOTabBarController {
      // Pass the selected object to the new view controller.
      }
      */
-    func navigationButtons() {
-        
-        //Home Button
-        let HomeButton = UIButton(type: .custom)
-        let ho = UIImage(named: "plus")?.withRenderingMode(.alwaysTemplate)
-        HomeButton.setBackgroundImage(ho, for: .normal)
-        HomeButton.tintColor = UIColor.white
-        HomeButton.setImage(ho, for: .normal)
-        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //            HomeButton.isHidden = true
-        //        }
-        if #available(iOS 11, *) {
-            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        } else {
-            HomeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        }
-        //        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
-        let homeItem = UIBarButtonItem(customView: HomeButton)
-        if defaults.bool(forKey: "showHome") {
-            barButtonItems.append(homeItem)
-            //self.barButtonItems.append(homeItem)
-        }
-        
-        //        //Location Search
-        //        let locationButton = UIButton(type: .custom)
-        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //            locationButton.isHidden = true
-        //        }
-        //
-        //        if #available(iOS 11, *) {
-        //            locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        //            locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        //        }
-        //        else {
-        //            locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        //        }
-        //        let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
-        //        locationButton.setBackgroundImage(image, for: .normal)
-        //        locationButton.tintColor = UIColor.white
-        ////        locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
-        //        let barButtonLocation = UIBarButtonItem(customView: locationButton)
-        //        if defaults.bool(forKey: "showNearBy") {
-        //            self.barButtonItems.append(barButtonLocation)
-        //        }
-        //        //Search Button
-        //        let searchButton = UIButton(type: .custom)
-        //        //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //        //           searchButton.isHidden = true
-        //        //       }
-        //        if defaults.bool(forKey: "advanceSearch") == true{
-        //            let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
-        //            searchButton.setBackgroundImage(con, for: .normal)
-        //            searchButton.tintColor = UIColor.white
-        //            searchButton.setImage(con, for: .normal)
-        //        }else{
-        //            let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
-        //            searchButton.setBackgroundImage(con, for: .normal)
-        //            searchButton.tintColor = UIColor.white
-        //            searchButton.setImage(con, for: .normal)
-        //        }
-        //
-        //        if #available(iOS 11, *) {
-        //            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        //            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        //        } else {
-        //            searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //        }
-        ////        searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
-        //        let searchItem = UIBarButtonItem(customView: searchButton)
-        //        if defaults.bool(forKey: "showSearch") {
-        //            barButtonItems.append(searchItem)
-        //            //self.barButtonItems.append(searchItem)
-        //        }
-        
-        self.navigationItem.rightBarButtonItems = barButtonItems
-        
-    }
-
+   
 }
+
 extension SOTabBarViewController: SOTabBarControllerDelegate {
     func tabBarController(_ tabBarController: SOTabBarController, didSelect viewController: UIViewController) {
         print(viewController.tabBarItem.title ?? "")
+        
+        
     }
 }

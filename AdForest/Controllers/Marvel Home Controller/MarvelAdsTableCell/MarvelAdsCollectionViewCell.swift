@@ -46,12 +46,65 @@ class MarvelAdsCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    static let identifier = "MarvelAdsCollectionViewCell"
 
+    @IBOutlet weak var lblTimer: UILabel!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                lblTimer.textColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var btnViewAll: UIButton!
+    var futureDate = ""
+    var day: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
+    var second: Int = 0
+    var isEndTime = ""
+
+    var hourStr = ""
+    var minStr = ""
+    var secStr = ""
+    var dayStr = ""
     var btnFullAction: (()->())?
+    
+    
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
     }
+    
+    
+
+      override func awakeFromNib() {
+             super.awakeFromNib()
+             Timer.every(1.second) {
+                 self.countDown(date: self.futureDate)
+                 self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"
+             }
+         }
+         
+         //MARK:- Counter
+         func countDown(date: String) {
+             
+             let calendar = Calendar.current
+             let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
+             let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+             let timeNow = Date()
+             guard let dateis = dateFormatter.date(from: date) else {
+                 return
+             }
+             let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
+             day = timeDifference.day!
+             hour = timeDifference.hour!
+             minute = timeDifference.minute!
+             second = timeDifference.second!
+             
+         }
+    
+    
+    
+    
+    
 
 }

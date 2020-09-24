@@ -10,13 +10,14 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
+import MapKit
 
 
 protocol SearchAutoDelegate {
     func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String)
 }
 
-class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate {
+class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate,CLLocationManagerDelegate,latLongitudePro {
     
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView! {
@@ -35,9 +36,15 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     var fieldName = ""
     var delegate : SearchAutoDelegate?
     var index = 0
-    var fieldTypeNam = ""
-    
-    
+    var fieldTypeNam = "ad_location"
+    var MapBoxPlaces  = true
+//    var latitude = ""
+//    var longitude = ""
+    var latitude : Double!
+    var longitude : Double!
+    var fullAddress = ""
+    let locationManager = CLLocationManager()
+
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,6 +55,8 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         } else {
             txtAutoComplete.textAlignment = .left
         }
+        self.currentUserlocationManager()
+        
     }
     
     func adjustUITextViewHeight(arg : UITextView)
@@ -60,9 +69,15 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     //MARK:- Text Field Delegate Method
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let searchVC = GMSAutocompleteViewController()
-        searchVC.delegate = self
-        self.window?.rootViewController?.present(searchVC, animated: true, completion: nil)
+       
+        if MapBoxPlaces {
+            loadPlacesorMapbox()
+        }
+        else{
+            let searchVC = GMSAutocompleteViewController()
+            searchVC.delegate = self
+            self.window?.rootViewController?.present(searchVC, animated: true, completion: nil)
+        }
     }
     
     // Google Places Delegate Methods
@@ -81,4 +96,94 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         self.appDel.dissmissController()
     }
+
+    func currentUserlocationManager(){
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            self.latitude =  locationManager.location?.coordinate.latitude
+            self.longitude =  locationManager.location?.coordinate.longitude
+            if (self.latitude != nil) && self.longitude != nil{
+              getAddressFromLatLon(pdblLatitude: String(self.latitude), withLongitude: String(self.longitude))
+            }
+        }
+    }
+    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = Double("\(pdblLatitude)")!
+        //21.228124
+        let lon: Double = Double("\(pdblLongitude)")!
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
+                    }
+                    if pm.thoroughfare != nil {
+                        addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+                    if pm.postalCode != nil {
+                        addressString = addressString + pm.postalCode! + " "
+                    }
+                    
+                    
+                    print(addressString)
+                    self.fullAddress = addressString
+                    self.txtAutoComplete.text = addressString
+                    self.delegate?.searchAutoValue(searchAuto:addressString , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam)
+                    
+                }
+        })
+        
+    }
+    func loadPlacesorMapbox(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mapBoxPlaceVc = storyboard.instantiateViewController(withIdentifier: MapBoxPlacesViewController.className) as! MapBoxPlacesViewController
+        mapBoxPlaceVc.delegate = self
+        mapBoxPlaceVc.modalPresentationStyle = .fullScreen
+        self.window?.rootViewController!.present(mapBoxPlaceVc, animated: true, completion: nil)
+ }
+    func latLong(lat: String, long: String,place:String) {
+        print(place)
+        self.txtAutoComplete.text = place
+        self.delegate?.searchAutoValue(searchAuto:place , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam)
+    }
+
+
 }

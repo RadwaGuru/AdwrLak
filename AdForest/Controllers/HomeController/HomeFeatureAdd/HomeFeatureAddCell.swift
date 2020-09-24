@@ -45,7 +45,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        self.startTimer()
+//        self.startTimer()
         self.layoutLatest()
         self.layoutHorizontalSingleAd()
         
@@ -117,28 +117,16 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
                     cell.imageView.sd_setShowActivityIndicatorView(true)
                     cell.imageView.sd_setIndicatorStyle(.gray)
                     cell.imageView.sd_setImage(with: imgUrl, completed: nil)
-                    
                 }
             }
             
             if let name = objData.adTitle {
                 cell.lblTitle.text = name
-                let word = objData.adTimer.timer
                 if objData.adTimer.isShow {
-                    let first10 = String(word!.prefix(10))
-                    print(first10)
+                    cell.futureDate = objData.adTimer.timer
+
                     cell.lblTimer.isHidden = true
                     cell.lblBidTimer.isHidden = false
-                    
-                    if first10 != ""{
-                        let endDate = first10
-                        self.isEndTime = endDate
-                        Timer.every(1.second) {
-                            self.countDown(date: endDate)
-                            cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                            
-                        }
-                    }
                 }else{
                     cell.lblBidTimer.isHidden = true
                 }
@@ -168,7 +156,15 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
             }
             if let name = objData.adTitle {
                 cell.lblName.text = name
+                if objData.adTimer.isShow {
+                    cell.futureDate = objData.adTimer.timer
+                    
+                    cell.lblTimer.isHidden = false
+                }else{
+                    cell.lblTimer.isHidden = true
+                }
             }
+           
             if let location = objData.adLocation.address {
                 cell.lblLocation.text = location
             }
@@ -183,20 +179,10 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
             cell.btnFullAction = { () in
                 self.delegate?.goToAddDetail(ad_id: objData.adId)
             }
-            let word = objData.adTimer.timer
             if objData.adTimer.isShow {
-                let first10 = String(word!.prefix(10))
-                print(first10)
+                cell.futureDate = objData.adTimer.timer
                 cell.lblTimer.isHidden = false
                 
-                if first10 != ""{
-                    let endDate = first10
-                    self.isEndTime = endDate
-                    Timer.every(1.second) {
-                        self.countDown(date: endDate)
-                        cell.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                    }
-                }
             }else{
                 cell.lblTimer.isHidden = true
             }
@@ -207,23 +193,6 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     func validateIFSC(code : String) -> Bool {
         let regex = try! NSRegularExpression(pattern: "^[A-Za-z]{4}0.{6}$")
         return regex.numberOfMatches(in: code, range: NSRange(code.startIndex..., in: code)) == 1
-    }
-    //MARK:- Counter
-    func countDown(date: String) {
-        
-        let calendar = Calendar.current
-        let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let timeNow = Date()
-        guard let dateis = dateFormatter.date(from: date) else {
-            return
-        }
-        let timeDifference = calendar.dateComponents(requestComponents, from: timeNow, to: dateis)
-        day = timeDifference.day!
-        hour = timeDifference.hour!
-        minute = timeDifference.minute!
-        second = timeDifference.second!
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if latestVertical == "vertical" {
@@ -238,12 +207,14 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //        if collectionView.isDragging {
-        //            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
-        //            UIView.animate(withDuration: 0.3, animations: {
-        //                cell.transform = CGAffineTransform.identity
-        //            })
-        //        }
+                        if collectionView.isDragging {
+                    cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+                    UIView.animate(withDuration: 0.3, animations: {
+                        cell.transform = CGAffineTransform.identity
+                        self.collectionView.decelerationRate = 0.5
+                        
+                    })
+                }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

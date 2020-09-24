@@ -17,7 +17,7 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
             containerView.backgroundColor = UIColor.clear
         }
     }
-    @IBOutlet weak var heightConstraintTitle: NSLayoutConstraint!
+    //    @IBOutlet weak var heightConstraintTitle: NSLayoutConstraint!
     
     @IBOutlet weak var heightContraintCollectionView: NSLayoutConstraint!
     @IBOutlet weak var oltViewAll: UIButton!{
@@ -42,11 +42,11 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
     
     var dataArray = [HomeAdd]()
     var delegate : MarvelRelatedAddDetailDelegate?
-//    private var scrollView = UIScrollView.init()
+    //    private var scrollView = UIScrollView.init()
     private var topCollView: DynmicHeightCollectionView!
-
-
-        var btnViewAll :(()->())?
+    
+    
+    var btnViewAll :(()->())?
     //    var day: Int = 0
     //    var hour: Int = 0
     //    var minute: Int = 0
@@ -60,7 +60,7 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.setupViews()
+        //        self.setupViews()
         // Initialization code
     }
     
@@ -69,28 +69,28 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
         
         // Configure the view for the selected state
     }
-      private func setupViews() {
-        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = NSLayoutConstraint.init(item: contentView, attribute: .height, relatedBy: .equal, toItem: self.contentView, attribute: .height, multiplier: 1, constant: 0)
-        heightConstraint.priority = UILayoutPriority.init(200)
-        
-
-        
-        self.contentView.addConstraints([
-          self.contentView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
-          heightConstraint,
-          ])
-               
-        self.topCollView = returnCollView()
-        self.topCollView.register(MarvelAdsCollectionViewCell.self, forCellWithReuseIdentifier: MarvelAdsCollectionViewCell.identifier)
-        self.topCollView.layer.cornerRadius = 5.0
-        self.topCollView.layer.borderColor = #colorLiteral(red: 0.4039215686, green: 0.4666666667, blue: 0.7215686275, alpha: 1).cgColor
-        self.topCollView.layer.borderWidth = 1.25
-        self.topCollView.isDynamicSizeRequired = true
-        
-      }
-
-     private func returnCollView() -> DynmicHeightCollectionView {
+    //      private func setupViews() {
+    //        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+    //        let heightConstraint = NSLayoutConstraint.init(item: contentView, attribute: .height, relatedBy: .equal, toItem: self.contentView, attribute: .height, multiplier: 1, constant: 0)
+    //        heightConstraint.priority = UILayoutPriority.init(200)
+    //
+    //
+    //
+    //        self.contentView.addConstraints([
+    //          self.contentView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+    //          heightConstraint,
+    //          ])
+    //
+    //        self.topCollView = returnCollView()
+    //        self.topCollView.register(MarvelAdsCollectionViewCell.self, forCellWithReuseIdentifier: MarvelAdsCollectionViewCell.identifier)
+    //        self.topCollView.layer.cornerRadius = 5.0
+    //        self.topCollView.layer.borderColor = #colorLiteral(red: 0.4039215686, green: 0.4666666667, blue: 0.7215686275, alpha: 1).cgColor
+    //        self.topCollView.layer.borderWidth = 1.25
+    //        self.topCollView.isDynamicSizeRequired = true
+    //
+    //      }
+    
+    private func returnCollView() -> DynmicHeightCollectionView {
         
         let layout = TokenCollViewFlowLayout.init()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -103,8 +103,8 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
         collView.dataSource = self
         collView.backgroundColor = .clear
         return collView
-      }
-
+    }
+    
     //MARK:- Custom
     
     func reloadData() {
@@ -126,25 +126,16 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
                 
             }
         }
-        //    //            let word = objData.adTimer.timer
-                //            if objData.adTimer.isShow {
-                //                let first10 = String(word!.prefix(10))
-                //                print(first10)
-                //                //                           cell.lblTimer.isHidden = true
-                //                //                           cell.lblBidTimer.isHidden = false
-                //
-                //                if first10 != ""{
-                //                    let endDate = first10
-                //                    self.isEndTime = endDate
-                //                    Timer.every(1.second) {
-                //                        //                                   self.countDown(date: endDate)
-                //                        //                                   cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                //
-                //                    }
-                //                }
-                //            }else{
-                //                //                           cell.lblBidTimer.isHidden = true
-                //            }
+        if objData.adTimer.isShow {
+            cell.futureDate = objData.adTimer.timer
+            cell.dayStr = objData.adTimer.timerStrings.days
+            cell.hourStr = objData.adTimer.timerStrings.hours
+            cell.minStr = objData.adTimer.timerStrings.minutes
+            cell.secStr = objData.adTimer.timerStrings.seconds
+            cell.lblTimer.isHidden = false
+        }else{
+            cell.lblTimer.isHidden = true
+        }
         if let name = objData.adTitle {
             cell.lblTitle.text = name
         }

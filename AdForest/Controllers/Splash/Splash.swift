@@ -288,7 +288,6 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.synchronize()
 //                self.appDelegate.moveToHome()
                 self.appDelegate.moveToMarvelHome()
-//                SOTabBarViewController
 
             }
             else {

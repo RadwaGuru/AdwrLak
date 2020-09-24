@@ -8,9 +8,14 @@
 
 import UIKit
 import NVActivityIndicatorView
-class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate {
+import FanMenu
+import Macaw
+class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate {
     
     
+    
+    
+    @IBOutlet weak var fanMenuview: FanMenu!
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -91,11 +96,13 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
     var latColHeight: Double = 0
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
+    var nearByColHeight: Double = 0
+
     var showVertical:Bool = false
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    
-    
+    var showDefaultAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+
     
     
     
@@ -108,6 +115,12 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.showLoader()
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
+//        self.hoverItem()
+//        self.navigationController?.navigationBarColor = Constants.hexStringToUIColor(hex: "#09182d")
+//        self.navigationController?.navigationBar.backgroundColor = Constants.hexStringToUIColor(hex: "#09182d")
+        self.navigationController?.navigationBar.barTintColor =  Constants.hexStringToUIColor(hex: "#09182d")
+//        self.navigationBarColor =  Constants.hexStringToUIColor(hex: "#09182d")
+
     }
     
     
@@ -153,30 +166,114 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         blogDetailVC.post_id = ID
         self.navigationController?.pushViewController(blogDetailVC, animated: true)
     }
+    //MARK:- Near by search Delaget method
+    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
+        self.latitude = lat
+        self.longitude = long
+        self.searchDistance = searchDistance
+        if isSearch {
+            let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        } else {
+            let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        }
+    }
+    func hoverItem(){
 
+        fanMenuview.button = FanMenuButton(
+                          id: "main",
+                          image: UIImage(named: "plus"),
+                          color: Color.white
+
+            //Constants.hexStringToUIColor(hex: bgColor)
+
+            //Color.white
+                )
+                fanMenuview.items = [
+                    FanMenuButton(
+                        id: "home",
+                        image: "homerunPlus",
+                        color: Color.white
+                    ),
+
+                    FanMenuButton(
+                        id: "nearby",
+                        image: "locationPlus",
+                        color: Color.white
+                    ), FanMenuButton(
+                        id: "advancedsearch",
+                        image: "filterPlus",
+                        color: Color.white
+                    )
+                ]
+        //        fanMeniView.menuRadius = 90.0
+        //        fanMeniView.duration = 0.2
+        //        fanMeniView.delay = 0.05
+//                fanMeniView.interval = (Double.pi, 2 * Double.pi)
+                fanMenuview.menuRadius = 50.0
+                fanMenuview.duration = 0.2
+//                fanMenuview.interval = (Double.pi + Double.pi/4, Double.pi + 3 * Double.pi/4)
+
+        fanMenuview.interval = (Double.pi, 1.5 * Double.pi)
+                fanMenuview.radius = 15.0
+        
+                fanMenuview.transform = CGAffineTransform(rotationAngle: CGFloat(3 * Double.pi/2.0))
+        
+                fanMenuview.onItemDidClick = { button in
+                    print("ItemDidClick: \(button.id)")
+                    if button.id == "home" {
+                        self.appDelegate.moveToMarvelHome()
+                    }
+                    if button.id == "nearby" {
+                        let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
+                        locationVC.delegate = self
+                        self.view.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+                        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+                            self.view.transform = .identity
+                        }) { (success) in
+                            self.navigationController?.pushViewController(locationVC, animated: true)
+                        }
+                    }
+                    if button.id == "advancedsearch" {
+
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
+                        self.pushVC(proVc, completion: nil)
+                    }
+                }
+
+                fanMenuview.onItemWillClick = { button in
+                    print("ItemWillClick: \(button.id)")
+      
+                }
+    }
     func navigationButtons() {
         
         //Home Button
-        let HomeButton = UIButton(type: .custom)
-        let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
-        HomeButton.setBackgroundImage(ho, for: .normal)
-        HomeButton.tintColor = UIColor.white
-        HomeButton.setImage(ho, for: .normal)
-        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //            HomeButton.isHidden = true
-        //        }
-        if #available(iOS 11, *) {
-            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        } else {
-            HomeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        }
-        //        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
-        let homeItem = UIBarButtonItem(customView: HomeButton)
-        if defaults.bool(forKey: "showHome") {
-            barButtonItems.append(homeItem)
-            //self.barButtonItems.append(homeItem)
-        }
+//
+//        let HomeButton = UIButton(type: .custom)
+//        let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
+//        HomeButton.setBackgroundImage(ho, for: .normal)
+//        HomeButton.tintColor = UIColor.white
+//        HomeButton.setImage(ho, for: .normal)
+//        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//        //            HomeButton.isHidden = true
+//        //        }
+//        if #available(iOS 11, *) {
+//            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        } else {
+//            HomeButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+//        }
+////        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+//        let homeItem = UIBarButtonItem(customView: HomeButton)
+//        if defaults.bool(forKey: "showHome") {
+//            barButtonItems.append(homeItem)
+//            //self.barButtonItems.append(homeItem)
+//        }
         
         //        //Location Search
         //        let locationButton = UIButton(type: .custom)
@@ -232,7 +329,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationItem.rightBarButtonItems = barButtonItems
         
     }
-    
+  
     //MARK:- Delegate Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         if isAdPositionSort {
@@ -297,7 +394,8 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 }
             } else if position == "nearby" {
                 if isShowNearby {
-                    height = 270
+//                    height = 270
+                    height = CGFloat(nearByColHeight) + 70
                 } else {
                     height = 0
                 }
@@ -305,9 +403,13 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 if dataArray.isEmpty {
                     height = 0
                 }
-//                else if showVerticalAds == "vertical" {
-//                    height = CGFloat(SliderColHeight) + 70
-//                } else if latestHorizontalSingleAd == "horizental"{
+                else if showVerticalAds == "vertical" {
+                    height = CGFloat(SliderColHeight) + 70
+                }else if  showDefaultAds == "default"{
+                    height = CGFloat(290 + heightConstraintTitlead)
+
+                }
+//                else if latestHorizontalSingleAd == "horizental"{
 //                    height = CGFloat(SliderColHeight) + 70
 //
 //                }
@@ -337,6 +439,9 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                     if featuredArray.isEmpty {
                         height = 0
                     }
+                    else if showDefaultAds == "default"{
+                        height = 270
+                    }
                     else {
                         height = CGFloat(fetColHeight) + 70
                         
@@ -348,11 +453,17 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             else if position ==  "latest_ads" {
                 if self.isShowLatest {
                     print(latColHeight)
-                height = CGFloat(latColHeight) + 70
-            } else {
-
-                height = 0
-            }
+                    if showDefaultAds == "default"{
+                        height = 270
+                    }
+                    else {
+                        height = CGFloat(latColHeight) + 70
+                        
+                    }
+                } else {
+                    
+                    height = 0
+                }
             }
             
         }
@@ -648,6 +759,45 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 cell.collectionView.reloadData()
                 return cell
             case "featured_ads":
+                if showVerticalAds == "vertical"  {
+                    if isShowFeature {
+                        let cell: MarvelFeatureVerticalTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelFeatureVerticalTableViewCell", for: indexPath) as! MarvelFeatureVerticalTableViewCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        if let sectionTitle = data?.featuredAds.text {
+                            cell.lblSectionTitle.text = sectionTitle
+                        }
+                        cell.heightConstraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
+
+                        fetColHeight = Double(cell.heightConstraintCollectionView.constant)
+                        
+                        cell.dataArray = featuredArray
+                        cell.delegate = self
+                        cell.collectionView.reloadData()
+                        return cell
+                        
+                        
+                    }
+                }
+                else if showDefaultAds == "default"{
+                    if isShowFeature {
+                        let cell: HomeFeatureAddCell = tableView.dequeueReusableCell(withIdentifier: "HomeFeatureAddCell", for: indexPath) as! HomeFeatureAddCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        if let sectionTitle = data?.featuredAds.text {
+                            cell.lblTitle.text = sectionTitle
+                        }
+                        cell.dataArray = featuredArray
+                        cell.delegate = self
+                        fetColHeight = Double(cell.collectionView.contentSize.height)
+                        print(latColHeight)
+                        if latestHorizontalSingleAd == "horizental" {
+                            fetColHeight = Double(cell.collectionView.contentSize.height)
+                        }
+                        cell.collectionView.reloadData()
+                        return cell
+                    }
+                }
+                else if latestHorizontalSingleAd == "horizental"{
+
                 if isShowFeature {
                     
                     let cell: MarvelHomeFeatureAddCell = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeFeatureAddCell", for: indexPath) as! MarvelHomeFeatureAddCell
@@ -662,64 +812,184 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                     cell.collectionView.reloadData()
                     return cell
                     
+                    }
+                    
                 }
             case "latest_ads":
-                if isShowLatest {
-                    let cell: MarvelHomeLatestAddTableCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeLatestAddTableCell", for: indexPath) as! MarvelHomeLatestAddTableCell
+                if showVerticalAds == "vertical"  {
+                    if isShowLatest{
+                        let cell: MarvelHomeLatestVerticalDefaultTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeLatestVerticalDefaultTableViewCell", for: indexPath) as! MarvelHomeLatestVerticalDefaultTableViewCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        let objData = AddsHandler.sharedInstance.objLatestAds
+                        if let sectionTitle = objData?.text {
+                                                cell.lblSectionTitle.text = sectionTitle
+                                            }
+                                            if let viewAllText = data?.viewAll {
+                                                cell.OltViewAll.setTitle(viewAllText, for: .normal)
+                                            }
+                                            cell.btnViewAll = { () in
+                                                let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                                                self.navigationController?.pushViewController(categoryVC, animated: true)
+                                            }
+                                            cell.delegate = self
+                                            cell.dataArray = self.latestAdsArray
+                                            print(cell.dataArray.count)
+                                            cell.heightConstraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
+                                            latColHeight = Double(cell.heightConstraintCollectionView.constant)
+                                              print(latColHeight)
+
+                                            cell.collectionView.reloadData()
+                                            return cell
+                    }
+                }
+               else if  showDefaultAds == "default"{
+                    if isShowLatest{
+                        let cell: LatestAddsCell  = tableView.dequeueReusableCell(withIdentifier: "LatestAddsCell", for: indexPath) as! LatestAddsCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        let objData = AddsHandler.sharedInstance.objLatestAds
+                        
+                        if let sectionTitle = objData?.text {
+                            cell.lblTitle.text = sectionTitle
+                        }
+                        if let viewAllText = data?.viewAll {
+                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.btnViewAll = { () in
+                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                            self.navigationController?.pushViewController(categoryVC, animated: true)
+                        }
+                        cell.delegate = self
+                        cell.dataArray = self.latestAdsArray
+                        heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
+                        latColHeight = Double(cell.collectionView.contentSize.height)
+                        print(latColHeight)
+                        if latestHorizontalSingleAd == "horizental" {
+                            latColHeight = Double(cell.collectionView.contentSize.height)
+                        }
+                        cell.collectionView.reloadData()
+                        return cell
+                    }
+                }
+                else if latestHorizontalSingleAd == "horizental"{
+                    if isShowLatest {
+                        let cell: MarvelHomeLatestAddTableCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeLatestAddTableCell", for: indexPath) as! MarvelHomeLatestAddTableCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        let objData = AddsHandler.sharedInstance.objLatestAds
+                        
+                        if let sectionTitle = objData?.text {
+                            cell.lblSectionTitle.text = sectionTitle
+                        }
+                        if let viewAllText = data?.viewAll {
+                            cell.OltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.btnViewAll = { () in
+                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                            self.navigationController?.pushViewController(categoryVC, animated: true)
+                        }
+                        cell.delegate = self
+                        cell.dataArray = self.latestAdsArray
+                        //                                    heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
+                        //                    latColHeight = Double(cell.collectionView.contentSize.height)
+                        //                    print(latColHeight)
+                        //
+                        //                    cell.height = CGFloat(latColHeight)
+                        //                    latColHeight = Double(self.latestAdsArray.)
+                        print(cell.dataArray.count)
+                        
+                        //                    latColHeight = Double(cell.dataArray.count)
+                        //latColHeight = Double(cell.collectionView.contentSize.height)
+                        cell.heightConstraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
+                        latColHeight = Double(cell.heightConstraintCollectionView.constant)
+                        print(latColHeight)
+                        
+                        cell.collectionView.reloadData()
+                        return cell
+                    }
+                }
+            case "cat_locations":
+                let cell: MarvelHomeLocationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeLocationTableViewCell", for: indexPath) as! MarvelHomeLocationTableViewCell
+                let data = AddsHandler.sharedInstance.objHomeData
+                
+                if self.isShowLocationButton {
+                    cell.btnViewLocAds.isHidden = false
+                    if let viewAllText = data?.catLocationsBtn.text {
+                        cell.btnViewLocAds.setTitle(viewAllText, for: .normal)
+                    }
+                    //                                    cell.btnViewAction = { () in
+                    //                                        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
+                    //                                        self.navigationController?.pushViewController(detailVC, animated: true)
+                    //                                    }
+                } else {
+                    cell.btnViewLocAds.isHidden = true
+                }
+                cell.lblSectionTitle.text = catLocationTitle
+                cell.dataArray = catLocationsArray
+                cell.delegate = self
+                print(catLocationsArray)
+                cell.pagerView.reloadData()
+                
+                            return cell
+            case "sliders":
+                if showVerticalAds == "vertical"  {
+                    print(showVerticalAds)
+                    let cell: MarvelVerticalSLiderAdsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelVerticalSLiderAdsTableViewCell", for: indexPath) as! MarvelVerticalSLiderAdsTableViewCell
+                    let objData = dataArray[indexPath.row]
                     let data = AddsHandler.sharedInstance.objHomeData
-                    let objData = AddsHandler.sharedInstance.objLatestAds
-                    
-                    if let sectionTitle = objData?.text {
+                    if let sectionTitle = objData.name {
                         cell.lblSectionTitle.text = sectionTitle
                     }
                     if let viewAllText = data?.viewAll {
                         cell.OltViewAll.setTitle(viewAllText, for: .normal)
                     }
+                    
                     cell.btnViewAll = { () in
                         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                        categoryVC.categoryID = objData.catId
                         self.navigationController?.pushViewController(categoryVC, animated: true)
                     }
-                    cell.delegate = self
-                    cell.dataArray = self.latestAdsArray
-                    //                                    heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
-//                    latColHeight = Double(cell.collectionView.contentSize.height)
-//                    print(latColHeight)
-                    //
-//                    cell.height = CGFloat(latColHeight)
-//                    latColHeight = Double(self.latestAdsArray.)
-                    print(cell.dataArray.count)
+                    cell.dataArray = objData.data
+                    cell.heightConstaraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
                     
-//                    latColHeight = Double(cell.dataArray.count)
-                    //latColHeight = Double(cell.collectionView.contentSize.height)
-                    cell.heightConstraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
-                    latColHeight = Double(cell.heightConstraintCollectionView.constant)
-                      print(latColHeight)
-
-                    cell.collectionView.reloadData()
+                    SliderColHeight = Double(cell.heightConstaraintCollectionView.constant)
+                    print(SliderColHeight)
+                    
+                    cell.delegate = self
+                    cell.reloadData()
+                
                     return cell
                 }
-            case "cat_locations":
-                                let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
-                                let data = AddsHandler.sharedInstance.objHomeData
+                else if  showDefaultAds == "default"{
+                let cell: AddsTableCell  = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
+                let objData = dataArray[indexPath.row]
+                let data = AddsHandler.sharedInstance.objHomeData
                 
-                                if self.isShowLocationButton {
-                                    cell.oltViewAll.isHidden = false
-                                    if let viewAllText = data?.catLocationsBtn.text {
-                                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                                    }
-                                    cell.btnViewAction = { () in
-                                        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
-                                        self.navigationController?.pushViewController(detailVC, animated: true)
-                                    }
-                                } else {
-                                    cell.oltViewAll.isHidden = true
-                                }
-                                cell.lblTitle.text = catLocationTitle
-                                cell.dataArray = catLocationsArray
-                                cell.delegate = self
-                                cell.collectionView.reloadData()
-                            return cell
-            case "sliders":
+                if let sectionTitle = objData.name {
+                    cell.lblSectionTitle.text = sectionTitle
+                }
+                if let viewAllText = data?.viewAll {
+                    cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                }
+                
+                cell.btnViewAll = { () in
+                    let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                    categoryVC.categoryID = objData.catId
+                    self.navigationController?.pushViewController(categoryVC, animated: true)
+                }
+                SliderColHeight = Double(cell.collectionView.contentSize.height)
+                
+                print(SliderColHeight)
+                cell.dataArray = objData.data
+                cell.delegate = self
+                
+                heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
+                
+                cell.reloadData()
+                return cell
+                
+                
+                }
+                else if latestHorizontalSingleAd == "horizental"{
+
                 let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
                 let objData = dataArray[indexPath.row]
                 let data = AddsHandler.sharedInstance.objHomeData
@@ -738,39 +1008,64 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 }
                 cell.dataArray = objData.data
                 
-                    cell.heightContraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
-                    SliderColHeight = Double(cell.heightContraintCollectionView.constant)
-                    print(SliderColHeight)
-                    
-                
-                
-                
-                
+                cell.heightContraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
+                SliderColHeight = Double(cell.heightContraintCollectionView.constant)
+                print(SliderColHeight)
                 
                 cell.delegate = self
                 
 //                heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
                 
                 cell.reloadData()
-                return cell
+                    return cell
+                    
+                }
             case "nearby":
-                                if self.isShowNearby {
-                                    let cell: AddsTableCell = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
-                                    let data = AddsHandler.sharedInstance.objHomeData
-                
-                                    if let viewAllText = data?.viewAll {
-                                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                                    }
-                                    cell.btnViewAll = { () in
-                                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                                        self.navigationController?.pushViewController(categoryVC, animated: true)
-                                    }
-                                    cell.delegate = self
-                                    cell.lblSectionTitle.text = self.nearByTitle
-                                    cell.dataArray = self.nearByAddsArray
-                                    cell.collectionView.reloadData()
-                                    return cell
-                            }
+                if self.isShowNearby {
+                    let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
+                    let data = AddsHandler.sharedInstance.objHomeData
+                    
+                    if let viewAllText = data?.viewAll {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    cell.btnViewAll = { () in
+                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                        self.navigationController?.pushViewController(categoryVC, animated: true)
+                    }
+                    cell.delegate = self
+                    cell.lblSectionTitle.text = self.nearByTitle
+                    cell.dataArray = self.nearByAddsArray
+                 
+                    nearByColHeight = Double(cell.collectionView.contentSize.height)
+                    cell.heightContraintCollectionView.constant = CGFloat(Double(cell.collectionView.contentSize.height))
+                    nearByColHeight = Double(cell.heightContraintCollectionView.constant)
+                    print(nearByColHeight)
+                    cell.collectionView.reloadData()
+                    return cell
+//                cell.delegate = self
+//                cell.reloadData()
+//                                        let cell: AddsTableCell = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
+//                                        let data = AddsHandler.sharedInstance.objHomeData
+//
+//                                        if let viewAllText = data?.viewAll {
+//                                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+//                                        }
+//                                        cell.btnViewAll = { () in
+//                                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+//                                            self.navigationController?.pushViewController(categoryVC, animated: true)
+//                                        }
+//                                        cell.delegate = self
+//                                        cell.lblSectionTitle.text = self.nearByTitle
+//                                        cell.dataArray = self.nearByAddsArray
+//                    //                    if latestHorizontalSingleAd == "horizental" {
+//                    //                        nearbyColHeight = Double(cell.collectionView.contentSize.height)
+//                    //                    }else{
+//                                        nearbyColHeight = Double(cell.collectionView.contentSize.height)
+//                    //                    }
+//                                        cell.collectionView.reloadData()
+//                                        return cell
+
+                }
             default:
                 break
             }
@@ -1159,7 +1454,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 
                 self.tableView.reloadData()
 
-                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height)
                 self.tableView.setContentOffset(scrollPoint, animated: true)
                 self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
                 
@@ -1182,5 +1477,28 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.tableView.setContentOffset(scrollPoint, animated: true)
         
     }
-    
+    //MARK:- Near By Search
+    func adForest_nearBySearch(param: NSDictionary) {
+        self.showLoader()
+        AddsHandler.nearbyAddsSearch(params: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                categoryVC.latitude = self.latitude
+                categoryVC.longitude = self.longitude
+                categoryVC.nearByDistance = self.searchDistance
+                categoryVC.isFromNearBySearch = true
+                self.navigationController?.pushViewController(categoryVC, animated: true)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+
+
 }

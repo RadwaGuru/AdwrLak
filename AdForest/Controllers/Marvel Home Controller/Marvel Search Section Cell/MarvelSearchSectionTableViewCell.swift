@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import FanMenu
+import Macaw
 class MarvelSearchSectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var btnSearchView: UIView!{
@@ -28,12 +29,16 @@ class MarvelSearchSectionTableViewCell: UITableViewCell {
     @IBOutlet weak var lblHeading: UILabel!
     @IBOutlet weak var containerView: UIView!{
         didSet{
+            //09182d
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
-            containerView.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+                containerView.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
         }
         }
         
     }
+
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,4 +81,7 @@ class MarvelSearchSectionTableViewCell: UITableViewCell {
     @IBAction func actionSearch(_ sender: UIButton) {
         categoryDetail()
     }
+    
+    
+    
 }

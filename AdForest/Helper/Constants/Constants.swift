@@ -143,7 +143,9 @@ class Constants {
     
     struct googlePlacesAPIKey {
         
-        static let placesKey = "placeskey "
+//        static let placesKey = "placeskey "
+        static let placesKey =  "AIzaSyDqan9-Knu1pfzw73ORx5lhpn2y1a7Q2SA"
+
         
     }
     

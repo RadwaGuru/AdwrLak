@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    static let appsDelegate = UIApplication.shared.delegate as! AppDelegate
+
     let keyboardManager = IQKeyboardManager.sharedManager()
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let defaults = UserDefaults.standard
@@ -322,23 +324,61 @@ extension AppDelegate  {
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        switch response.actionIdentifier {
-        case UNNotificationDefaultActionIdentifier:
-            print(response.notification.request.content.body)
-            print(response.notification.request.content.userInfo)
+//        switch response.actionIdentifier {
+//        case UNNotificationDefaultActionIdentifier:
+//            print(response.notification.request.content.body)
+//            print(response.notification.request.content.userInfo)
+//
+//            print("Open App")
+//        case "chat":
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let obj = storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+//
+//            window?.rootViewController = obj
+//            window?.makeKeyAndVisible()
+//            completionHandler()
+//        default:
+//            break
+//        }
+        print("Received data message: \(response.notification.request.content)")
+                let topic = response.notification.request.content.userInfo[AnyHashable("topic")] as? String
+                let userinf = response.notification.request.content.userInfo
+                print(topic)
+                
+                
+                if topic == "broadcast"{
+                    let Notititle = userinf[AnyHashable("title")] as? String
+                    let Notimessage = userinf[AnyHashable("message")] as? String
+                    let NotiImage = userinf[AnyHashable("image_full")] as? String
+                    UserDefaults.standard.set(Notititle, forKey: "Notititle")
+                    UserDefaults.standard.set(Notimessage, forKey: "Notimessage")
+                    UserDefaults.standard.set(NotiImage, forKey: "NotiImage")
+//                    let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
+//                    let nav: UINavigationController = UINavigationController(rootViewController: HomeVC)
+//                    HomeVC.NTitle = Notititle!
+//                    HomeVC.NMessage = Notimessage!
+//                    HomeVC.NImage = NotiImage!
+//                    self.window?.rootViewController = nav
+//                    UserDefaults.standard.set("1", forKey: "fromNotification")
+//                    self.window?.makeKeyAndVisible()
 
-            print("Open App")
-        case "chat":
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let obj = storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
-            
-            window?.rootViewController = obj
-            window?.makeKeyAndVisible()
-            completionHandler()
-        default:
-            break
-        }
-        
+                     self.moveToHome()
+                }else{
+                    let adId = userinf[AnyHashable("adId")] as? String
+                    let message = userinf[AnyHashable("message")] as? String
+                    let senderId = userinf[AnyHashable("senderId")] as? String
+                    let recieverId = userinf[AnyHashable("recieverId")] as? String
+                    let type = userinf[AnyHashable("type")] as? String
+                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    let nav: UINavigationController = UINavigationController(rootViewController: chatVC)
+                    chatVC.ad_id = adId!
+                    chatVC.sender_id = senderId!
+                    chatVC.receiver_id = recieverId!
+                    chatVC.messageType = type!
+                    self.window?.rootViewController = nav
+                    UserDefaults.standard.set("1", forKey: "fromNotification")
+                    self.window?.makeKeyAndVisible()
+                }
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

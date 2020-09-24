@@ -100,6 +100,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latColHeight: Double = 0
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
+    var nearbyColHeight: Double = 0
+
     var showVertical:Bool = false
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
@@ -285,6 +287,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func actionHome() {
         appDelegate.moveToHome()
+    
     }
     
     @objc func onClicklocationButton() {
@@ -664,6 +667,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.delegate = self 
                     cell.lblSectionTitle.text = self.nearByTitle
                     cell.dataArray = self.nearByAddsArray
+//                    if latestHorizontalSingleAd == "horizental" {
+//                        nearbyColHeight = Double(cell.collectionView.contentSize.height)
+//                    }else{
+                    nearbyColHeight = Double(cell.collectionView.contentSize.height)
+//                    }
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -950,8 +958,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             } else if position == "nearby" {
                 if isShowNearby {
-                    height = 270
-                } else {
+                     if showVerticalAds == "vertical" {
+                        height = CGFloat(nearbyColHeight) + 90
+                    } else if latestHorizontalSingleAd == "horizental"{
+                        height = CGFloat(nearbyColHeight) + 90
+                    }
+                    else{
+                        height = 270
+                    }
+                }
+                else {
                     height = 0
                 }
             } else if position == "sliders" {
@@ -1233,6 +1249,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
                 let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
                     self.appDelegate.moveToProfile()
+                
                 }
                 let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
                 alertController.addAction(okBtn)
@@ -1413,7 +1430,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
 //                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
 //                self.tableView.setContentOffset(scrollPoint, animated: true)
-                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height)
                 self.tableView.setContentOffset(scrollPoint, animated: true)
                 self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
                 
@@ -1496,7 +1513,6 @@ extension UIViewController {
         
         //set titile
         self.navigationItem.title = title
-        
         let rightButton = UIBarButtonItem(image: UIImage(named: "home"), style: .plain, target: nil, action: nil)
         
         //show the Edit button item

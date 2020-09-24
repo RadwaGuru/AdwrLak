@@ -237,18 +237,18 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             customArray.append(obj)
                     }
                 }
-//                else if objData.fieldType == "textarea" {
-//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DescriptionTableCell {
-//                        var obj = AdPostField()
-//                        obj.fieldType = "textarea"
-//                        obj.fieldVal = cell.txtDescription.text!
-//                        print(cell.txtDescription.text!)
-//                        obj.fieldTypeName = "ad_description"
-//                        objArray.append(obj)
-//                        //dataArray.app
-//                        customArray.append(obj)
-//                    }
-//                }
+                else if objData.fieldType == "textarea" {
+                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DescriptionTableCell {
+                        var obj = AdPostField()
+                        obj.fieldType = "textarea"
+                        obj.fieldVal = cell.txtDescription.text!
+                        print(cell.txtDescription.text!)
+                        obj.fieldTypeName = "ad_description"
+                        objArray.append(obj)
+                        //dataArray.app
+                        customArray.append(obj)
+                    }
+                }
                     
                 else if objData.fieldType == "checkbox" {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CheckBoxCell {
@@ -368,7 +368,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             adPostVC.localVariable = self.localVariable
             adPostVC.valueArray = self.valueArray
             adPostVC.localDictionary = self.localDictionary
-
+        if isfromEditAd{
+            adPostVC.isfromEditAd = self.isfromEditAd
+        }
         let objData = AddsHandler.sharedInstance.objAdPost
         if self.isImagesRequired == objData?.data.images.isRequired{
 
@@ -1005,21 +1007,21 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
     }
     
     func textValDesc(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {
-        if fieldType == "textarea"{
-            var obj = AdPostField()
-            obj.fieldType = "textarea"
-            obj.fieldVal = value
-            obj.fieldTypeName = fieldNam  //"ad_description"
-            print(value)
-            self.fieldsArray[indexPath].fieldVal = value
-            self.fieldsArray[indexPath].isRequired = false
-            //self.dataArray.append(obj)
-            self.fieldsArray.append(obj)
-            objArray.append(obj)
-            isEditStart = true
-
-            //customArray.append(obj)
-        }
+//        if fieldType == "textarea"{
+//            var obj = AdPostField()
+//            obj.fieldType = "textarea"
+//            obj.fieldVal = value
+//            obj.fieldTypeName = fieldNam  //"ad_description"
+//            print(value)
+//            self.fieldsArray[indexPath].fieldVal = value
+//            self.fieldsArray[indexPath].isRequired = false
+//            //self.dataArray.append(obj)
+//            self.fieldsArray.append(obj)
+//            objArray.append(obj)
+//            isEditStart = true
+//
+//            //customArray.append(obj)
+//        }
     }
     
     func textVal(value: String, indexPath: Int,fieldType:String,section:Int,fieldNam:String) {
@@ -1028,6 +1030,9 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
             obj.fieldType = "textfield"
             obj.fieldVal = value
             obj.fieldTypeName = fieldNam //fieldType
+            
+            
+            
             self.fieldsArray[indexPath].fieldVal = value
             self.fieldsArray[indexPath].isRequired = false
             self.dataArray.append(obj)

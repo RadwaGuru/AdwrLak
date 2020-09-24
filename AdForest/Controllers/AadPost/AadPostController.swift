@@ -253,10 +253,10 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
         }
         
         if isFromEditAd == false{
-            if self.adTitle == "" ||  id == ""{
-                 
-            }
-            else {
+//            if self.adTitle == "" ||  id == ""{
+//                 
+//            }
+//            else {
                 let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
                 if AddsHandler.sharedInstance.isCategoeyTempelateOn {
                     self.refreshArray = dataArray
@@ -278,7 +278,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 postVC.isImg = self.isImage
                 
                 self.navigationController?.pushViewController(postVC, animated: true)
-            }
+//            }
             
         }
         else{
@@ -360,8 +360,10 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 if i == 1 {
                     if cell.selectedValue == ""{
                         cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                        cell.selectedKey = String(item.id)
                         value = objData.values[0].name
-                                            }else{
+
+                    }else{
                         cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
                         //cell.oltPopup.setTitle(item.name, for: .normal)
                         cell.selectedKey = String(item.id)

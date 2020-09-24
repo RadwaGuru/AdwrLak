@@ -289,7 +289,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         let calendar = Calendar.current
         let requestComponents = Set<Calendar.Component>([.year, .month, .day, .hour, .minute, .second, .nanosecond])
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let timeNow = Date()
         guard let dateis = dateFormatter.date(from: date) else {
             return
@@ -454,39 +454,39 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     mapItem.openInMaps(launchOptions: options)
                 }
             }
-            if isShowAdTime {
-                cell.lblTimer.isHidden = false
-                let obj = AddsHandler.sharedInstance.adBidTime
-                let first10 = String(obj!.timerTime.prefix(10))
-                print(first10)
-                cell.lblTimer.isHidden = false
-                
-                if first10 != ""{
-                    let endDate = first10
-                    self.isEndTime = endDate
-                    Timer.every(1.second) {
-                        self.countDown(date: endDate)
-                        cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
-                        
-                    }
-                }
-            }else{
-                cell.lblTimer.isHidden = true
-            }
-            //old method
 //            if isShowAdTime {
 //                cell.lblTimer.isHidden = false
 //                let obj = AddsHandler.sharedInstance.adBidTime
-//                if let endDate = obj?.timerTime {
+//                let first10 = String(obj!.timerTime)
+//                print(first10)
+//                cell.lblTimer.isHidden = false
+//
+//                if first10 != ""{
+//                    let endDate = first10
 //                    self.isEndTime = endDate
 //                    Timer.every(1.second) {
 //                        self.countDown(date: endDate)
 //                        cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+//
 //                    }
 //                }
-//            } else {
+//            }else{
 //                cell.lblTimer.isHidden = true
 //            }
+            //old method
+            if isShowAdTime {
+                cell.lblTimer.isHidden = false
+                let obj = AddsHandler.sharedInstance.adBidTime
+                if let endDate = obj?.timerTime {
+                    self.isEndTime = endDate
+                    Timer.every(1.second) {
+                        self.countDown(date: endDate)
+                        cell.lblTimer.text = "\(self.day) D: \(self.hour) H: \(self.minute) M: \(self.second) S"
+                    }
+                }
+            } else {
+                cell.lblTimer.isHidden = true
+            }
             return cell
         }
             

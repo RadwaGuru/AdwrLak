@@ -1,84 +1,96 @@
 //
-//  MarvelHomeLatestAddCollectionViewCell.swift
+//  MarvelFeatureVerticalCollectionViewCell.swift
 //  AdForest
 //
-//  Created by Charlie on 01/09/2020.
+//  Created by Charlie on 12/09/2020.
 //  Copyright © 2020 apple. All rights reserved.
 //
 
 import UIKit
 
-class MarvelHomeLatestAddCollectionViewCell: UICollectionViewCell {
+class MarvelFeatureVerticalCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var lblPrice: UILabel!{
+    
+    
+    
+    
+    @IBOutlet weak var containerView: UIView!{
         didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                lblPrice.textColor = Constants.hexStringToUIColor(hex: mainColor)
-                
-            }
+            containerView.addShadowToView()
+            containerView.marvelRoundCorners()
+            
+            
         }
     }
+    @IBOutlet weak var adImg: UIImageView!{
+        didSet{
+            adImg.marvelRoundCorners()
+            adImg.clipsToBounds = true
+        }
+        
+    }
+    
+    @IBOutlet weak var adTitle: UILabel!
+    
     @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var locationIcon: UIImageView!{
+    
+    @IBOutlet weak var imgLocation: UIImageView!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                locationIcon.image = locationIcon.image?.withRenderingMode(.alwaysTemplate)
-                locationIcon.tintColor = UIColor(hex: mainColor)
+                imgLocation.image = imgLocation.image?.withRenderingMode(.alwaysTemplate)
+                imgLocation.tintColor = UIColor(hex: mainColor)
                 
                 
             }
             
         }
-        
     }
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var adImg: UIImageView!{
+    
+    @IBOutlet weak var lblPrice: UILabel!{
         didSet{
-            adImg.marvelRoundCorners()
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                lblPrice.textColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
         }
     }
+    
     
     @IBOutlet weak var lblTimer: UILabel!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
                 lblTimer.textColor = Constants.hexStringToUIColor(hex: mainColor)
-                lblTimer.featuredRoundCorners([.bottomLeft], radius: 10)
-
             }
         }
     }
-    @IBOutlet weak var cellView: UIView!{
+    
+    
+    @IBOutlet weak var featuredImg: UIImageView!{
         didSet{
-            cellView.addShadowToView()
-            cellView.marvelRoundCorners()
+            
+            featuredImg.featuredRoundCorners([.topRight], radius: 10)
+            
         }
     }
     
-    
     @IBOutlet weak var btnViewAll: UIButton!
-    var btnFullAction: (()->())?
+    
     var futureDate = ""
     var day: Int = 0
     var hour: Int = 0
     var minute: Int = 0
     var second: Int = 0
     var isEndTime = ""
-    var dayStr = ""
+    
     var hourStr = ""
     var minStr = ""
     var secStr = ""
+    var dayStr = ""
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"
-            
-            
-            
         }
-        
-        
     }
     
     //MARK:- Counter
@@ -100,9 +112,7 @@ class MarvelHomeLatestAddCollectionViewCell: UICollectionViewCell {
         
     }
     
-    
-    
-    
+    var btnFullAction: (()->())?
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
     }
@@ -110,9 +120,16 @@ class MarvelHomeLatestAddCollectionViewCell: UICollectionViewCell {
     
     
     
+    func ImgroundCorners(cornerRadius: Double) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = path.cgPath
+        self.layer.mask = maskLayer
+    }
     
 }
-extension UILabel {
+extension UIImageView {
     public func featuredRoundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let maskPath = UIBezierPath(roundedRect: bounds,
                                     byRoundingCorners: corners,

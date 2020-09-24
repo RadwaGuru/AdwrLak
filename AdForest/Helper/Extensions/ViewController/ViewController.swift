@@ -16,7 +16,11 @@ extension UIViewController {
         return AppDelegate.appDelegate
     }
 }
-
+extension UITableViewCell {
+    var appsDelegate : AppDelegate {
+        return AppDelegate.appsDelegate
+    }
+}
 extension UIViewController {
     func showNavigationActivity() {
         let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))

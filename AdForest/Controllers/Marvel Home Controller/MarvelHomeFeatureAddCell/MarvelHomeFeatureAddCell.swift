@@ -49,12 +49,7 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
     var delegate: MarvelAddDetailDelegate?
     var dataArray = [HomeAdd]()
     
-    var day: Int = 0
-    var hour: Int = 0
-    var minute: Int = 0
-    var second: Int = 0
-    var serverTime = ""
-    var isEndTime = ""
+    
     var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     
@@ -93,27 +88,21 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
         
         if let name = objData.adTitle {
             cell.lblTitle.text = name
-            let word = objData.adTimer.timer
-            if objData.adTimer.isShow {
-                let first10 = String(word!.prefix(10))
-                print(first10)
-                //                             cell.lblTimer.isHidden = true
-                //                             cell.lblBidTimer.isHidden = false
-                
-                if first10 != ""{
-                    let endDate = first10
-                    self.isEndTime = endDate
-                    Timer.every(1.second) {
-                        //                                     self.countDown(date: endDate)
-                        //                                     cell.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                        
-                    }
-                }
-            }else{
-                //                             cell.lblBidTimer.isHidden = true
-            }
             
         }
+            if objData.adTimer.isShow {
+                cell.futureDate = objData.adTimer.timer
+                cell.dayStr = objData.adTimer.timerStrings.days
+                cell.hourStr = objData.adTimer.timerStrings.hours
+                cell.minStr = objData.adTimer.timerStrings.minutes
+                cell.secStr = objData.adTimer.timerStrings.seconds
+                cell.lblTimer.isHidden = false
+              
+            }else{
+                cell.lblTimer.isHidden = true
+            }
+            
+        
         if let location = objData.adLocation.address {
             cell.lblLocation.text = location
         }
@@ -127,11 +116,6 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
         }else{
             cell.featuredStarImg.image = UIImage(named: "featured_stars_round")
         }
-
-        //                     if let featurText = objData.adStatus.featuredTypeText {
-        //                         cell.lblFeature.text = featurText
-        //                         cell.lblFeature.backgroundColor = Constants.hexStringToUIColor(hex: "#E52D27")
-        //                     }
         cell.btnFullAction = { () in
             self.delegate?.goToAddDetail(ad_id: objData.adId)
         }

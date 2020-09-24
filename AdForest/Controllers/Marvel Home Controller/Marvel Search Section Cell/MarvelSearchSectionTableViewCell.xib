@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wa-11-KWQ">
                         <rect key="frame" x="0.0" y="0.0" width="370" height="232"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lolllllll" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNM-zG-SKN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNM-zG-SKN">
                                 <rect key="frame" x="20" y="66" width="330" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="pX6-Vv-eu7"/>
@@ -108,7 +108,7 @@
                                     <constraint firstAttribute="bottom" secondItem="aZu-mj-x6K" secondAttribute="bottom" id="wfM-Pr-X1Q"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kahlo oe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ud-ij-WC1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ud-ij-WC1">
                                 <rect key="frame" x="20" y="100" width="330" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="0kr-ZN-6cX"/>
