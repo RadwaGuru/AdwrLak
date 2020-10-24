@@ -20,7 +20,7 @@ import IQKeyboardManagerSwift
 
 
 class EditProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate {
-
+    
     //MARK:- Outlets
     
     @IBOutlet weak var tableView: UITableView! {
@@ -52,7 +52,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var accountTypeArray = [String]()
     var dataArray = [ProfileDetailsData]()
     var socialArray = [ProfileDetailsAccountType]()
-
+    
     let defaults = UserDefaults.standard
     
     var nearByTitle = ""
@@ -68,6 +68,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
     var linkedin = ""
     var twitter = ""
     var google = ""
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
 
     
     
@@ -125,8 +126,8 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
+                    //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+                    //                    SwiftyAd.shared.showInterstitial(from: self)
                     
                     self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
                     self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
@@ -160,11 +161,11 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         let section = indexPath.section
         let row = indexPath.row
         
-         let objData = dataArray[indexPath.row]
+        let objData = dataArray[indexPath.row]
         if section == 0 {
             let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
             
-           // let objData = dataArray[indexPath.row]
+            // let objData = dataArray[indexPath.row]
             cell.containerViewEditProfile.isHidden = true
             
             if let imgUrl = URL(string: objData.profileExtra.profileImg) {
@@ -199,7 +200,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                 if obj.fieldName == "_sb_profile_twitter" {
                     self.twitter = obj.fieldName
                     UserDefaults.standard.set(twitter, forKey: "twitter")
-
+                    
                 }
                 if obj.fieldName == "_sb_profile_linkedin" {
                     self.linkedin = obj.fieldName
@@ -213,10 +214,10 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
             
             return cell
         }
-            
+        
         else if section == 1 {
             let cell: AddsStatusCell = tableView.dequeueReusableCell(withIdentifier: "AddsStatusCell", for: indexPath) as! AddsStatusCell
-           // let objData = dataArray[indexPath.row]
+            // let objData = dataArray[indexPath.row]
             
             if let soldAds = objData.profileExtra.adsSold {
                 cell.lblSoldAds.text = soldAds
@@ -235,7 +236,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         else if section == 2 {
             
             let cell : EditProfileCell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
-           
+            
             let extraData = UserHandler.sharedInstance.objProfileDetails
             
             if row == 0 {
@@ -299,12 +300,12 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                     if obj.fieldName == "_sb_profile_linkedin" {
                         cell.txtLinkedIn.text = obj.value
-                    
+                        
                     }
                     
                     if obj.fieldName == "_sb_profile_instagram" {
                         cell.txtGooglePlus.text = obj.value
-                       
+                        
                     }
                     if obj.disable == "true"{
                         cell.txtLinkedIn.isUserInteractionEnabled = false
@@ -390,11 +391,11 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                     cell.buttonDelete.isHidden = true
                 }
             }
-                return cell
-            }
-                return UITableViewCell()
+            return cell
+        }
+        return UITableViewCell()
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
         var height: CGFloat = 0
@@ -407,13 +408,13 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         else if section == 2 {
             height = 810
         }
-       
+        
         return height
     }
     
     //MARK:- IBActions
     @IBAction func actionAdPost(_ sender: UIButton) {
-       
+        
         let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
         let can = UserDefaults.standard.bool(forKey: "can")
         
@@ -502,216 +503,224 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-
+    
     //MARK:- Near by search Delaget method
-      func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
-          self.latitude = lat
-          self.longitude = long
-          self.searchDistance = searchDistance
-          if isSearch {
-              let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
-              print(param)
-              self.adForest_nearBySearch(param: param as NSDictionary)
-          } else {
-              let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
-              print(param)
-              self.adForest_nearBySearch(param: param as NSDictionary)
-          }
-      }
-      
-      
-      func navigationButtons() {
-          
-          //Home Button
-          let HomeButton = UIButton(type: .custom)
-          let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
-          HomeButton.setBackgroundImage(ho, for: .normal)
-          HomeButton.tintColor = UIColor.white
-          HomeButton.setImage(ho, for: .normal)
-          if #available(iOS 11, *) {
-              searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-              searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-          } else {
-              HomeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-          }
-          HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
-          let homeItem = UIBarButtonItem(customView: HomeButton)
-          if defaults.bool(forKey: "showHome") {
-              barButtonItems.append(homeItem)
-              //self.barButtonItems.append(homeItem)
-          }
+    func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool) {
+        self.latitude = lat
+        self.longitude = long
+        self.searchDistance = searchDistance
+        if isSearch {
+            let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        } else {
+            let param: [String: Any] = ["nearby_latitude": 0.0, "nearby_longitude": 0.0, "nearby_distance": searchDistance]
+            print(param)
+            self.adForest_nearBySearch(param: param as NSDictionary)
+        }
+    }
+    
+    
+    func navigationButtons() {
         
-          //Location Search
-          let locationButton = UIButton(type: .custom)
-          if #available(iOS 11, *) {
-              locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-              locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-          }
-          else {
-              locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-          }
-          let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
-          locationButton.setBackgroundImage(image, for: .normal)
-          locationButton.tintColor = UIColor.white
-          locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
-          let barButtonLocation = UIBarButtonItem(customView: locationButton)
-          if defaults.bool(forKey: "showNearBy") {
-              self.barButtonItems.append(barButtonLocation)
-          }
-          //Search Button
-          let searchButton = UIButton(type: .custom)
-          if defaults.bool(forKey: "advanceSearch") == true{
-              let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
-              searchButton.setBackgroundImage(con, for: .normal)
-              searchButton.tintColor = UIColor.white
-              searchButton.setImage(con, for: .normal)
-          }else{
-              let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
-              searchButton.setBackgroundImage(con, for: .normal)
-              searchButton.tintColor = UIColor.white
-              searchButton.setImage(con, for: .normal)
-          }
-          if #available(iOS 11, *) {
-              searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-              searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-          } else {
-              searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-          }
-          searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
-          let searchItem = UIBarButtonItem(customView: searchButton)
-          if defaults.bool(forKey: "showSearch") {
-              barButtonItems.append(searchItem)
-              //self.barButtonItems.append(searchItem)
-          }
-      
-          self.navigationItem.rightBarButtonItems = barButtonItems
-         
-      }
-      
-      @objc func actionHome() {
-          appDelegate.moveToHome()
-      }
-
-      @objc func onClicklocationButton() {
-          let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
-          locationVC.delegate = self
-          view.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-          UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-              self.view.transform = .identity
-          }) { (success) in
-              self.navigationController?.pushViewController(locationVC, animated: true)
-          }
-      }
-      
-     
-      //MARK:- Search Controller
-      
-      @objc func actionSearch(_ sender: Any) {
-      
-          if defaults.bool(forKey: "advanceSearch") == true{
-              let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-              let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
-              self.pushVC(proVc, completion: nil)
-          }else{
-              
-              //setupNavigationBar(title: "okk...")
-              
-              keyboardManager.enable = true
-              if isNavSearchBarShowing {
-                  navigationItem.titleView = nil
-                  self.searchBarNavigation.text = ""
-                  self.backgroundView.removeFromSuperview()
-                  self.addTitleView()
-
-              } else {
-                  self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-                  self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-                  self.backgroundView.isOpaque = true
-                  let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-                  tap.delegate = self
-                  self.backgroundView.addGestureRecognizer(tap)
-                  self.backgroundView.isUserInteractionEnabled = true
-                  self.view.addSubview(self.backgroundView)
-                  self.adNavSearchBar()
-              }
-          }
-          
-      }
-      
-      @objc func handleTap(_ gestureRocognizer: UITapGestureRecognizer) {
-          self.actionSearch("")
-      }
-      
-      func adNavSearchBar() {
-          searchBarNavigation.placeholder = "Search Ads"
-          searchBarNavigation.barStyle = .default
-          searchBarNavigation.isTranslucent = false
-          searchBarNavigation.barTintColor = UIColor.groupTableViewBackground
-          searchBarNavigation.backgroundImage = UIImage()
-          searchBarNavigation.sizeToFit()
-          searchBarNavigation.delegate = self
-          self.isNavSearchBarShowing = true
-          searchBarNavigation.isHidden = false
-          navigationItem.titleView = searchBarNavigation
-          searchBarNavigation.becomeFirstResponder()
-      }
-      
-      func addTitleView() {
-          self.searchBarNavigation.endEditing(true)
-          self.isNavSearchBarShowing = false
-          self.searchBarNavigation.isHidden = true
-          self.view.isUserInteractionEnabled = true
-      }
-      
-      //MARK:- Search Bar Delegates
-      func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-          
-      }
-      
-      func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-          //self.searchBarNavigation.endEditing(true)
-          searchBar.endEditing(true)
-          self.view.endEditing(true)
-      }
-      
-      func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-          searchBar.endEditing(true)
-          self.searchBarNavigation.endEditing(true)
-          guard let searchText = searchBar.text else {return}
-          if searchText == "" {
-              
-          } else {
-              let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-              categoryVC.searchText = searchText
-              categoryVC.isFromTextSearch = true
-              self.navigationController?.pushViewController(categoryVC, animated: true)
-          }
-      }
-      
+        //Home Button
+        let HomeButton = UIButton(type: .custom)
+        let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
+        HomeButton.setBackgroundImage(ho, for: .normal)
+        HomeButton.tintColor = UIColor.white
+        HomeButton.setImage(ho, for: .normal)
+        if #available(iOS 11, *) {
+            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        } else {
+            HomeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        }
+        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+        let homeItem = UIBarButtonItem(customView: HomeButton)
+        if defaults.bool(forKey: "showHome") {
+            barButtonItems.append(homeItem)
+            //self.barButtonItems.append(homeItem)
+        }
+        
+        //Location Search
+        let locationButton = UIButton(type: .custom)
+        if #available(iOS 11, *) {
+            locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        }
+        else {
+            locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        }
+        let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
+        locationButton.setBackgroundImage(image, for: .normal)
+        locationButton.tintColor = UIColor.white
+        locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
+        let barButtonLocation = UIBarButtonItem(customView: locationButton)
+        if defaults.bool(forKey: "showNearBy") {
+            self.barButtonItems.append(barButtonLocation)
+        }
+        //Search Button
+        let searchButton = UIButton(type: .custom)
+        if defaults.bool(forKey: "advanceSearch") == true{
+            let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
+            searchButton.setBackgroundImage(con, for: .normal)
+            searchButton.tintColor = UIColor.white
+            searchButton.setImage(con, for: .normal)
+        }else{
+            let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
+            searchButton.setBackgroundImage(con, for: .normal)
+            searchButton.tintColor = UIColor.white
+            searchButton.setImage(con, for: .normal)
+        }
+        if #available(iOS 11, *) {
+            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        } else {
+            searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        }
+        searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
+        let searchItem = UIBarButtonItem(customView: searchButton)
+        if defaults.bool(forKey: "showSearch") {
+            barButtonItems.append(searchItem)
+            //self.barButtonItems.append(searchItem)
+        }
+        
+        self.navigationItem.rightBarButtonItems = barButtonItems
+        
+    }
+    
+    @objc func actionHome() {
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }       }
+    
+    @objc func onClicklocationButton() {
+        let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
+        locationVC.delegate = self
+        view.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.view.transform = .identity
+        }) { (success) in
+            self.navigationController?.pushViewController(locationVC, animated: true)
+        }
+    }
+    
+    
+    //MARK:- Search Controller
+    
+    @objc func actionSearch(_ sender: Any) {
+        
+        if defaults.bool(forKey: "advanceSearch") == true{
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
+            self.pushVC(proVc, completion: nil)
+        }else{
+            
+            //setupNavigationBar(title: "okk...")
+            
+            keyboardManager.enable = true
+            if isNavSearchBarShowing {
+                navigationItem.titleView = nil
+                self.searchBarNavigation.text = ""
+                self.backgroundView.removeFromSuperview()
+                self.addTitleView()
+                
+            } else {
+                self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+                self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                self.backgroundView.isOpaque = true
+                let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+                tap.delegate = self
+                self.backgroundView.addGestureRecognizer(tap)
+                self.backgroundView.isUserInteractionEnabled = true
+                self.view.addSubview(self.backgroundView)
+                self.adNavSearchBar()
+            }
+        }
+        
+    }
+    
+    @objc func handleTap(_ gestureRocognizer: UITapGestureRecognizer) {
+        self.actionSearch("")
+    }
+    
+    func adNavSearchBar() {
+        searchBarNavigation.placeholder = "Search Ads"
+        searchBarNavigation.barStyle = .default
+        searchBarNavigation.isTranslucent = false
+        searchBarNavigation.barTintColor = UIColor.groupTableViewBackground
+        searchBarNavigation.backgroundImage = UIImage()
+        searchBarNavigation.sizeToFit()
+        searchBarNavigation.delegate = self
+        self.isNavSearchBarShowing = true
+        searchBarNavigation.isHidden = false
+        navigationItem.titleView = searchBarNavigation
+        searchBarNavigation.becomeFirstResponder()
+    }
+    
+    func addTitleView() {
+        self.searchBarNavigation.endEditing(true)
+        self.isNavSearchBarShowing = false
+        self.searchBarNavigation.isHidden = true
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    //MARK:- Search Bar Delegates
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //self.searchBarNavigation.endEditing(true)
+        searchBar.endEditing(true)
+        self.view.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        self.searchBarNavigation.endEditing(true)
+        guard let searchText = searchBar.text else {return}
+        if searchText == "" {
+            
+        } else {
+            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+            categoryVC.searchText = searchText
+            categoryVC.isFromTextSearch = true
+            self.navigationController?.pushViewController(categoryVC, animated: true)
+        }
+    }
+    
     
     
     //MARK:- Near By Search
-       func adForest_nearBySearch(param: NSDictionary) {
-           self.showLoader()
-           AddsHandler.nearbyAddsSearch(params: param, success: { (successResponse) in
-               self.stopAnimating()
-               if successResponse.success {
-                   let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                   categoryVC.latitude = self.latitude
-                   categoryVC.longitude = self.longitude
-                   categoryVC.nearByDistance = self.searchDistance
-                   categoryVC.isFromNearBySearch = true
-                   self.navigationController?.pushViewController(categoryVC, animated: true)
-               } else {
-                   let alert = Constants.showBasicAlert(message: successResponse.message)
-                   self.presentVC(alert)
-               }
-           }) { (error) in
-               self.stopAnimating()
-               let alert = Constants.showBasicAlert(message: error.message)
-               self.presentVC(alert)
-           }
-       }
+    func adForest_nearBySearch(param: NSDictionary) {
+        self.showLoader()
+        AddsHandler.nearbyAddsSearch(params: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                categoryVC.latitude = self.latitude
+                categoryVC.longitude = self.longitude
+                categoryVC.nearByDistance = self.searchDistance
+                categoryVC.isFromNearBySearch = true
+                self.navigationController?.pushViewController(categoryVC, animated: true)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
     
     
     
@@ -719,7 +728,7 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
 
 
 class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NVActivityIndicatorViewable {
-
+    
     
     private lazy var uploadingProgressBar: JGProgressHUD = {
         let progressBar = JGProgressHUD(style: .dark)
@@ -762,7 +771,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             textAddress.layer.borderColor = UIColor.lightGray.cgColor
         }
     }
-  
+    
     @IBOutlet weak var lblImage: UILabel!
     @IBOutlet weak var imgPicture: UIImageView! {
         didSet {
@@ -796,7 +805,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     let appDel = UIApplication.shared.delegate as! AppDelegate
     var imagePicker = UIImagePickerController()
     var defaults = UserDefaults.standard
-   
+    
     var imageUrl : URL!
     var imageSelect: UIImage!
     let fileName = "profile_img"
@@ -831,11 +840,11 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         txtTwitter.font = UIFont.systemFont(ofSize: 20.0)
         txtLinkedIn.font = UIFont.systemFont(ofSize: 20.0)
         txtGooglePlus.font = UIFont.systemFont(ofSize: 20.0)
-
+        
         print(UIFont.familyNames)
-
+        
     }
-
+    
     //MARK:- Custom
     
     @objc func adForest_imageGet() {
@@ -848,13 +857,13 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             self.adForest_openGallery()
         }
         let SettingsAction = UIAlertAction(title: "Settings", style: .default) { (actionIn) in
-//            self.adForest_openSettings()
+            //            self.adForest_openSettings()
             guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                           return
-                       }
-                       if UIApplication.shared.canOpenURL(settingsUrl) {
-                           UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
-                        }
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+            }
         }
         
         let cancelAction = UIAlertAction(title: titleCancel, style: .default) { (actionIn) in
@@ -867,7 +876,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         alert.addAction(cancelAction)
         self.appDel.presentController(ShowVC: alert)
     }
-     func adForest_openSettings(){
+    func adForest_openSettings(){
         // initialise a pop up for using later
         let alertController = UIAlertController(title: "TITLE", message: "Please go to Settings and turn on the permissions", preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
@@ -876,22 +885,22 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             }
             if UIApplication.shared.canOpenURL(settingsUrl) {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
-             }
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
-
+        
         // check the permission status
         switch(CLLocationManager.authorizationStatus()) {
-            case .authorizedAlways, .authorizedWhenInUse:
-                print("Authorize.")
-                // get the user location
-            case .notDetermined, .restricted, .denied:
-                // redirect the users to settings
-//                self.present(alertController, animated: true, completion: nil)
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Authorize.")
+        // get the user location
+        case .notDetermined, .restricted, .denied:
+            // redirect the users to settings
+            //                self.present(alertController, animated: true, completion: nil)
             self.appDel.presentController(ShowVC: alertController)
-
+            
         }
     }
     
@@ -955,24 +964,24 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         //self.window?.rootViewController?.present(searchVC, animated: true, completion: nil)
     }
     
-   // Google Places Delegate Methods
+    // Google Places Delegate Methods
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-       // print("Place Name : \(place.name)")
+        // print("Place Name : \(place.name)")
         print("Place Address : \(place.formattedAddress ?? "null")")
         textAddress.text = place.formattedAddress
         self.appDel.dissmissController()
     }
-
+    
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         self.appDel.dissmissController()
     }
-
+    
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         print("Cancelled")
         self.appDel.dissmissController()
     }
-
+    
     //MARK:- SetUp Drop Down
     func accountDropDown() {
         accountTypeDropDown.anchorView = buttonAccountType
@@ -988,13 +997,13 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     @IBAction func actionChangePassword(_ sender: UIButton) {
         btnChangePassword?()
     }
-   
+    
     @IBAction func actionAccountType(_ sender: Any) {
         btnDropDown?()
     }
     
     @IBAction func actionUpdate(_ sender: Any) {
-      //  btnUpdate?()
+        //  btnUpdate?()
         
         guard let name = txtName.text else {
             return
@@ -1018,18 +1027,18 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         guard let linkedIn = txtLinkedIn.text else {
             return
         }
-//        guard let google = txtGooglePlus.text else {
-//            return
-//        }
+        //        guard let google = txtGooglePlus.text else {
+        //            return
+        //        }
         let custom: [String: Any] = [
             "_sb_profile_facebook": facebook,
             "_sb_profile_twitter" : twitter,
             "_sb_profile_linkedin" : linkedIn,
-//            "_sb_profile_google-plus" : google
+            //            "_sb_profile_google-plus" : google
         ]
         print(custom)
-
-
+        
+        
         let parameters: [String: Any] = [
             "user_name": name,
             "phone_number": phone,
@@ -1050,7 +1059,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     
     //MARK:- API CALL
     
-     func imageUpdate(fileUrl: URL, fileName: String, uploadProgress: @escaping(Int)-> Void ,success: @escaping(UpdateImageRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+    func imageUpdate(fileUrl: URL, fileName: String, uploadProgress: @escaping(Int)-> Void ,success: @escaping(UpdateImageRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.imageUpdate
         print(url)
         NetworkHandler.upload(url: url, fileUrl: fileUrl, fileName: fileName, params: nil, uploadProgress: { (uploadProgress) in
@@ -1058,7 +1067,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             let currentProgress = Float(uploadProgress)/100
             self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
             self.uploadingProgressBar.setProgress(currentProgress, animated: true)
-
+            
         }, success: { (successResponse) in
             let dictionary = successResponse as! [String: Any]
             let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
@@ -1072,16 +1081,16 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
     }
     
     func adForest_uploadImage() {
-       
+        
         uploadingProgressBar.progress = 0.0
         uploadingProgressBar.detailTextLabel.text = "0% Completed"
         uploadingProgressBar.show(in: containerView)
         
-       //let editprofile = EditProfileController()
+        //let editprofile = EditProfileController()
         //editprofile.showLoader()
         imageUpdate(fileUrl: imageUrl, fileName: fileName,uploadProgress: { (uploadProgress) in
             print(uploadProgress)
-    
+            
         }, success: { (sucessResponse) in
             self.uploadingProgressBar.dismiss(animated: true)
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -1090,7 +1099,7 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
                     self.removeFileFromDocumentsDirectory(fileUrl: self.imageUrl)
                     //post notification to update data in side menu
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.updateUserProfile), object: nil)
-                   self.appDel.popController()
+                    self.appDel.popController()
                 })
                 self.appDel.presentController(ShowVC: alert)
             }
@@ -1116,8 +1125,8 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
                 
                 self.showToast(message: successResponse.message)
                 self.perform(#selector(self.adFroest_showNavController1), with: nil, afterDelay: 1.5)
-//                let alert = Constants.showBasicAlert(message: successResponse.message)
-//                self.appDel.presentController(ShowVC: alert)
+                //                let alert = Constants.showBasicAlert(message: successResponse.message)
+                //                self.appDel.presentController(ShowVC: alert)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -1130,20 +1139,20 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         }
     }
     func showToast(message : String) {
-           let toastLabel = UILabel(frame: CGRect(x: 50, y: self.contentView.frame.size.height-100, width: self.contentView.frame.width - 100, height: 35))
-           toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-           toastLabel.textColor = UIColor.white
-           toastLabel.textAlignment = .center;
-           toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-           toastLabel.text = message
-           toastLabel.alpha = 1.0
-           toastLabel.layer.cornerRadius = 10;
-           toastLabel.clipsToBounds  =  true
-           self.contentView.addSubview(toastLabel)
-           UIView.animate(withDuration: 6.0, delay: 0.3, options: .curveEaseOut, animations: {
-               toastLabel.alpha = 0.0
-           }, completion: {(isCompleted) in
-               toastLabel.removeFromSuperview()
-           })
-       }
+        let toastLabel = UILabel(frame: CGRect(x: 50, y: self.contentView.frame.size.height-100, width: self.contentView.frame.width - 100, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.contentView.addSubview(toastLabel)
+        UIView.animate(withDuration: 6.0, delay: 0.3, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }

@@ -14,7 +14,9 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
     
     @IBOutlet weak var containerView: UIView!{
         didSet{
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
+            
         }
     }
     //    @IBOutlet weak var heightConstraintTitle: NSLayoutConstraint!
@@ -34,6 +36,7 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
             collectionView.isScrollEnabled = false
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
             
             
         }
@@ -42,19 +45,9 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
     
     var dataArray = [HomeAdd]()
     var delegate : MarvelRelatedAddDetailDelegate?
-    //    private var scrollView = UIScrollView.init()
-    private var topCollView: DynmicHeightCollectionView!
-    
+    var fromMultiHome = false
     
     var btnViewAll :(()->())?
-    //    var day: Int = 0
-    //    var hour: Int = 0
-    //    var minute: Int = 0
-    //    var second: Int = 0
-    //    var serverTime = ""
-    //    var isEndTime = ""
-    //    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    //    var latestHorizontalSingleAd: String =  UserDefaults.standard.string(forKey: "homescreenLayout")!
     
     
     
@@ -69,41 +62,9 @@ class MarvelAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollec
         
         // Configure the view for the selected state
     }
-    //      private func setupViews() {
-    //        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-    //        let heightConstraint = NSLayoutConstraint.init(item: contentView, attribute: .height, relatedBy: .equal, toItem: self.contentView, attribute: .height, multiplier: 1, constant: 0)
-    //        heightConstraint.priority = UILayoutPriority.init(200)
-    //
-    //
-    //
-    //        self.contentView.addConstraints([
-    //          self.contentView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
-    //          heightConstraint,
-    //          ])
-    //
-    //        self.topCollView = returnCollView()
-    //        self.topCollView.register(MarvelAdsCollectionViewCell.self, forCellWithReuseIdentifier: MarvelAdsCollectionViewCell.identifier)
-    //        self.topCollView.layer.cornerRadius = 5.0
-    //        self.topCollView.layer.borderColor = #colorLiteral(red: 0.4039215686, green: 0.4666666667, blue: 0.7215686275, alpha: 1).cgColor
-    //        self.topCollView.layer.borderWidth = 1.25
-    //        self.topCollView.isDynamicSizeRequired = true
-    //
-    //      }
     
-    private func returnCollView() -> DynmicHeightCollectionView {
-        
-        let layout = TokenCollViewFlowLayout.init()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .vertical
-        let collView = DynmicHeightCollectionView.init(frame: .zero, collectionViewLayout: layout)
-        collView.translatesAutoresizingMaskIntoConstraints = false
-        collView.delegate = self
-        collView.dataSource = self
-        collView.backgroundColor = .clear
-        return collView
-    }
+    
+
     
     //MARK:- Custom
     

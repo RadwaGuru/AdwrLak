@@ -46,6 +46,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     var longitude: Double = 0
     var searchDistance:CGFloat = 0
     var backgroundView = UIView()
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     
     //-->> View Life Cycle
     
@@ -180,7 +181,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                             }
                             
                         }
-        },
+                       },
                        completion: { _ in
                         UIView.animate(withDuration: 0.4) {
                             if let cell = collectionView.cellForItem(at: indexPath) as? LangCollectionViewCell {
@@ -189,7 +190,7 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
                             }
                             
                         }
-        })
+                       })
     }
     
     //-->> Api Calls
@@ -337,8 +338,16 @@ class LangViewController: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }                             }
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

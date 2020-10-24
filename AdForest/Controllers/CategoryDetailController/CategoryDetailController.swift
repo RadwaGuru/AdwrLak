@@ -18,7 +18,10 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
             tableView.separatorStyle = .none
-            tableView.register(UINib(nibName: "CategoryDetailCell", bundle: nil), forCellReuseIdentifier: "CategoryDetailCell")
+            
+        //tableView.register(UINib(nibName: "CategoryDetailCell", bundle: nil), forCellReuseIdentifier: "CategoryDetailCell")
+            tableView.register(UINib(nibName: "MarvelCategoryDetailCell", bundle: nil), forCellReuseIdentifier: "MarvelCategoryDetailCell")
+            
         }
     }
     
@@ -30,16 +33,24 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     var filteredArray = [LocationDetailTerm]()
     var shouldShowSearchResults = false
     var termId = 0
-    
+    var newHome = true
+    var objDataChild = false
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
         self.configureSearchController()
        // self.setupSearchBar()
+        
+        if objDataChild == true {
+            let param: [String: Any] = ["term_name":"ad_cats", "term_id":termId, "page_number":1]
+            print(param)
+            self.adForest_locationDetails(parameter: param as NSDictionary)
+        }else{
         let param: [String: Any] = ["term_name":"ad_cats", "term_id": "", "page_number":1]
         print(param)
         self.adForest_locationDetails(parameter: param as NSDictionary)
+        }
     }
 
     //MARK: - Custom
@@ -109,6 +120,7 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if newHome == false {
         let cell: CategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "CategoryDetailCell", for: indexPath) as! CategoryDetailCell
          cell.accessoryType = .disclosureIndicator
         
@@ -121,7 +133,58 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
                 cell.lblName.text = name
             }
         }
-        return cell
+            return cell
+
+        }
+        else{
+        let cell: MarvelCategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "MarvelCategoryDetailCell", for: indexPath) as! MarvelCategoryDetailCell
+         
+//            cell.accessoryType = .disclosureIndicator
+           
+           if shouldShowSearchResults {
+               if let name = filteredArray[indexPath.row].name {
+                   cell.lblCat.text = name
+              
+               }
+            let objData = filteredArray[indexPath.row]
+
+            if let imgUrl = URL(string: objData.termImg) {
+                    cell.imgCat.sd_setShowActivityIndicatorView(true)
+                    cell.imgCat.sd_setIndicatorStyle(.gray)
+                    cell.imgCat.sd_setImage(with: imgUrl, completed: nil)
+                
+            }
+
+            if let count = objData.catCount {
+                cell.lblCatCount.text = String(count)
+            }
+
+            
+
+           } else {
+               if let name = dataArray[indexPath.row].name {
+                   cell.lblCat.text = name
+               }
+                        
+            let objData = dataArray[indexPath.row]
+            if let count = objData.catCount {
+                cell.lblCatCount.text = String(count)
+            }
+
+            print(objData.count)
+            
+            if let imgUrl = URL(string: objData.termImg) {
+                    cell.imgCat.sd_setShowActivityIndicatorView(true)
+                    cell.imgCat.sd_setIndicatorStyle(.gray)
+                    cell.imgCat.sd_setImage(with: imgUrl, completed: nil)
+                
+            }
+            
+           }
+            
+            return cell
+
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

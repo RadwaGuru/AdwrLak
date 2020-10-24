@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import IQKeyboardManagerSwift
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UITextViewDelegate {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var oltName: UIButton!{
@@ -87,7 +87,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-   
+    
     
     //MARK:- Properties
     
@@ -114,13 +114,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(refreshTableView),
+                                    #selector(refreshTableView),
                                  for: UIControlEvents.valueChanged)
         refreshControl.tintColor = UIColor.red
         
         return refreshControl
     }()
-
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.adjustTextViewHeight()
         
         
-      
+        
         btnBlock.backgroundColor  = UIColor(hex: defaults.string(forKey: "mainColor")!)
         btnBlock.roundCornors()
         
@@ -153,39 +153,52 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
-        print(parameter)
-        self.adForest_getChatData(parameter: parameter as NSDictionary)
-        self.showLoader()
+        //                let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
+        //                print(parameter)
+        //                self.adForest_getChatData(parameter: parameter as NSDictionary)
+        //                self.showLoader()
+        if messageType == "sent"{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        else{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id , "receiver_id": receiver_id , "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        
+        
         keyboardHandling()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //if Constants.isIphoneX == true{
-            NotificationCenter.default.removeObserver(self)
-            keyboardManager.enable = true
-            keyboardManager.enableAutoToolbar = true
+        NotificationCenter.default.removeObserver(self)
+        keyboardManager.enable = true
+        keyboardManager.enableAutoToolbar = true
         //}else{
-            //keyboardManager.enable = true
-            //keyboardManager.enableAutoToolbar = true
+        //keyboardManager.enable = true
+        //keyboardManager.enableAutoToolbar = true
         //}
     }
     
-//    func textViewDidChange(_ textView: UITextView) {
-//        let fixedWidth = textView.frame.size.width
-//        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-//        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-//        var newFrame = textView.frame
-//        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-//        textView.frame = newFrame
-//    }
+    //    func textViewDidChange(_ textView: UITextView) {
+    //        let fixedWidth = textView.frame.size.width
+    //        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+    //        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+    //        var newFrame = textView.frame
+    //        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+    //        textView.frame = newFrame
+    //    }
     
     func adjustTextViewHeight() {
         let fixedWidth = txtMessage.frame.size.width
         let newSize = txtMessage.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-       
+        
         if newSize.height == 100 || newSize.height > 100{
             heightConstraintTxtView.constant = 100
             heightContraintViewBottom.constant = 100
@@ -200,39 +213,39 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func textViewDidChange(_ textView: UITextView)
     {
-
+        
         self.adjustTextViewHeight()
-//        print(textView.contentSize.height)
-//        if textView.contentSize.height >= self.textViewMaxHeight
-//        {
-//            textView.isScrollEnabled = true
-//        }
-//        else
-//        {
-//
-//
-//            heightConstraintTxtView.constant = textView.contentSize.height
-//            heightContraintViewBottom.constant = textView.contentSize.height
-//                textView.isScrollEnabled = false
-//
-//        }
+        //        print(textView.contentSize.height)
+        //        if textView.contentSize.height >= self.textViewMaxHeight
+        //        {
+        //            textView.isScrollEnabled = true
+        //        }
+        //        else
+        //        {
+        //
+        //
+        //            heightConstraintTxtView.constant = textView.contentSize.height
+        //            heightContraintViewBottom.constant = textView.contentSize.height
+        //                textView.isScrollEnabled = false
+        //
+        //        }
     }
-
+    
     //MARK: - Custom
     
     func keyboardHandling(){
         
         //if Constants.isIphoneX == true  {
-            NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-            keyboardManager.enable = false
-            keyboardManager.enableAutoToolbar = false
-       // }else{
-            //keyboardManager.enable = true
-            //keyboardManager.enableAutoToolbar = true
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        keyboardManager.enable = false
+        keyboardManager.enableAutoToolbar = false
+        // }else{
+        //keyboardManager.enable = true
+        //keyboardManager.enableAutoToolbar = true
         //}
         
     }
-
+    
     @objc func showKeyboard(notification: Notification) {
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
@@ -281,9 +294,25 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func refreshTableView() {
-        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
-        print(parameter)
-        self.adForest_getChatData(parameter: parameter as NSDictionary)
+        //                let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
+        //        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": receiver_id, "receiver_id": sender_id, "type": messageType, "message": ""]
+        //
+        //                print(parameter)
+        //                self.adForest_getChatData(parameter: parameter as NSDictionary)
+        //
+        if messageType == "sent"{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        else{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id , "receiver_id": receiver_id , "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        
     }
     
     func adForest_populateData() {
@@ -300,7 +329,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let date = objData?.adDate {
                 self.lblDate.text = date
             }
-        
+            
         }
     }
     
@@ -321,25 +350,60 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func onClickRefreshButton() {
-        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
-        print(parameter)
-        self.showLoader()
-        self.adForest_getChatData(parameter: parameter as NSDictionary)
+        if messageType == "sent"{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        else{
+            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id , "receiver_id": receiver_id , "type": messageType, "message": ""]
+            print(parameter)
+            self.showLoader()
+            self.adForest_getChatData(parameter: parameter as NSDictionary)
+        }
+        
     }
     
-    
     @IBAction func btnBlockClicked(_ sender: UIButton) {
-    
-        if isBlocked == "true"{
-            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
-            print(parameter)
-            adForest_UnblockUserChat(parameters: parameter as NSDictionary)
-        }else{
-            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
-            print(parameter)
-            adForest_blockUserChat(parameters: parameter as NSDictionary)
+        //        if isBlocked == "true"{
+        //            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
+        //            print(parameter)
+        //            adForest_UnblockUserChat(parameters: parameter as NSDictionary)
+        //        }else{
+        //            let parameter : [String: Any] = ["sender_id": sender_id, "recv_id": receiver_id]
+        //            print(parameter)
+        //            adForest_blockUserChat(parameters: parameter as NSDictionary)
+        //        }
+        if isBlocked == "true" {
+            if messageType == "receive"{
+                let parameter : [String: Any] = ["sender_id": receiver_id  , "recv_id": sender_id ]
+                
+                print(parameter)
+                adForest_UnblockUserChat(parameters: parameter as NSDictionary)
+                
+            }
+            else{
+                
+                let parameter : [String: Any] = ["sender_id": sender_id , "recv_id": receiver_id]
+                print(parameter)
+                adForest_UnblockUserChat(parameters: parameter as NSDictionary)
+            }
+            
         }
-
+        else{
+            if messageType == "receive"{
+                let parameter : [String: Any] = ["sender_id": receiver_id  , "recv_id": sender_id ]
+                print(parameter)
+                adForest_blockUserChat(parameters: parameter as NSDictionary)
+            }else{
+                let parameter : [String: Any] = ["sender_id": sender_id , "recv_id": receiver_id]
+                print(parameter)
+                adForest_blockUserChat(parameters: parameter as NSDictionary)
+            }
+            
+        }
+        
     }
     
     //MARK:- Table View Delegate Methods
@@ -356,7 +420,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let objData = dataArray[indexPath.row]
         if objData.type == "reply" {
             let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-
+            
             if userBlocked == true{
                 cell.isHidden = true
             }
@@ -368,7 +432,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_se")
                     cell.imgPicture.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                            UIEdgeInsetsMake(17, 21, 17, 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
@@ -380,7 +444,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_sent")
                     cell.imgPicture.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                            UIEdgeInsetsMake(17, 21, 17, 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
@@ -400,7 +464,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else {
             
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-        
+            
             if userBlocked == true{
                 cell.isHidden = true
             }
@@ -409,7 +473,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_sent")
                     cell.imgBackground.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                            UIEdgeInsetsMake(17, 21, 17, 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.txtMessage.text = message
@@ -422,7 +486,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let image = UIImage(named: "bubble_se")
                     cell.imgBackground.image = image!
                         .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
+                                            UIEdgeInsetsMake(17, 21, 17, 21),
                                         resizingMode: .stretch)
                         .withRenderingMode(.alwaysTemplate)
                     cell.txtMessage.text = message
@@ -431,19 +495,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                 }
             }
-                    
+            
             if let imgUrl = URL(string: objData.img) {
                 cell.imgIcon.sd_setShowActivityIndicatorView(true)
                 cell.imgIcon.sd_setIndicatorStyle(.gray)
                 cell.imgIcon.sd_setImage(with: imgUrl, completed: nil)
             }
-
+            
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == dataArray.count - 1 && currentPage < maximumPage {
+        if indexPath.row == dataArray.count && currentPage < maximumPage {
             currentPage = currentPage + 1
             let param: [String: Any] = ["page_number": currentPage]
             print(param)
@@ -455,32 +519,50 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- IBActions
     @IBAction func actionSendMessage(_ sender: UIButton) {
         
-//        if isBlocked == "true"{
-//            print(blockMessage)
-//            let alert = Constants.showBasicAlert(message: blockMessage)
-//            self.presentVC(alert)
-//        }else{
-//            print("Not Blocked..")
+        //        if isBlocked == "true"{
+        //            print(blockMessage)
+        //            let alert = Constants.showBasicAlert(message: blockMessage)
+        //            self.presentVC(alert)
+        //        }else{
+        //            print("Not Blocked..")
         
         guard let messageField = txtMessage.text else {
             return
         }
-        if messageField == "" {
-            
-        } else {
-            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": messageField]
-            print(parameter)
-            self.adForest_sendMessage(param: parameter as NSDictionary)
-            self.showLoader()
-        }
-      //}
+//        if messageField == "" {
+//
+//        } else {
+//            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": receiver_id, "receiver_id": sender_id, "type": messageType, "message": messageField]
+//            print(parameter)
+//            self.adForest_sendMessage(param: parameter as NSDictionary)
+//            self.showLoader()
+//        }
+        
+                if messageField == "" {
+        
+                } else {
+                    if messageType == "sent"{
+                        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": messageField]
+        
+                        print(parameter)
+                        self.adForest_sendMessage(param: parameter as NSDictionary)
+                        self.showLoader()
+                    }
+                    else{
+                        let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": sender_id, "receiver_id": receiver_id, "type": messageType, "message": messageField]
+                        print(parameter)
+                        self.adForest_sendMessage(param: parameter as NSDictionary)
+                        self.showLoader()
+                        }
+        
+                }
     }
     
     @IBAction func actionNotificationName(_ sender: UIButton) {
         let addDetailVc = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
         addDetailVc.ad_id = Int(ad_id)!
         self.navigationController?.pushViewController(addDetailVc, animated: true)
-
+        
     }
     
     //MARK:- API Call
@@ -495,6 +577,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.maximumPage = successResponse.data.pagination.maxNumPages
                 UserHandler.sharedInstance.objSentOfferChatData = successResponse.data
                 self.reverseArray = successResponse.data.chat
+                print(successResponse.data.isBlock)
+                self.isBlocked = String(successResponse.data.isBlock)
+                print(self.isBlocked)
                 self.btn_text = successResponse.data.btnText
                 self.dataArray = self.reverseArray.reversed()
                 self.adForest_populateData()
@@ -502,16 +587,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.scrollToBottom()
                 self.tableView.setEmptyMessage("")
                 self.btnBlock.setTitle( self.btn_text, for: .normal)
-//                if isBlocked == "true"{
-//                          btnBlock.setTitle("UnBlock", for: .normal)
-//                      }else{
-//                           btnBlock.setTitle("Block", for: .normal)
-//                      }
+                //                if isBlocked == "true"{
+                //                          btnBlock.setTitle("UnBlock", for: .normal)
+                //                      }else{
+                //                           btnBlock.setTitle("Block", for: .normal)
+                //                      }
             }
             else {
                 //let alert = Constants.showBasicAlert(message: successResponse.message)
                 //self.presentVC(alert)
-                 self.tableView.reloadData()
+                self.tableView.reloadData()
+                self.isBlocked = String(successResponse.data.isBlock)
+                print(self.isBlocked)
                 //self.tableView.backgroundView?.isHidden = true
                 self.btn_text = successResponse.data.btnText
                 self.btnBlock.setTitle( self.btn_text, for: .normal)
@@ -522,7 +609,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.stopAnimating()
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
-
+            
         }
     }
     
@@ -558,7 +645,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.txtMessage.text = ""
                 UserHandler.sharedInstance.objSentOfferChatData = successResponse.data
                 self.reverseArray = successResponse.data.chat
-               
+                
                 self.dataArray = self.reverseArray.reversed()
                 self.tableView.reloadData()
                 self.scrollToBottom()
@@ -581,9 +668,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         UserHandler.blockUserChat(parameter: parameters , success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-               // let alert = Constants.showBasicAlert(message: successResponse.message)
-               // self.presentVC(alert)
-          
+                // let alert = Constants.showBasicAlert(message: successResponse.message)
+                // self.presentVC(alert)
+                
                 var ok = ""
                 
                 if let settingsInfo = self.defaults.object(forKey: "settings") {
@@ -597,17 +684,41 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let al = UIAlertController(title: self.btn_text, message: "", preferredStyle: .alert)
                 let btnOk = UIAlertAction(title: ok, style: .default) { (ok) in
-                    let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id, "receiver_id": self.receiver_id, "type": self.messageType, "message": ""]
-                                         print(parameter)
+                    
+                    //                    let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id, "receiver_id": self.receiver_id, "type": self.messageType, "message": ""]
+                    //                                         print(parameter)
+                    //                        self.userBlocked = true
+                    //                        self.adForest_getChatData(parameter: parameter as NSDictionary)
+                    
+                    if self.messageType == "sent"{
+                        
+                        
+                        let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.receiver_id , "receiver_id": self.sender_id , "type": self.messageType, "message": ""]
+                        print(parameter)
+                        self.showLoader()
                         self.userBlocked = true
+                        
                         self.adForest_getChatData(parameter: parameter as NSDictionary)
+                        
+                    }
+                    else{
+                        
+                        
+                        let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id, "receiver_id": self.receiver_id, "type": self.messageType, "message": ""]
+                        print(parameter)
+                        self.showLoader()
+                        self.userBlocked = true
+                        
+                        self.adForest_getChatData(parameter: parameter as NSDictionary)
+                    }
+                    
                 }
                 al.addAction(btnOk)
                 self.presentVC(al)
                 
                 //self.btnBlock.setTitle("UnBlock", for: .normal)
                 self.isBlocked = "true"
-        
+                
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
@@ -617,7 +728,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
-
+    
     
     func adForest_UnblockUserChat(parameters: NSDictionary) {
         self.showLoader()
@@ -640,15 +751,39 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let al = UIAlertController(title: self.btn_text, message: "", preferredStyle: .alert)
                 let btnOk = UIAlertAction(title: ok, style: .default) { (ok) in
-                    let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id, "receiver_id": self.receiver_id, "type": self.messageType, "message": ""]
-                    print(parameter)
-                    self.userBlocked = false
-                    self.adForest_getChatData(parameter: parameter as NSDictionary)
+                    
+                    
+                    
+                    //                    let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id, "receiver_id": self.receiver_id, "type": self.messageType, "message": ""]
+                    //                    print(parameter)
+                    
+                    if self.messageType == "sent"{
+                        
+                        
+                        let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.sender_id , "receiver_id": self.receiver_id , "type": self.messageType, "message": ""]
+                        print(parameter)
+                        self.showLoader()
+                        self.userBlocked = false
+                        
+                        self.adForest_getChatData(parameter: parameter as NSDictionary)
+                        
+                    }
+                    else{
+                        
+                        
+                        let parameter : [String: Any] = ["ad_id": self.ad_id, "sender_id": self.receiver_id, "receiver_id": self.sender_id, "type": self.messageType, "message": ""]
+                        print(parameter)
+                        self.showLoader()
+                        self.userBlocked = false
+                        
+                        self.adForest_getChatData(parameter: parameter as NSDictionary)
+                    }
+                    //                    self.adForest_getChatData(parameter: parameter as NSDictionary)
                 }
                 al.addAction(btnOk)
                 self.presentVC(al)
                 
-               // self.btnBlock.setTitle("Block", for: .normal)
+                // self.btnBlock.setTitle("Block", for: .normal)
                 self.isBlocked = "false"
                 
             } else {
@@ -664,7 +799,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 
 class SenderCell: UITableViewCell {
-
+    
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
@@ -680,7 +815,7 @@ class SenderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+        
         selectionStyle = .none
         self.txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         //self.imgPicture.layer.cornerRadius = 15
@@ -689,14 +824,14 @@ class SenderCell: UITableViewCell {
         
         //showIncomingMessage()
     }
-   
+    
 }
 
 class ReceiverCell: UITableViewCell {
     
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-   
+    
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var txtMessage: UITextView!
     @IBOutlet weak var viewBg: UIView!
@@ -713,7 +848,7 @@ class ReceiverCell: UITableViewCell {
         //self.imgBackground.layer.cornerRadius = 15
         self.imgBackground.clipsToBounds = true
     }
-   
+    
 }
 
 public extension UIColor {

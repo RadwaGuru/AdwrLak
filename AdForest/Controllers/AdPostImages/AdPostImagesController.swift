@@ -50,6 +50,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var imgCtrlCount = 0
     
     var fieldsArray = [AdPostField]()
+    var adPostValue = [AdPostValue]()
     var data = [AdPostImageArray]()
     var adID = 0
     var imageIDArray = [Int]()
@@ -78,14 +79,15 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isShowPrice = true
     var isImagesRequired = "true"
     var isEditStart  = false
-    
+    var priceHide = ""
+    var calledFromViewDidLoad = false;
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
         self.hideKeyboard()
         self.forwardButton()
-        self.adForest_populateData()
+//        self.adForest_populateData()
 //        self.imgeCount(count: imgCtrlCount)
         print(imgCtrlCount)
         for ite in objArray {
@@ -94,6 +96,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         self.dataArray = fieldsArray
         let valuesArray = ["ad_title","ad_cats1" ,"ad_price_type", "ad_price", "ad_currency", "ad_condition", "ad_warranty", "ad_type", "ad_yvideo", "checkbox"]
         let valueToremove = ["ad_title","ad_cats1"]
+        let priceValuesToRemove = ["ad_currency","ad_price"]
         
         for item in dataArray {
             if AddsHandler.sharedInstance.isCategoeyTempelateOn ==  false {
@@ -114,15 +117,40 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     }
                 }
             }
-        }
-        fieldsArray = dataArray
-        print(fieldsArray)
 
+            if priceHide == "no_price" || priceHide == "on_call" || priceHide == "free"{
+                
+                if priceValuesToRemove.contains(item.fieldTypeName){
+                    let value = item.fieldTypeName
+                    let index = dataArray.index{ $0.fieldTypeName ==  value}
+                    if let index  = index {
+                        dataArray.remove(at: index)
+                    }
+                }
+            }
+        }
+        print(dataArray)
+            
+            
+        
+        fieldsArray = dataArray
+
+        print(fieldsArray)
+        
+        
+        
+        
+        for ob in fieldsArray{
+            if ob.fieldType == "checkbox"{
+                adPostValue.append( contentsOf: ob.values)
+            }
+        }
+        
+        
         self.adForest_populateData()
         self.tableView.reloadData()
-//        self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-//        self.tableView.reloadSections(NSIndexSet(index: 2) as IndexSet, with: .automatic)
 
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -250,30 +278,20 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     }
                 }
                     
-                else if objData.fieldType == "checkbox" {
-                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CheckBoxCell {
-                        var obj = AdPostField()
-                        obj.fieldTypeName = cell.fieldName
-//                        if  objData.isRequired == true{
-//                            if objData.fieldVal == ""{
-//                                requiredCheck = true
-//                                showToast(message: "Please fill all required fields")
-//                                cell.lblName.textColor = UIColor.red
-//                                //                                    .setTitleColor(UIColor.red, for: .normal)
-//                                cell.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-//                                print("agay ni jana beta")
-//                            }
-//                        }
-
-                        objArray.append(obj)
-                        customArray.append(obj)
-                        localVariable = ""
-                        for item in cell.valueArray {
-                            localVariable += item + ","
-                        }
-                        self.localDictionary[cell.fieldName] = localVariable
-                    }
-                }
+//                else if objData.fieldType == "checkbox" {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CheckBoxCell {
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = cell.fieldName
+//                        cell.fieldName = obj.fieldTypeName
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+////                        localVariable = ""
+////                        for item in cell.valueArray {
+////                            localVariable += item + ","
+////                        }
+////                        self.localDictionary[cell.fieldName] = localVariable
+//                    }
+//                }
                 else if objData.fieldType == "textfield_url" {
                     if let cell: AdPostURLCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? AdPostURLCell {
                         var obj = AdPostField()
@@ -334,17 +352,17 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //                }
                     
                     
-                else if objData.fieldType == "textfield_number" {
-                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
-                        var obj = AdPostField()
-                        obj.fieldTypeName = "number_range" //cell.fieldName
-                        obj.fieldVal = cell.txtMinPrice.text
-                       
-
-                        objArray.append(obj)
-                        customArray.append(obj)
-                    }
-                }
+//                else if objData.fieldType == "textfield_number" {
+//                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = "number_range" //cell.fieldName
+//                        obj.fieldVal = cell.txtMinPrice.text
+//
+//
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
             }
         }
         let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostMapController") as! AdPostMapController
@@ -363,8 +381,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         }
 //            adPostVC.imageIdArray = imageIDArray
             adPostVC.objArray = objArray
+        print(objArray)
             adPostVC.customArray = self.customArray
             print(self.customArray)
+            
             adPostVC.localVariable = self.localVariable
             adPostVC.valueArray = self.valueArray
             adPostVC.localDictionary = self.localDictionary
@@ -489,8 +509,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     let camera = UserDefaults.standard.string(forKey: "camera")
                     let cameraNotAvailable = UserDefaults.standard.string(forKey: "cameraNotAvavilable")
                     
-                    let actionSheet = UIAlertController(title: "select", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-                                   actionSheet.addAction(UIAlertAction(title: "camera", style: .default, handler: { (action) -> Void in
+                    let actionSheet = UIAlertController(title: select, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+                                   actionSheet.addAction(UIAlertAction(title:camera, style: .default, handler: { (action) -> Void in
                                        let imagePickerConroller = UIImagePickerController()
                                        imagePickerConroller.delegate = self
                                        if UIImagePickerController.isSourceTypeAvailable(.camera){
@@ -498,7 +518,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                        }else{
                                         let al = UserDefaults.standard.string(forKey: "aler")
                                             let ok = UserDefaults.standard.string(forKey: "okbtnNew")
-                                           let alert = UIAlertController(title: al, message: "cameraNotAvailable", preferredStyle: UIAlertControllerStyle.alert)
+                                           let alert = UIAlertController(title: al, message: cameraNotAvailable, preferredStyle: UIAlertControllerStyle.alert)
                                            let OkAction = UIAlertAction(title: ok, style: UIAlertActionStyle.cancel, handler: nil)
                                            alert.addAction(OkAction)
                                            self.present(alert, animated: true, completion: nil)
@@ -506,7 +526,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                        self.present(imagePickerConroller,animated:true, completion:nil)
                                    }))
                                    let gallery = UserDefaults.standard.string(forKey: "gallery")
-                                   actionSheet.addAction(UIAlertAction(title: "gallery", style: .default, handler: { (action) -> Void in
+                                   actionSheet.addAction(UIAlertAction(title: gallery, style: .default, handler: { (action) -> Void in
                                      
                                        let imagePicker = OpalImagePickerController()
                                        imagePicker.navigationBar.tintColor = UIColor.white
@@ -591,6 +611,11 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                // cell.selectedIndex = indexPath.row
                 cell.delegate = self
                 
+                if objData.fieldTypeName == "ad_price" {
+                    if objData.fieldVal != nil{
+                        textVal(value: objData.fieldVal, indexPath: indexPath.row, fieldType: "textfield", section: 2, fieldNam: objData.fieldTypeName)
+                    }
+                }
                 
                 if objData.fieldTypeName == "ad_price_type"{
                     if isShowPrice == false{
@@ -718,6 +743,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.dataArray = objData.values
                 cell.fieldName = objData.fieldTypeName
                 cell.fieldType = objData.fieldType
+                cell.indexPath = indexPath.row
+                cell.delegate = self
                 cell.tableView.reloadData()
                 return cell
             }
@@ -728,7 +755,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 if let placeHolder = objData.title {
                     cell.txtUrl.placeholder = placeHolder
                 }
-                
                 cell.fieldName = objData.fieldTypeName
                 return cell
             }
@@ -762,6 +788,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.index = indexPath.row
                 cell.section = 2
                 cell.delegate = self
+                radVal(rVal: objData.fieldVal, fieldType: "radio", indexPath: indexPath.row, isSelected: objData.tempIsSelected, fieldNam: objData.fieldTypeName)
                 cell.fieldName = objData.fieldTypeName
                 cell.tableView.reloadData()
                 
@@ -791,6 +818,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     cell.lblTitle.text = title
                     cell.txtMinPrice.placeholder = title
                 }
+                cell.txtMinPrice.text = objData.fieldVal
+                cell.delegate = self
+                numberRange(index: indexPath.row, fieldName: objData.fieldTypeName, fieldVal: objData.fieldVal, fieldType: "textfield_number")
+                cell.fieldType = objData.fieldType
                 cell.fieldName = objData.fieldTypeName
                 cell.txtMinPrice.keyboardType = .numberPad
                 return cell
@@ -910,6 +941,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
         }) { (error) in
             self.stopAnimating()
+            self.uploadingProgressBar.dismiss(animated: true)
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
@@ -935,7 +967,43 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     
 }
 
-extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDateDelegate,textSelectDropDown,ColorRadioDelegateAdpost,radioDelegateAdpost{
+extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDateDelegate,textSelectDropDown,ColorRadioDelegateAdpost,radioDelegateAdpost,checkBoxProtocol,numberrangeProtocol{
+    func numberRange(index: Int, fieldName: String, fieldVal: String,fieldType : String) {
+        if fieldType == "textfield_number"{
+            var obj = AdPostField()
+            obj.fieldType = "textfield_number"
+            obj.fieldVal = fieldVal
+            obj.fieldTypeName = fieldName
+//            self.fieldsArray[index].tempIsSelected = isSelected
+//            self.fieldsArray[index].isRequired = false
+            print(adPostValue)
+//            self.adPostValue[index].isChecked = isSelected
+            self.dataArray.append(obj)
+            isEditStart = true
+            self.fieldsArray.append(obj)
+            objArray.append(obj)
+            customArray.append(obj)
+        }
+    }
+    
+    func checkBoxesChecked(checkBoxID: String, fieldType: String, indexPath: Int, isSelected: Bool, fieldNam: String) {
+        if fieldType == "checkbox"{
+            var obj = AdPostField()
+            obj.fieldType = "checkbox"
+            obj.fieldVal = checkBoxID
+            obj.fieldTypeName = fieldNam
+            self.fieldsArray[indexPath].tempIsSelected = isSelected
+            self.fieldsArray[indexPath].isRequired = false
+            print(adPostValue)
+            self.adPostValue[indexPath].isChecked = isSelected
+            self.dataArray.append(obj)
+            isEditStart = true
+            self.fieldsArray.append(obj)
+            objArray.append(obj)
+            customArray.append(obj)
+        }
+    }
+    
    
 
     func radVal(rVal: String, fieldType: String, indexPath: Int, isSelected: Bool,fieldNam:String) {

@@ -10,7 +10,13 @@ import UIKit
 
 class MarvelVerticalSLiderAdsTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
-    @IBOutlet weak var OltViewAll: UIButton!
+    @IBOutlet weak var OltViewAll: UIButton!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                OltViewAll.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var lblSectionTitle: UILabel!
     @IBOutlet weak var heightConstaraintCollectionView: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!{
@@ -19,12 +25,15 @@ class MarvelVerticalSLiderAdsTableViewCell: UITableViewCell,UICollectionViewDele
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
             collectionView.isScrollEnabled = false
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
             
         }
     }
     @IBOutlet weak var containerView: UIView!{
         didSet {
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
+            
         }
     }
     
@@ -33,7 +42,7 @@ class MarvelVerticalSLiderAdsTableViewCell: UITableViewCell,UICollectionViewDele
     var dataArray = [HomeAdd]()
     var delegate : MarvelRelatedAddDetailDelegate?
     var btnViewAll :(()->())?
-    
+    var fromMultiHome = false
     
     
     override func awakeFromNib() {

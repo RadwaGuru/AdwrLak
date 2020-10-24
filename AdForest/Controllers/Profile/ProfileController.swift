@@ -52,14 +52,20 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     let searchBarNavigation = UISearchBar()
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
-
+    
     var barButtonItems = [UIBarButtonItem]()
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     
     
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if defaults.bool(forKey: "isLogin") == true {
+        
+        
         SwiftyAd.shared.delegate = self 
         self.googleAnalytics(controllerName: "Profile Controller")
         self.adMob()
@@ -70,25 +76,34 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             self.oltAdPost.isHidden = true
         }
         
-        
-        navigationButtons()
+            navigationButtons()
+            
+        }else{
+            tableViewHelper()
+            oltAdPost.isHidden = true
+            oltAdPost.isUserInteractionEnabled = false
+        }
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.addLeftBarButtonWithImage()
+
+        if defaults.bool(forKey: "isLogin") == true {
         self.adForest_profileDetails()
+            
+        }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//         self.adForest_profileDetails()
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(true)
+    //         self.adForest_profileDetails()
+    //    }
     
     
     //MARK: - Custom
-  
+    
     
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
@@ -132,8 +147,8 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
+                    //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+                    //                    SwiftyAd.shared.showInterstitial(from: self)
                     self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
                     self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
@@ -182,7 +197,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let objData = dataArray[indexPath.row]
-
+        
         if section == 0 {
             let cell: ProfileCell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
             
@@ -212,18 +227,18 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                 cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: "#ffcc00")
                 cell.ratingBar.rating = Double(ratingBar)!
             }
-
+            
             for obj in socialArray {
-//                if obj.value == "" {
-//                    cell.btnLinkedIn.isHidden = true
-//                    cell.btnFB.isHidden = true
-//                    cell.btnGoogle.isHidden = true
-//
-//                } else {
-//                    cell.btnLinkedIn.isHidden = false
-//                    cell.btnFB.isHidden = false
-//                    cell.btnGoogle.isHidden = false
-//                }
+                //                if obj.value == "" {
+                //                    cell.btnLinkedIn.isHidden = true
+                //                    cell.btnFB.isHidden = true
+                //                    cell.btnGoogle.isHidden = true
+                //
+                //                } else {
+                //                    cell.btnLinkedIn.isHidden = false
+                //                    cell.btnFB.isHidden = false
+                //                    cell.btnGoogle.isHidden = false
+                //                }
                 if obj.fieldName == "_sb_profile_linkedin" && obj.value.isEmpty == false {
                     self.linkedin = obj.value
                     cell.btnLinkedIn.isHidden = false
@@ -239,12 +254,12 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                     cell.btnTwitter.isHidden = false
                     cell.btnTwitter.setTitle(obj.value, for: .normal)
                 }
-
+                
                 if obj.fieldName == "_sb_profile_instagram" && obj.value.isEmpty == false {
                     self.google = obj.value
                     cell.btnGoogle.isHidden = false
                     cell.btnGoogle.setTitle(obj.value, for: .normal)
-
+                    
                 }
             }
             
@@ -411,7 +426,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         }
         return UITableViewCell()
     }
-     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         if section == 0 {
@@ -471,111 +486,111 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
             self.navigationController?.pushViewController(adPostVC, animated: true)
         }
-     
+        
     }
     //action social Icons Clicked
-
+    
     @objc func linkedinClicked(_ sender: UIButton){
         print(sender.currentTitle)
-          let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
-
-                 if #available(iOS 10.0, *) {
-                     if verifyUrl(urlString: linkedin) == false {
-                        let alert = Constants.showBasicAlert(message: inValidUrl!)
-                        self.presentVC(alert)
-                     }else{
-                        print(linkedin)
-                         UIApplication.shared.open(URL(string: linkedin)!, options: [:], completionHandler: nil)
-                     }
-                     
-                 } else {
-                     if verifyUrl(urlString: linkedin) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                     }else{
-                         UIApplication.shared.openURL(URL(string: linkedin)!)
-                     }
-                 }
-          print(sender.currentTitle)
-          
-          
-      }
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+        
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: linkedin) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)
+            }else{
+                print(linkedin)
+                UIApplication.shared.open(URL(string: linkedin)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: linkedin) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: linkedin)!)
+            }
+        }
+        print(sender.currentTitle)
+        
+        
+    }
     @objc func fbClicked(_ sender: UIButton){
-            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
-
-                   if #available(iOS 10.0, *) {
-                       if verifyUrl(urlString: facebook) == false {
-                        let alert = Constants.showBasicAlert(message: inValidUrl!)
-                           self.presentVC(alert)                       }else{
-                           UIApplication.shared.open(URL(string: facebook)!, options: [:], completionHandler: nil)
-                       }
-
-                   } else {
-                       if verifyUrl(urlString: facebook) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                       }else{
-                           UIApplication.shared.openURL(URL(string: facebook)!)
-                       }
-                   }
-            print(sender.currentTitle)
-
-
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+        
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: facebook) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)                       }else{
+                    UIApplication.shared.open(URL(string: facebook)!, options: [:], completionHandler: nil)
+                }
+            
+        } else {
+            if verifyUrl(urlString: facebook) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: facebook)!)
+            }
         }
+        print(sender.currentTitle)
+        
+        
+    }
     @objc func twitterClicked(_ sender: UIButton){
-            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
-
-                   if #available(iOS 10.0, *) {
-                       if verifyUrl(urlString: twitter) == false {
-                        let alert = Constants.showBasicAlert(message: inValidUrl!)
-                           self.presentVC(alert)                       }else{
-                           UIApplication.shared.open(URL(string: twitter)!, options: [:], completionHandler: nil)
-                       }
-
-                   } else {
-                       if verifyUrl(urlString: twitter) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                       }else{
-                           UIApplication.shared.openURL(URL(string: twitter)!)
-                       }
-                   }
-            print(sender.currentTitle)
-
-
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+        
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: twitter) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)                       }else{
+                    UIApplication.shared.open(URL(string: twitter)!, options: [:], completionHandler: nil)
+                }
+            
+        } else {
+            if verifyUrl(urlString: twitter) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: twitter)!)
+            }
         }
+        print(sender.currentTitle)
+        
+        
+    }
     @objc func googleClicked(_ sender: UIButton){
-            let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
-
-                   if #available(iOS 10.0, *) {
-                       if verifyUrl(urlString: google) == false {
-                        let alert = Constants.showBasicAlert(message: inValidUrl!)
-                        self.presentVC(alert)
-
-                       }else{
-                           UIApplication.shared.open(URL(string: google)!, options: [:], completionHandler: nil)
-                       }
-
-                   } else {
-                       if verifyUrl(urlString: google) == false {
-                        Constants.showBasicAlert(message: inValidUrl!)
-                       }else{
-                           UIApplication.shared.openURL(URL(string: google)!)
-                       }
-                   }
-            print(sender.currentTitle)
-
-
+        let inValidUrl = UserDefaults.standard.string(forKey: "InValidUrl")
+        
+        if #available(iOS 10.0, *) {
+            if verifyUrl(urlString: google) == false {
+                let alert = Constants.showBasicAlert(message: inValidUrl!)
+                self.presentVC(alert)
+                
+            }else{
+                UIApplication.shared.open(URL(string: google)!, options: [:], completionHandler: nil)
+            }
+            
+        } else {
+            if verifyUrl(urlString: google) == false {
+                Constants.showBasicAlert(message: inValidUrl!)
+            }else{
+                UIApplication.shared.openURL(URL(string: google)!)
+            }
         }
-
-      func verifyUrl (urlString: String?) -> Bool {
-             //Check for nil
-             if let urlString = urlString {
-                 // create NSURL instance
-                 if let url = NSURL(string: urlString) {
-                     // check if your application can open the NSURL instance
-                     return UIApplication.shared.canOpenURL(url as URL)
-                 }
-             }
-             return false
-         }
+        print(sender.currentTitle)
+        
+        
+    }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
     //MARK:- API Call
     
     // Profile Details
@@ -586,6 +601,8 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             if successResponse.success {
                 self.dataArray = [successResponse.data]
                 self.socialArray = successResponse.data.socialIcons
+                let tabController = self.parent as? UITabBarController
+                tabController?.navigationItem.title = successResponse.extraText.profileTitle
                 self.title = successResponse.extraText.profileTitle
                 UserHandler.sharedInstance.objProfileDetails = successResponse
                 self.tableView.reloadData()
@@ -708,8 +725,16 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }       }
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
@@ -832,8 +857,25 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         }
     }
     
-    
+    func tableViewHelper(){
+          
+        var msgLogin = ""
+        if let msg = self.defaults.string(forKey: "notLogin") {
+            msgLogin = msg
+        }
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+        let messageLabel = UILabel(frame: rect)
+        messageLabel.text =  msgLogin
+        messageLabel.textColor = UIColor.lightGray
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = .center;
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 20)
+        messageLabel.sizeToFit()
+        tableView.backgroundView = messageLabel
     }
+
+    
+}
 
 
 
@@ -894,8 +936,8 @@ class UserProfileInformationCell: UITableViewCell {
     @IBAction func actionBlockedUser(_ sender: UIButton) {
         self.btnBlockUser?()
     }
-
-
+    
+    
 }
 
 

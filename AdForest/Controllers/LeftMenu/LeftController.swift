@@ -119,7 +119,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var guestOtherArray = [#imageLiteral(resourceName: "blog"), #imageLiteral(resourceName: "settings"),UIImage(named:"language")]
     var msgPkgArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "profile"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "myads"), #imageLiteral(resourceName: "inactiveads"), #imageLiteral(resourceName: "featuredAds"), #imageLiteral(resourceName: "favourite")]
     var guestHideImagesArray = [#imageLiteral(resourceName: "home"), #imageLiteral(resourceName: "search-magnifier"), #imageLiteral(resourceName: "logout")]
-    
+
     var viewHome: UIViewController!
     var viewProfile: UIViewController!
     var viewAdvancedSearch: UIViewController!
@@ -148,7 +148,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var viewlogout: UIViewController!
     var langController: UIViewController!
     var viewToplocation: UIViewController!
-    
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+
     
     //MARK:- Application Life Cycle
     override func viewDidLoad() {
@@ -314,10 +315,21 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     fileprivate func initializeViews() {
+        if homeStyle == "home1" {
         let homeView = storyboard?.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
         homeView.modalPresentationStyle = .fullScreen
         self.viewHome = UINavigationController(rootViewController: homeView)
-        
+        }
+        else if homeStyle == "home2"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: MultiHomeViewController.className) as! MultiHomeViewController
+            homeView.modalPresentationStyle = .fullScreen
+            self.viewHome = UINavigationController(rootViewController: homeView)
+            
+        }else if homeStyle == "home3"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: SOTabBarViewController.className) as! SOTabBarViewController
+            homeView.modalPresentationStyle = .fullScreen
+            self.viewHome = UINavigationController(rootViewController: homeView)
+        }
         let profileView = storyboard?.instantiateViewController(withIdentifier: ProfileController.className) as! ProfileController
         
         self.viewProfile = UINavigationController(rootViewController: profileView)
@@ -376,8 +388,18 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- For Guest Pages
     func initializeGuestViews() {
-        let homeView = storyboard?.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
-        self.viewHome = UINavigationController(rootViewController: homeView)
+        if homeStyle == "home1" {
+            let homeView = storyboard?.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+        }
+        else if homeStyle == "home2"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: MultiHomeViewController.className) as! MultiHomeViewController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+            
+        }else if homeStyle == "home3"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: SOTabBarViewController.className) as! SOTabBarViewController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+        }
         
         let searchView = storyboard?.instantiateViewController(withIdentifier: AdvancedSearchController.className) as! AdvancedSearchController
         searchView.delegate = self
@@ -395,8 +417,18 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func initializeGuestHiddenViews() {
-        let homeView = storyboard?.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
-        self.viewHome = UINavigationController(rootViewController: homeView)
+        if homeStyle == "home1" {
+            let homeView = storyboard?.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+        }
+        else if homeStyle == "home2"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: MultiHomeViewController.className) as! MultiHomeViewController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+            
+        }else if homeStyle == "home3"{
+            let homeView = storyboard?.instantiateViewController(withIdentifier: SOTabBarViewController.className) as! SOTabBarViewController
+            self.viewHome = UINavigationController(rootViewController: homeView)
+        }
         
         let searchView = storyboard?.instantiateViewController(withIdentifier: AdvancedSearchController.className) as! AdvancedSearchController
         searchView.delegate = self

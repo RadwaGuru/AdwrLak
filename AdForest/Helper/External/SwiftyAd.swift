@@ -102,7 +102,7 @@ final class SwiftyAd: NSObject {
      var bannerViewAdUnitID = "ca-app-pub-3940256099942544/2934735716"
 //    var bannerViewAdUnitID = "ca-app-pub-3543987221312116/1794244190"
     
-     var interstitialAdUnitID = "ca-app-pub-3521346996890484/7679081330"
+     var interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
      var rewardedVideoAdUnitID = "ca-app-pub-1234567890123456/1234567890" // todo -> doesnt seem to work anymore
 
     /// Interval counter
@@ -247,7 +247,7 @@ final class SwiftyAd: NSObject {
     /// Load interstitial ad
     func loadInterstitialAd() {
         print("AdMob interstitial ad loading...")
-        
+        //ca-app-pub-3940256099942544/4411468910
         interstitialAd = GADInterstitial(adUnitID: interstitialAdUnitID)
         
         guard let interstitialAd = interstitialAd else { return }

@@ -12,7 +12,7 @@ import Cosmos
 import IQKeyboardManagerSwift
 
 class RejectedAds: UIViewController, NVActivityIndicatorViewable,UISearchBarDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet{
@@ -62,7 +62,9 @@ class RejectedAds: UIViewController, NVActivityIndicatorViewable,UISearchBarDele
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-       
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -70,7 +72,7 @@ class RejectedAds: UIViewController, NVActivityIndicatorViewable,UISearchBarDele
         self.addLeftBarButtonWithImage()
         navigationButtons()
     }
- 
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         adforest_rejectedAds()
@@ -78,7 +80,7 @@ class RejectedAds: UIViewController, NVActivityIndicatorViewable,UISearchBarDele
     
     //MARK: - Custom
     
-
+    
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -231,7 +233,7 @@ extension RejectedAds: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if dataArray.count == 0 {
-           collectionView.setEmptyMessage(noAdTitle)
+            collectionView.setEmptyMessage(noAdTitle)
         } else {
             collectionView.restore()
         }
@@ -263,10 +265,21 @@ extension RejectedAds: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addDetailVC = storyboard?.instantiateViewController(withIdentifier: AddDetailController.className) as! AddDetailController
-        addDetailVC.ad_id = dataArray[indexPath.row].adId
-        addDetailVC.isFromRejectedAd = true
-        navigationController?.pushViewController(addDetailVC, animated: true)
+
+        if adDetailStyle == "style1"{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
+            addDetailVC.ad_id = dataArray[indexPath.row].adId
+            addDetailVC.isFromRejectedAd = true
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
+        else{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+            addDetailVC.ad_id = dataArray[indexPath.row].adId
+            addDetailVC.isFromRejectedAd = true
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -390,9 +403,19 @@ extension RejectedAds: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         
     }
     
+    
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }    }
+    
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

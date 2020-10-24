@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+protocol checkBoxProtocol {
+    func checkBoxesChecked (checkBoxID: String, fieldType: String, indexPath: Int,isSelected: Bool,fieldNam:String)
+}
 class CheckBoxCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
 
     //MARK:- Outlets
@@ -33,14 +35,18 @@ class CheckBoxCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource 
     var checkBoxDict = [String: String]()
     var fieldName = ""
     var fieldType = ""
-    
+    var delegate : checkBoxProtocol!
     var selectedArray = [AdPostValue]()
     var valueArray = [String]()
     var dict = [String: String]()
-    
+    var localVariable = ""
+    var indexPath = 0
+    var isClicked = false
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        self.valueArray.removeAll()
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -83,79 +89,115 @@ class CheckBoxCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CehckCell = tableView.dequeueReusableCell(withIdentifier: "CehckCell", for: indexPath) as! CehckCell
         
-//        let objData = dataArray[indexPath.row]
-//
-//        cell.tintColor = .systemGreen
-//        if objData.isChecked == true{
-//            print(objData.id)
-//            self.valueArray.append(objData.id)
-//            self.dict[self.fieldName] = objData.id
-//            cell.backgroundColor = UIColor.groupTableViewBackground
-//            cell.accessoryType = .checkmark
-//        }
-//
-//        if let title = objData.name {
-//            cell.lblName.text = title
-//        }
-//
-//        cell.btnFull = { () in
-//
-//            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-//                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-//                print(self.valueArray)
-//                let uni = self.uniq(source: self.valueArray)
-//                print(uni)
-//                self.valueArray = uni
-//
-//                self.valueArray.remove(object: objData.id)
-//                cell.backgroundColor = UIColor.white
-//                // if self.valueArray.contains(objData.id) {
-//                // }
-//                // else {
-//                // }
-//                print(self.valueArray)
-//            }
-//            else {
-//                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
-//
-//
-//                if self.valueArray.contains(objData.id) {
-//                }
-//                else {
-//                    cell.backgroundColor = UIColor.groupTableViewBackground
-//                    self.valueArray.append(objData.id)
-//                    self.dict[self.fieldName] = objData.id
-//                }
-//                print(self.valueArray)
-//            }
-//        }
-
-            let objData = dataArray[indexPath.row]
-            
-            if let title = objData.name {
-                cell.lblName.text = title
-            }
         
+       
             
-            cell.btnFull = { () in
+        
+        
+        let objData = dataArray[indexPath.row]
 
-                if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-                        if self.valueArray.contains(objData.id) {
-                    }
-                    else {
-                    }
+        if isClicked == false{
+            if objData.isChecked == true{
+                cell.tintColor = .systemGreen
+                print(objData.id)
+                self.valueArray.append(objData.id)
+                self.dict[self.fieldName] = objData.id
+                cell.backgroundColor = UIColor.groupTableViewBackground
+                cell.accessoryType = .checkmark
+            }
+        }
+        
+        
+
+        if let title = objData.name {
+            cell.lblName.text = title
+        }
+//        if isClicked == false{
+//        for item in self.valueArray {
+//            self.localVariable += item + ","
+//        }
+//        self.delegate?.checkBoxesChecked(checkBoxID: self.localVariable, fieldType: "checkbox", indexPath: indexPath.row, isSelected: false, fieldNam: self.fieldName)
+//    }
+        cell.btnFull = { () in
+            
+            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+                print(self.valueArray)
+                let uni = self.uniq(source: self.valueArray)
+                print(uni)
+                self.valueArray = uni
+            
+                self.valueArray.remove(object: objData.id)
+                for item in self.valueArray {
+                    self.localVariable += item + ","
+                }
+                cell.backgroundColor = UIColor.white
+                // if self.valueArray.contains(objData.id) {
+                // }
+                // else {
+                // }
+                self.isClicked = true
+                self.delegate?.checkBoxesChecked(checkBoxID: self.localVariable, fieldType: "checkbox", indexPath: indexPath.row, isSelected: false, fieldNam: self.fieldName)
+
+                print(self.valueArray)
+            }
+            else {
+                
+                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+
+
+                if self.valueArray.contains(objData.id) {
                 }
                 else {
-                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
-                        if self.valueArray.contains(objData.id) {
-                    }
-                    else {
-                        self.valueArray.append(objData.id)
-                        self.dict[self.fieldName] = objData.id
-                    }
+                    cell.backgroundColor = UIColor.groupTableViewBackground
+                    self.valueArray.append(objData.id)
+                    
+                    self.dict[self.fieldName] = objData.id
                 }
+                
+                let uni = self.uniq(source: self.valueArray)
+                print(uni)
+                self.valueArray = uni
+                for item in self.valueArray {
+                    self.localVariable += item + ","
+                }
+                print(self.localVariable)
+                
+                
+                self.isClicked = true
+                //self.dataArray[indexPath.row].isChecked = true
+                self.delegate?.checkBoxesChecked(checkBoxID: self.localVariable, fieldType: "checkbox", indexPath: indexPath.row, isSelected: true, fieldNam: self.fieldName)
+
+                print(self.valueArray)
             }
+        }
+
+//            let objData = dataArray[indexPath.row]
+//
+//            if let title = objData.name {
+//                cell.lblName.text = title
+//            }
+//
+//
+//            cell.btnFull = { () in
+//
+//                if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+//                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+//                        if self.valueArray.contains(objData.id) {
+//                    }
+//                    else {
+//                    }
+//                }
+//                else {
+//                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+//                        if self.valueArray.contains(objData.id) {
+//                    }
+//                    else {
+//                        self.valueArray.append(objData.id)
+//                        self.dict[self.fieldName] = objData.id
+//                    }
+//                }
+//            }
 
         return cell
     }

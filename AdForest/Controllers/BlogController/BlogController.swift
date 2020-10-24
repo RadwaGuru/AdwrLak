@@ -51,7 +51,8 @@ class BlogController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-    
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -388,8 +389,17 @@ class BlogController: UIViewController, UITableViewDelegate, UITableViewDataSour
        }
        
        @objc func actionHome() {
-           appDelegate.moveToHome()
-       }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }
+ }
        
        @objc func onClicklocationButton() {
            let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

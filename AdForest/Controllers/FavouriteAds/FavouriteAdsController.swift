@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 import IQKeyboardManagerSwift
 
 class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, NVActivityIndicatorViewable,UISearchBarDelegate,NearBySearchDelegate,UIGestureRecognizerDelegate {
-
+    
     
     //MARK:- Outlets
     @IBOutlet weak var scrollBar: UIScrollView! {
@@ -43,7 +43,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     @IBOutlet weak var lblSoldAds: UILabel!
     @IBOutlet weak var lblAllAds: UILabel!
     @IBOutlet weak var lblInactiveAds: UILabel!
-
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
@@ -51,7 +51,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
             collectionView.addSubview(refreshControl)
         }
     }
-  
+    
     @IBOutlet weak var oltAdPost: UIButton!{
         didSet {
             oltAdPost.circularButton()
@@ -79,7 +79,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(refreshTableView),
+                                    #selector(refreshTableView),
                                  for: UIControlEvents.valueChanged)
         refreshControl.tintColor = UIColor.red
         
@@ -95,6 +95,9 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+
     
     
     
@@ -115,15 +118,15 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        if AddsHandler.sharedInstance.objMyAds == nil{
-//            self.adForest_settingsData()
-//            self.adForest_favouriteAdsData()
-//        }
+        //        if AddsHandler.sharedInstance.objMyAds == nil{
+        //            self.adForest_settingsData()
+        //            self.adForest_favouriteAdsData()
+        //        }
     }
     
     //MARK: - Custom
     
-   
+    
     @objc func refreshTableView() {
         adForest_favouriteAdsData()
     }
@@ -236,15 +239,15 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
+                    //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+                    //                    SwiftyAd.shared.showInterstitial(from: self)
                     self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
                     self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
     }
-
+    
     @objc func showAd(){
         currentVc = self
         admobDelegate.showAd()
@@ -259,7 +262,7 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-  
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if dataArray.count == 0 {
             collectionView.setEmptyMessage(noAddTitle)
@@ -320,9 +323,19 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: AddDetailController.className) as! AddDetailController
-        addDetailVC.ad_id = self.dataArray[indexPath.row].adId
-        self.navigationController?.pushViewController(addDetailVC, animated: true)
+
+        if adDetailStyle == "style1"{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
+            addDetailVC.ad_id = dataArray[indexPath.row].adId
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
+        else{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+            addDetailVC.ad_id = dataArray[indexPath.row].adId
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -560,8 +573,16 @@ class FavouriteAdsController: UIViewController, UIScrollViewDelegate, UICollecti
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }        }
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

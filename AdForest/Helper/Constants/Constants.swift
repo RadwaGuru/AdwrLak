@@ -13,8 +13,7 @@ import DeviceKit
 class Constants {
     struct  URL {
         
-        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"
-
+        static let ipAddress = "https://adforest-testapp.scriptsbundle.com/"
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -109,7 +108,11 @@ class Constants {
         static let contactSeller = "ad_post/seller_contact/"
 
     }
-    
+    struct AdMob {
+            static let objData = UserHandler.sharedInstance.objAdMob
+        static let intersetialId = objData?.adId
+            //"ca-app-pub-3940256099942544/4411468910"
+        }
     
     struct customCodes {
         
@@ -117,6 +120,7 @@ class Constants {
         
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
+        
 
         
     }
@@ -144,10 +148,18 @@ class Constants {
     struct googlePlacesAPIKey {
         
 //        static let placesKey = "placeskey "
-        static let placesKey =  "AIzaSyDqan9-Knu1pfzw73ORx5lhpn2y1a7Q2SA"
+        static let placesKey =  "AIzaSyCU9-DVKNM2GyoJ2_9MdMtCSU8zqD1pTLc"
 
         
     }
+    struct MapboxAccessToken {
+        
+//        static let placesKey = "placeskey "
+        static let MapboxAccessToken =  "pk.eyJ1IjoiZ2xpeGVuIiwiYSI6ImNrMmFkNXdjbjJpeHgzbG16bW5kZ3R5OGkifQ.sUMfX4HRKF9l3YorJ4a02A"
+
+        
+    }
+
     
     struct AppColor {
         static let greenColor = "#24a740"

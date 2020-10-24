@@ -74,7 +74,9 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
     var facebook = ""
     var linkedin = ""
     var twitter = ""
-    
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -274,9 +276,21 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
-        detailVC.ad_id = dataArray[indexPath.row].adId
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        if adDetailStyle == "style1"{
+            let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
+            detailVC.ad_id = dataArray[indexPath.row].adId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+            
+        }
+        else{
+            let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+            detailVC.ad_id = dataArray[indexPath.row].adId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+            
+        }
+//        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
+//        detailVC.ad_id = dataArray[indexPath.row].adId
+//        self.navigationController?.pushViewController(detailVC, animated: true)
     }
  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -561,7 +575,16 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
        }
        
        @objc func actionHome() {
-           appDelegate.moveToHome()
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }
        }
        
        @objc func onClicklocationButton() {

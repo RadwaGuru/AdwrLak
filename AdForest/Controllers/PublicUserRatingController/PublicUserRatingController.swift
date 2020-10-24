@@ -25,11 +25,12 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
     }
     
     //MARK:- Properties
+    let defaults = UserDefaults.standard
     var adAuthorID = ""
     var dataArray = [UserPublicRate]()
     var replyArray = [UserPublicReply]()
     var isShowForm = false
-    
+    var noRatingMessage =  ""
     //MARK:- View Life Cyce
     
     override func viewDidLoad() {
@@ -130,7 +131,8 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
             if isShowForm {
                 let cell: AdRatingCell = tableView.dequeueReusableCell(withIdentifier: "AdRatingCell", for: indexPath) as! AdRatingCell
                 let objData = AddsHandler.sharedInstance.userRatingForm
-                
+                cell.oltSubmitRating.isHidden = false
+                cell.ratingBar.isHidden = false
                 if let rateTitle = objData?.title {
                     cell.lblTitle.text = rateTitle
                 }
@@ -143,7 +145,10 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
                 if let placeHolder = objData?.textareaText {
                     cell.txtComment.placeholder = placeHolder
                 }
+                
                 cell.btnSubmitAction = { () in
+                    if self.defaults.bool(forKey: "isLogin") == true {
+
                     guard let comment = cell.txtComment.text else {return}
                     if comment == "" {
                         cell.txtComment.shake(6, withDelta: 10, speed: 0.06)
@@ -153,9 +158,30 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
                         self.adForest_rating(param: param as NSDictionary)
                         cell.txtComment.text = ""
                     }
+                    }
+                    else{
+                        var msgLogin = ""
+                        if let msg = self.defaults.string(forKey: "notLogin") {
+                            msgLogin = msg
+                        }
+                        let alert = Constants.showBasicAlert(message: msgLogin)
+                        self.presentVC(alert)
+                    }
                 }
                 return cell
+
+            }else{
+                let cell: AdRatingCell = tableView.dequeueReusableCell(withIdentifier: "AdRatingCell", for: indexPath) as! AdRatingCell
+                cell.lblnoRatingTitle.isHidden = false
+                if cell.lblnoRatingTitle.isHidden == false{
+                    cell.noRating()
+                    cell.lblnoRatingTitle.text = self.noRatingMessage
+                }
+                cell.oltSubmitRating.isHidden = true
+                cell.ratingBar.isHidden = true
+                return cell
             }
+
         default:
             break
         }
@@ -171,7 +197,7 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
             if isShowForm {
                 return  220
             } else {
-                return  0
+                return  120
             }
         default:
             return 0
@@ -185,6 +211,7 @@ class PublicUserRatingController: UIViewController, UITableViewDelegate, UITable
             if successResponse.success {
                 self.title = successResponse.data.pageTitle
                 self.isShowForm = successResponse.data.canRate
+                self.noRatingMessage = successResponse.message
                 AddsHandler.sharedInstance.userRatingForm = successResponse.data.form
                 self.dataArray = successResponse.data.rattings
                 for item in successResponse.data.rattings {

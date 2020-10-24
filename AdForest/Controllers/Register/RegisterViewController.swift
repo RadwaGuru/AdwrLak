@@ -13,11 +13,24 @@ import NVActivityIndicatorView
 import AuthenticationServices
 //import LinkedinSwift
 
-class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable,GIDSignInDelegate {
-    
+class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollViewDelegate, NVActivityIndicatorViewable,GIDSignInDelegate,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     //MARK:- Outlets
     
     
+    @IBOutlet weak var collectionView: UICollectionView!{
+        didSet{
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.showsHorizontalScrollIndicator = false
+            collectionView.isScrollEnabled = false
+            let layout = UICollectionViewFlowLayout()
+            layout.minimumLineSpacing = 0.5
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+            collectionView.setCollectionViewLayout(layout, animated: true)
+            
+            
+        }
+    }
     @IBOutlet weak var topConstraintBtnFb: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnGoogle2: NSLayoutConstraint!
     @IBOutlet weak var topConstraintBtnGoogle: NSLayoutConstraint!
@@ -62,7 +75,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     @IBOutlet weak var btnTextSubscriber: UIButton! {
         didSet{
             btnTextSubscriber.contentHorizontalAlignment = .left
-
+            
         }
     }
     @IBOutlet weak var buttonCheckBox: UIButton!
@@ -81,7 +94,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             btnLinkedin.layer.borderWidth = 1
         }
     }
-//    @IBOutlet weak var buttonFB: FBLoginButton!
+    //    @IBOutlet weak var buttonFB: FBLoginButton!
     @IBOutlet weak var btnFb: UIButton!
     @IBOutlet weak var heightConstraintSocial: NSLayoutConstraint!
     
@@ -99,9 +112,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     //
     
     
-//    @IBOutlet weak var btnGoogle: GIDSignInButton!
+    //    @IBOutlet weak var btnGoogle: GIDSignInButton!
     @IBOutlet weak var buttonGoogle: GIDSignInButton!
-        {
+    {
         didSet {
             buttonGoogle.roundCorners()
             buttonGoogle.isHidden = true
@@ -135,7 +148,13 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     var linkedInAccessToken = ""
     var subscriberPostValue = ""
     var SubscribertExt = ""
-var checkBoxselectedBtn = false
+    var facebookString = "facebook"
+    var googleString = "google"
+    var appleString = "apple"
+    var linkedinString = "linkedin"
+    var arraySocialLogin = [String]()
+    
+    var checkBoxselectedBtn = false
     //MARK:- Application Life Cycle
     
     override func viewDidLoad() {
@@ -147,7 +166,7 @@ var checkBoxselectedBtn = false
         self.adForest_registerData()
         txtFieldsWithRtl()
         btnApple.isHidden = true
-        btnLinkedin.isHidden = true
+        //        btnLinkedin.isHidden = true
         btnApple.layer.cornerRadius = 10
         btnApple.layer.borderWidth = 1
         btnApple.layer.borderColor = UIColor.black.cgColor
@@ -155,7 +174,7 @@ var checkBoxselectedBtn = false
         btnCheckBoxSubscriber.isHidden = true
         btnTextSubscriber.isHidden = true
         if #available(iOS 13.0, *) {
-//            self.checkStatusOfAppleSignIn()
+            //            self.checkStatusOfAppleSignIn()
         } else {
             // Fallback on earlier versions
         }
@@ -307,15 +326,25 @@ var checkBoxselectedBtn = false
             var isShowLinkedin = true
             if let isGoogle = objSettings.data.registerBtnShow.google {
                 isShowGoogle = isGoogle
+                if isShowGoogle == true {
+                    arraySocialLogin.append(googleString)
+                }
             }
+            
             if let isFacebook = objSettings.data.registerBtnShow.facebook{
                 isShowFacebook = isFacebook
+                if isShowFacebook == true {
+                    arraySocialLogin.append(facebookString)
+                }
             }
             if let isApple = objSettings.data.registerBtnShow.apple{
                 isShowApple = isApple
             }
             if let isLinkedin = objSettings.data.registerBtnShow.linkedin{
                 isShowLinkedin = isLinkedin
+                if isShowLinkedin == true {
+                    arraySocialLogin.append(linkedinString)
+                }
             }
             
             if isShowFacebook || isShowGoogle || isShowApple {
@@ -325,162 +354,130 @@ var checkBoxselectedBtn = false
             }
             
             if isShowFacebook && isShowGoogle && isShowApple && isShowLinkedin {
-//                self.btnGoogle.isHidden = false
-                self.btnFb.isHidden = false
-//                self.buttonFB.isHidden = false
-                self.buttonGoogle.isHidden = false
+                //                self.btnFb.isHidden = false
+                //                self.buttonGoogle.isHidden = false
                 self.btnApple.isHidden = false
-                self.btnLinkedin.isHidden = false
+                //                self.btnLinkedin.isHidden = false
             }
-                
+            
             else if isShowFacebook && isShowGoogle == false && isShowApple == false && isShowLinkedin {
-//                self.buttonFB.isHidden = false
-                self.btnFb.isHidden = false
-                self.buttonGoogle.isHidden = true
-//                self.btnGoogle.isHidden = true
+                //                self.btnFb.isHidden = false
+                //                self.buttonGoogle.isHidden = true
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = false
-                btnLinkedin.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
+                //                self.btnLinkedin.isHidden = false
+                //                btnLinkedin.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
                 
                 
             }
             else if isShowFacebook && isShowGoogle == false && isShowApple && isShowLinkedin == false {
-//                self.buttonFB.isHidden = false
-                self.btnFb.isHidden = false
-                self.buttonGoogle.isHidden = true
-                self.btnLinkedin.isHidden = true
+                //                self.btnFb.isHidden = false
+                //                self.buttonGoogle.isHidden = true
+                //                self.btnLinkedin.isHidden = true
                 self.btnApple.isHidden = false
-                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
-
-//                self.topConstraintBtnApple.constant -= 80
+                //                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
+                
+                //                self.topConstraintBtnApple.constant -= 80
             }
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin == false{
-                self.btnFb.isHidden = false
-                self.buttonGoogle.isHidden = false
+                //                self.btnFb.isHidden = false
+                //                self.buttonGoogle.isHidden = false
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = true
-
-                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-
-
+                //                self.btnLinkedin.isHidden = true
+                
+                //                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                
+                
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple && isShowLinkedin {
-                self.btnFb.isHidden = true
-                self.buttonGoogle.isHidden = true
+                //                self.btnFb.isHidden = true
+                //                self.buttonGoogle.isHidden = true
                 self.btnApple.isHidden = false
-                self.btnLinkedin.isHidden = false
+                //                self.btnLinkedin.isHidden = false
                 
-                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                btnApple.topAnchor.constraint(equalTo: self.btnLinkedin.bottomAnchor, constant: 8).isActive = true
+                //                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+//                btnApple.topAnchor.constraint(equalTo: self.btnLinkedin.bottomAnchor, constant: 8).isActive = true
                 
                 
             }
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
-//                self.buttonFB.isHidden = false
-                self.btnFb.isHidden = false
-                self.buttonGoogle.isHidden = false
-//                self.btnGoogle.isHidden = false
+                //                self.btnFb.isHidden = false
+                //                self.buttonGoogle.isHidden = false
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = false
-//                btnLinkedin.topAnchor.constraint(equalTo: self.btnGoogle.bottomAnchor, constant: 8).isActive = true
-                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-
+                //                self.btnLinkedin.isHidden = false
+                //                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                
                 
             }
             else if isShowFacebook == false && isShowGoogle  && isShowApple == false && isShowLinkedin {
-//                self.buttonFB.isHidden = true
-                self.btnFb.isHidden = true
-                self.buttonGoogle.isHidden = false
-//                self.btnGoogle.isHidden = false
+                //                self.btnFb.isHidden = true
+                //                self.buttonGoogle.isHidden = false
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = false
-//                btnGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-//                btnLinkedin.topAnchor.constraint(equalTo: self.btnGoogle.bottomAnchor, constant: 8).isActive = true
+                //                self.btnLinkedin.isHidden = false
                 
                 
             }
             else if isShowFacebook && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
-                self.buttonGoogle.isHidden = true
-                self.btnFb.isHidden = false
-                //                self.buttonFB.isHidden = true
-                //                self.btnGoogle.isHidden = true
+                //                self.buttonGoogle.isHidden = true
+                //                self.btnFb.isHidden = false
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = true
-                self.topConstraintBtnFb.constant -= 80
-//                btnLinkedin.topAnchor.consraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
-
+                //                self.btnLinkedin.isHidden = true
+                //                self.topConstraintBtnFb.constant -= 80
+                
             }
             else if isShowFacebook == false && isShowGoogle && isShowApple && isShowLinkedin ==  false {
-                self.btnFb.isHidden = true
-//                self.buttonFB.isHidden = true
-//                self.btnGoogle.isHidden = false
-                self.buttonGoogle.isHidden = false //New
+                //                self.btnFb.isHidden = true
+                //                self.buttonGoogle.isHidden = false //New
                 self.btnApple.isHidden = false
-                self.btnLinkedin.isHidden = true
-//                self.topConstraintBtnGoogle.constant -= 80
-                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
+                //                self.btnLinkedin.isHidden = true
+                //                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.buttonGoogle.bottomAnchor, constant: 8).isActive = true
-
-//                self.topConstraintBtnGoogle2.constant -= 80
-            }
                 
+            }
+            
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
-//                self.buttonFB.isHidden = true
-                self.btnFb.isHidden = true
-                self.buttonGoogle.isHidden = true
-//                self.btnGoogle.isHidden = true
+                //                self.btnFb.isHidden = true
+                //                self.buttonGoogle.isHidden = true
                 self.btnApple.isHidden = false
-//                self.topConstraintBtnApple.constant -= 155
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 18).isActive = true
-
-            }
                 
+            }
+            
             else if isShowGoogle && isShowFacebook == false && isShowApple == false {
-                self.buttonGoogle.isHidden = false
-//                self.buttonFB.isHidden = true
-                self.btnFb.isHidden = true
-//                self.btnGoogle.isHidden = false
+                //                self.buttonGoogle.isHidden = false
+                //                self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-//                topGoogle.constant -= 80
-                 topGoogleNew.constant -= 80
-                self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
-                self.heightConstraintSocial.constant -= 55
+                //                 topGoogleNew.constant -= 80
+                //                self.buttonGoogle.translatesAutoresizingMaskIntoConstraints = false
+                //                self.heightConstraintSocial.constant -= 55
             }
-                
+            
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin {
                 self.lblOr.isHidden = true
-                self.buttonGoogle.isHidden = true
-                self.btnFb.isHidden = true
-//                self.buttonFB.isHidden = true
-//                self.btnGoogle.isHidden = true
+                //                self.buttonGoogle.isHidden = true
+                //                self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = false
-                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
+                //                self.btnLinkedin.isHidden = false
+                //                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
                 
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
-                self.buttonGoogle.isHidden = true
-//                self.btnGoogle.isHidden = true // New
-//                self.buttonFB.isHidden = true
-                self.btnFb.isHidden = true
+                //                self.buttonGoogle.isHidden = true
+                //                self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-                self.btnLinkedin.isHidden = true
+                //                self.btnLinkedin.isHidden = true
                 
-                //                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 1).isActive = true
                 
             }
             else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin == false {
                 self.lblOr.isHidden = false
-                self.buttonGoogle.isHidden = false
-                self.btnFb.isHidden = false
-//                self.buttonFB.isHidden = false
-//                self.btnGoogle.isHidden = false
+                //                self.buttonGoogle.isHidden = false
+                //                self.btnFb.isHidden = false
                 self.btnApple.isHidden = false
-                self.btnLinkedin.isHidden = true
+                //                self.btnLinkedin.isHidden = true
                 
             }
             //
@@ -522,7 +519,7 @@ var checkBoxselectedBtn = false
             //
             //            }
             //\
-//            if SubscribertExt != "" {
+            //            if SubscribertExt != "" {
             if isAgreeSubscriber == true {
                 btnCheckBoxSubscriber.isHidden = false
                 btnTextSubscriber.isHidden = false
@@ -531,23 +528,90 @@ var checkBoxselectedBtn = false
                 btnTextSubscriber.isHidden = true
             }
             
-//            if SubscribertExt  == "" {
-//                 btnCheckBoxSubscriber.isHidden = true
-//                btnTextSubscriber.isHidden = true
-//            }else{
-//                btnCheckBoxSubscriber.isHidden = false
-//                btnTextSubscriber.isHidden = false
-//            }
+            //            if SubscribertExt  == "" {
+            //                 btnCheckBoxSubscriber.isHidden = true
+            //                btnTextSubscriber.isHidden = true
+            //            }else{
+            //                btnCheckBoxSubscriber.isHidden = false
+            //                btnTextSubscriber.isHidden = false
+            //            }
             
             
             
-        
-          
         }
+        collectionView
+            .reloadData()
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arraySocialLogin.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "SocialLoginCollectionViewCell", for: indexPath) as! SocialLoginCollectionViewCell
+        let arra = arraySocialLogin[indexPath.row]
+        print(arra)
+        if arra == "facebook"{
+            let image = UIImage(named: "regfbicon") as UIImage?
+            cell.btnSocial.setImage(image, for: .normal)
+            cell.btnSocial.setTitle(arra, for: .normal)
+            cell.btnSocial.titleLabel?.textColor = UIColor.clear
+        }
+        if arra == "google"{
+            let image = UIImage(named: "googleSocial") as UIImage?
+            cell.btnSocial.setImage(image, for: .normal)
+            cell.btnSocial.setTitle(arra, for: .normal)
+            cell.btnSocial.titleLabel?.textColor = UIColor.clear
+        }
+        if arra == "linkedin"{
+            let image = UIImage(named: "linkedin") as UIImage?
+            cell.btnSocial.setImage(image, for: .normal)
+            cell.btnSocial.setTitle(arra, for: .normal)
+            cell.btnSocial.titleLabel?.textColor = UIColor.clear
+        }
+        cell.btnSocial.addTarget(self, action: #selector(socilBtnTapped), for: .touchUpInside)
+        return cell
+    }
+    @objc func socilBtnTapped(_ sender: UIButton){
+        print(sender.title(for: .normal))
+        if sender.title(for: .normal) == "facebook"{
+            self.btnLoginFbOk()
+            
+        }
+        else if sender.title(for: .normal) == "google"{
+            self.actionGoogle()
+        }
+        else if sender.title(for: .normal) == "linkedin"{
+            self.actionLinkedinSubmit()
+        }
+        
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        print(width)
+        return CGSize(width: width/3, height: 120)
+        
+    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsets.zero
+    //
+    //    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
     //MARK: -IBActions
-    @IBAction func actionLinkedinSubmit(_ sender: Any) {
+    //_ sender: Any
+    @IBAction func actionLinkedinSubmit() {
         linkedInAuthVC()
     }
     
@@ -605,7 +669,7 @@ var checkBoxselectedBtn = false
     
     
     
-  
+    
     @IBAction func btnAppleClicked(_ sender: UIButton) {
         
         if #available(iOS 13.0, *) {
@@ -640,7 +704,7 @@ var checkBoxselectedBtn = false
         if isAgreeTerms == false {
             buttonCheckBox.setBackgroundImage(#imageLiteral(resourceName: "check"), for: .normal)
             isAgreeTerms = true
-        
+            
         }
         else if isAgreeTerms {
             buttonCheckBox.setBackgroundImage(#imageLiteral(resourceName: "uncheck"), for: .normal)
@@ -685,7 +749,7 @@ var checkBoxselectedBtn = false
         else if !email.isValidEmail {
             self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
-            
+        
         else if phone == "" {
             self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
         }
@@ -695,19 +759,19 @@ var checkBoxselectedBtn = false
         else if password == "" {
             self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
         }
-            
+        
         else if isAgreeTerms == false {
             let alert = Constants.showBasicAlert(message: "Please Agree with terms and conditions")
             self.presentVC(alert)
         }
         else {
             if checkBoxselectedBtn == true {
-            let parameters : [String: Any] = [
-                "name": name,
-                "email": email,
-                "phone": phone,
-                "password": password,
-                subscriberPostValue: subscriberPostValue
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "email": email,
+                    "phone": phone,
+                    "password": password,
+                    subscriberPostValue: subscriberPostValue
                 ]
                 print(parameters)
                 defaults.set(email, forKey: "email")
@@ -715,18 +779,18 @@ var checkBoxselectedBtn = false
                 self.adForest_registerUser(param: parameters as NSDictionary)
             }
             else{
-            let parameters : [String: Any] = [
-                "name": name,
-                "email": email,
-                "phone": phone,
-                "password": password
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "email": email,
+                    "phone": phone,
+                    "password": password
                 ]
                 print(parameters)
                 defaults.set(email, forKey: "email")
                 defaults.set(password, forKey: "password")
                 self.adForest_registerUser(param: parameters as NSDictionary)
-        }
-
+            }
+            
             
         }
     }
@@ -767,8 +831,8 @@ var checkBoxselectedBtn = false
     //            }
     //        }
     //    }
-    
-    @IBAction func actionGoogle(_ sender: Any) {
+    //_ sender: Any
+    @IBAction func actionGoogle() {
         if GoogleAuthenctication.isLooggedIn {
             GoogleAuthenctication.signOut()
         }
@@ -790,7 +854,7 @@ var checkBoxselectedBtn = false
     //MARK:- Facebook Delegate Methods
     
     
-    @IBAction func btnLoginFbOk(_ sender: UIButton) {
+    @IBAction func btnLoginFbOk() {
         loginManager.logIn(permissions: ["email", "public_profile"], from: self) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Nothing")
@@ -964,74 +1028,74 @@ extension RegisterViewController: ASAuthorizationControllerPresentationContextPr
         return self.view.window!
     }
     
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-//            let userIdentifier = appleIDCredential.user
-//            let fullName = appleIDCredential.fullName
-//
-//            let email = appleIDCredential.email
-//            if email != nil{
-//                UserDefaults.standard.set(email, forKey:"emailA")
-//            }
-//            let emApple = UserDefaults.standard.string(forKey: "emailA")
-//            if emApple != nil{
-//                let param: [String: Any] = [
-//                    "email": emApple!,
-//                    "type": "social"
-//                ]
-//                print(param)
-//                self.defaults.set(true, forKey: "isSocial")
-//                UserDefaults.standard.set(emApple, forKey:"email")
-//                self.defaults.set("1122", forKey: "password")
-//                self.defaults.synchronize()
-//                UserDefaults.standard.set("true", forKey: "apple")
-//                self.adForest_loginUser(parameters: param as NSDictionary)
-//                print(userIdentifier,fullName,email)
-//            }else{
-//                let alert = Constants.showBasicAlert(message: "Apple id....")
-//                self.presentVC(alert)
-//            }
-//
-//        }
-//    }
+    //    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    //        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+    //            let userIdentifier = appleIDCredential.user
+    //            let fullName = appleIDCredential.fullName
+    //
+    //            let email = appleIDCredential.email
+    //            if email != nil{
+    //                UserDefaults.standard.set(email, forKey:"emailA")
+    //            }
+    //            let emApple = UserDefaults.standard.string(forKey: "emailA")
+    //            if emApple != nil{
+    //                let param: [String: Any] = [
+    //                    "email": emApple!,
+    //                    "type": "social"
+    //                ]
+    //                print(param)
+    //                self.defaults.set(true, forKey: "isSocial")
+    //                UserDefaults.standard.set(emApple, forKey:"email")
+    //                self.defaults.set("1122", forKey: "password")
+    //                self.defaults.synchronize()
+    //                UserDefaults.standard.set("true", forKey: "apple")
+    //                self.adForest_loginUser(parameters: param as NSDictionary)
+    //                print(userIdentifier,fullName,email)
+    //            }else{
+    //                let alert = Constants.showBasicAlert(message: "Apple id....")
+    //                self.presentVC(alert)
+    //            }
+    //
+    //        }
+    //    }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
     {
         switch authorization.credential {
-            
+        
         case let credentials as ASAuthorizationAppleIDCredential:
             DispatchQueue.main.async {
                 
                 if "\(credentials.user)" != "" {
-
+                    
                     UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
                 }
                 if credentials.email != nil {
-
+                    
                     UserDefaults.standard.set("\(credentials.email!)", forKey: "User_Email")
                 }
                 if credentials.fullName!.givenName != nil {
-
+                    
                     UserDefaults.standard.set("\(credentials.fullName!.givenName!)", forKey: "User_FirstName")
                 }
                 if credentials.fullName!.familyName != nil {
-
+                    
                     UserDefaults.standard.set("\(credentials.fullName!.familyName!)", forKey: "User_LastName")
                 }
                 UserDefaults.standard.synchronize()
                 self.setupUserInfoAndOpenView()
-               
+                
                 
             }
             
         case let credentials as ASPasswordCredential:
             DispatchQueue.main.async {
-            
+                
                 if "\(credentials.user)" != "" {
-
+                    
                     UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
                 }
                 if "\(credentials.password)" != "" {
-
+                    
                     UserDefaults.standard.set("\(credentials.password)", forKey: "User_Password")
                 }
                 UserDefaults.standard.synchronize()
@@ -1048,19 +1112,19 @@ extension RegisterViewController: ASAuthorizationControllerPresentationContextPr
         }
     }
     func checkStatusOfAppleSignIn()
-      {
-          let appleIDProvider = ASAuthorizationAppleIDProvider()
-          appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
-              
-              switch credentialState {
-              case .authorized:
-                  self.setupUserInfoAndOpenView()
-                  break
-              default:
-                  break
-              }
-          }
-      }
+    {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
+            
+            switch credentialState {
+            case .authorized:
+                self.setupUserInfoAndOpenView()
+                break
+            default:
+                break
+            }
+        }
+    }
     func setupUserInfoAndOpenView()
     {
         DispatchQueue.main.async {
@@ -1108,8 +1172,8 @@ extension RegisterViewController: ASAuthorizationControllerPresentationContextPr
             
         }
     }
-
-
+    
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
     {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)

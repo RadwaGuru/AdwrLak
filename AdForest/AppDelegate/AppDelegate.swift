@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GADMobileAds.sharedInstance().start(completionHandler: nil)
 
-        
+
 
         defaults.removeObject(forKey: "isGuest")
         defaults.synchronize()
@@ -225,6 +225,24 @@ extension AppDelegate {
      }
      self.window?.makeKeyAndVisible()
  }
+    func moveToMultiHome() {
+       let HomeVC = storyboard.instantiateViewController(withIdentifier: MultiHomeViewController.className) as! MultiHomeViewController
+        if defaults.bool(forKey: "isRtl") {
+            let rightViewController = storyboard.instantiateViewController(withIdentifier: LeftController.className) as! LeftController
+            let navi: UINavigationController = UINavigationController(rootViewController: HomeVC)
+            let slideMenuController = SlideMenuController(mainViewController: navi, rightMenuViewController: rightViewController)
+            navi.modalPresentationStyle = .fullScreen
+            self.window?.rootViewController = slideMenuController
+        } else {
+            let leftVC = storyboard.instantiateViewController(withIdentifier: LeftController.className) as! LeftController
+            let navi : UINavigationController = UINavigationController(rootViewController: HomeVC)
+            let slideMenuController = SlideMenuController(mainViewController: navi, leftMenuViewController: leftVC)
+            navi.modalPresentationStyle = .fullScreen
+            self.window?.rootViewController = slideMenuController
+        }
+        self.window?.makeKeyAndVisible()
+    }
+
     func moveToLanguageCtrl() {
         let HomeVC = storyboard.instantiateViewController(withIdentifier: LangViewController.className) as! LangViewController
         if defaults.bool(forKey: "isRtl") {

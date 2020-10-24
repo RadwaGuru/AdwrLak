@@ -78,15 +78,8 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.5)
     - Protobuf (>= 3.9.2, ~> 3.9)
   - FSPagerView (0.8.3)
-  - Google-Mobile-Ads-SDK (7.58.0):
-    - GoogleAppMeasurement (~> 6.0)
+  - Google-Mobile-Ads-SDK (7.41.0)
   - GoogleAnalytics (3.17.0)
-  - GoogleAppMeasurement (6.1.2):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (~> 0.3)
   - GoogleDataTransport (6.1.1)
   - GoogleDataTransportCCTSupport (3.0.0):
     - GoogleDataTransport (~> 6.0)
@@ -113,8 +106,6 @@ PODS:
     - PromisesObjC (~> 1.2)
   - GoogleUtilities/Logger (6.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.6.0):
-    - GoogleUtilities/Logger
   - GoogleUtilities/Network (6.6.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
@@ -176,6 +167,7 @@ PODS:
   - "UITextField+Shake (1.2.1)"
   - XLPagerTabStrip (8.1.0)
   - YoutubePlayer-in-WKWebView (0.3.4)
+  - ZGTooltipView (2.2.0)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
@@ -218,6 +210,7 @@ DEPENDENCIES:
   - "UITextField+Shake"
   - XLPagerTabStrip (~> 8.1)
   - YoutubePlayer-in-WKWebView (~> 0.3.0)
+  - ZGTooltipView
 
 SPEC REPOS:
   trunk:
@@ -246,7 +239,6 @@ SPEC REPOS:
     - FSPagerView
     - Google-Mobile-Ads-SDK
     - GoogleAnalytics
-    - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleMaps
@@ -284,6 +276,7 @@ SPEC REPOS:
     - "UITextField+Shake"
     - XLPagerTabStrip
     - YoutubePlayer-in-WKWebView
+    - ZGTooltipView
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
@@ -309,9 +302,8 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 828e66eb357a893e3cebd9ee0f6bc1941447cc94
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
-  Google-Mobile-Ads-SDK: 7052557293c75c676db55feb707ace9b790f32c1
+  Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleAppMeasurement: 0ae90be1cc4dad40f4a27fc767ef59fa032ec87b
   GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
   GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
@@ -349,7 +341,8 @@ SPEC CHECKSUMS:
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
   YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
+  ZGTooltipView: 729e358044530a05be00c8c1e1092e81db491996
 
-PODFILE CHECKSUM: d3d31164a748ad61e1797018cefa4d477d72ffce
+PODFILE CHECKSUM: 27a93aab9f42ebae2167d0bb44c3adc1c32a1020
 
 COCOAPODS: 1.9.3

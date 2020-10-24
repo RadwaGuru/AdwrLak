@@ -34,7 +34,7 @@ class NetworkHandler {
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
                     "Adforest-Lang-Locale" : langCode,
-                    "Adforest-Location-ID" : locID
+                    "Adforest-Location-Id" : locID
 
                     ] as! HTTPHeaders
             }
@@ -59,7 +59,7 @@ class NetworkHandler {
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
                      "Adforest-Lang-Locale" : langCode,
-                     "Adforest-Location-ID" : locID
+                    "Adforest-Location-Id" : locID
 
                     ] as! HTTPHeaders
             }
@@ -83,7 +83,7 @@ class NetworkHandler {
                     "Custom-Security": Constants.customCodes.securityCode,
                     "Adforest-Request-From" : "ios",
                      "Adforest-Lang-Locale" : langCode,
-                     "Adforest-Location-ID" : locID
+                    "Adforest-Location-Id" : locID
 
                     ] as! HTTPHeaders
             }
@@ -189,7 +189,7 @@ class NetworkHandler {
                     "Custom-Security": Constants.customCodes.securityCode,
                      "Adforest-Request-From" : "ios",
                       "Adforest-Lang-Locale" : langCode,
-                    "Adforest-Location-ID" : locID
+                    "Adforest-Location-Id" : locID
 
                     ] as! HTTPHeaders
             }
@@ -262,7 +262,9 @@ class NetworkHandler {
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
                 "Adforest-Request-From" : "ios",
-                "Adforest-Lang-Locale" : langCode
+                "Adforest-Lang-Locale" : langCode,
+                "Adforest-Location-Id" : locID
+
                 ] as! HTTPHeaders
         }
         
@@ -288,7 +290,9 @@ class NetworkHandler {
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
                 "Adforest-Request-From" : "ios",
-                "Adforest-Lang-Locale" : langCode
+                "Adforest-Lang-Locale" : langCode,
+                "Adforest-Location-Id" : locID
+
                 ] as! HTTPHeaders
         }
         else {
@@ -311,7 +315,9 @@ class NetworkHandler {
                 "Purchase-Code" : Constants.customCodes.purchaseCode,
                 "Custom-Security": Constants.customCodes.securityCode,
                 "Adforest-Request-From" : "ios",
-                "Adforest-Lang-Locale" : langCode
+                "Adforest-Lang-Locale" : langCode,
+                "Adforest-Location-Id" : locID
+
                 ] as! HTTPHeaders
         }
        
@@ -501,6 +507,14 @@ class NetworkHandler {
                     uploadProgress(progress)
                 })
                 upload.responseJSON { response in
+                    if response.result.isFailure{
+                        var networkError = NetworkError()
+                        networkError.status = Constants.NetworkError.timout
+                        networkError.message = Constants.NetworkError.timoutError
+                        failure(networkError)
+                        
+                    }
+                    else{
                     let returnValue = response.result.value!
                     if let userToken = response.response?.allHeaderFields["Authorization"] as? String {
                         print("User Token is \(userToken)")
@@ -508,6 +522,7 @@ class NetworkHandler {
                         UserDefaults.standard.synchronize()
                     }
                     success(returnValue)
+                    }
                 }
             case .failure(let error):
                 print(error.localizedDescription)

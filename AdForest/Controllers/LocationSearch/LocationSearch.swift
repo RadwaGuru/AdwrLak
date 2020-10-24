@@ -18,8 +18,8 @@ protocol NearBySearchDelegate {
     func nearbySearchParams(lat: Double, long: Double, searchDistance: CGFloat, isSearch: Bool)
 }
 
-class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndicatorViewable , CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate {
-
+class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndicatorViewable , CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate,latLongitudePro {
+    
     //MARK:- Outlets
     
     @IBOutlet weak var containerView: UIView! {
@@ -70,6 +70,7 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var maxValue : CGFloat = 0.0
+    var placesSearchType = UserDefaults.standard.bool(forKey: "placesSearchType")
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -78,19 +79,26 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
         self.hideBackButton()
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Location Search")
-       
+        
         let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.black]
         let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
     }
     
-   
+    
     //MARK:- TextField Delegates
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let searchVC = GMSAutocompleteViewController()
-        searchVC.delegate = self
-        self.presentVC(searchVC)
+        if placesSearchType == true{
+            loadPlacesorMapbox()
+        }
+        else{
+            let searchVC = GMSAutocompleteViewController()
+            searchVC.delegate = self
+            self.presentVC(searchVC)
+            
+        }
+        
     }
     
     // Google Places Delegate Methods
@@ -132,7 +140,20 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
             }
         }
     }
-
+    func loadPlacesorMapbox(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mapBoxPlaceVc = storyboard.instantiateViewController(withIdentifier: MapBoxPlacesViewController.className) as! MapBoxPlacesViewController
+        mapBoxPlaceVc.delegate = self
+        mapBoxPlaceVc.modalPresentationStyle = .fullScreen
+        self.presentVC(mapBoxPlaceVc, completion: nil)
+    }
+    func latLong(lat: String, long: String,place:String) {
+        self.latitude = Double(lat)!
+        self.longitude = Double(long)!
+        print(place)
+        txtAddress.text = place
+    }
     func adForest_populateData() {
         if let settingsInfo = defaults.object(forKey: "settings") {
             let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settingsInfo as! Data) as! [String : Any]

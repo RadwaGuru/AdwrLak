@@ -10,20 +10,28 @@ import UIKit
 
 class MarvelHomeLatestVerticalDefaultTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var OltViewAll: UIButton!
+    @IBOutlet weak var OltViewAll: UIButton!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                OltViewAll.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var lblSectionTitle: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!{
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
-            
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
         }
     }
     @IBOutlet weak var containerView: UIView!
         {
         didSet {
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
+            
         }
     }
     
@@ -33,7 +41,7 @@ class MarvelHomeLatestVerticalDefaultTableViewCell: UITableViewCell, UICollectio
     var delegate : MarvelLatestAddDetailDelegate?
     var dataArray = [HomeAdd]()
     var btnViewAll: (()->())?
-    
+    var fromMultiHome = false
     
     
     

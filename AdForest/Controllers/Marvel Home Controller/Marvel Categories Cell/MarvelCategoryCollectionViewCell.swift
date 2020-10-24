@@ -16,7 +16,7 @@ class MarvelCategoryCollectionViewCell: UICollectionViewCell {
         {
         didSet{
             containerView.marvelRoundCorners()
-        }
+            }
     }
     @IBOutlet weak var lblName: UILabel!
     
@@ -24,7 +24,6 @@ class MarvelCategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgContainer: UIView!
     var btnFullAction: (()->())?
     var isAnimated : Bool!
-    
     @IBAction func actionFullButton(_ sender: Any) {
         self.btnFullAction?()
     }

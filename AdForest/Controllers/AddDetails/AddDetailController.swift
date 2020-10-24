@@ -117,11 +117,19 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var barButtonItems = [UIBarButtonItem]()
     var isShowContactSeller : Bool!
     var interstitial: GADInterstitial!
+    var fromAdDetail = false
+    var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
 
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showBackButton()
+        if fromAdDetail == true{
+            self.showBackButton()
+        }else{
+            self.addBackButton()
+
+        }
+//        self.showBackButton()
         self.hideKeyboard()
 //        self.adMob()
         self.createAndLoadInterstitial()
@@ -148,7 +156,34 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         
         navigationButtons()
     }
-    
+    // MARK:- Go toHOmepage from addetail
+    func addBackButton() {
+        self.hideBackButton()
+        let backButton = UIButton(type: .custom)
+        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            backButton.setBackgroundImage(#imageLiteral(resourceName: "arabicBackButton"), for: .normal)
+        } else {
+            backButton.setBackgroundImage(#imageLiteral(resourceName: "backbutton"), for: .normal)
+        }
+        backButton.addTarget(self, action: #selector(onBackButtonClciked), for: .touchUpInside)
+        let backBarButton = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButton
+        
+    }
+    @objc override func onBackButtonClciked() {
+        if homeStyles == "home1"{
+            navigationController?.popViewController(animated: true)
+        }
+        else if homeStyles == "home2"{
+            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MultiHomeViewController") as! MultiHomeViewController
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+        else if homeStyles == "home3"{
+            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "SOTabBarViewController") as! SOTabBarViewController
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+    }
     //MARK: - Custom
     
     func showLoader() {
@@ -433,7 +468,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let long = objData.adDetail.location.longField {
                 longitude = long
             }
-            if latitude == "" && longitude == "" {
+             if latitude == "" && longitude == "" {
                 cell.oltDirection.isHidden = true
             } else {
                 cell.oltDirection.isHidden = false
@@ -692,7 +727,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         else if section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ReplyReactionCell.className, for: indexPath) as! ReplyReactionCell
             let objData = addRatingArray[indexPath.row]
-            
+            cell.containerView.addShadow()
             if let imgUrl = URL(string: objData.ratingAuthorImage) {
                 cell.imgProfile.setImage(from: imgUrl)
             }
@@ -705,13 +740,14 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if let date = objData.ratingDate {
                 cell.lblDate.text = date
             }
+            if objData.ratingStars != "" {
             if let ratingBar = objData.ratingStars {
                 cell.ratingBar.settings.updateOnTouch = false
                 cell.ratingBar.settings.fillMode = .precise
                 cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
                 cell.ratingBar.rating = Double(ratingBar)!
+             }
             }
-            
             if let replyButtontext = objData.replyText {
                 cell.oltReply.setTitle(replyButtontext, for: .normal)
             }
@@ -871,6 +907,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             let cell: AdRatingCell = tableView.dequeueReusableCell(withIdentifier: AdRatingCell.className, for: indexPath) as! AdRatingCell
             let objData = dataArray[indexPath.row]
             
+            cell.containerView.addShadowToView()
+
             if let receiverText = objData.staticText.sendMsgBtnType {
                 buttonText = receiverText
             }
@@ -1040,6 +1078,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                else if section == 8 {
             let cell: ContactWithSellerCellTableViewCell = tableView.dequeueReusableCell(withIdentifier: ContactWithSellerCellTableViewCell.className, for: indexPath) as! ContactWithSellerCellTableViewCell
            let objData = dataArray[indexPath.row]
+                cell.containerView.addShadowToView()
             cell.lblMainHeading.text = objData.sellerContact.titleContactSeller
             cell.lblSubHeading.text = objData.sellerContact.subtitleContactSeller
             isShowContactSeller = objData.sellerContact.isShow
@@ -1720,6 +1759,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             self.presentVC(alert)
         }
     }
+    
+    
+    
+    
+    
 }
 extension WKWebView {
     ///

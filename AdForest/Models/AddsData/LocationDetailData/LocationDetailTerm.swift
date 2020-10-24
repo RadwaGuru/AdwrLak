@@ -16,13 +16,15 @@ struct LocationDetailTerm {
     var parent : Int!
     var termId : Int!
     var termImg : String!
-    
+    var catCount : String!
+
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
         count = dictionary["count"] as? Int
+        catCount = dictionary["count"] as? String
         hasChildren = dictionary["has_children"] as? Bool
         name = dictionary["name"] as? String
         parent = dictionary["parent"] as? Int
@@ -38,6 +40,9 @@ struct LocationDetailTerm {
         var dictionary = [String:Any]()
         if count != nil{
             dictionary["count"] = count
+        }
+        if catCount != nil{
+            dictionary["count"] = catCount
         }
         if hasChildren != nil{
             dictionary["has_children"] = hasChildren

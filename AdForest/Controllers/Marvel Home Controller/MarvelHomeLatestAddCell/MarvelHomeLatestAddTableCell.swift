@@ -26,7 +26,8 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
     }
     @IBOutlet weak var containerView: UIView!{
         didSet{
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
             containerView.marvelRoundCorners()
             
         }
@@ -38,6 +39,7 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
             collectionView.isScrollEnabled = false
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
             
         }
     }
@@ -52,11 +54,13 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestVertical = "vertical"
+        //String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd = "horizental"
+        //String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     
     var height : CGFloat = 0.0
-    
+    var fromMultiHome = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

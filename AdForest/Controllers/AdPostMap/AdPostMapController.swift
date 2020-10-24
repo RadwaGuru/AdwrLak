@@ -125,7 +125,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var isSimpleAddress = true
     var isfromEditAd = false
 
-    
+
     
     
     //this array get data from previous controller
@@ -154,8 +154,9 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var mapBoxLat = ""
     var mapBoxLong = ""
     var mapBoxPlace = ""
-    
-    
+    var fromAdDetail = false;
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -596,7 +597,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     func addMapTrackingButton(){
         let image = UIImage(named: "cursor") as UIImage?
         let button   = UIButton(type: UIButtonType.custom) as UIButton
-        button.frame = CGRect(origin: CGPoint(x:320, y: 10), size: CGSize(width: 35, height: 35))
+        button.frame = CGRect(origin: CGPoint(x:280, y: 10), size: CGSize(width: 35, height: 35))
         button.setImage(image, for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(currentLocationButtonAction), for:.touchUpInside)
@@ -604,7 +605,6 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         mapView.addSubview(button)
         
     }
-    
 
     @objc func currentLocationButtonAction(sender: UIBarButtonItem) {
        locationManager.requestWhenInUseAuthorization()
@@ -962,7 +962,22 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             self.stopAnimating()
             if successResponse.success {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
-                    self.navigationController?.popToRootViewController(animated: true)
+                    if self.adDetailStyle == "style1" {
+                        let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
+                        addDetailVC.ad_id = successResponse.data.adId
+                        self.fromAdDetail = true                        
+                        addDetailVC.fromAdDetail = self.fromAdDetail
+                        self.navigationController?.pushViewController(addDetailVC, animated: true)
+
+                    }
+                    else if self.adDetailStyle == "style2"{
+                        let marvelAddDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+                        marvelAddDetailVC.ad_id = successResponse.data.adId
+                        self.fromAdDetail = true
+                        marvelAddDetailVC.fromAdDetail = self.fromAdDetail
+                        self.navigationController?.pushViewController(marvelAddDetailVC, animated: true)
+
+                    }
                 })
                 self.presentVC(alert)
                 self.imageIdArray.removeAll()
@@ -977,6 +992,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             self.presentVC(alert)
         }
     }
+        //MARK:- go to add detail controller
     
     // sub locations
     func adForest_subLocations(param: NSDictionary) {

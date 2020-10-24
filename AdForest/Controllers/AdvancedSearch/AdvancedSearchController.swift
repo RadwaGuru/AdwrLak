@@ -122,8 +122,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
+                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+                    SwiftyAd.shared.showInterstitial(from: self)
                     
                     self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
                     self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
@@ -713,6 +713,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         AddsHandler.advanceSearch(success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
+                let tabController = self.parent as? UITabBarController
+                tabController?.navigationItem.title = successResponse.extra.title
                 self.title = successResponse.extra.title
                 self.dataArray = successResponse.data
                 self.newArray = successResponse.data

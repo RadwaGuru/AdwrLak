@@ -10,12 +10,13 @@ import UIKit
 
 class ContactWithSellerCellTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var containerView: UIView!{
-        didSet{
-            containerView.addShadowToView()
-
-        }
-    }
+    @IBOutlet weak var containerView: UIView!
+//    {
+//        didSet{
+//            containerView.addShadowToView()
+//
+//        }
+//    }
     @IBOutlet weak var btnContactSeller: UIButton!
     @IBOutlet weak var imgViewMessage: UIImageView!
     @IBOutlet weak var lblSubHeading: UILabel!

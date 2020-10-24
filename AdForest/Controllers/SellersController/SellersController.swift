@@ -12,31 +12,31 @@ import IQKeyboardManagerSwift
 
 
 class SellersController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var AdpostCirclebtn: UIButton!
-        {
+    {
         didSet {
-                 AdpostCirclebtn.circularButtonShadow()
-                 if let bgColor = defaults.string(forKey: "mainColor") {
-                     AdpostCirclebtn.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
-                    
-
-//                     Shadow and Radius for Circle Button
-                           AdpostCirclebtn.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-                           AdpostCirclebtn.layer.masksToBounds = false
-//                           AdpostCirclebtn.layer.shadowRadius = 1.0
-//                           AdpostCirclebtn.layer.shadowOpacity = 0.5
-                           AdpostCirclebtn.layer.cornerRadius = AdpostCirclebtn.frame.width / 2
-                 }
-             }
+            AdpostCirclebtn.circularButtonShadow()
+            if let bgColor = defaults.string(forKey: "mainColor") {
+                AdpostCirclebtn.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+                
+                
+                //                     Shadow and Radius for Circle Button
+                AdpostCirclebtn.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+                AdpostCirclebtn.layer.masksToBounds = false
+                //                           AdpostCirclebtn.layer.shadowRadius = 1.0
+                //                           AdpostCirclebtn.layer.shadowOpacity = 0.5
+                AdpostCirclebtn.layer.cornerRadius = AdpostCirclebtn.frame.width / 2
+            }
+        }
     }
-////              AdpostCirclebtn.titleEdgeInsets = UIEdgeInsetsMake(10,100,10,10)
-//AdpostCirclebtn.titleEdgeInsets.left = 150; // add left padding.
-//AdpostCirclebtn.titleEdgeInsets.right = 10; // add right padding.
-//AdpostCirclebtn.titleEdgeInsets.top = 10; // add top padding.
-//AdpostCirclebtn.titleEdgeInsets.bottom = 10; // add bottom padding.
-//                AdpostCirclebtn.contentHorizontalAlignment = .right;
+    ////              AdpostCirclebtn.titleEdgeInsets = UIEdgeInsetsMake(10,100,10,10)
+    //AdpostCirclebtn.titleEdgeInsets.left = 150; // add left padding.
+    //AdpostCirclebtn.titleEdgeInsets.right = 10; // add right padding.
+    //AdpostCirclebtn.titleEdgeInsets.top = 10; // add top padding.
+    //AdpostCirclebtn.titleEdgeInsets.bottom = 10; // add bottom padding.
+    //                AdpostCirclebtn.contentHorizontalAlignment = .right;
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -52,7 +52,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     var currentPage = 0
     var maximumPage = 0
     
-  
+    
     var nearByTitle = ""
     var latitude: Double = 0
     var longitude: Double = 0
@@ -62,6 +62,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.adForest_sellerData()
         print(adForest_sellerData())
         navigationButtons()
-
+        
     }
     
     //Adpost Btn Action/
@@ -114,7 +115,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.navigationController?.pushViewController(adPostVC, animated: true)
         }
     }
-
+    
     //MARK:- Custom
     
     func showLoader() {
@@ -122,11 +123,11 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     //MARK:- Table View Delegates
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
@@ -155,11 +156,11 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         for item in objData.authorSocial.socialIcons{
             if item.value != "" {
                 print(item.value)
-
+                
             }
             if item.key == "Facebook"{
                 cell.socialStringArr.append(item.value)
-
+                
             }
             if item.key == "Twitter"{
                 cell.socialStringArr.append(item.value)
@@ -178,7 +179,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let objData = dataArray[indexPath.row]
+        let objData = dataArray[indexPath.row]
         let publicProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "UserPublicProfile") as! UserPublicProfile
         publicProfileVC.userID = String(objData.authorId)
         self.navigationController?.pushViewController(publicProfileVC, animated: true)
@@ -202,7 +203,7 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
             adForest_loadMoreData(param: param as NSDictionary)
         }
     }
-
+    
     //MARK:- API Call
     func adForest_sellerData() {
         self.showLoader()
@@ -329,8 +330,16 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }                          }
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

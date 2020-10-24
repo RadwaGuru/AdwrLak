@@ -38,7 +38,8 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-    
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -219,7 +220,16 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
          }
          
          @objc func actionHome() {
-             appDelegate.moveToHome()
+
+            if homeStyle == "home1"{
+                self.appDelegate.moveToHome()
+                
+            }else if homeStyle == "home2"{
+                self.appDelegate.moveToMultiHome()
+            }
+            else if homeStyle == "home3"{
+                self.appDelegate.moveToMarvelHome()
+            }
          }
          
          @objc func onClicklocationButton() {

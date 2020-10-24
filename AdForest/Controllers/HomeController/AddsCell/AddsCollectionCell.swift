@@ -29,7 +29,7 @@ class AddsCollectionCell: UICollectionViewCell {
     
     //MARK:- Properties
     var btnFullAction: (()->())?
-    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var sliderAdsLayout: String = UserDefaults.standard.string(forKey: "sliderAdsLayout")!
     var  imageView: UIImageView!
     var  imageViewLoc: UIImageView!
     var lblTitle: UILabel!
@@ -49,7 +49,7 @@ class AddsCollectionCell: UICollectionViewCell {
         } else {
             lblName.textAlignment = .left
         }
-        if latestHorizontalSingleAd  == "horizental" {
+        if sliderAdsLayout  == "horizental" {
             //            containerView.backgroundColor = UIColor.systemRed
             imgPicture.isHidden = true
             lblName.isHidden = true

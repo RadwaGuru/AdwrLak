@@ -281,24 +281,24 @@ class ContactWithSellerViewController: UIViewController ,NVActivityIndicatorView
         guard let description = TxtFieldMessage.text else {return}
         
         if email == "" && emailRequired == true {
-            self.errorTxtEmailField(TxtEmail)
+//            self.errorTxtEmailField(TxtEmail)
             TxtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
         else if !email.isValidEmail {
-            self.errorTxtEmailField(TxtEmail)
+//            self.errorTxtEmailField(TxtEmail)
             TxtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
         else if name == "" && nameRequired == true {
-            self.errorTxtNameField(TxtName)
+//            self.errorTxtNameField(TxtName)
             TxtName.shake(6, withDelta: 10, speed: 0.06)
         }
         else if phoneNumber == "" && phoneNumberRequired ==  true {
-            self.errorTxtPhoneNumberField(TxtPhoneNumber)
+//            self.errorTxtPhoneNumberField(TxtPhoneNumber)
             TxtPhoneNumber.shake()
             
         }
         else if description == "" && messageRequired ==  true {
-            self.errorTxtMessageField(TxtFieldMessage)
+//            self.errorTxtMessageField(TxtFieldMessage)
             TxtFieldMessage.shake()
             
         }

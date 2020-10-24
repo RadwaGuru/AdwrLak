@@ -10,6 +10,7 @@ import UIKit
 
 protocol MarvelCategoryDetailDelegate {
     func goToCategoryDetail(id: Int)
+    func goToSubCategoryDetail(id:Int,hasChild:Bool )
 }
 
 class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -19,7 +20,9 @@ class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UIC
     @IBOutlet weak var btnViewAllCats: UIButton!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                btnViewAllCats.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+                btnViewAllCats.backgroundColor = UIColor.clear
+                    //Constants.hexStringToUIColor(hex: mainColor)
+                btnViewAllCats.setTitleColor(Constants.hexStringToUIColor(hex: mainColor), for: .normal)
             }
         }
     }
@@ -49,6 +52,16 @@ class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UIC
     var delegate : MarvelCategoryDetailDelegate?
     var btnViewAll: (()->())?
     
+    
+    
+    //MARK:- Properties
+    var dataArray = [LocationDetailTerm]()
+    var currentPage = 0
+    var maximumPage = 0
+    var searchController = UISearchController(searchResultsController: nil)
+    var filteredArray = [LocationDetailTerm]()
+    var shouldShowSearchResults = false
+    var termId = 0
     
     
     override func awakeFromNib() {
@@ -89,7 +102,14 @@ class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UIC
             cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
         }
         cell.btnFullAction = { () in
-            self.delegate?.goToCategoryDetail(id: objData.catId)
+            if objData.hasSub == true {
+                self.delegate?.goToSubCategoryDetail(id: objData.catId, hasChild: objData.hasSub)
+
+            }
+            else{
+                self.delegate?.goToCategoryDetail(id:objData.catId)
+
+            }
         }
         return cell
     }
@@ -112,10 +132,16 @@ class MarvelCategoryTableViewCell: UITableViewCell,UICollectionViewDelegate, UIC
             })
         }
     }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = collectionView.frame.size.width
+////        return CGSize(width: width, height: 115)
+//    }
     //MARK:- IBActions
     @IBAction func actionViewAll(_ sender: Any) {
         self.btnViewAll?()
     }
+
+
     
 }
 class AnimationUtility: UIViewController, CAAnimationDelegate {

@@ -15,6 +15,9 @@ protocol MarvelLocationCategoryDelegate {
 class MarvelHomeLocationTableViewCell: UITableViewCell,FSPagerViewDataSource,FSPagerViewDelegate {
     
     
+    @IBOutlet weak var containerView: UIView!
+    
+    
     @IBOutlet weak var btnViewLocAds: UIButton!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
@@ -32,7 +35,12 @@ class MarvelHomeLocationTableViewCell: UITableViewCell,FSPagerViewDataSource,FSP
             self.pagerView.isInfinite = true
             self.pagerView.transformer = FSPagerViewTransformer(type: .linear)
             let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            self.pagerView.itemSize = self.pagerView.frame.size.applying(transform)
+            let screenSize = UIScreen.main.bounds
+        
+            let screenWidth = screenSize.width
+            pagerView.itemSize = CGSize(width: screenWidth, height: 250).applying(transform)
+
+//            self.pagerView.itemSize = self.pagerView.frame.size.applying(transform)
             self.pagerView.decelerationDistance = FSPagerView.automaticDistance
         }
     }
@@ -41,9 +49,13 @@ class MarvelHomeLocationTableViewCell: UITableViewCell,FSPagerViewDataSource,FSP
     var dataArray = [CatLocation]()
     var delegate : MarvelLocationCategoryDelegate?
     var  adsCOunt : String!
+    var btnViewAction : (()->())?
+    var btnFullAction: (()->())?
+    var fromMulti = false
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+      
+
         print(data?.catLocations)
         // Initialization code
     }
@@ -54,7 +66,10 @@ class MarvelHomeLocationTableViewCell: UITableViewCell,FSPagerViewDataSource,FSP
         // Configure the view for the selected state
     }
     //    // MARK:- FSPagerViewDataSource
-    
+    //MARK:- IBActions
+    @IBAction func actionViewAll(_ sender: Any) {
+        self.btnViewAction?()
+    }
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
         return (data?.catLocations.count)!
     }
@@ -76,12 +91,21 @@ class MarvelHomeLocationTableViewCell: UITableViewCell,FSPagerViewDataSource,FSP
             
             cell.textLabel?.text = "\(locationTitle) \(adsCOunt!)"
         }
+        cell.imageView?.tag = (objData?.catId)!
+
         return cell
     }
     
+
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
         pagerView.deselectItem(at: index, animated: true)
         pagerView.scrollToItem(at: index, animated: true)
+        let idsArr = data?.catLocations[index]
+        print(idsArr?.catId!)
+
+        self.delegate?.goToCLocationDetail(id:(idsArr?.catId!)!)
+
+
         
     }
     

@@ -20,6 +20,7 @@ protocol latLongitudePro {
 }
 
 let MapboxAccessToken = "pk.eyJ1IjoiZ2xpeGVuIiwiYSI6ImNrMmFkNXdjbjJpeHgzbG16bW5kZ3R5OGkifQ.sUMfX4HRKF9l3YorJ4a02A"
+    //Constants.MapboxAccessToken.self
 //,MGLMapViewDelegate
 class MapBoxPlacesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
    

@@ -204,7 +204,7 @@ class LocationHomeDetViewController: UIViewController, UITableViewDelegate, UITa
                 self.title = successResponse.data.pageTitle
                 self.currentPage = successResponse.data.pagination.currentPage
                 self.maximumPage = successResponse.data.pagination.maxNumPages
-               // self.dataArray = successResponse.data.terms
+//                self.dataArray = successResponse.data.terms
                 self.tableView.reloadData()
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

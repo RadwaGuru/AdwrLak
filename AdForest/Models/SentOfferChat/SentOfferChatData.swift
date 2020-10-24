@@ -18,7 +18,7 @@ struct SentOfferChatData{
     var pageTitle : String!
     var pagination : SentOfferChatPagination!
     var btnText : String!
-   
+    var isBlock : Bool!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -44,6 +44,7 @@ struct SentOfferChatData{
             }
         }
         btnText = dictionary["btn_text"] as? String
+        isBlock = dictionary["is_block"] as? Bool
         pageTitle = dictionary["page_title"] as? String
         if let paginationData = dictionary["pagination"] as? [String:Any]{
             pagination = SentOfferChatPagination(fromDictionary: paginationData)

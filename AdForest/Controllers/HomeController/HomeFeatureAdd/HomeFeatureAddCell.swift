@@ -36,16 +36,15 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-
-    
+    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
+    var fromMarvelHome = false
+    var fromMarvelDefault = false
     
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-//        self.startTimer()
+        //        self.startTimer()
         self.layoutLatest()
         self.layoutHorizontalSingleAd()
         
@@ -64,7 +63,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     
     //MARK:- Collection View Delegate Methods
     func layoutHorizontalSingleAd(){
-        if latestHorizontalSingleAd == "horizental" {
+        if featuredAdLayout == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -85,7 +84,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func layoutLatest(){
-        if latestVertical == "vertical"{
+        if featuredAdLayout == "vertical"{
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -111,7 +110,8 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:  HomeFeatureCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeFeatureCollectionCell", for: indexPath) as! HomeFeatureCollectionCell
         let objData = dataArray[indexPath.row]
-        if latestHorizontalSingleAd == "horizental" {
+        
+        if featuredAdLayout == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
@@ -124,7 +124,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
                 cell.lblTitle.text = name
                 if objData.adTimer.isShow {
                     cell.futureDate = objData.adTimer.timer
-
+                    
                     cell.lblTimer.isHidden = true
                     cell.lblBidTimer.isHidden = false
                 }else{
@@ -147,6 +147,12 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
             }
             
         } else{
+            if fromMarvelDefault == true{
+                cell.containerView.marvelRoundCorners()
+                cell.imgPicture.marvelRoundCorners()
+                cell.imgPicture.clipsToBounds = true
+                cell.lblFeatured.featuredRoundCorners(.topLeft, radius: 10)
+            }
             for images in objData.adImages {
                 if let imgUrl = URL(string: images.thumb.encodeUrl()) {
                     cell.imgPicture.sd_setShowActivityIndicatorView(true)
@@ -164,7 +170,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
                     cell.lblTimer.isHidden = true
                 }
             }
-           
+            
             if let location = objData.adLocation.address {
                 cell.lblLocation.text = location
             }
@@ -195,9 +201,9 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         return regex.numberOfMatches(in: code, range: NSRange(code.startIndex..., in: code)) == 1
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if latestVertical == "vertical" {
+        if featuredAdLayout == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if latestHorizontalSingleAd == "horizental" {
+        }else if featuredAdLayout == "horizental" {
             return CGSize(width:collectionView.frame.width , height: 122)
         }
         else{
@@ -207,14 +213,14 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-                        if collectionView.isDragging {
-                    cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
-                    UIView.animate(withDuration: 0.3, animations: {
-                        cell.transform = CGAffineTransform.identity
-                        self.collectionView.decelerationRate = 0.5
-                        
-                    })
-                }
+        if collectionView.isDragging {
+            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.transform = CGAffineTransform.identity
+                self.collectionView.decelerationRate = 0.5
+                
+            })
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

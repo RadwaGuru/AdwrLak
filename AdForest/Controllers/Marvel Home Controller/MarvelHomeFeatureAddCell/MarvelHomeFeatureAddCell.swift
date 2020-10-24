@@ -20,24 +20,18 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
             collectionView.isScrollEnabled = false
-            
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
             
         }
         
     }
     @IBOutlet weak var collectionLayout: UICollectionViewFlowLayout!
-    //{
-    //        didSet{
-    ////            collectionLayout.estimatedItemSize =
-    //            //UICollectionViewFlowLayoutAutomaticSize
-    //                //UICollectionViewFlowLayout.automaticSize
-    //
-    //        }
-    //    }
+    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var containerView: UIView!{
         didSet{
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
             containerView.roundCorners()
             
         }
@@ -49,10 +43,7 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
     var delegate: MarvelAddDetailDelegate?
     var dataArray = [HomeAdd]()
     
-    
-    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-    
+    var fromMultiHome = false;
     
     override func awakeFromNib() {
         super.awakeFromNib()

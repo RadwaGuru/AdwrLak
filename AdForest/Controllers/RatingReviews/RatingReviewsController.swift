@@ -127,11 +127,14 @@ class RatingReviewsController: UIViewController, UITableViewDelegate, UITableVie
             if let date = objData.ratingDate {
                 cell.lblDate.text = date
             }
+            if objData.ratingStars != "" {
+
             if let ratingBar = objData.ratingStars {
                 cell.ratingBar.settings.updateOnTouch = false
                 cell.ratingBar.settings.fillMode = .precise
                 cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: "#ffcc00")
                 cell.ratingBar.rating = Double(ratingBar)!
+             }
             }
             if let replyButtontext = objData.replyText {
                 cell.oltReply.setTitle(replyButtontext, for: .normal)

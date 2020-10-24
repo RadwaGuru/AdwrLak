@@ -114,5 +114,6 @@ pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
 pod 'SOTabBar'
 pod 'FSPagerView'
 pod 'FanMenu'
-   
+pod "ZGTooltipView"
+
 end

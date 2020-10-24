@@ -12,11 +12,12 @@ import Cosmos
 class ReplyReactionCell: UITableViewCell {
 
     //MARK:- Outlets
-    @IBOutlet weak var containerView: UIView!{
-        didSet{
-            containerView.addShadowToView()
-        }
-    }
+    @IBOutlet weak var containerView: UIView!
+//    {
+//        didSet{
+//            //containerView.addShadowToView()
+//        }
+//    }
     @IBOutlet weak var imgProfile: UIImageView!{
         didSet{
             imgProfile.round()

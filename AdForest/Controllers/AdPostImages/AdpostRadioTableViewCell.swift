@@ -45,6 +45,7 @@ class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableVie
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -67,15 +68,16 @@ class AdpostRadioTableViewCell: UITableViewCell, UITableViewDelegate, UITableVie
             cell.buttonRadio.titleLabel?.text = title
         }
         //print(objData.isSelected, indexPath.row)
-        
+        seletedRad = cell.seletedRadio
+
         if objData.isChecked {
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "radio-on-button"), for: .normal)
             cell.buttonRadio.isSelected = true
             delegate?.radVal(rVal: seletedRad, fieldType: "radio", indexPath: index, isSelected: objData.isChecked,fieldNam:fieldName)
         }else {
+            
             cell.buttonRadio.setBackgroundImage(#imageLiteral(resourceName: "empty (1)"), for: .normal)
         }
-        seletedRad = cell.seletedRadio
         cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
         
         return cell

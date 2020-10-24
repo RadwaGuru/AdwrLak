@@ -37,13 +37,13 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     var delegate : SearchAutoDelegate?
     var index = 0
     var fieldTypeNam = "ad_location"
-    var MapBoxPlaces  = true
 //    var latitude = ""
 //    var longitude = ""
     var latitude : Double!
     var longitude : Double!
     var fullAddress = ""
     let locationManager = CLLocationManager()
+    var placesSearchType = UserDefaults.standard.bool(forKey: "placesSearchType")
 
     //MARK:- View Life Cycle
     override func awakeFromNib() {
@@ -70,7 +70,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
        
-        if MapBoxPlaces {
+        if placesSearchType == true {
             loadPlacesorMapbox()
         }
         else{

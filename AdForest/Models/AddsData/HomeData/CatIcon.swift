@@ -13,7 +13,7 @@ struct CatIcon {
     var catId : Int!
     var img : String!
     var name : String!
-    
+    var hasSub: Bool!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -22,6 +22,7 @@ struct CatIcon {
         catId = dictionary["cat_id"] as? Int
         img = dictionary["img"] as? String
         name = dictionary["name"] as? String
+        hasSub = dictionary["has_sub"] as? Bool
     }
     
     /**

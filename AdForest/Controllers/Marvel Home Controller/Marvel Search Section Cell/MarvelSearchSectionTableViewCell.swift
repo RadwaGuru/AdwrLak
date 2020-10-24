@@ -14,10 +14,17 @@ class MarvelSearchSectionTableViewCell: UITableViewCell {
     @IBOutlet weak var btnSearchView: UIView!{
         didSet {
             btnSearchView.roundCorners()
+           
         }
     }
 
-    @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var btnSearch: UIButton!{
+        didSet{
+        if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+            btnSearch.tintColor = Constants.hexStringToUIColor(hex: mainColor)
+        }
+      }
+    }
     @IBOutlet weak var txtFieldSearch: UITextField!
     @IBOutlet weak var searchFieldView: UIView!{
         didSet {

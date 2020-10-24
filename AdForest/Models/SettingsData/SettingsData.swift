@@ -60,6 +60,16 @@ struct SettingsData {
     var showHome :Bool!
     var advanceIcon :Bool!
     var homescreenLayout:String!
+    var featuredAdsLayout:String!
+    var latestAdsLayout:String!
+    var nearByAdsLayout:String!
+    var sliderAdsLayout:String!
+    var homeStyles:String!
+    var footerMenu: FooterMenuData!
+    var catSectionTitle: String!
+    var locationSectionStyle: String!
+    var placesSearchType: Bool!
+    var adDetailStyle: String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -116,7 +126,10 @@ struct SettingsData {
         showNearby = dictionary["show_nearby"] as? Bool
         showHome = dictionary["show_home_icon"] as? Bool
         advanceIcon = dictionary["show_adv_search_icon"] as? Bool
-        
+        if let footerMenuD = dictionary["footer_menu"] as? [String:Any]{
+            footerMenu = FooterMenuData(fromDictionary: footerMenuD)
+        }
+
         allowBlock = dictionary["allow_block"] as? Bool
         if let featuredScrollData = dictionary["featured_scroll"] as? [String:Any]{
             featuredScroll = SettingsFeaturedScroll(fromDictionary: featuredScrollData)
@@ -153,7 +166,16 @@ struct SettingsData {
         ImgReqMessage = dictionary["required_img"] as? String
         ImgUplaoding = dictionary["uploading_label"] as? String
         homescreenLayout = dictionary["homescreen_layout"] as? String
+        featuredAdsLayout = dictionary["fetaured_screen_layout"] as? String
+        latestAdsLayout = dictionary["latest_screen_layout"] as? String
+        nearByAdsLayout = dictionary["nearby_screen_layout"] as? String
+        sliderAdsLayout = dictionary["cat_slider_screen_layout"] as? String
         InValidUrl = dictionary["invalid_url"] as? String
+        homeStyles = dictionary["homescreen_style"] as? String
+        catSectionTitle = dictionary["home_cat_icons_setion_title"] as? String
+        locationSectionStyle = dictionary["adlocation_style"] as? String
+        placesSearchType = dictionary["places_search_switch"] as? Bool
+        adDetailStyle = dictionary["api_ad_details_style"] as? String
     }
     
     /**

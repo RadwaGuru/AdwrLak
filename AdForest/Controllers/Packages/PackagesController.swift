@@ -67,7 +67,8 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
-    
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+
   
     
     //MARK:- Application Life Cycle
@@ -749,9 +750,18 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
               
            }
            
-           @objc func actionHome() {
-               appDelegate.moveToHome()
-           }
+    @objc func actionHome() {
+
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }
+    }
 
            @objc func onClicklocationButton() {
                let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch

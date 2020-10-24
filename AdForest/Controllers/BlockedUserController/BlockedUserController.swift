@@ -12,7 +12,7 @@ import XLPagerTabStrip
 import IQKeyboardManagerSwift
 
 class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
-
+    
     //MARK:- Outlets
     
     @IBOutlet weak var tableView: UITableView!{
@@ -38,6 +38,7 @@ class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewD
     var backgroundView = UIView()
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
+    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -47,7 +48,7 @@ class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewD
         self.googleAnalytics(controllerName: "Blocked Users Controller")
         navigationButtons()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -242,8 +243,16 @@ class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
-    }
+        
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }       }
     
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
@@ -406,8 +415,8 @@ extension BlockedUserController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         var pageTitle = ""
         if let title = self.defaults.string(forKey: "blocked") {
-                   pageTitle = title
-               }
-               return IndicatorInfo(title: pageTitle)
+            pageTitle = title
+        }
+        return IndicatorInfo(title: pageTitle)
     }
 }

@@ -18,13 +18,15 @@ class MarvelFeatureVerticalTableViewCell: UITableViewCell,UICollectionViewDelega
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
-            
+            collectionView.isScrollEnabled = false
+            collectionView.backgroundColor = UIColor.groupTableViewBackground
             
         }
     }
     @IBOutlet weak var containerView: UIView!{
         didSet{
-            containerView.backgroundColor = UIColor.clear
+            containerView.backgroundColor = UIColor.groupTableViewBackground
+            contentView.backgroundColor = UIColor.groupTableViewBackground
             containerView.roundCorners()
             
         }
@@ -36,16 +38,13 @@ class MarvelFeatureVerticalTableViewCell: UITableViewCell,UICollectionViewDelega
        //MARK:- Properties
        var delegate: MarvelAddDetailDelegate?
        var dataArray = [HomeAdd]()
-       
+       var fromMultiHome = false
        var day: Int = 0
        var hour: Int = 0
        var minute: Int = 0
        var second: Int = 0
        var serverTime = ""
        var isEndTime = ""
-       var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-       var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
-       
     
     
     
