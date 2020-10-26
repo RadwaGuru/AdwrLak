@@ -139,7 +139,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.adDetailStyle,forKey: "adDetailStyle")
 
                 self.home = successResponse.data.homeStyles
-                                self.defaults.set(successResponse.data.homeStyles,forKey: "homeStyles")
+                self.defaults.set(successResponse.data.homeStyles,forKey: "homeStyles")
 
                 self.defaults.set(successResponse.data.isAppOpen, forKey: "isAppOpen")
                 self.defaults.set(successResponse.data.showNearby, forKey: "showNearBy")

@@ -42,10 +42,11 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     var delegate : AddDetailDelegate?
     var dataArray = [HomeAdd]()
     var btnViewAll: (()->())?
-    var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
+//    var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
     var fromMarvelHome = false
     var fromMarvelDefault = false
-    
+    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,7 +64,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     //MARK:- Collection View Delegate Methods
     
     func layoutHorizontalSingleAd(){
-        if latestAdLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -80,7 +81,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     
     
     func layoutLatest(){
-        if latestAdLayout == "vertical" {
+        if latestVertical == "vertical" {
             let layout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             layout.minimumLineSpacing = 0
@@ -104,7 +105,7 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
         
         let cell: LatestAddsCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LatestAddsCollectionCell", for: indexPath) as! LatestAddsCollectionCell
         let objData = dataArray[indexPath.row]
-        if latestAdLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
@@ -185,9 +186,9 @@ class LatestAddsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if latestAdLayout == "vertical" {
+        if latestVertical == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if latestAdLayout == "horizental" {
+        }else if latestHorizontalSingleAd == "horizental" {
             return CGSize(width:collectionView.frame.width,height: 120)
         }
         else{
@@ -275,7 +276,9 @@ class LatestAddsCollectionCell : UICollectionViewCell {
     
     //MARK:- Properties
     var btnFullAction : (()->())?
-    var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
+//    var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+
     var  imageView: UIImageView!
     var  imageViewLoc: UIImageView!
     var lblTitle: UILabel!
@@ -308,7 +311,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblName.textAlignment = .left
         }
         
-        if latestAdLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             //            containerView.backgroundColor = UIColor.systemRed
             imgPicture.isHidden = true
             lblName.isHidden = true
@@ -402,7 +405,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
         
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
-            if self.latestAdLayout == "horizental" {
+            if self.latestHorizontalSingleAd == "horizental" {
                 self.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
                 
             }

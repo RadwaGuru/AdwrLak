@@ -75,6 +75,19 @@ class MarvelHomeLatestVerticalDefaultCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblPrice.textAlignment = .right
+            lbllocation.textAlignment = .right
+            adTitle.textAlignment = .right
+
+        } else {
+            lblPrice.textAlignment = .left
+            lbllocation.textAlignment = .left
+            adTitle.textAlignment = .left
+
+            
+        }
+
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"

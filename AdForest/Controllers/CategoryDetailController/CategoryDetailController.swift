@@ -18,10 +18,11 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
             tableView.separatorStyle = .none
-            
-        //tableView.register(UINib(nibName: "CategoryDetailCell", bundle: nil), forCellReuseIdentifier: "CategoryDetailCell")
+            if newHome == false{
+                tableView.register(UINib(nibName: "CategoryDetailCell", bundle: nil), forCellReuseIdentifier: "CategoryDetailCell")
+            }else{
             tableView.register(UINib(nibName: "MarvelCategoryDetailCell", bundle: nil), forCellReuseIdentifier: "MarvelCategoryDetailCell")
-            
+            }
         }
     }
     

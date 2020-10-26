@@ -64,13 +64,7 @@ class MarvelFeatureVerticalCollectionViewCell: UICollectionViewCell {
     }
     
     
-    @IBOutlet weak var featuredImg: UIImageView!{
-        didSet{
-            
-            featuredImg.featuredRoundCorners([.topRight], radius: 10)
-            
-        }
-    }
+    @IBOutlet weak var featuredImg: UIImageView!
     
     @IBOutlet weak var btnViewAll: UIButton!
     
@@ -87,6 +81,21 @@ class MarvelFeatureVerticalCollectionViewCell: UICollectionViewCell {
     var dayStr = ""
     override func awakeFromNib() {
         super.awakeFromNib()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblPrice.textAlignment = .right
+            lblLocation.textAlignment = .right
+            adTitle.textAlignment = .right
+            featuredImg.featuredRoundCorners([.topLeft], radius: 10)
+
+        } else {
+            lblPrice.textAlignment = .left
+            lblLocation.textAlignment = .left
+            adTitle.textAlignment = .left
+            featuredImg.featuredRoundCorners([.topRight], radius: 10)
+
+            
+        }
+
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"

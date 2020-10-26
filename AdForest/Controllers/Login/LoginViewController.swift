@@ -570,28 +570,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 
             else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
-//                self.btnGoogleLog.isHidden = false // New
-//                self.buttonFBLogin.isHidden = false
                 self.btnFb.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = false
                 
             }
-                
-                
-                
-                
-                //            else if isShowFacebook  && isShowGoogle  && isShowApple == false  && isShowLinkedin {
-                //                self.buttonGoogleLogin.isHidden = false
-                //                self.btnGoogleLog.isHidden = false // New
-                //                self.buttonFBLogin.isHidden = false
-                //                self.btnFb.isHidden = false
-                //                self.btnApple.isHidden = true
-                //                self.buttonLinkedIn.isHidden = false
-                //
-                //            }
-                
-                
                 
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false  && isShowLinkedin == false {
                 self.lblOr.isHidden = true
@@ -608,8 +591,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                     self.buttonGuestLogin.isHidden = true
                 }
             }
-            
-            
         }
     }
     
@@ -963,8 +944,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 } else {
                     self.defaults.set(true, forKey: "isLogin")
                     self.defaults.synchronize()
-                    self.appDelegate.moveToMarvelHome()
-//                    self.appDelegate.moveToHome()
+                   
+                    if self.homeStyle == "home1"{
+                        self.appDelegate.moveToHome()
+                        
+                    }else if self.homeStyle == "home2"{
+                        self.appDelegate.moveToMultiHome()
+                    }
+                    else if self.homeStyle == "home3"{
+                        self.appDelegate.moveToMarvelHome()
+                    }
+
                 }
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -979,250 +969,216 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 
 
 
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding,ASAuthorizationControllerDelegate {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    {
+        switch authorization.credential {
+
+        case let credentials as ASAuthorizationAppleIDCredential:
+            DispatchQueue.main.async {
+
+                if "\(credentials.user)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if credentials.email != nil {
+
+                    UserDefaults.standard.set("\(credentials.email!)", forKey: "User_Email")
+                }
+                if credentials.fullName!.givenName != nil {
+
+                    UserDefaults.standard.set("\(credentials.fullName!.givenName!)", forKey: "User_FirstName")
+                }
+                if credentials.fullName!.familyName != nil {
+
+                    UserDefaults.standard.set("\(credentials.fullName!.familyName!)", forKey: "User_LastName")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
+
+
+            }
+
+        case let credentials as ASPasswordCredential:
+            DispatchQueue.main.async {
+
+                if "\(credentials.user)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
+                }
+                if "\(credentials.password)" != "" {
+
+                    UserDefaults.standard.set("\(credentials.password)", forKey: "User_Password")
+                }
+                UserDefaults.standard.synchronize()
+                self.setupUserInfoAndOpenView()
+            }
+        case let credentials as ASAuthorizationAppleIDProvider:
+            DispatchQueue.main.async {
+                credentials.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
+
+                    switch credentialState {
+                    case .authorized:
+                        self.setupUserInfoAndOpenView()
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
+
+
+        default :
+            let alert: UIAlertController = UIAlertController(title: "Apple Sign In", message: "Something went wrong with your Apple Sign In!", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+            self.present(alert, animated: true, completion: nil)
+            break
+        }
+    }
+
+
+    func setupUserInfoAndOpenView()
+    {
+        DispatchQueue.main.async {
+
+
+            if "\(UserDefaults.standard.value(forKey: "User_FirstName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_LastName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_Email")!)" != "" {
+                let emApple = UserDefaults.standard.value(forKey: "User_Email")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+
+                }
+
+
+
+
+
+            } else {
+                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
+                if emApple != nil{
+                    let param: [String: Any] = [
+                        "email": emApple,
+                        "type": "social"
+                    ]
+                    print(param)
+                    self.defaults.set(true, forKey: "isSocial")
+                    UserDefaults.standard.set(emApple, forKey:"email")
+                    self.defaults.set("1122", forKey: "password")
+                    self.defaults.synchronize()
+                    UserDefaults.standard.set("true", forKey: "apple")
+                    self.adForest_loginUser(parameters: param as NSDictionary)
+
+                }
+
+            }
+
+        }
+    }
+
+    func checkStatusOfAppleSignIn()
+    {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
+
+            switch credentialState {
+            case .authorized:
+                self.setupUserInfoAndOpenView()
+                break
+            default:
+                break
+            }
+        }
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+    {
+        let alert: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+}
 //@available(iOS 13.0, *)
-//extension LoginViewController: ASAuthorizationControllerPresentationContextProviding,ASAuthorizationControllerDelegate {
-//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-//        return self.view.window!
-//    }
-//
-//    //    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-//    //        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
-//    //            let userIdentifier = appleIDCredential.user
-//    //            let fullName = appleIDCredential.fullName
-//    //
-//    //            let email = appleIDCredential.email
-//    //            if email != nil{
-//    //                UserDefaults.standard.set(email, forKey:"emailA")
-//    //            }
-//    //
-//    //            let emApple = UserDefaults.standard.string(forKey: "emailA")
-//    //            if emApple != nil{
-//    //                let param: [String: Any] = [
-//    //                    "email": emApple!,
-//    //                    "type": "social"
-//    //                ]
-//    //                print(param)
-//    //                self.defaults.set(true, forKey: "isSocial")
-//    //                UserDefaults.standard.set(emApple, forKey:"email")
-//    //                self.defaults.set("1122", forKey: "password")
-//    //                self.defaults.synchronize()
-//    //                UserDefaults.standard.set("true", forKey: "apple")
-//    //                self.adForest_loginUser(parameters: param as NSDictionary)
-//    //                print(userIdentifier,fullName,email)
-//    //            }else{
-//    //                let alert = Constants.showBasicAlert(message: "Apple id....")
-//    //                self.presentVC(alert)
-//    //
-//    //
-//    //            }
-//    //
-//    //        }
-//    //    }
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
-//    {
+//extension LoginViewController: ASAuthorizationControllerDelegate {
+//    /// - Tag: did_complete_authorization
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
 //        switch authorization.credential {
+//        case let appleIDCredential as ASAuthorizationAppleIDCredential:
 //
-//        case let credentials as ASAuthorizationAppleIDCredential:
+//            // Create an account in your system.
+//            let userIdentifier = appleIDCredential.user
+//            let fullName = appleIDCredential.fullName?.givenName
+//            let email = appleIDCredential.email
+//
+//            // For the purpose of this demo app, store the `userIdentifier` in the keychain.
+////            self.saveUserInKeychain(userIdentifier)
+//            print("\(fullName):\(email):\(userIdentifier)")
+//            // For the purpose of this demo app, show the Apple ID credential information in the `ResultViewController`.
+////            self.showResultViewController(userIdentifier: userIdentifier, fullName: fullName, email: email)
+//
+//        case let passwordCredential as ASPasswordCredential:
+//
+//            // Sign in using an existing iCloud Keychain credential.
+//            let username = passwordCredential.user
+//            let password = passwordCredential.password
+//
+//            // For the purpose of this demo app, show the password credential as an alert.
 //            DispatchQueue.main.async {
-//
-//                if "\(credentials.user)" != "" {
-//
-//                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
-//                }
-//                if credentials.email != nil {
-//
-//                    UserDefaults.standard.set("\(credentials.email!)", forKey: "User_Email")
-//                }
-//                if credentials.fullName!.givenName != nil {
-//
-//                    UserDefaults.standard.set("\(credentials.fullName!.givenName!)", forKey: "User_FirstName")
-//                }
-//                if credentials.fullName!.familyName != nil {
-//
-//                    UserDefaults.standard.set("\(credentials.fullName!.familyName!)", forKey: "User_LastName")
-//                }
-//                UserDefaults.standard.synchronize()
-//                self.setupUserInfoAndOpenView()
-//
-//
+//                self.showPasswordCredentialAlert(username: username, password: password)
 //            }
 //
-//        case let credentials as ASPasswordCredential:
-//            DispatchQueue.main.async {
-//
-//                if "\(credentials.user)" != "" {
-//
-//                    UserDefaults.standard.set("\(credentials.user)", forKey: "User_AppleID")
-//                }
-//                if "\(credentials.password)" != "" {
-//
-//                    UserDefaults.standard.set("\(credentials.password)", forKey: "User_Password")
-//                }
-//                UserDefaults.standard.synchronize()
-//                self.setupUserInfoAndOpenView()
-//            }
-//        case let credentials as ASAuthorizationAppleIDProvider:
-//            DispatchQueue.main.async {
-//                credentials.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
-//
-//                    switch credentialState {
-//                    case .authorized:
-//                        self.setupUserInfoAndOpenView()
-//                        break
-//                    default:
-//                        break
-//                    }
-//                }
-//            }
-//
-//
-//        default :
-//            let alert: UIAlertController = UIAlertController(title: "Apple Sign In", message: "Something went wrong with your Apple Sign In!", preferredStyle: .alert)
-//
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//            self.present(alert, animated: true, completion: nil)
+//        default:
 //            break
 //        }
 //    }
 //
-//
-//    func setupUserInfoAndOpenView()
-//    {
-//        DispatchQueue.main.async {
-//
-//
-//            if "\(UserDefaults.standard.value(forKey: "User_FirstName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_LastName")!)" != "" || "\(UserDefaults.standard.value(forKey: "User_Email")!)" != "" {
-//                let emApple = UserDefaults.standard.value(forKey: "User_Email")!
-//                if emApple != nil{
-//                    let param: [String: Any] = [
-//                        "email": emApple,
-//                        "type": "social"
-//                    ]
-//                    print(param)
-//                    self.defaults.set(true, forKey: "isSocial")
-//                    UserDefaults.standard.set(emApple, forKey:"email")
-//                    self.defaults.set("1122", forKey: "password")
-//                    self.defaults.synchronize()
-//                    UserDefaults.standard.set("true", forKey: "apple")
-//                    self.adForest_loginUser(parameters: param as NSDictionary)
-//
-//                }
+////    private func saveUserInKeychain(_ userIdentifier: String) {
+////        do {
+////            try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
+////        } catch {
+////            print("Unable to save userIdentifier to keychain.")
+////        }
+////    }
 //
 //
-//
-//
-//
-//            } else {
-//                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
-//                if emApple != nil{
-//                    let param: [String: Any] = [
-//                        "email": emApple,
-//                        "type": "social"
-//                    ]
-//                    print(param)
-//                    self.defaults.set(true, forKey: "isSocial")
-//                    UserDefaults.standard.set(emApple, forKey:"email")
-//                    self.defaults.set("1122", forKey: "password")
-//                    self.defaults.synchronize()
-//                    UserDefaults.standard.set("true", forKey: "apple")
-//                    self.adForest_loginUser(parameters: param as NSDictionary)
-//
-//                }
-//
-//            }
-//
-//        }
+//    private func showPasswordCredentialAlert(username: String, password: String) {
+//        let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
+//        let alertController = UIAlertController(title: "Keychain Credential Received",
+//                                                message: message,
+//                                                preferredStyle: .alert)
+//        alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+//        self.present(alertController, animated: true, completion: nil)
 //    }
 //
-//    func checkStatusOfAppleSignIn()
-//    {
-//        let appleIDProvider = ASAuthorizationAppleIDProvider()
-//        appleIDProvider.getCredentialState(forUserID: "\(UserDefaults.standard.value(forKey: "User_AppleID")!)") { (credentialState, error) in
-//
-//            switch credentialState {
-//            case .authorized:
-//                self.setupUserInfoAndOpenView()
-//                break
-//            default:
-//                break
-//            }
-//        }
+//    /// - Tag: did_complete_error
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+//        // Handle error.
 //    }
-//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
-//    {
-//        let alert: UIAlertController = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-//
-//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//        self.present(alert, animated: true, completion: nil)
-//    }
-//
 //}
-@available(iOS 13.0, *)
-extension LoginViewController: ASAuthorizationControllerDelegate {
-    /// - Tag: did_complete_authorization
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        switch authorization.credential {
-        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
-            // Create an account in your system.
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-                    
-            // For the purpose of this demo app, store the `userIdentifier` in the keychain.
-//            self.saveUserInKeychain(userIdentifier)
-            print("\(fullName):\(email):\(userIdentifier)")
-            // For the purpose of this demo app, show the Apple ID credential information in the `ResultViewController`.
-//            self.showResultViewController(userIdentifier: userIdentifier, fullName: fullName, email: email)
-        
-        case let passwordCredential as ASPasswordCredential:
-        
-            // Sign in using an existing iCloud Keychain credential.
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-            
-            // For the purpose of this demo app, show the password credential as an alert.
-            DispatchQueue.main.async {
-                self.showPasswordCredentialAlert(username: username, password: password)
-            }
-           
-        default:
-            break
-        }
-    }
-    
-//    private func saveUserInKeychain(_ userIdentifier: String) {
-//        do {
-//            try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
-//        } catch {
-//            print("Unable to save userIdentifier to keychain.")
-//        }
+//@available(iOS 13.0, *)
+//extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+//    /// - Tag: provide_presentation_anchor
+//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+//        return self.view.window!
 //    }
-    
-    
-    private func showPasswordCredentialAlert(username: String, password: String) {
-        let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
-        let alertController = UIAlertController(title: "Keychain Credential Received",
-                                                message: message,
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// - Tag: did_complete_error
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Handle error.
-    }
-}
-@available(iOS 13.0, *)
-extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
-    /// - Tag: provide_presentation_anchor
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-}
+//}
 
 
 class User {

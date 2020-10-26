@@ -69,7 +69,17 @@ class MarvelHomeLatestAddCollectionViewCell: UICollectionViewCell {
     var secStr = ""
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblTitle.textAlignment = .right
+            lblLocation.textAlignment = .right
+            lblPrice.textAlignment = .right
+        }
+        else{
+            lblTitle.textAlignment = .left
+            lblLocation.textAlignment = .left
+            lblPrice.textAlignment = .left
+
+        }
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"

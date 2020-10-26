@@ -123,6 +123,11 @@ class BlockedUserController: UIViewController, UITableViewDelegate, UITableViewD
             if successResponse.success{
                 self.title = successResponse.data.pageTitle
                 self.dataArray = successResponse.data.users
+                if successResponse.data.users.isEmpty {
+                    let alert = Constants.showBasicAlert(message: successResponse.message)
+                    self.presentVC(alert)
+                    
+                }
                 self.tableView.reloadData()
             }
             else {

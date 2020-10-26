@@ -50,11 +50,8 @@ class MarvelHomeFeatureAddCollectionViewCell: UICollectionViewCell {
         
     }
     
-    @IBOutlet weak var featuredStarImg: UIImageView!{
-        didSet{
-        featuredStarImg.featuredRoundCorners(.topRight, radius: 5)
-        }
-    }
+    @IBOutlet weak var featuredStarImg: UIImageView!
+    
     @IBOutlet weak var containerView: UIView!{
         didSet{
             //            containerView.backgroundColor = UIColor.clear
@@ -79,6 +76,20 @@ class MarvelHomeFeatureAddCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
            super.awakeFromNib()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblTitle.textAlignment = .right
+            lblLocation.textAlignment = .right
+            lblPrice.textAlignment = .right
+            featuredStarImg.featuredRoundCorners(.topLeft, radius: 5)
+
+        }
+        else{
+            lblTitle.textAlignment = .left
+            lblLocation.textAlignment = .left
+            lblPrice.textAlignment = .left
+            featuredStarImg.featuredRoundCorners(.topRight, radius: 5)
+
+        }
            Timer.every(1.second) {
                self.countDown(date: self.futureDate)
                self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"

@@ -50,7 +50,6 @@ class MultiHomeFeatureAddCollectionViewCell: UICollectionViewCell {
             if let mainColor =  UserDefaults.standard.string(forKey: "mainColor"){
                 lblTimer.textColor = UIColor.white
                     //Constants.hexStringToUIColor(hex: mainColor)
-                lblTimer.featuredRoundCorners([.bottomLeft], radius: 10)
                     
                     
             }
@@ -58,12 +57,6 @@ class MultiHomeFeatureAddCollectionViewCell: UICollectionViewCell {
     }
     
     @IBOutlet weak var featuredImg: UIImageView!
-    {
-        didSet{
-            featuredImg.featuredRoundCorners([.topRight], radius: 10)
-
-        }
-    }
     @IBOutlet weak var btnViewAll: UIButton!
     
     
@@ -83,18 +76,21 @@ class MultiHomeFeatureAddCollectionViewCell: UICollectionViewCell {
         
         if UserDefaults.standard.bool(forKey: "isRtl") {
             lblTitle.textAlignment = .right
+            lblAdCatName.textAlignment = .right
+            featuredImg.image = UIImage(named: "featured_stars_rtl_round")
+            lblTimer.featuredRoundCorners([.bottomRight], radius: 10)
+            featuredImg.featuredRoundCorners([.topLeft], radius: 10)
         } else {
+            featuredImg.image = UIImage(named: "featured_stars_round")
+            featuredImg.featuredRoundCorners([.topRight], radius: 10)
+            lblTimer.featuredRoundCorners([.bottomLeft], radius: 10)
             lblTitle.textAlignment = .left
+            lblAdCatName.textAlignment = .left
+
         }
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
-//            if self.latestHorizontalSingleAd == "horizental" {
-//                self.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-//            }else{
-                self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-                
-//            }
-            
+            self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
         }
     }
     //MARK:- Action on Ad Click

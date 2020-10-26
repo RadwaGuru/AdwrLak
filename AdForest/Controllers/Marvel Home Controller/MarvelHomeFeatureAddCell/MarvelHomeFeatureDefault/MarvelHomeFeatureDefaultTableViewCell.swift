@@ -62,15 +62,7 @@ class MarvelHomeFeatureDefaultTableViewCell: UITableViewCell,UICollectionViewDel
     //MARK:- Collection View Delegate Methods
     func layoutHorizontalSingleAd(){
         if featuredAdLayout == "horizental" {
-            //    let cellSize = CGSize(width:80 , height:180)
-            
             let layout = UICollectionViewFlowLayout()
-            //       layout.scrollDirection = .vertical //.horizontal
-            //       layout.itemSize = cellSize
-            
-            //            let width = (view.frame.width-20)/2
-            //            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            //layout.itemSize = CGSize(width: 334, height: 500)
             layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
@@ -149,7 +141,14 @@ class MarvelHomeFeatureDefaultTableViewCell: UITableViewCell,UICollectionViewDel
                 cell.containerView.marvelRoundCorners()
                 cell.imgPicture.marvelRoundCorners()
                 cell.imgPicture.clipsToBounds = true
-                cell.imgFeatured.featuredRoundCorners(.topRight, radius: 10)
+                if UserDefaults.standard.bool(forKey: "isRtl") {
+                    cell.imgFeatured.featuredRoundCorners(.topLeft, radius: 10)
+                    cell.imgFeatured.image = UIImage(named: "featured_stars_rtl_round")
+                }else{
+                    cell.imgFeatured.featuredRoundCorners(.topRight, radius: 10)
+                    cell.imgFeatured.image = UIImage(named: "featured_stars_round")
+
+                }
             }
             for images in objData.adImages {
                 if let imgUrl = URL(string: images.thumb.encodeUrl()) {
@@ -175,11 +174,6 @@ class MarvelHomeFeatureDefaultTableViewCell: UITableViewCell,UICollectionViewDel
             if let price = objData.adPrice.price {
                 cell.lblPrice.text = price
             }
-            
-//            if let featurText = objData.adStatus.featuredTypeText {
-//                cell.lblFeatured.text = featurText
-//                cell.lblFeatured.backgroundColor = Constants.hexStringToUIColor(hex: "#E52D27")
-//            }
             cell.btnFullAction = { () in
                 self.delegate?.goToAddDetail(ad_id: objData.adId)
             }

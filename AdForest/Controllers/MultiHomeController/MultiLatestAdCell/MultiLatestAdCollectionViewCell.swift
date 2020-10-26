@@ -45,7 +45,6 @@ class MultiLatestAdCollectionViewCell: UICollectionViewCell {
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
                 lblTimer.textColor = UIColor.white
-                lblTimer.featuredRoundCorners([.bottomLeft], radius: 10)
 
             }
         }
@@ -80,6 +79,18 @@ class MultiLatestAdCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblTitle.textAlignment = .right
+            lblLocation.textAlignment = .right
+            lblTimer.featuredRoundCorners([.bottomRight], radius: 10)
+
+        }
+        else{
+            lblTitle.textAlignment = .left
+            lblTimer.featuredRoundCorners([.bottomLeft], radius: 10)
+            lblLocation.textAlignment = .left
+
+        }
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"

@@ -38,9 +38,9 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
     
     
     var btnFullAction: (()->())?
-    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
+//    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
 
-//    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var  imageView: UIImageView!
     var  imageViewLoc: UIImageView!
     var lblTitle: UILabel!
@@ -74,7 +74,7 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
         } else {
             lblName.textAlignment = .left
         }
-        if featuredAdLayout  == "horizental" {
+        if latestHorizontalSingleAd  == "horizental" {
             //            containerView.backgroundColor = UIColor.systemRed
             imgPicture.isHidden = true
             lblName.isHidden = true
@@ -184,7 +184,7 @@ class HomeFeatureCollectionCell: UICollectionViewCell {
         
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
-            if self.featuredAdLayout == "horizental" {
+            if self.latestHorizontalSingleAd == "horizental" {
                 self.lblBidTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
             }else{
                 self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "

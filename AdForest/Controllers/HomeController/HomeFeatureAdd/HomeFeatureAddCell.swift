@@ -36,10 +36,13 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
+//    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
     var fromMarvelHome = false
     var fromMarvelDefault = false
-    
+    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+
+
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,7 +66,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     
     //MARK:- Collection View Delegate Methods
     func layoutHorizontalSingleAd(){
-        if featuredAdLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -84,7 +87,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func layoutLatest(){
-        if featuredAdLayout == "vertical"{
+        if latestVertical == "vertical"{
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -111,7 +114,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         let cell:  HomeFeatureCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeFeatureCollectionCell", for: indexPath) as! HomeFeatureCollectionCell
         let objData = dataArray[indexPath.row]
         
-        if featuredAdLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
@@ -201,9 +204,9 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         return regex.numberOfMatches(in: code, range: NSRange(code.startIndex..., in: code)) == 1
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if featuredAdLayout == "vertical" {
+        if latestVertical == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if featuredAdLayout == "horizental" {
+        }else if latestHorizontalSingleAd == "horizental" {
             return CGSize(width:collectionView.frame.width , height: 122)
         }
         else{

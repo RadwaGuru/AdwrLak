@@ -50,9 +50,12 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     var second: Int = 0
     var serverTime = ""
     var isEndTime = ""
-    var sliderAdsLayout: String = UserDefaults.standard.string(forKey: "sliderAdsLayout")!
+//    var sliderAdsLayout: String = UserDefaults.standard.string(forKey: "sliderAdsLayout")!
     var fromMarvelHome = false
     var fromMarvelDefault = false
+    var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd: String =  UserDefaults.standard.string(forKey: "homescreenLayout")!
+
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,7 +79,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     
     //MARK:- Collection View Delegate Methods
     func layoutHorizontalSingleAd(){
-        if sliderAdsLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -97,7 +100,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     }
     
     func layoutLatest(){
-        if sliderAdsLayout == "vertical" {
+        if latestVertical == "vertical" {
             //    let cellSize = CGSize(width:80 , height:180)
             
             let layout = UICollectionViewFlowLayout()
@@ -123,7 +126,7 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:  AddsCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddsCollectionCell", for: indexPath) as! AddsCollectionCell
         let objData = dataArray[indexPath.row]
-        if sliderAdsLayout == "horizental" {
+        if latestHorizontalSingleAd == "horizental" {
             for item in objData.adImages {
                 if let imgUrl = URL(string: item.thumb.encodeUrl()) {
                     cell.imageView.sd_setShowActivityIndicatorView(true)
@@ -238,9 +241,9 @@ class AddsTableCell: UITableViewCell, UICollectionViewDelegate, UICollectionView
         second = timeDifference.second!
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if sliderAdsLayout == "vertical" {
+        if latestVertical == "vertical" {
             return CGSize(width:collectionView.frame.width/2 , height:210)
-        }else if sliderAdsLayout == "horizental" {
+        }else if latestHorizontalSingleAd == "horizental" {
             return CGSize(width:collectionView.frame.width,height: 120)
         }
         else{

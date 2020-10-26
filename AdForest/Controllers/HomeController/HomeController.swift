@@ -51,7 +51,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(refreshTableView),
+                                    #selector(refreshTableView),
                                  for: UIControlEvents.valueChanged)
         refreshControl.tintColor = UIColor.red
         
@@ -90,7 +90,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latitude: Double = 0
     var longitude: Double = 0
     var searchDistance:CGFloat = 0
-    
     //var homeTitle = ""
     var numberOfColumns:CGFloat = 0
     var heightConstraintTitleLatestad = 0
@@ -101,36 +100,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latColHeight: Double = 0
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
-    var nearbyColHeight: Double = 0
-
     var showVertical:Bool = false
-    var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
-    var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
-    var nearbyAdLayout: String = UserDefaults.standard.string(forKey: "nearByAdsLayout")!
-    var sliderAdsLayout: String = UserDefaults.standard.string(forKey: "sliderAdsLayout")!
-    var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
-    var interstitial: GADInterstitial!
+    var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-
-
-
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // self.navigationController?.isNavigationBarHidden = false
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        inters = GADInterstitial(adUnitID:"ca-app-pub-2596107136418753/4126592208")
         let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-
-//            [ "2077ef9a63d2b398840261c8221a0c9b" ] // Sample device ID
-        interstitial.load(request)
-
-        //        #if !DEBUG
-//
-//        #endif
-//        interstitial.delegate = self
-//        inters.load(request)
+        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        inters.load(request)
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
         self.adForest_sendFCMToken()
@@ -140,7 +124,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
         self.adForest_homeData()
-        self.createAndLoadInterstitial()
+        
         
     }
     
@@ -151,17 +135,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.oltAddPost.isHidden = false
         }
         currentVc = self
-                //self.adForest_homeData()
+        //self.adForest_homeData()
         
     }
-    fileprivate func createAndLoadInterstitial() {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-        let request = GADRequest()
-        // Request test ads on devices you specify. Your test device ID is printed to the console when
-        // an ad request is made.
-        request.testDevices = [kGADSimulatorID]
-        interstitial.load(request)
-      }
+    
     @objc func refreshTableView() {
         self.adForest_homeData()
         //        self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
@@ -177,7 +154,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if defaults.bool(forKey: "isLogin") {
             Messaging.messaging().shouldEstablishDirectChannel = true
             Messaging.messaging().subscribe(toTopic: "global")
-
+            
         }
     }
     
@@ -187,7 +164,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- go to add detail controller
     func goToAddDetail(ad_id: Int) {
-
         if adDetailStyle == "style1"{
             let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
             addDetailVC.ad_id = ad_id
@@ -196,7 +172,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else{
             let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
-            //        let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
             addDetailVC.ad_id = ad_id
             self.navigationController?.pushViewController(addDetailVC, animated: true)
             
@@ -321,16 +296,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func actionHome() {
-
-     if homeStyle == "home1"{
-         self.appDelegate.moveToHome()
-
-     }else if homeStyle == "home2"{
-         self.appDelegate.moveToMultiHome()
-     }
-     else if homeStyle == "home3"{
-         self.appDelegate.moveToMarvelHome()
-     }       }
+        appDelegate.moveToHome()
+    }
+    
     @objc func onClicklocationButton() {
         let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
         locationVC.delegate = self
@@ -463,7 +431,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 value = 1
             }
         }
-            // Else Condition of Second Type
+        // Else Condition of Second Type
         else {
             if featurePosition == "1" {
                 if section == 0 {
@@ -588,6 +556,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     cell.btnViewAll = { () in
                         let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
+                        categoryDetailVC.newHome = false
                         self.navigationController?.pushViewController(categoryDetailVC, animated: true)
                     }
                 } else {
@@ -609,7 +578,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.delegate = self
                     fetColHeight = Double(cell.collectionView.contentSize.height)
                     print(latColHeight)
-                    if featuredAdLayout == "horizental" {
+                    if latestHorizontalSingleAd == "horizental" {
                         fetColHeight = Double(cell.collectionView.contentSize.height)
                     }
                     cell.collectionView.reloadData()
@@ -636,7 +605,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
                     latColHeight = Double(cell.collectionView.contentSize.height)
                     print(latColHeight)
-                    if latestAdLayout == "horizental" {
+                    if latestHorizontalSingleAd == "horizental" {
                         latColHeight = Double(cell.collectionView.contentSize.height)
                     }
                     cell.collectionView.reloadData()
@@ -683,7 +652,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 SliderColHeight = Double(cell.collectionView.contentSize.height)
                 
                 print(SliderColHeight)
-                if sliderAdsLayout == "horizental" {
+                if latestHorizontalSingleAd == "horizental" {
                     SliderColHeight = Double(cell.collectionView.contentSize.height)
                 }
                 cell.dataArray = objData.data
@@ -705,14 +674,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
                         self.navigationController?.pushViewController(categoryVC, animated: true)
                     }
-                    cell.delegate = self 
+                    SliderColHeight = Double(cell.collectionView.contentSize.height)
+                    
+                    print(SliderColHeight)
+                    if latestHorizontalSingleAd == "horizental" {
+                        SliderColHeight = Double(cell.collectionView.contentSize.height)
+                    }
+                    
+                    cell.delegate = self
                     cell.lblSectionTitle.text = self.nearByTitle
                     cell.dataArray = self.nearByAddsArray
-//                    if latestHorizontalSingleAd == "horizental" {
-//                        nearbyColHeight = Double(cell.collectionView.contentSize.height)
-//                    }else{
-                    nearbyColHeight = Double(cell.collectionView.contentSize.height)
-//                    }
                     cell.collectionView.reloadData()
                     return cell
                 }
@@ -868,7 +839,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     return cell
                 }
             }
-                
+            
             else if featurePosition == "3" {
                 if section == 0 {
                     let cell: SearchSectionCell = tableView.dequeueReusableCell(withIdentifier: "SearchSectionCell", for: indexPath) as! SearchSectionCell
@@ -999,25 +970,25 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             } else if position == "nearby" {
                 if isShowNearby {
-                     if nearbyAdLayout == "vertical" {
-                        height = CGFloat(nearbyColHeight) + 90
-                    } else if nearbyAdLayout == "horizental"{
-                        height = CGFloat(nearbyColHeight) + 90
-                    }
-                    else{
+                    if showVerticalAds == "vertical" {
+                        height = CGFloat(SliderColHeight) + 70
+                    } else if latestHorizontalSingleAd == "horizental"{
+                        height = CGFloat(SliderColHeight) + 70
+                        
+                    }else{
                         height = 270
+                        
                     }
-                }
-                else {
+                } else {
                     height = 0
                 }
             } else if position == "sliders" {
                 if dataArray.isEmpty {
                     height = 0
                 }
-                else if sliderAdsLayout == "vertical" {
-                    height = CGFloat(SliderColHeight) + 70 
-                } else if sliderAdsLayout == "horizental"{
+                else if showVerticalAds == "vertical" {
+                    height = CGFloat(SliderColHeight) + 70
+                } else if latestHorizontalSingleAd == "horizental"{
                     height = CGFloat(SliderColHeight) + 70
                     
                 }
@@ -1038,9 +1009,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     else {
                         height = 270
                     }
-                    if featuredAdLayout == "vertical" {
+                    if showVerticalAds == "vertical" {
                         height = CGFloat(fetColHeight) + 70
-                    } else if featuredAdLayout == "horizental" {
+                    } else if latestHorizontalSingleAd == "horizental" {
                         height = CGFloat(fetColHeight) + 70
                     }
                 } else {
@@ -1049,10 +1020,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else if position ==  "latest_ads" {
                 if self.isShowLatest {
                     
-                    if latestAdLayout == "vertical" {
+                    if showVerticalAds == "vertical" {
                         height = CGFloat(latColHeight) + 70
                         
-                    }else if latestAdLayout == "horizental" {
+                    }else if latestHorizontalSingleAd == "horizental" {
                         height = CGFloat(latColHeight) + 70
                     }
                     else{
@@ -1064,8 +1035,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 height = 0
             }
-        }
-        else {
+        } else {
             if featurePosition == "1" {
                 if section == 0 {
                     let objData = searchSectionArray[indexPath.row]
@@ -1216,42 +1186,42 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-//    private var finishedLoadingInitialTableCells = false
-//     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//
-//        var lastInitialDisplayableCell = false
-//
-//        //change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
-////        if favorites.itemes.count > 0 && !finishedLoadingInitialTableCells {
-//            if let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows,
-//                let lastIndexPath = indexPathsForVisibleRows.last, lastIndexPath.row == indexPath.row {
-//                lastInitialDisplayableCell = true
-//            }
-////        }
-//
-//        if !finishedLoadingInitialTableCells {
-//
-//            if lastInitialDisplayableCell {
-//                finishedLoadingInitialTableCells = true
-//            }
-//
-//            //animates the cell as it is being displayed for the first time
-//            do {
-//                let startFromHeight = tableView.frame.height
-//                cell.layer.transform = CATransform3DMakeTranslation(0, startFromHeight, 0)
-//                let delay = Double(indexPath.row) * 0.2
-//
-//                UIView.animate(withDuration: 0.2, delay: delay, options: UIViewAnimationOptions.transitionFlipFromBottom, animations: {
-//                    do {
-//                        cell.layer.transform = CATransform3DIdentity
-//                    }
-//                }) { (success:Bool) in
-//
-//                }
-//            }
-//        }
-//    }
-
+    //    private var finishedLoadingInitialTableCells = false
+    //     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    //
+    //        var lastInitialDisplayableCell = false
+    //
+    //        //change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
+    ////        if favorites.itemes.count > 0 && !finishedLoadingInitialTableCells {
+    //            if let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows,
+    //                let lastIndexPath = indexPathsForVisibleRows.last, lastIndexPath.row == indexPath.row {
+    //                lastInitialDisplayableCell = true
+    //            }
+    ////        }
+    //
+    //        if !finishedLoadingInitialTableCells {
+    //
+    //            if lastInitialDisplayableCell {
+    //                finishedLoadingInitialTableCells = true
+    //            }
+    //
+    //            //animates the cell as it is being displayed for the first time
+    //            do {
+    //                let startFromHeight = tableView.frame.height
+    //                cell.layer.transform = CATransform3DMakeTranslation(0, startFromHeight, 0)
+    //                let delay = Double(indexPath.row) * 0.2
+    //
+    //                UIView.animate(withDuration: 0.2, delay: delay, options: UIViewAnimationOptions.transitionFlipFromBottom, animations: {
+    //                    do {
+    //                        cell.layer.transform = CATransform3DIdentity
+    //                    }
+    //                }) { (success:Bool) in
+    //
+    //                }
+    //            }
+    //        }
+    //    }
+    
     
     
     //MARK:- IBActions
@@ -1290,7 +1260,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let alertController = UIAlertController(title: "Alert", message: notVerifyMsg, preferredStyle: .alert)
                 let okBtn = UIAlertAction(title: buttonOk, style: .default) { (ok) in
                     self.appDelegate.moveToProfile()
-                
                 }
                 let cancelBtn = UIAlertAction(title: buttonCancel, style: .cancel, handler: nil)
                 alertController.addAction(okBtn)
@@ -1323,7 +1292,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchSectionArray.removeAll()
         addPosition.removeAll()
         
-        AddsHandler.homeData(success: { [self] (successResponse) in
+        AddsHandler.homeData(success: { (successResponse) in
             self.stopAnimating()
             
             if successResponse.success {
@@ -1431,15 +1400,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     //ca-app-pub-6905547279452514/6461881125
                     if isShowInterstital {
-//                        if interstitial.isReady {
-//                            interstitial.present(fromRootViewController: self)
-//                            print("Ad  ready")
-//
-//                        } else {
-//                            print("Ad wasn't ready")
-//                        }
-                       self.perform(#selector(self.showAd2), with: nil, afterDelay: 40)
-
+                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+                        
+                        
+                        self.showAd()
+                        
+                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
+                        //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
+                        
+                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
+                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
+                        
+                        
                     }
                 }
                 // Here I set the Google Analytics Key
@@ -1465,11 +1438,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 self.tableView.reloadData()
                 
-//                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
-//                self.tableView.setContentOffset(scrollPoint, animated: true)
-//                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height + self.tableView.contentSize.height)
-//                self.tableView.setContentOffset(scrollPoint, animated: true)
-//                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
+                //                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height)
+                //                self.tableView.setContentOffset(scrollPoint, animated: true)
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
+                self.tableView.setContentOffset(scrollPoint, animated: true)
+                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
                 
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -1489,65 +1462,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
+    
     @objc func showAd2(){
-//        currentVc = self
-//        admobDelegate.showAd()
-        if interstitial.isReady{
-            interstitial.present(fromRootViewController: self)
-            print("Ad ready")
-
-        }
-        else{
-            print("else not ready")
-        }
-//        print("AdMob interstitial ad loading...")
-//        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910" )
-//        interstitial.delegate = self
-//
-//        let request = GADRequest()
-//        #if DEBUG
-//        request.testDevices = [kGADSimulatorID,"79e5cafdc063cca47a7b4158f482669ad5a74c2b"] as! [String]
-//        #endif
-//        interstitial.load(request)
+        currentVc = self
+        admobDelegate.showAd()
     }
-    
-    // Did receive
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("AdMob interstitial did receive ad from: \(ad.adNetworkClassName ?? "")")
-    }
-    
-    // Will present
-    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
-        print("AdMob interstitial will present")
-    }
-    
-    // Will dismiss
-    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
-        print("AdMob interstitial about to be closed")
-    }
-    
-    // Did dismiss
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        print("AdMob interstitial closed, reloading...")
-        showAd2()
-    }
-    
-    // Will leave application
-    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
-        print("AdMob interstitial will leave application")
-    }
-    
-    // Did fail to present
-    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        print("AdMob interstitial did fail to present")
-    }
-    
-    // Did fail to receive
-    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
-        print(error.localizedDescription)
-        // Do not reload here as it might cause endless preloads when internet problems
-    }
-    
     
     //MARK:- Send fcm token to server
     func adForest_sendFCMToken() {
@@ -1600,6 +1523,7 @@ extension UIViewController {
         
         //set titile
         self.navigationItem.title = title
+        
         let rightButton = UIBarButtonItem(image: UIImage(named: "home"), style: .plain, target: nil, action: nil)
         
         //show the Edit button item

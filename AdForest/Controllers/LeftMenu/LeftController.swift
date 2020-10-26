@@ -12,6 +12,7 @@ import NVActivityIndicatorView
 import Firebase
 import FirebaseMessaging
 import GoogleSignIn
+import AuthenticationServices
 
 enum leftMenues : Int {
     case main
@@ -551,6 +552,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 GoogleAuthenctication.signOut()
                 GIDSignIn.sharedInstance().signOut()
                 self.appDelegate.moveToLogin()
+                self.appleLogut()
                 self.stopAnimating()
             }
             else{
@@ -560,6 +562,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.defaults.set(false, forKey: "isGuest")
                 self.defaults.set(false, forKey: "isSocial")
                 FacebookAuthentication.signOut()
+                self.appleLogut()
                 GoogleAuthenctication.signOut()
                 self.appDelegate.moveToLogin()
             }
@@ -570,7 +573,31 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
+    func appleLogut(){
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let appleCred = UserDefaults.standard.string(forKey: "User_AppleID")
+             print(appleCred)
+            appleIDProvider.getCredentialState(forUserID: appleCred!) { (credentialState, error) in
+               switch credentialState {
+               case .authorized:
+                   // The Apple ID credential is valid.
+                   break
+               case .revoked:
+                   // The Apple ID credential is revoked.
+                   break
+               case .notFound:
+                   // No credential was found, so show the sign-in UI.
+                   break
+               default:
+                   break
+               }
+           }
+            
+        } else {
+            // Fallback on earlier versions
+        }
+    }
     //MARK:- Table View Delegate Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4

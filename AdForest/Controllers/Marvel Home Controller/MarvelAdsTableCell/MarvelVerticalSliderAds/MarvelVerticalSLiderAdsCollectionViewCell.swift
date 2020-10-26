@@ -59,7 +59,17 @@ class MarvelVerticalSLiderAdsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            lblPrice.textAlignment = .right
+            lblLocation.textAlignment = .right
+            adTitle.textAlignment = .right
+        } else {
+            lblPrice.textAlignment = .left
+            lblLocation.textAlignment = .left
+            adTitle.textAlignment = .left
+            
+        }
+
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             
