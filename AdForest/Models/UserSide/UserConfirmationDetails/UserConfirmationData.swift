@@ -17,6 +17,11 @@ struct UserConfirmationData{
     var logo : String!
     var submitText : String!
     var text : String!
+    var confirmationText:String!
+    var confirmationResend:String!
+    var confirmationContactAdmin:String!
+    var contactPageTitle:String!
+    var contactPageUrl: String!
     
     
     /**
@@ -30,6 +35,13 @@ struct UserConfirmationData{
         logo = dictionary["logo"] as? String
         submitText = dictionary["submit_text"] as? String
         text = dictionary["text"] as? String
+        confirmationText = dictionary["confirmation_text"] as? String
+        confirmationResend = dictionary["confirmation_resend"] as? String
+        confirmationContactAdmin = dictionary["confirmation_contact_admin"] as? String
+        contactPageTitle = dictionary["contact_page_title"] as? String
+        contactPageUrl = dictionary["contact_page_id"] as? String
+
+
     }
     
     /**

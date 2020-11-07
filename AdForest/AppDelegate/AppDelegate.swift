@@ -478,7 +478,7 @@ extension AppDelegate  {
         case .background: break
             
         case .inactive: break
-            
+    
         default:
             break
         }

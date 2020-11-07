@@ -14,6 +14,9 @@ class Constants {
     struct  URL {
         
         static let ipAddress = "https://adforest-testapp.scriptsbundle.com/"
+//        static let ipAddress =  "https://buycncs.com/"//Enter your domain name here
+
+
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
         static let homeData = "home"
@@ -106,6 +109,8 @@ class Constants {
         static let logout = "logout"
         static let cartEmpty = "cart-empty"
         static let contactSeller = "ad_post/seller_contact/"
+        static let resendEmail = "login/confirm/resend/"
+
 
     }
     struct AdMob {
@@ -117,10 +122,12 @@ class Constants {
     struct customCodes {
         
         
-        
+
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-        
+
+//        static let purchaseCode = "2c621b94-b67e-45a7-9614-a94d617b081a"
+//        static let securityCode = "2ast53412ewqqdass"
 
         
     }

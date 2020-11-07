@@ -10,8 +10,11 @@ import UIKit
 import NVActivityIndicatorView
 
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable {
-
+    
     //MARK:- Outlets
+    @IBOutlet weak var btnResenEmail: UIButton!
+    @IBOutlet weak var lblResendEmail: UILabel!
+    @IBOutlet weak var viewResendEmail: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var lblEnterEmail: UILabel!
@@ -36,16 +39,26 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
     var defaults = UserDefaults.standard
     var isFromVerification = false
     var user_id = 0
+    var bgColor = UserDefaults.standard.string(forKey: "mainColor")
+    var contactAdmin = ""
+    var contactPageTitle = ""
+    var contactPageUrl = ""
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
+    
+    
     
     //MARK:- Application Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
+        viewResendEmail.isHidden = true
+        lblResendEmail.isHidden = true
+        btnResenEmail.isHidden = true
         if isFromVerification {
             self.userConfirmation()
         }
         else{
-             self.adForest_ForgotData()
+            self.adForest_ForgotData()
         }
         txtFieldsWithRtl()
     }
@@ -54,7 +67,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
@@ -88,7 +101,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
             let objData = UserHandler.sharedInstance.objForgotDetails
             
             if let bgColor = defaults.string(forKey: "mainColor") {
-                 self.headerView.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+                self.headerView.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
             }
             
             if let imgUrl = URL(string: (objData?.logo)!) {
@@ -111,6 +124,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
             if let backText = objData?.backText {
                 self.backButton.setTitle(backText, for: .normal)
             }
+            
         }
         else {
             
@@ -119,8 +133,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
     
     func adForest_populateUserConfirmationData() {
         if UserHandler.sharedInstance.userConfirmationData != nil {
-              let objData =  UserHandler.sharedInstance.userConfirmationData
-        
+            let objData =  UserHandler.sharedInstance.userConfirmationData
+            
             if let bgColor = defaults.string(forKey: "mainColor") {
                 self.headerView.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
             }
@@ -134,7 +148,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
                 self.lblEnterEmail.text = headingText
             }
             if let confirmText = objData?.text {
-                  self.emailField.placeholder = confirmText
+                self.emailField.placeholder = confirmText
             }
             if let submitText = objData?.submitText {
                 self.submitButton.setTitle(submitText, for: .normal)
@@ -142,9 +156,47 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
             if let backText = objData?.backText {
                 self.backButton.setTitle(backText, for: .normal)
             }
+            if let lblText = objData?.confirmationText{
+                self.lblResendEmail.text = lblText
+            }
+            if let btnHead = objData?.confirmationResend{
+                
+                self.btnResenEmail.setTitleColor(Constants.hexStringToUIColor(hex: bgColor!), for: .normal)
+                self.btnResenEmail.setTitle(btnHead, for: .normal)
+            }
+            contactAdmin = (objData?.confirmationContactAdmin)!
+            contactPageTitle = (objData?.contactPageTitle)!
+            contactPageUrl = (objData?.contactPageUrl)!
+            print(contactPageUrl)
         }
         else {
             
+        }
+    }
+    
+    //MARK:- API Call
+    func adForest_submitContactSeller(param: NSDictionary) {
+        self.showLoader()
+        UserHandler.resendEmail(parameter: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
+                    self.dismissVC(completion: nil)
+                })
+                self.presentVC(alert)
+                self.btnResenEmail.setTitle(self.contactAdmin, for: .normal)
+                
+                
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+                self.btnResenEmail.setTitle(self.contactAdmin, for: .normal)
+                
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
         }
     }
     
@@ -152,6 +204,23 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    //MARK:- IBActions
+    @IBAction func resendButtonPressed(_ sender: UIButton) {
+        if sender.tag == 0 {
+            let param: [String: Any] = ["user_id": user_id]
+            print(param)
+            adForest_submitContactSeller(param: param as NSDictionary)
+            sender.tag = 1
+        }
+        else{
+            let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
+            contactWithAdmin.pageTitle = contactPageTitle
+            contactWithAdmin.pageUrl = contactPageUrl
+            self.navigationController?.pushViewController(contactWithAdmin, animated: true)
+            print(sender.tag)
+        }
+    }
+    
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {
         guard let email = emailField.text else {
@@ -188,7 +257,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
             }
-        
+            
         }) { (error) in
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
@@ -223,6 +292,9 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
             self.stopAnimating()
             if successResponse.success {
                 UserHandler.sharedInstance.userConfirmationData = successResponse.data
+                self.viewResendEmail.isHidden = false
+                self.lblResendEmail.isHidden = false
+                self.btnResenEmail.isHidden = false
                 self.adForest_populateUserConfirmationData()
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -244,7 +316,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
                 let alert = AlertView.prepare(title: "", message: successresponse.message, okAction: {
                     self.appDelegate.moveToLogin()
                 })
-              self.presentVC(alert)
+                self.presentVC(alert)
             } else{
                 let alert = Constants.showBasicAlert(message: successresponse.message)
                 self.presentVC(alert)

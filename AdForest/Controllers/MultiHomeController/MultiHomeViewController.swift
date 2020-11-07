@@ -10,6 +10,12 @@ import UIKit
 import NVActivityIndicatorView
 import FanMenu
 import Macaw
+import Firebase
+import FirebaseMessaging
+import UserNotifications
+import FirebaseCore
+import FirebaseInstanceID
+import GoogleMobileAds
 class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate {
     
     
@@ -118,7 +124,8 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
         self.adForest_homeData()
-        
+        self.adForest_sendFCMToken()
+
     }
     
     
@@ -1698,5 +1705,23 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
     }
     
-    
+    //MARK:- Send fcm token to server
+    func adForest_sendFCMToken() {
+        var fcmToken = ""
+        if let token = defaults.value(forKey: "fcmToken") as? String {
+            fcmToken = token
+        } else {
+            fcmToken = appDelegate.deviceFcmToken
+        }
+        let param: [String: Any] = ["firebase_id": fcmToken]
+        print(param)
+        AddsHandler.sendFirebaseToken(parameter: param as NSDictionary, success: { (successResponse) in
+            self.stopAnimating()
+            print(successResponse)
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
 }

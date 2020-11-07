@@ -552,7 +552,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 GoogleAuthenctication.signOut()
                 GIDSignIn.sharedInstance().signOut()
                 self.appDelegate.moveToLogin()
-                self.appleLogut()
                 self.stopAnimating()
             }
             else{
@@ -562,7 +561,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.defaults.set(false, forKey: "isGuest")
                 self.defaults.set(false, forKey: "isSocial")
                 FacebookAuthentication.signOut()
-                self.appleLogut()
                 GoogleAuthenctication.signOut()
                 self.appDelegate.moveToLogin()
             }

@@ -54,7 +54,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var btnClose: UIButton!
     @IBAction func btnCloseClicked(_ sender: UIButton) {
         UserDefaults.standard.set("3", forKey: "fromNotification")
-        appDelegate.moveToHome()
+        if homeStyles == "home1"{
+            appDelegate.moveToHome()
+        }
+        else if homeStyles == "home2"{
+            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MultiHomeViewController") as! MultiHomeViewController
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+        else if homeStyles == "home3"{
+            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "SOTabBarViewController") as! SOTabBarViewController
+            self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+        
     }
     @IBOutlet weak var containerViewSendMessage: UIView! {
         didSet {
@@ -110,7 +121,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var reverseArray = [SentOfferChat]()
     
     var userBlocked = false
-    
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+    var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
+
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -134,6 +147,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if UserDefaults.standard.string(forKey: "fromNotification") == "1"{
             btnClose.isHidden = false
             topConstraint.constant += 10
+            UserDefaults.standard.set("3", forKey: "fromNotification")
+
         }else{
             topConstraint.constant -= 30
             btnClose.isHidden = true
@@ -559,9 +574,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func actionNotificationName(_ sender: UIButton) {
+        if adDetailStyle == "style1"{
         let addDetailVc = self.storyboard?.instantiateViewController(withIdentifier: "AddDetailController") as! AddDetailController
         addDetailVc.ad_id = Int(ad_id)!
         self.navigationController?.pushViewController(addDetailVc, animated: true)
+            
+        }
+        else{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+            addDetailVC.ad_id = Int(ad_id)!
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
         
     }
     

@@ -67,7 +67,7 @@ var calledFrom = ""
             }
     //        self.forwardButton()
             self.googleAnalytics(controllerName: "Add Post Controller")
-            if calledFrom == "home3"{
+            if homeStyles == "home3"{
                 btnNext.isHidden = false
             }else{
                 btnNext.isHidden = true
@@ -465,7 +465,7 @@ var calledFrom = ""
 //                        }
                         
                     }
-                    id = objData.values[0].id
+//                    id = objData.values[0].id
                    // cell.oltPopup.setTitle(item.name, for: .normal)
                    // cell.selectedKey = String(item.id)
                 }

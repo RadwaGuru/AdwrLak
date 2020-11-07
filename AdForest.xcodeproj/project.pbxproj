@@ -639,6 +639,8 @@
 		CBA50E47253054AE004B0E04 /* MarvelCategoryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA50E46253054AE004B0E04 /* MarvelCategoryDetailCell.swift */; };
 		CBC43FCF251DCE1900D7AA6C /* SocialLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC43FCE251DCE1900D7AA6C /* SocialLoginCollectionViewCell.swift */; };
 		CBCC2973252CA112009ECC38 /* FooterMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCC2972252CA112009ECC38 /* FooterMenuData.swift */; };
+		CBD318742552D8BF0090F2F9 /* Main2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBD318732552D8BF0090F2F9 /* Main2.storyboard */; };
+		CBD3187A2552D9D50090F2F9 /* ContactWithAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD318792552D9D50090F2F9 /* ContactWithAdminViewController.swift */; };
 		CBFC0D41253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC0D40253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift */; };
 		CBFC0D46253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC0D45253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -1313,6 +1315,8 @@
 		CBA50E46253054AE004B0E04 /* MarvelCategoryDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCategoryDetailCell.swift; sourceTree = "<group>"; };
 		CBC43FCE251DCE1900D7AA6C /* SocialLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBCC2972252CA112009ECC38 /* FooterMenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterMenuData.swift; sourceTree = "<group>"; };
+		CBD318732552D8BF0090F2F9 /* Main2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main2.storyboard; sourceTree = "<group>"; };
+		CBD318792552D9D50090F2F9 /* ContactWithAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactWithAdminViewController.swift; sourceTree = "<group>"; };
 		CBFC0D40253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelHomeFeatureDefaultCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBFC0D45253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelHomeFeatureDefaultTableViewCell.swift; sourceTree = "<group>"; };
 		DCCFEF33A568B86FBFCB0E9A /* Pods_AdForestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2590,6 +2594,7 @@
 		18BBFA7A2051098B0067662F = {
 			isa = PBXGroup;
 			children = (
+				CBD318732552D8BF0090F2F9 /* Main2.storyboard */,
 				18BBFA852051098B0067662F /* AdForest */,
 				18BBFA9D2051098C0067662F /* AdForestTests */,
 				18BBFAA82051098C0067662F /* AdForestUITests */,
@@ -2659,6 +2664,7 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CBD318782552D9B00090F2F9 /* ContactWithAdmin */,
 				CB4A732025343196005FE49F /* MultiHomeController */,
 				CBC43FCD251DCDC600D7AA6C /* Social Login Cell */,
 				96BFE9E624F789AB00B4B2F7 /* Marvel Home Controller */,
@@ -3574,6 +3580,14 @@
 			path = "Social Login Cell";
 			sourceTree = "<group>";
 		};
+		CBD318782552D9B00090F2F9 /* ContactWithAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				CBD318792552D9D50090F2F9 /* ContactWithAdminViewController.swift */,
+			);
+			path = ContactWithAdmin;
+			sourceTree = "<group>";
+		};
 		CBFC0D3F253DBDC30080A0A7 /* MarvelHomeFeatureDefault */ = {
 			isa = PBXGroup;
 			children = (
@@ -3591,6 +3605,7 @@
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
+				258A0F4DBE4AF4ABF5059196 /* [CP] Prepare Artifacts */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
 				18BBFA812051098B0067662F /* Resources */,
@@ -3719,6 +3734,7 @@
 				CBA50E4225304D94004B0E04 /* MarvelCategoryDetailCell.xib in Resources */,
 				185B3C70207E03A800EDBBB4 /* AdRatingCell.xib in Resources */,
 				18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */,
+				CBD318742552D8BF0090F2F9 /* Main2.storyboard in Resources */,
 				181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */,
 				180DC4082057C9FC00A75C60 /* BlogCell.xib in Resources */,
 				CB8F42C8252AF159009E8F0F /* MarvelContactWithSellerCell.xib in Resources */,
@@ -3775,6 +3791,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
@@ -3872,6 +3889,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		258A0F4DBE4AF4ABF5059196 /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-artifacts.sh",
+				"${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		416E9A6AF3F243D23D41FBDD /* [CP] Copy Pods Resources */ = {
@@ -4216,6 +4251,7 @@
 				180A4F6B2328E17B002BC411 /* RejectedAdsImages.swift in Sources */,
 				18C2CCF8206A4F5200235E0E /* MyAdsVerifyButton.swift in Sources */,
 				182B4B452090691100324D4E /* AdPostRoot.swift in Sources */,
+				CBD3187A2552D9D50090F2F9 /* ContactWithAdminViewController.swift in Sources */,
 				186A9F952080D9F3008E646C /* PublicProfileAdd.swift in Sources */,
 				182C7FEA2068D4A90080A391 /* ProfileDetailsVerifyButton.swift in Sources */,
 				184EDAF4207897DF00A25228 /* AddDetailAdRating.swift in Sources */,
@@ -4715,7 +4751,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = AdForestLive2.3.9;
+				PROVISIONING_PROFILE_SPECIFIER = "Adforestlive 3.0";
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -127,6 +127,49 @@
                                             <action selector="submitButtonPressed:" destination="XrE-4h-qpQ" eventType="touchUpInside" id="bXh-Sv-rb5"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zr-gM-pAc">
+                                        <rect key="frame" x="8" y="145" width="366" height="77"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="did not get an email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwr-nB-1fV">
+                                                <rect key="frame" x="7.6666666666666714" y="22" width="165" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="3El-c6-zkx"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="Mhy-pW-cG9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daS-1e-uV1">
+                                                <rect key="frame" x="192.66666666666663" y="22" width="165" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="165" id="1tU-cE-z80"/>
+                                                    <constraint firstAttribute="height" constant="32" id="aVb-F2-Nhv"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="resendButtonPressed:" destination="XrE-4h-qpQ" eventType="touchUpInside" id="pUD-E4-689"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgc-ZI-cmg">
+                                                <rect key="frame" x="182.66666666666666" y="22" width="1" height="23"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="23" id="38C-RK-spU"/>
+                                                    <constraint firstAttribute="width" constant="1" id="9UW-ct-jJS"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="daS-1e-uV1" firstAttribute="top" secondItem="8zr-gM-pAc" secondAttribute="top" constant="22" id="8Pa-TZ-NqM"/>
+                                            <constraint firstItem="xgc-ZI-cmg" firstAttribute="centerX" secondItem="8zr-gM-pAc" secondAttribute="centerX" id="8QS-3B-jsN"/>
+                                            <constraint firstItem="xgc-ZI-cmg" firstAttribute="top" secondItem="8zr-gM-pAc" secondAttribute="top" constant="22" id="9Ir-FA-Z8C"/>
+                                            <constraint firstItem="xgc-ZI-cmg" firstAttribute="leading" secondItem="qwr-nB-1fV" secondAttribute="trailing" constant="9.6699999999999999" id="KsQ-rI-dlh"/>
+                                            <constraint firstItem="daS-1e-uV1" firstAttribute="leading" secondItem="xgc-ZI-cmg" secondAttribute="trailing" constant="9.3300000000000001" id="cfB-46-BWA"/>
+                                            <constraint firstAttribute="height" constant="77" id="hqf-4d-uNN"/>
+                                            <constraint firstItem="qwr-nB-1fV" firstAttribute="top" secondItem="8zr-gM-pAc" secondAttribute="top" constant="22" id="qVZ-rI-AHr"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="UfM-WI-I4w" firstAttribute="top" secondItem="GHZ-4a-7rX" secondAttribute="top" constant="8" id="1z8-Zb-IHE"/>
@@ -136,14 +179,17 @@
                                     <constraint firstItem="UfM-WI-I4w" firstAttribute="height" secondItem="GHZ-4a-7rX" secondAttribute="height" multiplier="0.16" id="D3G-tq-fBi"/>
                                     <constraint firstItem="a1B-pN-6Je" firstAttribute="height" secondItem="GHZ-4a-7rX" secondAttribute="height" multiplier="0.15" id="Icr-ks-gJu"/>
                                     <constraint firstAttribute="trailing" secondItem="ymp-wd-chW" secondAttribute="trailing" id="O9Q-KQ-3jb"/>
+                                    <constraint firstAttribute="trailing" secondItem="8zr-gM-pAc" secondAttribute="trailing" constant="8" id="QyG-og-qqp"/>
                                     <constraint firstItem="kWt-ni-cQf" firstAttribute="top" secondItem="L0V-zm-IAB" secondAttribute="bottom" constant="8" id="R4J-BJ-fZr"/>
                                     <constraint firstItem="ymp-wd-chW" firstAttribute="width" secondItem="kWt-ni-cQf" secondAttribute="width" id="UyV-bx-h0i"/>
                                     <constraint firstAttribute="trailing" secondItem="a1B-pN-6Je" secondAttribute="trailing" constant="8" id="Wxy-bH-XBA"/>
                                     <constraint firstItem="UfM-WI-I4w" firstAttribute="width" secondItem="GHZ-4a-7rX" secondAttribute="width" multiplier="0.08" id="ZBM-2C-ksx"/>
                                     <constraint firstItem="ymp-wd-chW" firstAttribute="top" secondItem="L0V-zm-IAB" secondAttribute="bottom" constant="8" id="eGA-tH-oDy"/>
+                                    <constraint firstItem="8zr-gM-pAc" firstAttribute="top" secondItem="kWt-ni-cQf" secondAttribute="bottom" constant="37" id="esz-2u-yQ8"/>
                                     <constraint firstItem="UfM-WI-I4w" firstAttribute="leading" secondItem="GHZ-4a-7rX" secondAttribute="leading" id="hY8-6t-ELG"/>
                                     <constraint firstAttribute="trailing" secondItem="L0V-zm-IAB" secondAttribute="trailing" id="ips-u0-nNP"/>
                                     <constraint firstItem="kWt-ni-cQf" firstAttribute="width" secondItem="GHZ-4a-7rX" secondAttribute="width" multiplier="0.495" id="kLo-yJ-9q1"/>
+                                    <constraint firstItem="8zr-gM-pAc" firstAttribute="leading" secondItem="GHZ-4a-7rX" secondAttribute="leading" constant="8" id="qMq-zc-NFR"/>
                                     <constraint firstItem="kWt-ni-cQf" firstAttribute="leading" secondItem="GHZ-4a-7rX" secondAttribute="leading" id="seX-WZ-034"/>
                                     <constraint firstItem="a1B-pN-6Je" firstAttribute="leading" secondItem="UfM-WI-I4w" secondAttribute="trailing" constant="8" id="z5g-8X-CN1"/>
                                 </constraints>
@@ -174,24 +220,27 @@
                     <navigationItem key="navigationItem" id="oAt-Al-XFP"/>
                     <connections>
                         <outlet property="backButton" destination="kWt-ni-cQf" id="6Sn-Km-ucJ"/>
+                        <outlet property="btnResenEmail" destination="daS-1e-uV1" id="Cdc-vs-Y53"/>
                         <outlet property="emailField" destination="a1B-pN-6Je" id="Pwf-Zw-E8h"/>
                         <outlet property="emailIcon" destination="UfM-WI-I4w" id="6UA-lS-8mJ"/>
                         <outlet property="headerImage" destination="11x-8q-FOf" id="jed-Bt-yAM"/>
                         <outlet property="headerView" destination="1tV-eK-9OU" id="ddk-xl-kED"/>
                         <outlet property="lblEnterEmail" destination="Hd2-8s-5fS" id="c6o-M6-elK"/>
+                        <outlet property="lblResendEmail" destination="qwr-nB-1fV" id="u1B-US-SbU"/>
                         <outlet property="submitButton" destination="ymp-wd-chW" id="dyq-bb-f20"/>
+                        <outlet property="viewResendEmail" destination="8zr-gM-pAc" id="EiS-ye-geF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoE-Tm-jOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055.625" y="-648.5915492957746"/>
+            <point key="canvasLocation" x="1055.072463768116" y="-648.88392857142856"/>
         </scene>
         <!--Terms Conditions Controller-->
         <scene sceneID="gew-qj-x4l">
             <objects>
                 <viewController storyboardIdentifier="TermsConditionsController" id="aLy-IE-7nk" customClass="TermsConditionsController" customModule="AdForest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hLf-wx-g9U">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lAu-Uh-dTY">
@@ -8236,7 +8285,7 @@
             <objects>
                 <viewController storyboardIdentifier="SetLocationController" id="ybA-fT-Txb" customClass="SetLocationController" customModule="AdForest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="42A-Zk-Yzy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cs4-po-o5I">
@@ -9657,7 +9706,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="798"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="wRB-ZE-xQs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                    <rect key="frame" x="0.0" y="758" width="414" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
@@ -11403,11 +11452,11 @@
             <objects>
                 <viewController storyboardIdentifier="SettingsController" id="vPZ-vp-tSX" customClass="SettingsController" customModule="AdForest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rVH-MO-sr4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ic9-9A-9ar">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -11957,7 +12006,7 @@
                                 <rect key="frame" x="23" y="92" width="369" height="702"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="SX6-xb-hV8">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="66"/>
+                                    <rect key="frame" x="0.0" y="636" width="369" height="66"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hellloo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x1U-kN-s38">
@@ -19448,29 +19497,14 @@
         <designable name="6FA-Zs-Y8L">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
-        <designable name="7BW-4L-jSc">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
-        <designable name="8oB-1K-dnw">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
         <designable name="AAY-Qn-Plr">
             <size key="intrinsicContentSize" width="5" height="21"/>
         </designable>
         <designable name="Byu-Ct-Myt">
             <size key="intrinsicContentSize" width="-1" height="65"/>
         </designable>
-        <designable name="CF5-3L-7Av">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
-        <designable name="ECE-wg-Jf8">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
-        <designable name="F6p-Ir-FSq">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
         <designable name="GT5-kh-Fha">
-            <size key="intrinsicContentSize" width="87.666666666666671" height="26"/>
+            <size key="intrinsicContentSize" width="87.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="Gw4-6u-kh6">
             <size key="intrinsicContentSize" width="5" height="22"/>
@@ -19490,17 +19524,14 @@
         <designable name="OLc-ao-vsI">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
-        <designable name="SrN-pP-arF">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
         <designable name="Wc0-bw-UDr">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
         <designable name="Wx3-33-6ZR">
-            <size key="intrinsicContentSize" width="60" height="26"/>
+            <size key="intrinsicContentSize" width="60" height="25.666666666666668"/>
         </designable>
         <designable name="aAQ-d9-WeA">
-            <size key="intrinsicContentSize" width="85.666666666666671" height="26"/>
+            <size key="intrinsicContentSize" width="85.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="aTT-AJ-UHf">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
@@ -19511,33 +19542,21 @@
         <designable name="kdw-fG-0Rg">
             <size key="intrinsicContentSize" width="5" height="21"/>
         </designable>
-        <designable name="oIa-oL-gjI">
-            <size key="intrinsicContentSize" width="-1" height="65"/>
-        </designable>
-        <designable name="pAS-pV-caL">
-            <size key="intrinsicContentSize" width="79" height="15"/>
-        </designable>
         <designable name="r64-i1-YbQ">
             <size key="intrinsicContentSize" width="5" height="22"/>
         </designable>
         <designable name="sAK-fs-wif">
             <size key="intrinsicContentSize" width="5" height="22"/>
         </designable>
-        <designable name="tOY-DO-v42">
-            <size key="intrinsicContentSize" width="104" height="20"/>
-        </designable>
         <designable name="u4l-OG-JyN">
-            <size key="intrinsicContentSize" width="73.666666666666671" height="26"/>
-        </designable>
-        <designable name="w97-Q9-Q5p">
-            <size key="intrinsicContentSize" width="79" height="15"/>
+            <size key="intrinsicContentSize" width="73.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="xhY-BX-xiE">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="OUM-48-uxR"/>
+        <segue reference="bzw-DV-dE3"/>
         <segue reference="7Nb-aF-ShY"/>
         <segue reference="qm4-Mt-9Gq"/>
         <segue reference="YFE-d8-gX5"/>
