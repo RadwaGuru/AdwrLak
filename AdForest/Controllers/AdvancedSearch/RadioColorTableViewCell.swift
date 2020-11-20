@@ -92,5 +92,6 @@ class RadioColorTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         cell.imgViewRadio.image = cell.imgViewRadio.image?.withRenderingMode(.alwaysTemplate)
         cell.imgViewRadio.tintColor = UIColor(hex: objData.id!)
     }
+    
 }
 

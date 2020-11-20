@@ -20,7 +20,7 @@ import IQKeyboardManagerSwift
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
 
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate {
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate{
     
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -569,47 +569,104 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return cell
             case "featured_ads":
                 if isShowFeature {
-                    let cell: HomeFeatureAddCell = tableView.dequeueReusableCell(withIdentifier: "HomeFeatureAddCell", for: indexPath) as! HomeFeatureAddCell
-                    let data = AddsHandler.sharedInstance.objHomeData
-                    if let sectionTitle = data?.featuredAds.text {
-                        cell.lblTitle.text = sectionTitle
-                    }
-                    cell.dataArray = featuredArray
-                    cell.delegate = self
-                    fetColHeight = Double(cell.collectionView.contentSize.height)
-                    print(latColHeight)
-                    if latestHorizontalSingleAd == "horizental" {
+                    if latestHorizontalSingleAd == "horizental"{
+                        
+                        
+                        let cell: MarvelHomeFeatureAddCell = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeFeatureAddCell", for: indexPath) as! MarvelHomeFeatureAddCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        if let sectionTitle = data?.featuredAds.text {
+                            cell.lblTitle.text = sectionTitle
+                        }
                         fetColHeight = Double(cell.collectionView.contentSize.height)
+                        cell.collectionView.backgroundColor = UIColor.clear
+                        cell.contentView.backgroundColor = UIColor.clear
+                        cell.containerView.backgroundColor = UIColor.clear
+                        cell.dataArray = featuredArray
+                        cell.delegate = self
+                        cell.calledFrom = "home1"
+                        cell.collectionView.reloadData()
+                        return cell
                     }
-                    cell.collectionView.reloadData()
-                    return cell
+                    else{
+                        let cell: HomeFeatureAddCell = tableView.dequeueReusableCell(withIdentifier: "HomeFeatureAddCell", for: indexPath) as! HomeFeatureAddCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        if let sectionTitle = data?.featuredAds.text {
+                            cell.lblTitle.text = sectionTitle
+                        }
+                        cell.dataArray = featuredArray
+                        cell.delegate = self
+                        fetColHeight = Double(cell.collectionView.contentSize.height)
+                        print(latColHeight)
+                        if latestHorizontalSingleAd == "horizental" {
+                            fetColHeight = Double(cell.collectionView.contentSize.height)
+                        }
+                       
+
+                        cell.collectionView.reloadData()
+                        return cell
+                    }
                 }
             case "latest_ads":
                 if isShowLatest {
-                    let cell: LatestAddsCell  = tableView.dequeueReusableCell(withIdentifier: "LatestAddsCell", for: indexPath) as! LatestAddsCell
-                    let data = AddsHandler.sharedInstance.objHomeData
-                    let objData = AddsHandler.sharedInstance.objLatestAds
-                    
-                    if let sectionTitle = objData?.text {
-                        cell.lblTitle.text = sectionTitle
-                    }
-                    if let viewAllText = data?.viewAll {
-                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                    }
-                    cell.btnViewAll = { () in
-                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                        self.navigationController?.pushViewController(categoryVC, animated: true)
-                    }
-                    cell.delegate = self
-                    cell.dataArray = self.latestAdsArray
-                    heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
-                    latColHeight = Double(cell.collectionView.contentSize.height)
-                    print(latColHeight)
-                    if latestHorizontalSingleAd == "horizental" {
+                    if latestHorizontalSingleAd == "horizental"{
+                        let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        let objData = AddsHandler.sharedInstance.objLatestAds
+                        if let sectionTitle = objData?.text {
+                            cell.lblSectionTitle.text = sectionTitle
+                        }
+                        if let viewAllText = data?.viewAll {
+                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        
+                        cell.btnViewAll = { () in
+                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                            self.navigationController?.pushViewController(categoryVC, animated: true)
+                        }
+                        cell.dataArray = latestAdsArray
                         latColHeight = Double(cell.collectionView.contentSize.height)
+                        print(latColHeight)
+                        if latestHorizontalSingleAd == "horizental" {
+                            latColHeight = Double(cell.collectionView.contentSize.height)
+                        }
+
+                        cell.collectionView.backgroundColor = UIColor.clear
+                        cell.contentView.backgroundColor = UIColor.clear
+                        cell.containerView.backgroundColor = UIColor.clear
+                        cell.delegate = self
+                        
+                        
+                        cell.reloadData()
+                            return cell
                     }
-                    cell.collectionView.reloadData()
-                    return cell
+                    else{
+                        let cell: LatestAddsCell  = tableView.dequeueReusableCell(withIdentifier: "LatestAddsCell", for: indexPath) as! LatestAddsCell
+                        let data = AddsHandler.sharedInstance.objHomeData
+                        let objData = AddsHandler.sharedInstance.objLatestAds
+                        
+                        if let sectionTitle = objData?.text {
+                            cell.lblTitle.text = sectionTitle
+                        }
+                        if let viewAllText = data?.viewAll {
+                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.btnViewAll = { () in
+                            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                            self.navigationController?.pushViewController(categoryVC, animated: true)
+                        }
+                        cell.delegate = self
+                        cell.dataArray = self.latestAdsArray
+                        heightConstraintTitleLatestad = Int(cell.heightConstraintTitle.constant)
+                        latColHeight = Double(cell.collectionView.contentSize.height)
+                        print(latColHeight)
+                        if latestHorizontalSingleAd == "horizental" {
+                            latColHeight = Double(cell.collectionView.contentSize.height)
+                        }
+                        cell.collectionView.reloadData()
+                        return cell
+
+                    }
+                   
                 }
             case "cat_locations":
                 let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
@@ -633,35 +690,63 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.collectionView.reloadData()
                 return cell
             case "sliders":
-                let cell: AddsTableCell  = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
-                let objData = dataArray[indexPath.row]
-                let data = AddsHandler.sharedInstance.objHomeData
-                
-                if let sectionTitle = objData.name {
-                    cell.lblSectionTitle.text = sectionTitle
-                }
-                if let viewAllText = data?.viewAll {
-                    cell.oltViewAll.setTitle(viewAllText, for: .normal)
-                }
-                
-                cell.btnViewAll = { () in
-                    let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-                    categoryVC.categoryID = objData.catId
-                    self.navigationController?.pushViewController(categoryVC, animated: true)
-                }
-                SliderColHeight = Double(cell.collectionView.contentSize.height)
-                
-                print(SliderColHeight)
-                if latestHorizontalSingleAd == "horizental" {
+                if latestHorizontalSingleAd == "horizental"{
+                    let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
+                    let objData = dataArray[indexPath.row]
+                    let data = AddsHandler.sharedInstance.objHomeData
+                    
+                    if let sectionTitle = objData.name {
+                        cell.lblSectionTitle.text = sectionTitle
+                    }
+                    if let viewAllText = data?.viewAll {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    cell.btnViewAll = { () in
+                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                        self.navigationController?.pushViewController(categoryVC, animated: true)
+                    }
+                    if latestHorizontalSingleAd == "horizental" {
+                        SliderColHeight = Double(cell.collectionView.contentSize.height)
+                    }
+                    cell.collectionView.backgroundColor = UIColor.clear
+                    cell.contentView.backgroundColor = UIColor.clear
+                    cell.containerView.backgroundColor = UIColor.clear
+                    cell.dataArray = objData.data
+                    cell.delegate = self
+                    cell.reloadData()
+                    return cell
+                }else{
+                    let cell: AddsTableCell  = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell
+                    let objData = dataArray[indexPath.row]
+                    let data = AddsHandler.sharedInstance.objHomeData
+                    
+                    if let sectionTitle = objData.name {
+                        cell.lblSectionTitle.text = sectionTitle
+                    }
+                    if let viewAllText = data?.viewAll {
+                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                    }
+                    
+                    cell.btnViewAll = { () in
+                        let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+                        categoryVC.categoryID = objData.catId
+                        self.navigationController?.pushViewController(categoryVC, animated: true)
+                    }
                     SliderColHeight = Double(cell.collectionView.contentSize.height)
+                    
+                    print(SliderColHeight)
+                    if latestHorizontalSingleAd == "horizental" {
+                        SliderColHeight = Double(cell.collectionView.contentSize.height)
+                    }
+                    cell.dataArray = objData.data
+                    cell.delegate = self
+                    
+                    heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
+                    
+                    cell.reloadData()
+                    return cell
                 }
-                cell.dataArray = objData.data
-                cell.delegate = self
                 
-                heightConstraintTitlead = Int(cell.heightConstraintTitle.constant)
-                
-                cell.reloadData()
-                return cell
             case "nearby":
                 if self.isShowNearby {
                     let cell: AddsTableCell = tableView.dequeueReusableCell(withIdentifier: "AddsTableCell", for: indexPath) as! AddsTableCell

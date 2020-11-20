@@ -126,6 +126,8 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     var reportPopUP: AddDetailReportPopup!
     var cantReportText : String!
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+
 var fromAdDetail = false
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -140,8 +142,6 @@ var fromAdDetail = false
         self.hideKeyboard()
 //        self.adMob()
         self.createAndLoadInterstitial()
-//        self.navigationController!.navigationBar.isTranslucent = true
-//        self.navigationController?.view.backgroundColor = .clear
 
         self.googleAnalytics(controllerName: "Add Detail Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateAddDetails), object: nil, queue: nil) {[unowned self] (notification) in
@@ -208,9 +208,21 @@ var fromAdDetail = false
     
     //MARK:- Similar Ads Delegate Move Forward From collection View
     func goToDetailAd(id: Int) {
-        let detailAdVC = self.storyboard?.instantiateViewController(withIdentifier: AddDetailController.className) as! AddDetailController
-        detailAdVC.ad_id = id
-        self.navigationController?.pushViewController(detailAdVC, animated: true)
+        if adDetailStyle == "style1"{
+            let detailAdVC = self.storyboard?.instantiateViewController(withIdentifier: AddDetailController.className) as! AddDetailController
+            detailAdVC.ad_id = id
+            self.navigationController?.pushViewController(detailAdVC, animated: true)
+        }
+        else{
+            let addDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "MarvelAdDetailViewController") as! MarvelAdDetailViewController
+            addDetailVC.ad_id = id
+            self.navigationController?.pushViewController(addDetailVC, animated: true)
+            
+        }
+//        let detailAdVC = self.storyboard?.instantiateViewController(withIdentifier: AddDetailController.className) as! AddDetailController
+//        detailAdVC.ad_id = id
+//        self.navigationController?.pushViewController(detailAdVC, animated: true)
+       
     }
     
     //MARK:- after report add  move to home screen
@@ -452,8 +464,9 @@ var fromAdDetail = false
             }
             if let sliderImage = objData.adDetail.images {
                 var imgArr = [String]()
-                for ob in objData.adDetail.images{
-                    imgArr.append(ob.thumb)
+                //objData.adDetail.images
+                for ob in objData.adDetail.sliderImages{
+                    imgArr.append(ob)
                 }
                 cell.localImages = []
                 cell.localImages = imgArr
@@ -607,6 +620,12 @@ var fromAdDetail = false
                 cell.containerTimer.isHidden = true
                 cell.bgContainer.isHidden = true
                 cell.viewSeperator.isHidden = true
+            }
+            cell.btnBids = { [self] () in
+                let bidsVC = self.storyboard?.instantiateViewController(withIdentifier: BidsController.className) as! BidsController
+                bidsVC.adID = (self.ad_id)
+                AddsHandler.sharedInstance.adIdBidStat = (self.ad_id)
+                self.navigationController?.pushViewController(bidsVC, animated: true)
             }
             if let editText = objData.editTxt {
                 cell.btnEditAD.setTitle(editText, for: .normal)
@@ -1067,7 +1086,10 @@ var fromAdDetail = false
             let objData = dataArray[indexPath.row]
             cell.lblMainHeading.text = objData.sellerContact.titleContactSeller
             cell.lblSubHeading.text = objData.sellerContact.subtitleContactSeller
+            cell.btnClickNow.setTitle(objData.btnCLickText, for: .normal)
+           
             isShowContactSeller = objData.sellerContact.isShow
+            
             
             
             cell.ContactSeller = { () in

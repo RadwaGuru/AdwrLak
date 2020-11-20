@@ -113,15 +113,23 @@ class MarvelAddDetailCell: UITableViewCell {
         }
         
        
-       
     }
     
    
+
     @available(iOS 13.0, *)
     @objc func didTap() {
         let fullScreenController = slideshow.presentFullScreenController(from: viewController()!)
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
-  
+//        let imageView = sender.view as! UIImageView
+//        let newImageView = UIImageView(image: imageView.image)
+//        newImageView.frame = UIScreen.main.bounds
+//        newImageView.backgroundColor = .black
+//        newImageView.contentMode = .scaleAspectFit
+//        newImageView.isUserInteractionEnabled = true
+////        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+////        newImageView.addGestureRecognizer(tap)
+//        self.contentView.addSubview(newImageView)
         fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
     }
     

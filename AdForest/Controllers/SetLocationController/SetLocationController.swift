@@ -84,7 +84,16 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
             self.stopAnimating()
             if successResponse.success {
                 let alert = AlertView.prepare(title: successResponse.message, message: "", okAction: {
-                    self.appDelegate.moveToHome()
+                    if homeStyle == "home1"{
+                        self.appDelegate.moveToHome()
+                        
+                    }else if homeStyle == "home2"{
+                        self.appDelegate.moveToMultiHome()
+                    }
+                    else if homeStyle == "home3"{
+                        self.appDelegate.moveToMarvelHome()
+                    }
+//                    self.appDelegate.moveToHome()
                 })
                 self.presentVC(alert)
             } else {

@@ -299,7 +299,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         continue
                     }
 
-                    if i == 1 {
+//                    if i == 1 {
                         print(cell.selectedValue)
 
 //                        if cell.selectedValue == ""{
@@ -307,11 +307,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 //                            cell.selectedKey = String(item.id)
 //                        }else{
 //                            cell.oltPopup.setTitle(item.name, for: .normal)
-                            cell.selectedKey = String(item.id)
+//                            cell.selectedKey = String(item.id)
                         //}
 
-                    }
-                    i = i + 1
+//                    }
+//                    i = i + 1
                 }
                 
                 

@@ -443,8 +443,9 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             if let sliderImage = objData.adDetail.images {
                 var imgArr = [String]()
-                for ob in objData.adDetail.images{
-                    imgArr.append(ob.thumb)
+                //objData.adDetail.images
+                for ob in objData.adDetail.sliderImages{
+                    imgArr.append(ob)
                 }
                 cell.localImages = []
                 cell.localImages = imgArr

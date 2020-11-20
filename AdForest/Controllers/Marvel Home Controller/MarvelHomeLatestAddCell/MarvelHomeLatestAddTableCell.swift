@@ -106,7 +106,7 @@ class MarvelHomeLatestAddTableCell: UITableViewCell,UICollectionViewDelegate, UI
             cell.minStr = objData.adTimer.timerStrings.minutes
             cell.secStr = objData.adTimer.timerStrings.seconds
 
-
+            cell.lblTimer.backgroundColor = UIColor.groupTableViewBackground
 
             cell.lblTimer.isHidden = false
         }else{

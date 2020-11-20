@@ -88,7 +88,12 @@ class MarvelVerticalSLiderAdsTableViewCell: UITableViewCell,UICollectionViewDele
         
         if objData.adTimer.isShow {
             cell.futureDate = objData.adTimer.timer
+            cell.dayStr = objData.adTimer.timerStrings.days
+            cell.hourStr = objData.adTimer.timerStrings.hours
+            cell.minStr = objData.adTimer.timerStrings.minutes
+            cell.secStr = objData.adTimer.timerStrings.seconds
             cell.lblTimer.isHidden = false
+            cell.lblTimer.backgroundColor = UIColor.groupTableViewBackground
         }else{
             cell.lblTimer.isHidden = true
         }

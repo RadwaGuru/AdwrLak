@@ -56,7 +56,10 @@ class MarvelVerticalSLiderAdsCollectionViewCell: UICollectionViewCell {
     var second: Int = 0
     var isEndTime = ""
     
-    
+    var hourStr = ""
+    var minStr = ""
+    var secStr = ""
+    var dayStr = ""
     override func awakeFromNib() {
         super.awakeFromNib()
         if UserDefaults.standard.bool(forKey: "isRtl") {
@@ -73,9 +76,9 @@ class MarvelVerticalSLiderAdsCollectionViewCell: UICollectionViewCell {
         Timer.every(1.second) {
             self.countDown(date: self.futureDate)
             
-            self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
-            
-            
+//            self.lblTimer.text = "\(self.day) : \(self.hour) : \(self.minute) : \(self.second) "
+    self.lblTimer.text = "\(self.day)\(self.dayStr):\(self.hour)\(self.hourStr):\(self.minute)\(self.minStr):\(self.second)\(self.secStr)"
+
             
         }
         

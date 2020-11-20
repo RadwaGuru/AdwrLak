@@ -263,7 +263,26 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
             }
         }
     }
-    
+    func openWhatsApp(number : String){
+        var fullMob = number
+        fullMob = fullMob.replacingOccurrences(of: " ", with: "")
+        fullMob = fullMob.replacingOccurrences(of: "+", with: "")
+        fullMob = fullMob.replacingOccurrences(of: "-", with: "")
+        let urlWhats = "whatsapp://send?phone=\(fullMob)"
+        
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
+                    UIApplication.shared.open(whatsappURL as URL, options: [:], completionHandler: { (Bool) in
+                    })
+                } else {
+                    let alert = Constants.showBasicAlert(message: "No Whatsapp found")
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
     @IBAction func actionCancel(_ sender: UIButton) {
         //dismiss(animated: true, completion: nil)
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {

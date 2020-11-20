@@ -86,7 +86,7 @@ class MarvelHomeLatestVerticalDefaultTableViewCell: UITableViewCell, UICollectio
             cell.hourStr = objData.adTimer.timerStrings.hours
             cell.minStr = objData.adTimer.timerStrings.minutes
             cell.secStr = objData.adTimer.timerStrings.seconds
-
+            cell.lblTimer.backgroundColor = UIColor.groupTableViewBackground
             cell.lblTimer.isHidden = false
         }else{
             cell.lblTimer.isHidden = true

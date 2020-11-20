@@ -2594,7 +2594,6 @@
 		18BBFA7A2051098B0067662F = {
 			isa = PBXGroup;
 			children = (
-				CBD318732552D8BF0090F2F9 /* Main2.storyboard */,
 				18BBFA852051098B0067662F /* AdForest */,
 				18BBFA9D2051098C0067662F /* AdForestTests */,
 				18BBFAA82051098C0067662F /* AdForestUITests */,
@@ -2728,6 +2727,7 @@
 		18BBFAB9205109AC0067662F /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				CBD318732552D8BF0090F2F9 /* Main2.storyboard */,
 				18BBFA922051098C0067662F /* LaunchScreen.storyboard */,
 				18BBFA8A2051098C0067662F /* Main.storyboard */,
 			);
@@ -4720,7 +4720,7 @@
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
@@ -4747,7 +4747,7 @@
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";

@@ -64,7 +64,7 @@ class AddDetailCell: UITableViewCell {
         slideshow.pageControlPosition = PageControlPosition.insideScrollView
         slideshow.pageControl.currentPageIndicatorTintColor = UIColor.white
         slideshow.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
+        slideshow.contentScaleMode = UIViewContentMode.scaleToFill
         
         // optional way to show activity indicator during image load (skipping the line will show no activity indicator)
         slideshow.activityIndicator = DefaultActivityIndicator()

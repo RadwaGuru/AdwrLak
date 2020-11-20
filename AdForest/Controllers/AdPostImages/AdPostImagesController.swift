@@ -797,8 +797,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             }
             
             else if objData.fieldType == "radio_color" {
-                let cell: RadioColorAdTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioColorAdTableViewCell", for: indexPath) as! RadioColorAdTableViewCell
                 
+                
+                let cell: RadioColorAdTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioColorAdTableViewCell", for: indexPath) as! RadioColorAdTableViewCell
+
                 if let title = objData.title {
                     cell.lblTitle.text = title
                     cell.title = title
@@ -807,7 +809,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.dataArray = objData.values
                 cell.index = indexPath.row
                 cell.delegate = self as! ColorRadioDelegateAdpost
-                cell.collectionView.reloadData()
+//                cell.collectionView.reloadData()
                 return cell
             }
             

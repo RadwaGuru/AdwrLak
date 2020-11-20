@@ -125,11 +125,12 @@ class MarvelShareTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var btnBIds: UIButton!
     @IBOutlet weak var viewSeperator: UIView!
     
     //MARK:-Properties
     var btnEdit: (()->())?
-
+    var btnBids:(()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -143,5 +144,8 @@ class MarvelShareTableViewCell: UITableViewCell {
     }
     @IBAction func actionEdit(_ sender: UIButton) {
         self.btnEdit?()
+    }
+    @IBAction func actionBids(_ sender: UIButton) {
+        self.btnBids?()
     }
 }

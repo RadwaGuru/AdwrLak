@@ -21,9 +21,9 @@ struct AppSettingShare{
      */
     init(fromDictionary dictionary: [String:Any]){
         isShow = dictionary["is_show"] as? Bool
-        text = dictionary["text"] as? String
+        text = dictionary["text_ios"] as? String
         title = dictionary["title"] as? String
-        url = dictionary["url"] as? String
+        url = dictionary["url_ios"] as? String
     }
     
     /**
@@ -36,13 +36,13 @@ struct AppSettingShare{
             dictionary["is_show"] = isShow
         }
         if text != nil{
-            dictionary["text"] = text
+            dictionary["text_ios"] = text
         }
         if title != nil{
             dictionary["title"] = title
         }
         if url != nil{
-            dictionary["url"] = url
+            dictionary["url_ios"] = url
         }
         return dictionary
     }

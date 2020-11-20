@@ -110,6 +110,8 @@ class MarvelFeatureVerticalTableViewCell: UITableViewCell,UICollectionViewDelega
             cell.minStr = objData.adTimer.timerStrings.minutes
             cell.secStr = objData.adTimer.timerStrings.seconds
             cell.lblTimer.isHidden = false
+            cell.lblTimer.backgroundColor = UIColor.groupTableViewBackground
+
         }else{
             cell.lblTimer.isHidden = true
         }

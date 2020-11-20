@@ -27,6 +27,7 @@ struct AddDetailData {
     var clickHereText : String!
     var editTxt : String!
     var showPhoneToLogin: Bool!
+    var btnCLickText: String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -70,6 +71,7 @@ struct AddDetailData {
         clickHereText = dictionary["click_here_text"] as? String
         editTxt = dictionary["edit_txt"] as? String
         showPhoneToLogin = dictionary["show_phone_to_login"] as? Bool
+        btnCLickText = dictionary["click_now_btn"] as? String
     }
     
     /**
@@ -125,6 +127,9 @@ struct AddDetailData {
         }
         if showPhoneToLogin != nil {
             dictionary["show_phone_to_login"] = showPhoneToLogin
+        }
+        if btnCLickText != nil {
+            dictionary["click_now_btn"] = btnCLickText
         }
         return dictionary
     }

@@ -42,9 +42,8 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
     //MARK:- Properties
     var delegate: MarvelAddDetailDelegate?
     var dataArray = [HomeAdd]()
-    
+    var calledFrom = ""
     var fromMultiHome = false;
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -88,6 +87,7 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
                 cell.minStr = objData.adTimer.timerStrings.minutes
                 cell.secStr = objData.adTimer.timerStrings.seconds
                 cell.lblTimer.isHidden = false
+                cell.lblTimer.backgroundColor = UIColor.groupTableViewBackground
               
             }else{
                 cell.lblTimer.isHidden = true
@@ -99,6 +99,21 @@ class MarvelHomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICol
         }
         if let price = objData.adPrice.price {
             cell.lblPrice.text = price
+        }
+        if calledFrom == "home1"{
+            if let featurText = objData.adStatus.featuredTypeText {
+                
+                cell.lblFeatured.text = featurText
+                cell.lblFeatured.backgroundColor = Constants.hexStringToUIColor(hex: "#E52D27")
+            }
+            cell.lblFeatured.isHidden = false
+            cell.lblFeatured.textColor = UIColor.white
+            cell.featuredStarImg.isHidden = true
+            
+//            else{
+//                cell.lblFeatured.isHidden = true
+//            }
+            
         }
         if UserDefaults.standard.bool(forKey: "isRtl") {
             //         featuredStarImg

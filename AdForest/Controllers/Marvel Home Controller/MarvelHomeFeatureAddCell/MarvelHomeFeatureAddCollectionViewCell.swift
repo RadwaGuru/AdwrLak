@@ -10,6 +10,7 @@ import UIKit
 
 class MarvelHomeFeatureAddCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var lblFeatured: UILabel!
     @IBOutlet weak var lblPrice: UILabel!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
