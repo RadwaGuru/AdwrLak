@@ -177,12 +177,14 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 UserDefaults.standard.set(self.footerSettings, forKey: "footerSettings")
                 
                 self.featuredScrollEnabled = successResponse.data.featuredScrollEnabled
+                if self.featuredScrollEnabled == true{
+
                 self.featuredScrolldata = successResponse.data.featuredScroll
                 self.featuredTime = self.featuredScrolldata.duration
                 self.featuredLoop = self.featuredScrolldata.loop
                 UserDefaults.standard.set(self.featuredTime, forKey: "featuredTime")
                 UserDefaults.standard.set(self.featuredLoop, forKey: "featuredLoop")
-                
+                }
                 
                 //Offers title
                 self.defaults.set(successResponse.data.messagesScreen.mainTitle, forKey: "message")

@@ -39,7 +39,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
     var hasCategoryTempelateArray = [Bool]()
      var delegate : selectValue?
     var fieldNam = ""
-    var index = 0
+    var indexes = 0
     var section = 0
     var btnPopupAction : (()->())?
     let appDel = UIApplication.shared.delegate as! AppDelegate
@@ -88,7 +88,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(param)
                     self.adForest_dynamicSearch(param: param as NSDictionary)
                 }
-                self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select", section: self.section, indexPath: index, fieldTypeName: self.fieldNam)
+                self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select", section: self.section, indexPath: indexes, fieldTypeName: self.fieldNam)
             }
             
             if self.hasSub {
@@ -97,7 +97,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(url)
                     let param: [String: Any] = ["ad_country": self.selectedKey]
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
-                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section,indexPath: index, fieldTypeName: self.fieldNam)
+                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section,indexPath: indexes, fieldTypeName: self.fieldNam)
                 }
                 else {
                       
@@ -107,7 +107,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                     print(url)
                     self.adForest_subCategory(url: url, param: param as NSDictionary)
                     //self.selectedValue
-                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section,indexPath: index, fieldTypeName: self.fieldNam)
+                    self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section,indexPath: indexes, fieldTypeName: self.fieldNam)
                 }
             }
         }
@@ -124,7 +124,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                        print(param)
                        self.adForest_dynamicSearch(param: param as NSDictionary)
                    }
-                   self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section, indexPath: index, fieldTypeName: self.fieldNam)
+                   self.delegate?.selectValue(selectVal: self.selectedValue, selectKey: self.selectedKey, fieldType: "select",section: self.section, indexPath: indexes, fieldTypeName: self.fieldNam)
                }
         
         
@@ -136,7 +136,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 let param: [String: Any] = ["ad_country": id]
                 print(param)
                 self.adForest_subCategory(url: url, param: param as NSDictionary)
-                self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: index, fieldTypeName: self.fieldNam)
+                self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: indexes, fieldTypeName: self.fieldNam)
             }
             else {
                 let param: [String: Any] = ["subcat": id]
@@ -148,7 +148,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
                 oltPopup.setTitle(name, for: .normal)
                 self.selectedKey = String(id)
                 self.selectedValue = name
-                 self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: index, fieldTypeName: self.fieldNam)
+                 self.delegate?.selectValue(selectVal: self.selectedKey, selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: indexes, fieldTypeName: self.fieldNam)
             
             }
         }
@@ -156,7 +156,7 @@ class SearchDropDown: UITableViewCell, NVActivityIndicatorViewable , SubCategory
             oltPopup.setTitle(name, for: .normal)
             self.selectedKey = String(id)
             self.selectedValue = name
-            self.delegate?.selectValue(selectVal: String(id), selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: index, fieldTypeName: self.fieldNam)
+            self.delegate?.selectValue(selectVal: String(id), selectKey: self.selectedKey, fieldType: "select", section: self.section,indexPath: indexes, fieldTypeName: self.fieldNam)
         }
     }
     

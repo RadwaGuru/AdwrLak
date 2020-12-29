@@ -74,7 +74,8 @@ class SellerCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDat
         }
         
         
-        
+        if dataArray.count != 0 {
+
         
         let objData = dataArray[indexPath.row]
         
@@ -103,7 +104,7 @@ class SellerCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDat
             cell.socialBtn.setTitle(objData.value, for: .normal)
             cell.socialBtn.tag = 4
         }
-        
+        }
         
         cell.socialBtn.addTarget(self, action: #selector(SellerCell.btnClicked(_:)), for: .touchUpInside)
         

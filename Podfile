@@ -14,6 +14,7 @@ target 'AdForest' do
     
     #Google Login With Firebase
     pod 'GoogleSignIn'
+    pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'GoogleAnalytics'
@@ -113,7 +114,10 @@ target 'AdForest' do
 pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
 pod 'SOTabBar'
 pod 'FSPagerView'
-pod 'FanMenu'
+#pod 'FanMenu'
 pod "ZGTooltipView"
+pod 'LTHRadioButton'
+pod 'KGRadioButton'
+
 
 end

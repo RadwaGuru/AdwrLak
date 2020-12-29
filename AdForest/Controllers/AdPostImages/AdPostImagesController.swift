@@ -150,6 +150,12 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         self.adForest_populateData()
         self.tableView.reloadData()
 
+//        //gestures get from table veiw
+//        if let gestures = tableView.gestureRecognizers{
+//                for gesture in gestures {
+//                    gesture.delaysTouchesBegan = true
+//                }
+//            }
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -798,7 +804,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             
             else if objData.fieldType == "radio_color" {
                 
-                
+//                let cell : NewRadioColorTableViewCell = tableView.dequeueReusableCell(withIdentifier: "NewRadioColorTableViewCell", for: indexPath) as! NewRadioColorTableViewCell
                 let cell: RadioColorAdTableViewCell = tableView.dequeueReusableCell(withIdentifier: "RadioColorAdTableViewCell", for: indexPath) as! RadioColorAdTableViewCell
 
                 if let title = objData.title {
@@ -808,6 +814,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.fieldName = objData.fieldTypeName
                 cell.dataArray = objData.values
                 cell.index = indexPath.row
+ 
                 cell.delegate = self as! ColorRadioDelegateAdpost
 //                cell.collectionView.reloadData()
                 return cell

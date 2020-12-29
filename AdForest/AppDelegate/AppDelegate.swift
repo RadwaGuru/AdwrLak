@@ -397,6 +397,7 @@ extension AppDelegate  {
                     UserDefaults.standard.set("1", forKey: "fromNotification")
                     self.window?.makeKeyAndVisible()
                 }
+        completionHandler()
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

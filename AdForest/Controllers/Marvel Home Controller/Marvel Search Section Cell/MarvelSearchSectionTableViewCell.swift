@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import FanMenu
-import Macaw
+
 class MarvelSearchSectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var btnSearchView: UIView!{

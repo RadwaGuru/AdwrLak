@@ -8,8 +8,6 @@
 
 import UIKit
 import NVActivityIndicatorView
-import FanMenu
-import Macaw
 import Firebase
 import FirebaseMessaging
 import UserNotifications
@@ -21,7 +19,6 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     
     
-    @IBOutlet weak var fanMenuview: FanMenu!
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -208,75 +205,6 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
     }
     
-    func hoverItem(){
-        
-        fanMenuview.button = FanMenuButton(
-            id: "main",
-            image: UIImage(named: "plus"),
-            color: Color.white
-            
-            //Constants.hexStringToUIColor(hex: bgColor)
-            
-            //Color.white
-        )
-        fanMenuview.items = [
-            FanMenuButton(
-                id: "home",
-                image: "homerunPlus",
-                color: Color.white
-            ),
-            
-            FanMenuButton(
-                id: "nearby",
-                image: "locationPlus",
-                color: Color.white
-            ), FanMenuButton(
-                id: "advancedsearch",
-                image: "filterPlus",
-                color: Color.white
-            )
-        ]
-        //        fanMeniView.menuRadius = 90.0
-        //        fanMeniView.duration = 0.2
-        //        fanMeniView.delay = 0.05
-        //                fanMeniView.interval = (Double.pi, 2 * Double.pi)
-        fanMenuview.menuRadius = 50.0
-        fanMenuview.duration = 0.2
-        //                fanMenuview.interval = (Double.pi + Double.pi/4, Double.pi + 3 * Double.pi/4)
-        
-        fanMenuview.interval = (Double.pi, 1.5 * Double.pi)
-        fanMenuview.radius = 15.0
-        
-        fanMenuview.transform = CGAffineTransform(rotationAngle: CGFloat(3 * Double.pi/2.0))
-        
-        fanMenuview.onItemDidClick = { button in
-            print("ItemDidClick: \(button.id)")
-            if button.id == "home" {
-                self.appDelegate.moveToMarvelHome()
-            }
-            if button.id == "nearby" {
-                let locationVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearch") as! LocationSearch
-                locationVC.delegate = self
-                self.view.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-                    self.view.transform = .identity
-                }) { (success) in
-                    self.navigationController?.pushViewController(locationVC, animated: true)
-                }
-            }
-            if button.id == "advancedsearch" {
-                
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
-                self.pushVC(proVc, completion: nil)
-            }
-        }
-        
-        fanMenuview.onItemWillClick = { button in
-            print("ItemWillClick: \(button.id)")
-            
-        }
-    }
     func navigationButtons() {
         
         //Home Button

@@ -539,6 +539,7 @@
 		18C32C4621412F520005D568 /* SellersSocialIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C32C4521412F520005D568 /* SellersSocialIcon.swift */; };
 		18C55C67213677A700FD07FD /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C55C65213677A700FD07FD /* CalendarCell.swift */; };
 		18C55C68213677A700FD07FD /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C55C66213677A700FD07FD /* CalendarCell.xib */; };
+		18C5D749256B8E890097AFFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C5D748256B8E890097AFFD /* GoogleService-Info.plist */; };
 		18C6C35A205FCC270079E914 /* LoginRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C6C359205FCC270079E914 /* LoginRoot.swift */; };
 		18C6C35C205FCC3F0079E914 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C6C35B205FCC3F0079E914 /* LoginData.swift */; };
 		18C6C35F205FE9F70079E914 /* RegisterRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C6C35E205FE9F70079E914 /* RegisterRoot.swift */; };
@@ -565,6 +566,9 @@
 		18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DA0741205F965A0021FA7E /* ShareCell.xib */; };
 		18DB6AF42147843C001B7C77 /* SettingsDynamicMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB6AF32147843C001B7C77 /* SettingsDynamicMenu.swift */; };
 		18DB6AF62147844F001B7C77 /* SettingsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB6AF52147844F001B7C77 /* SettingsArray.swift */; };
+		18E68E96256CDD7E002BF6C3 /* NewRadioColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E68E95256CDD7E002BF6C3 /* NewRadioColorTableViewCell.swift */; };
+		18E68E9B256CDD93002BF6C3 /* NewRadioColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E68E9A256CDD93002BF6C3 /* NewRadioColorCollectionViewCell.swift */; };
+		18E68EE4256CE93A002BF6C3 /* NewRadioColorInnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E68EE3256CE93A002BF6C3 /* NewRadioColorInnerTableViewCell.swift */; };
 		18E9FB912058F4AF00B998A6 /* WebViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9FB8F2058F4AF00B998A6 /* WebViewCell.swift */; };
 		18E9FB922058F4AF00B998A6 /* WebViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E9FB902058F4AF00B998A6 /* WebViewCell.xib */; };
 		18EBAE7B2361C25B0042E1C8 /* HomeAdpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EBAE7A2361C25B0042E1C8 /* HomeAdpost.swift */; };
@@ -632,7 +636,6 @@
 		CB7E18D025233B1700EC3E2C /* MarvelShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7E18CF25233B1700EC3E2C /* MarvelShareTableViewCell.swift */; };
 		CB8F42C8252AF159009E8F0F /* MarvelContactWithSellerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8F42C7252AF159009E8F0F /* MarvelContactWithSellerCell.xib */; };
 		CB8F42CD252AF3B1009E8F0F /* MarvelContactWithSellerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8F42CC252AF3B1009E8F0F /* MarvelContactWithSellerCell.swift */; };
-		CB903400252444DA0039F5FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9033FF252444DA0039F5FA /* GoogleService-Info.plist */; };
 		CB90344A2524A4F30039F5FA /* MarvelAdDetailProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB9034492524A4F20039F5FA /* MarvelAdDetailProfileCell.xib */; };
 		CB90344F2524AE9D0039F5FA /* MarvelAdDetailProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB90344E2524AE9D0039F5FA /* MarvelAdDetailProfileCell.swift */; };
 		CBA50E4225304D94004B0E04 /* MarvelCategoryDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBA50E4125304D94004B0E04 /* MarvelCategoryDetailCell.xib */; };
@@ -1205,6 +1208,7 @@
 		18C32C4521412F520005D568 /* SellersSocialIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellersSocialIcon.swift; sourceTree = "<group>"; };
 		18C55C65213677A700FD07FD /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		18C55C66213677A700FD07FD /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
+		18C5D748256B8E890097AFFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18C6C359205FCC270079E914 /* LoginRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRoot.swift; sourceTree = "<group>"; };
 		18C6C35B205FCC3F0079E914 /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		18C6C35E205FE9F70079E914 /* RegisterRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoot.swift; sourceTree = "<group>"; };
@@ -1231,6 +1235,9 @@
 		18DA0741205F965A0021FA7E /* ShareCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCell.xib; sourceTree = "<group>"; };
 		18DB6AF32147843C001B7C77 /* SettingsDynamicMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDynamicMenu.swift; sourceTree = "<group>"; };
 		18DB6AF52147844F001B7C77 /* SettingsArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsArray.swift; sourceTree = "<group>"; };
+		18E68E95256CDD7E002BF6C3 /* NewRadioColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRadioColorTableViewCell.swift; sourceTree = "<group>"; };
+		18E68E9A256CDD93002BF6C3 /* NewRadioColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRadioColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		18E68EE3256CE93A002BF6C3 /* NewRadioColorInnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRadioColorInnerTableViewCell.swift; sourceTree = "<group>"; };
 		18E9FB8F2058F4AF00B998A6 /* WebViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCell.swift; sourceTree = "<group>"; };
 		18E9FB902058F4AF00B998A6 /* WebViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewCell.xib; sourceTree = "<group>"; };
 		18EBAE7A2361C25B0042E1C8 /* HomeAdpost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeAdpost.swift; path = emplate/HomeAdpost.swift; sourceTree = "<group>"; };
@@ -1308,7 +1315,6 @@
 		CB7E18CF25233B1700EC3E2C /* MarvelShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelShareTableViewCell.swift; sourceTree = "<group>"; };
 		CB8F42C7252AF159009E8F0F /* MarvelContactWithSellerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarvelContactWithSellerCell.xib; sourceTree = "<group>"; };
 		CB8F42CC252AF3B1009E8F0F /* MarvelContactWithSellerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelContactWithSellerCell.swift; sourceTree = "<group>"; };
-		CB9033FF252444DA0039F5FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB9034492524A4F20039F5FA /* MarvelAdDetailProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarvelAdDetailProfileCell.xib; sourceTree = "<group>"; };
 		CB90344E2524AE9D0039F5FA /* MarvelAdDetailProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelAdDetailProfileCell.swift; sourceTree = "<group>"; };
 		CBA50E4125304D94004B0E04 /* MarvelCategoryDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarvelCategoryDetailCell.xib; sourceTree = "<group>"; };
@@ -1692,6 +1698,9 @@
 				07A70C8F221650C7002ADAEF /* RadioColorAdCollectionViewCell.swift */,
 				07A70C91221650F0002ADAEF /* RadioColorAdTableViewCell.swift */,
 				07A70C93221687A9002ADAEF /* NumericRangeTableViewCell.swift */,
+				18E68E95256CDD7E002BF6C3 /* NewRadioColorTableViewCell.swift */,
+				18E68E9A256CDD93002BF6C3 /* NewRadioColorCollectionViewCell.swift */,
+				18E68EE3256CE93A002BF6C3 /* NewRadioColorInnerTableViewCell.swift */,
 			);
 			path = AdPostImages;
 			sourceTree = "<group>";
@@ -2617,7 +2626,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				CB9033FF252444DA0039F5FA /* GoogleService-Info.plist */,
+				18C5D748256B8E890097AFFD /* GoogleService-Info.plist */,
 				9650913A250664290058CA7D /* CountdownViewModel.swift */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
@@ -3605,7 +3614,6 @@
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
-				258A0F4DBE4AF4ABF5059196 /* [CP] Prepare Artifacts */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
 				18BBFA812051098B0067662F /* Resources */,
@@ -3756,13 +3764,13 @@
 				18BBFA912051098C0067662F /* Assets.xcassets in Resources */,
 				18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
-				CB903400252444DA0039F5FA /* GoogleService-Info.plist in Resources */,
 				CB4A7323253431D5005FE49F /* MultiSearchSectionCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
 				96BFE9F424F7A87200B4B2F7 /* MarvelSearchSectionTableViewCell.xib in Resources */,
 				18BBFA8C2051098C0067662F /* Main.storyboard in Resources */,
 				181DDA9823339465001FF048 /* sad.gif in Resources */,
 				185B3C79207E374900EDBBB4 /* AddBidsCell.xib in Resources */,
+				18C5D749256B8E890097AFFD /* GoogleService-Info.plist in Resources */,
 				181DDA90233380B5001FF048 /* thumb.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3791,7 +3799,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
@@ -3804,14 +3811,14 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
-				"${BUILT_PRODUCTS_DIR}/FanMenu/FanMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
+				"${BUILT_PRODUCTS_DIR}/KGRadioButton/KGRadioButton.framework",
+				"${BUILT_PRODUCTS_DIR}/LTHRadioButton/LTHRadioButton.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxGeocoder.swift/MapboxGeocoder.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -3824,7 +3831,6 @@
 				"${BUILT_PRODUCTS_DIR}/RangeSeekSlider/RangeSeekSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SOTabBar/SOTabBar.framework",
-				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCheckboxDialog/SwiftCheckboxDialog.framework",
@@ -3852,14 +3858,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FanMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KGRadioButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LTHRadioButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxGeocoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -3872,7 +3878,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RangeSeekSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SOTabBar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCheckboxDialog.framework",
@@ -3889,24 +3894,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		258A0F4DBE4AF4ABF5059196 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-artifacts.sh",
-				"${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		416E9A6AF3F243D23D41FBDD /* [CP] Copy Pods Resources */ = {
@@ -4001,6 +3988,7 @@
 				18800F572344C2FF000F8358 /* PackagesMoreCatTableViewCell.swift in Sources */,
 				186A9F822080CBAF008E646C /* PublicProfileCell.swift in Sources */,
 				CB4A732D253438C5005FE49F /* MultiHomeViewController.swift in Sources */,
+				18E68E96256CDD7E002BF6C3 /* NewRadioColorTableViewCell.swift in Sources */,
 				1852B0EC208354190014AF99 /* OfferOnAdDetailPagination.swift in Sources */,
 				18C2CCF2206A4EF700235E0E /* MyAdsData.swift in Sources */,
 				186A9FB320810502008E646C /* SentOffers.swift in Sources */,
@@ -4420,6 +4408,7 @@
 				182690BC2087298F00E2C966 /* HomeFeaturedAdd.swift in Sources */,
 				1818888E2081D33E008736F7 /* OfferAdsItem.swift in Sources */,
 				184EDAE2207896DB00A25228 /* AddDetailProfileDetail.swift in Sources */,
+				18E68E9B256CDD93002BF6C3 /* NewRadioColorCollectionViewCell.swift in Sources */,
 				18191A54207353E200FF67C8 /* ProfileUpdateSocialIcon.swift in Sources */,
 				1826AC2F205BD00200955D60 /* ReplyCommentController.swift in Sources */,
 				18DB6AF42147843C001B7C77 /* SettingsDynamicMenu.swift in Sources */,
@@ -4437,6 +4426,7 @@
 				18BBFAE020510FA90067662F /* SettingsData.swift in Sources */,
 				182690A8208728B000E2C966 /* HomeAppKey.swift in Sources */,
 				182690EB2087647A00E2C966 /* CategoryData.swift in Sources */,
+				18E68EE4256CE93A002BF6C3 /* NewRadioColorInnerTableViewCell.swift in Sources */,
 				18A31FDF213E4EF000A5B6EB /* AddRatingRoot.swift in Sources */,
 				182690CC20872A4100E2C966 /* AddImage.swift in Sources */,
 				182690E1208763FA00E2C966 /* CategoryRoot.swift in Sources */,
@@ -4712,15 +4702,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Muhammad Jawad Arshad (299YT2HJN8)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
@@ -4740,18 +4730,18 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = "Adforestlive 3.0";
+				PROVISIONING_PROFILE_SPECIFIER = "adforest 3.2LIve";
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

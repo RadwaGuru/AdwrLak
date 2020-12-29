@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import IQKeyboardManagerSwift
 
 
-class SellersController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate {
+class SellersController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate,UISearchResultsUpdating {
     
     //MARK:- Outlets
     @IBOutlet weak var AdpostCirclebtn: UIButton!
@@ -48,6 +48,8 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //MARK:- Properties
     var dataArray = [SellersAuthor]()
+    var filteredArray = [SellersAuthor]()
+
     let defaults = UserDefaults.standard
     var currentPage = 0
     var maximumPage = 0
@@ -63,7 +65,9 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
-    
+    var searchController = UISearchController(searchResultsController: nil)
+    var shouldShowSearchResults = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if defaults.bool(forKey: "isRtl") {
@@ -76,7 +80,9 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         self.adForest_sellerData()
         print(adForest_sellerData())
-        navigationButtons()
+//        navigationButtons()
+        self.configureSearchController()
+
         
     }
     
@@ -122,6 +128,53 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
     
+    //MARK:- Search Bar delegates
+    func configureSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.searchBarStyle = UISearchBarStyle.prominent
+
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.setValue("Done", forKey: "cancelButtonText")
+        shouldShowSearchResults = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !shouldShowSearchResults {
+            shouldShowSearchResults = true
+            tableView.reloadData()
+        }
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchString = searchController.searchBar.text
+        filteredArray = dataArray.filter({ (name) -> Bool in
+            let nameText: NSString = name.authorName as NSString
+            let range = nameText.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
+        if filteredArray.count == 0 {
+            shouldShowSearchResults = false
+        } else {
+            shouldShowSearchResults = true
+        }
+        self.tableView.reloadData()
+    }
     //MARK:- Table View Delegates
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -129,52 +182,83 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
+        if shouldShowSearchResults {
+            return filteredArray.count
+        }else{
+            return dataArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: SellerCell = tableView.dequeueReusableCell(withIdentifier: "SellerCell", for: indexPath) as! SellerCell
-        let objData = dataArray[indexPath.row]
+        if shouldShowSearchResults {
+            if let name = filteredArray[indexPath.row].authorName {
+                cell.lblName.text = name
+            }
+            if let imgUrl = URL(string: filteredArray[indexPath.row].authorImg) {
+                cell.imgProfile.sd_setShowActivityIndicatorView(true)
+                cell.imgProfile.sd_setIndicatorStyle(.gray)
+                cell.imgProfile.sd_setImage(with: imgUrl, completed: nil)
+            }
+            if let location = filteredArray[indexPath.row].authorAddress {
+                cell.lblLocation.text = location
+            }
+            if let rating = filteredArray[indexPath.row].authorRating {
+                cell.ratingBar.settings.updateOnTouch = false
+                cell.ratingBar.rating = Double(rating)!
+                cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
+            }
+            //adding social icons to sellers array
+            cell.dataArray = filteredArray[indexPath.row].authorSocial.socialIcons
+            cell.collectionView.reloadData()
+        }else{
+            let objData = dataArray[indexPath.row]
+            
+            if let imgUrl = URL(string: objData.authorImg) {
+                cell.imgProfile.sd_setShowActivityIndicatorView(true)
+                cell.imgProfile.sd_setIndicatorStyle(.gray)
+                cell.imgProfile.sd_setImage(with: imgUrl, completed: nil)
+            }
+            if let name = objData.authorName {
+                cell.lblName.text = name
+            }
+            if let location = objData.authorAddress {
+                cell.lblLocation.text = location
+            }
+            if let rating = objData.authorRating {
+                cell.ratingBar.settings.updateOnTouch = false
+                cell.ratingBar.rating = Double(rating)!
+                cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
+            }
+            let isShowSocial = objData.authorSocial.isShowSocial
+           print(isShowSocial!)
+           if isShowSocial ==  true {
+            //adding social icons to sellers array
+            for item in objData.authorSocial.socialIcons{
+                if item.value != "" {
+                    print(item.value)
+                    
+                }
+                if item.key == "Facebook"{
+                    cell.socialStringArr.append(item.value)
+                    
+                }
+                if item.key == "Twitter"{
+                    cell.socialStringArr.append(item.value)
+                }
+                if item.key == "Linkedin"{
+                    cell.socialStringArr.append(item.value)
+                }
+                if item.key == "Instagram"{
+                    cell.socialStringArr.append(item.value)
+                }
+            }
+            
+            cell.dataArray = objData.authorSocial.socialIcons
+           }
+            cell.collectionView.reloadData()
+        }
         
-        if let imgUrl = URL(string: objData.authorImg) {
-            cell.imgProfile.sd_setShowActivityIndicatorView(true)
-            cell.imgProfile.sd_setIndicatorStyle(.gray)
-            cell.imgProfile.sd_setImage(with: imgUrl, completed: nil)
-        }
-        if let name = objData.authorName {
-            cell.lblName.text = name
-        }
-        if let location = objData.authorAddress {
-            cell.lblLocation.text = location
-        }
-        if let rating = objData.authorRating {
-            cell.ratingBar.settings.updateOnTouch = false
-            cell.ratingBar.rating = Double(rating)!
-            cell.ratingBar.settings.filledColor = Constants.hexStringToUIColor(hex: Constants.AppColor.ratingColor)
-        }
-        //adding social icons to sellers array
-        for item in objData.authorSocial.socialIcons{
-            if item.value != "" {
-                print(item.value)
-                
-            }
-            if item.key == "Facebook"{
-                cell.socialStringArr.append(item.value)
-                
-            }
-            if item.key == "Twitter"{
-                cell.socialStringArr.append(item.value)
-            }
-            if item.key == "Linkedin"{
-                cell.socialStringArr.append(item.value)
-            }
-            if item.key == "Instagram"{
-                cell.socialStringArr.append(item.value)
-            }
-        }
-        
-        cell.dataArray = objData.authorSocial.socialIcons
-        cell.collectionView.reloadData()
         return cell
     }
     
@@ -412,30 +496,30 @@ class SellersController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.view.isUserInteractionEnabled = true
     }
     
-    //MARK:- Search Bar Delegates
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //self.searchBarNavigation.endEditing(true)
-        searchBar.endEditing(true)
-        self.view.endEditing(true)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-        self.searchBarNavigation.endEditing(true)
-        guard let searchText = searchBar.text else {return}
-        if searchText == "" {
-            
-        } else {
-            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
-            categoryVC.searchText = searchText
-            categoryVC.isFromTextSearch = true
-            self.navigationController?.pushViewController(categoryVC, animated: true)
-        }
-    }
+//    //MARK:- Search Bar Delegates
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//
+//    }
+//
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        //self.searchBarNavigation.endEditing(true)
+//        searchBar.endEditing(true)
+//        self.view.endEditing(true)
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.endEditing(true)
+//        self.searchBarNavigation.endEditing(true)
+//        guard let searchText = searchBar.text else {return}
+//        if searchText == "" {
+//
+//        } else {
+//            let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
+//            categoryVC.searchText = searchText
+//            categoryVC.isFromTextSearch = true
+//            self.navigationController?.pushViewController(categoryVC, animated: true)
+//        }
+//    }
     
     
     

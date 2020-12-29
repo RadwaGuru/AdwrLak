@@ -378,7 +378,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             lblLocs.center.x = lblTitle.center.x - 3
             lblLocs.numberOfLines = 2
             lblLocs.frame.origin.y = lblTitle.frame.origin.y + (lblLocs.frame.height) + 6
-            lblLocs.text = "Model Town Link Road Lahore Punjab Pakistan"
+            lblLocs.text = ""
             contentView.addSubview(lblLocs)
             
             lblPriceHori = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 28))
@@ -389,7 +389,7 @@ class LatestAddsCollectionCell : UICollectionViewCell {
             
             lblPriceHori.center.x = lblTitle.center.x - 3
             lblPriceHori.frame.origin.y = imageViewLoc.frame.origin.y + (lblPriceHori.frame.height) - 10
-            lblPriceHori.text = "$-223"
+            lblPriceHori.text = ""
             contentView.addSubview(lblPriceHori)
             
             

@@ -341,7 +341,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.valueDropDown.show()
                     cell.section = 0
                     cell.fieldNam = objData.fieldTypeName
-                    cell.index = indexPath.row
+                    cell.indexes = indexPath.row
                     cell.delegate = self
                     
                 }
