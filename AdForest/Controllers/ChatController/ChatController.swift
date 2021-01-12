@@ -13,6 +13,7 @@ import IQKeyboardManagerSwift
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UITextViewDelegate {
     
     //MARK:- Outlets
+    @IBOutlet weak var btnAttachment: UIButton!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var oltName: UIButton!{
         didSet {
@@ -210,6 +211,31 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //        textView.frame = newFrame
     //    }
     
+    @IBAction func ActionOpenAttachment(_ sender: Any) {
+        
+//        let controller = MessagesAttachmentsViewController()
+
+//        let sheetController = SheetViewController(controller: controller)
+//        let sheetController = SheetViewController(
+//            controller: controller,
+//            sizes: [.halfScreen, .fixed(200), .halfScreen])
+//
+//
+//        self.present(sheetController, animated: true, completion: nil)
+        
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let newViewController = storyBoard.instantiateViewController(withIdentifier: "MessagesAttachmentsViewController") as! MessagesAttachmentsViewController
+//
+//        self.present(newViewController, animated: true, completion: nil)
+        showMiracle()
+    }
+    @objc func showMiracle() {
+        let slideVC = OverlayView()
+        slideVC.modalPresentationStyle = .custom
+        slideVC.transitioningDelegate = self
+        self.present(slideVC, animated: true, completion: nil)
+    }
+
     func adjustTextViewHeight() {
         let fixedWidth = txtMessage.frame.size.width
         let newSize = txtMessage.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
@@ -917,5 +943,10 @@ public extension UIColor {
             print("Scan hex error")
         }
         self.init(red:red, green:green, blue:blue, alpha:alpha)
+    }
+}
+extension ChatController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

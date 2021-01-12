@@ -118,6 +118,7 @@ pod 'FSPagerView'
 pod "ZGTooltipView"
 pod 'LTHRadioButton'
 pod 'KGRadioButton'
+#pod 'FittedSheets'
 
 
 end
