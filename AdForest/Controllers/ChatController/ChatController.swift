@@ -17,7 +17,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var oltName: UIButton!{
         didSet {
-            oltName.contentHorizontalAlignment = .left
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
                 oltName.setTitleColor(Constants.hexStringToUIColor(hex: mainColor), for: .normal)
             }
@@ -164,6 +163,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         btnBlock.backgroundColor  = UIColor(hex: defaults.string(forKey: "mainColor")!)
         btnBlock.roundCornors()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            oltName.semanticContentAttribute = .forceRightToLeft
+        }
+        else{
+            oltName.semanticContentAttribute = .forceLeftToRight
+
+        }
         
     }
     
