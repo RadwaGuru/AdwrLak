@@ -474,6 +474,29 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if let message = objData.text {
                 cell.txtMessage.text = message
+                cell.btnFullAction = { () in
+//                    let imageView = sender.view as! UIImageView
+                     
+                    if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
+                        cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
+                        cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
+                        cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
+                        self.tableView.reloadData()
+
+                    }
+                        let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
+                        newImageView.frame = UIScreen.main.bounds
+                        newImageView.backgroundColor = .black
+                        newImageView.contentMode = .scaleAspectFit
+                        newImageView.isUserInteractionEnabled = true
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
+                        newImageView.addGestureRecognizer(tap)
+                        self.view.addSubview(newImageView)
+                        self.navigationController?.isNavigationBarHidden = true
+                        self.tabBarController?.tabBar.isHidden = true
+                }
+//                cell.txtMessage.isHidden = true
+//                cell.imgPicture.isHidden = true
                 //cell.label.text = message
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     let image = UIImage(named: "bubble_se")
@@ -487,6 +510,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.txtMessage.text = message
                     //let height = cell.heightConstraint.constant + 20
                     cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+
                 }else{
                     let image = UIImage(named: "bubble_sent")
                     cell.imgPicture.image = image!
@@ -506,6 +530,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.imgProfile.sd_setIndicatorStyle(.gray)
                 cell.imgProfile.sd_setImage(with: imgUrl, completed: nil)
             }
+            if let imgUrl = URL(string: objData.img) {
+                cell.imgprofileUserAttachment.sd_setShowActivityIndicatorView(true)
+                cell.imgprofileUserAttachment.sd_setIndicatorStyle(.gray)
+                cell.imgprofileUserAttachment.sd_setImage(with: imgUrl, completed: nil)
+            }
             return cell
         }
         else {
@@ -514,6 +543,27 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if userBlocked == true{
                 cell.isHidden = true
+            }
+            cell.btnFullReceiverAction = { () in
+//                    let imageView = sender.view as! UIImageView
+                 
+                if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
+                    cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
+                    cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
+                    cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
+//                    self.tableView.reloadData()
+
+                }
+                    let newImageView = UIImageView(image: cell.imgReceiverAttachment.image)
+                    newImageView.frame = UIScreen.main.bounds
+                    newImageView.backgroundColor = .black
+                    newImageView.contentMode = .scaleAspectFit
+                    newImageView.isUserInteractionEnabled = true
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
+                    newImageView.addGestureRecognizer(tap)
+                    self.view.addSubview(newImageView)
+                    self.navigationController?.isNavigationBarHidden = true
+                    self.tabBarController?.tabBar.isHidden = true
             }
             if UserDefaults.standard.bool(forKey: "isRtl") {
                 if let message = objData.text {
@@ -552,6 +602,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
         }
     }
+    //MARK:-DismissFullscreenImage Action
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataArray.count && currentPage < maximumPage {
@@ -861,6 +918,13 @@ class SenderCell: UITableViewCell {
     
     @IBOutlet weak var viewBg: UIView!
     let label =  UILabel()
+    var btnFullAction: (()->())?
+
+    @IBOutlet weak var imgprofileUserAttachment: UIImageView!{
+        didSet {
+            imgprofileUserAttachment.round()
+        }
+    }
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var txtMessage: UITextView!
     @IBOutlet weak var imgProfile: UIImageView! {
@@ -868,7 +932,16 @@ class SenderCell: UITableViewCell {
             imgProfile.round()
         }
     }
-    
+    @IBOutlet weak var containerViewImg: UIView!{
+        didSet{
+            containerViewImg.layer.borderWidth = 3
+            containerViewImg.layer.cornerRadius = 3
+            containerViewImg.layer.borderColor = UIColor.red.cgColor
+
+        }
+    }
+    @IBOutlet weak var chatAttachmentImage: UIImageView!
+    @IBOutlet weak var btnOpenImage: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -879,6 +952,11 @@ class SenderCell: UITableViewCell {
         //imgPicture.backgroundColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)
         
         //showIncomingMessage()
+    }
+    
+    @IBAction func OpenImageAction(_ sender: Any) {
+        print("OpenImage")
+        self.btnFullAction?()
     }
     
 }
@@ -897,6 +975,23 @@ class ReceiverCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var imgProfileReceiverAttachment: UIImageView!{
+        didSet{
+            imgProfileReceiverAttachment.round()
+        }
+    }
+    @IBOutlet weak var btnOpenreceiverAttachment: UIButton!
+    @IBOutlet weak var imgReceiverAttachment: UIImageView!
+    @IBOutlet weak var containerReceiverAttachment: UIView!{
+        didSet{
+            containerReceiverAttachment.layer.borderWidth = 3
+            containerReceiverAttachment.layer.cornerRadius = 3
+            containerReceiverAttachment.layer.borderColor = UIColor.red.cgColor
+
+        }
+    }
+    var btnFullReceiverAction: (()->())?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -905,6 +1000,9 @@ class ReceiverCell: UITableViewCell {
         self.imgBackground.clipsToBounds = true
     }
     
+    @IBAction func ActionOpenReceiverAttachment(_ sender: Any) {
+        self.btnFullReceiverAction?()
+    }
 }
 
 public extension UIColor {
