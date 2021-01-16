@@ -55,7 +55,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         } else {
             txtAutoComplete.textAlignment = .left
         }
-        self.currentUserlocationManager()
+//        self.currentUserlocationManager()
         
     }
     

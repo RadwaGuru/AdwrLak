@@ -9,6 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 import IQKeyboardManagerSwift
+import JGProgressHUD
 
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UITextViewDelegate {
     
@@ -123,6 +124,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var userBlocked = false
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    var imageUrlnew : URL?
+    let documentInteractionController = UIDocumentInteractionController()
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -141,6 +144,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.showBackButton()
         self.refreshButton()
         self.googleAnalytics(controllerName: "Chat Controller")
+        documentInteractionController.delegate = self
+
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         txtMessage.delegate = self
@@ -452,6 +457,91 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
+    //MARK:- Download Attachment Document Files
+    func adforest_DownloadFiles(url: URL, to localUrl: URL, completion: @escaping () -> ()) {
+        let urlString = "http://www.africau.edu/images/default/sample.pdf"
+//        let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
+
+        let url = URL(string: urlString)
+        let fileName = String((url!.lastPathComponent)) as NSString
+        // Create destination URL
+        let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+        let destinationFileUrl = documentsUrl.appendingPathComponent("\(fileName)")
+        //Create URL to the source file you want to download
+        let fileURL = URL(string: urlString)
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        let request = URLRequest(url:fileURL!)
+        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+            if let tempLocalUrl = tempLocalUrl, error == nil {
+                // Success
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Successfully downloaded. Status code: \(statusCode)")
+                    
+                }
+                DispatchQueue.main.async {
+                    //                        self.perform(#selector(self.showSuccess), with: nil, afterDelay: 0.0)
+                    //                        self.stopAnimating()
+                    //
+                    //                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        do {
+                            //Show UIActivityViewController to save the downloaded file
+                            let contents  = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+                            for indexx in 0..<contents.count {
+                                if contents[indexx].lastPathComponent == destinationFileUrl.lastPathComponent {
+                                    let activityViewController = UIActivityViewController(activityItems: [contents[indexx]], applicationActivities: nil)
+                                    self.present(activityViewController, animated: true, completion: nil)
+                                }
+                            }
+                        }
+                        catch (let err) {
+                            print("error: \(err)")
+                        }
+                    } catch (let writeError) {
+                        print("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                }
+            } else {
+                print("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "")")
+            }
+        }
+        task.resume()
+
+//        let sessionConfig = URLSessionConfiguration.default
+//        let session = URLSession(configuration: sessionConfig)
+//        let request = try! URLRequest(url: url, method: .get)
+//        showLoader()
+//        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+//            if let tempLocalUrl = tempLocalUrl, error == nil {
+//                // Success
+//                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+//                    print("Success: \(statusCode)")
+//
+//                    DispatchQueue.main.async {
+//                        self.perform(#selector(self.showSuccess), with: nil, afterDelay: 0.0)
+//                        self.stopAnimating()
+//
+//                    }
+//                }
+//
+//            } else {
+//            }
+//        }
+//        task.resume()
+    }
+    @objc func showSuccess(){
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Downloaded Successfully"
+        hud.detailTextLabel.text = nil
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.position = .bottomCenter
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 2.0)
+    }
     
     //MARK:- Table View Delegate Methods
     
@@ -474,14 +564,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if let message = objData.text {
                 cell.txtMessage.text = message
+//                cell.containerViewImg.isHidden = true
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.containerViewDocsAttachments.isHidden  = true
+//                cell.imgUserProfileDocs.isHidden = true
                 cell.btnFullAction = { () in
 //                    let imageView = sender.view as! UIImageView
                      
-                    if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
+                    if let imgUrl = URL(string: "https://picsum.photos/id/237/200/300") {
+                        self.imageUrlnew = imgUrl
                         cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
                         cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
                         cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
                         self.tableView.reloadData()
+                        
 
                     }
                         let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
@@ -494,10 +590,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         self.view.addSubview(newImageView)
                         self.navigationController?.isNavigationBarHidden = true
                         self.tabBarController?.tabBar.isHidden = true
+
                 }
-//                cell.txtMessage.isHidden = true
-//                cell.imgPicture.isHidden = true
-                //cell.label.text = message
+                let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
+                    //"http://www.africau.edu/images/default/sample.pdf"
+//                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
+                cell.lblFileName.text = "fileName.extension"
+                cell.btnDownloadDocsAction =  {()in
+                    /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                    self.storeAndShare(withURLString: fileUrl)
+                    
+//                    self.adforest_DownloadFiles(url: fileUrl as URL, to: fileUrl as URL){
+//                        print("OK")
+//                    }
+                }
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     let image = UIImage(named: "bubble_se")
                     cell.imgPicture.image = image!
@@ -535,6 +641,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.imgprofileUserAttachment.sd_setIndicatorStyle(.gray)
                 cell.imgprofileUserAttachment.sd_setImage(with: imgUrl, completed: nil)
             }
+            //imgUserProfileDocs
+            if let imgUrl = URL(string: objData.img) {
+                cell.imgUserProfileDocs.sd_setShowActivityIndicatorView(true)
+                cell.imgUserProfileDocs.sd_setIndicatorStyle(.gray)
+                cell.imgUserProfileDocs.sd_setImage(with: imgUrl, completed: nil)
+            }
             return cell
         }
         else {
@@ -544,6 +656,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if userBlocked == true{
                 cell.isHidden = true
             }
+//            cell.containerReceiverAttachment.isHidden = true
+//            cell.imgProfileReceiverAttachment.isHidden = true
             cell.btnFullReceiverAction = { () in
 //                    let imageView = sender.view as! UIImageView
                  
@@ -598,7 +712,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.imgIcon.sd_setIndicatorStyle(.gray)
                 cell.imgIcon.sd_setImage(with: imgUrl, completed: nil)
             }
-            
+            if let imgUrl = URL(string: objData.img) {
+                cell.imgProfileReceiverAttachment.sd_setShowActivityIndicatorView(true)
+                cell.imgProfileReceiverAttachment.sd_setIndicatorStyle(.gray)
+                cell.imgProfileReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
+            }
             return cell
         }
     }
@@ -608,6 +726,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
+    
 
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -919,7 +1038,28 @@ class SenderCell: UITableViewCell {
     @IBOutlet weak var viewBg: UIView!
     let label =  UILabel()
     var btnFullAction: (()->())?
+    var btnDownloadDocsAction: (()->())?
 
+    @IBOutlet weak var btnDownloadDocs: UIButton!
+    @IBOutlet weak var imgDownloadDocs: UIImageView!
+    @IBOutlet weak var lblFileName: UILabel!
+    @IBOutlet weak var containerViewDocsAttachments: UIView!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+            
+
+                containerViewDocsAttachments.layer.borderWidth = 3
+                containerViewDocsAttachments.layer.cornerRadius = 3
+                containerViewDocsAttachments.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+            }
+        }
+    }
+    @IBOutlet weak var imgUserProfileDocs: UIImageView!{
+        didSet{
+            imgUserProfileDocs.round()
+
+        }
+    }
     @IBOutlet weak var imgprofileUserAttachment: UIImageView!{
         didSet {
             imgprofileUserAttachment.round()
@@ -934,10 +1074,13 @@ class SenderCell: UITableViewCell {
     }
     @IBOutlet weak var containerViewImg: UIView!{
         didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+            
+
             containerViewImg.layer.borderWidth = 3
             containerViewImg.layer.cornerRadius = 3
-            containerViewImg.layer.borderColor = UIColor.red.cgColor
-
+                containerViewImg.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+            }
         }
     }
     @IBOutlet weak var chatAttachmentImage: UIImageView!
@@ -953,10 +1096,15 @@ class SenderCell: UITableViewCell {
         
         //showIncomingMessage()
     }
-    
+    //MARK:-Actions
     @IBAction func OpenImageAction(_ sender: Any) {
         print("OpenImage")
         self.btnFullAction?()
+    }
+    
+    @IBAction func BtnDownloadDocsAction(_ sender: Any) {
+        print("Download Docs")
+        self.btnDownloadDocsAction?()
     }
     
 }
@@ -984,10 +1132,12 @@ class ReceiverCell: UITableViewCell {
     @IBOutlet weak var imgReceiverAttachment: UIImageView!
     @IBOutlet weak var containerReceiverAttachment: UIView!{
         didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+          
             containerReceiverAttachment.layer.borderWidth = 3
             containerReceiverAttachment.layer.cornerRadius = 3
-            containerReceiverAttachment.layer.borderColor = UIColor.red.cgColor
-
+                containerReceiverAttachment.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+            }
         }
     }
     var btnFullReceiverAction: (()->())?
@@ -1052,5 +1202,55 @@ public extension UIColor {
 extension ChatController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+extension ChatController {
+    /// This function will set all the required properties, and then provide a preview for the document
+    func share(url: URL) {
+        documentInteractionController.url = url
+        documentInteractionController.uti = url.typeIdentifier ?? "public.data, public.content"
+        documentInteractionController.name = url.localizedName ?? url.lastPathComponent
+//        documentInteractionController.presentPreview(animated: true)
+        documentInteractionController.presentOptionsMenu(from: view.frame, in: view, animated: true)
+    }
+    
+    /// This function will store your document to some temporary URL and then provide sharing, copying, printing, saving options to the user
+    func storeAndShare(withURLString: String) {
+        guard let url = URL(string: withURLString) else { return }
+        /// START YOUR ACTIVITY INDICATOR HERE
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            let tmpURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent(response?.suggestedFilename ?? "fileName.png")
+            do {
+                try data.write(to: tmpURL)
+            } catch {
+                print(error)
+            }
+            DispatchQueue.main.async {
+                /// STOP YOUR ACTIVITY INDICATOR HERE
+                self.share(url: tmpURL)
+            }
+            }.resume()
+    }
+}
+
+extension ChatController: UIDocumentInteractionControllerDelegate {
+    /// If presenting atop a navigation stack, provide the navigation controller in order to animate in a manner consistent with the rest of the platform
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        guard let navVC = self.navigationController else {
+            return self
+        }
+        return navVC
+    }
+}
+
+extension URL {
+    var typeIdentifier: String? {
+        return (try? resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier
+    }
+    var localizedName: String? {
+        return (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName
     }
 }
