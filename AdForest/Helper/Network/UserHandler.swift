@@ -482,7 +482,7 @@ class UserHandler {
     
     
     
-    
+   
     class func sendMessage(parameter: NSDictionary, success: @escaping(SentOfferChatRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.sendmessage
         print(url)

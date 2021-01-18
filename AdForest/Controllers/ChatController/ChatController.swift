@@ -244,6 +244,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let slideVC = OverlayView()
         slideVC.modalPresentationStyle = .custom
         slideVC.transitioningDelegate = self
+        slideVC.adID = ad_id
+        slideVC.senderID  = sender_id
+        slideVC.receiverID = receiver_id
+        slideVC.msgType = messageType
         self.present(slideVC, animated: true, completion: nil)
     }
 
@@ -568,18 +572,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                cell.imgprofileUserAttachment.isHidden = true
 //                cell.containerViewDocsAttachments.isHidden  = true
 //                cell.imgUserProfileDocs.isHidden = true
+                if let imgUrl = URL(string: "https://picsum.photos/id/237/200/300") {
+                    self.imageUrlnew = imgUrl
+                    cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
+                    cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
+                    cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
+//                    self.tableView.reloadData()
+                    
+
+                }
                 cell.btnFullAction = { () in
 //                    let imageView = sender.view as! UIImageView
                      
-                    if let imgUrl = URL(string: "https://picsum.photos/id/237/200/300") {
-                        self.imageUrlnew = imgUrl
-                        cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
-                        cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
-                        cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
-                        self.tableView.reloadData()
-                        
-
-                    }
+                   
                         let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
                         newImageView.frame = UIScreen.main.bounds
                         newImageView.backgroundColor = .black
@@ -658,16 +663,30 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
 //            cell.containerReceiverAttachment.isHidden = true
 //            cell.imgProfileReceiverAttachment.isHidden = true
+//
+            cell.lblFileName.text = "fileName.extension"
+
+            cell.btnDownloadAttachmentReceiverAction = { () in
+                let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
+                    //"http://www.africau.edu/images/default/sample.pdf"
+//                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
+                    /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                    self.storeAndShare(withURLString: fileUrl)
+                    
+                
+                
+            }
+            if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
+                cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
+                cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
+                cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
+//                    self.tableView.reloadData()
+
+            }
             cell.btnFullReceiverAction = { () in
 //                    let imageView = sender.view as! UIImageView
                  
-                if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
-                    cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
-                    cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
-                    cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
-//                    self.tableView.reloadData()
-
-                }
+              
                     let newImageView = UIImageView(image: cell.imgReceiverAttachment.image)
                     newImageView.frame = UIScreen.main.bounds
                     newImageView.backgroundColor = .black
@@ -716,6 +735,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.imgProfileReceiverAttachment.sd_setShowActivityIndicatorView(true)
                 cell.imgProfileReceiverAttachment.sd_setIndicatorStyle(.gray)
                 cell.imgProfileReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
+            }
+            if let imgUrl = URL(string: objData.img) {
+                cell.imgProfileDocumentReceiver.sd_setShowActivityIndicatorView(true)
+                cell.imgProfileDocumentReceiver.sd_setIndicatorStyle(.gray)
+                cell.imgProfileDocumentReceiver.sd_setImage(with: imgUrl, completed: nil)
             }
             return cell
         }
@@ -1111,6 +1135,14 @@ class SenderCell: UITableViewCell {
 
 class ReceiverCell: UITableViewCell {
     
+    @IBOutlet weak var lblFileName: UILabel!
+    @IBOutlet weak var imgProfileDocumentReceiver: UIImageView!{
+        didSet{
+            imgProfileDocumentReceiver.round()
+        }
+    }
+    @IBOutlet weak var BtnDocumentReceiverDownload: UIButton!
+    @IBOutlet weak var containerDocumentReceiver: UIView!
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
@@ -1141,6 +1173,7 @@ class ReceiverCell: UITableViewCell {
         }
     }
     var btnFullReceiverAction: (()->())?
+    var btnDownloadAttachmentReceiverAction: (()->())?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -1149,10 +1182,17 @@ class ReceiverCell: UITableViewCell {
         //self.imgBackground.layer.cornerRadius = 15
         self.imgBackground.clipsToBounds = true
     }
-    
+    //MARK:- @IBAction
     @IBAction func ActionOpenReceiverAttachment(_ sender: Any) {
         self.btnFullReceiverAction?()
     }
+    
+    
+    @IBAction func actionDocumentDownlaodReceiverCell(_ sender: Any) {
+        self.btnDownloadAttachmentReceiverAction?()
+
+    }
+    
 }
 
 public extension UIColor {

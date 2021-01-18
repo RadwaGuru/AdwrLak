@@ -10,17 +10,33 @@ import Foundation
 import UIKit
 import MobileCoreServices
 import JGProgressHUD
-
-class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate {
-    
+import OpalImagePicker
+import Photos
+import Alamofire
+import JGProgressHUD
+import NVActivityIndicatorView
+class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate,OpalImagePickerControllerDelegate,NVActivityIndicatorViewable {
+    private lazy var uploadingProgressBar: JGProgressHUD = {
+        let progressBar = JGProgressHUD(style: .dark)
+        progressBar.indicatorView = JGProgressHUDRingIndicatorView()
+        progressBar.textLabel.text = "Uploading"
+        return progressBar
+    }()
     var hasSetPointOrigin = false
     var pointOrigin: CGPoint?
     var btnImageAttach: (()->())?
     var btnDocuAttach: (()->())?
     var imageUrl:URL?
     var imagePicker = UIImagePickerController()
-    let appDel = UIApplication.shared.delegate as! AppDelegate
+    var photoArray = [UIImage]()
+    var adID : String!
+    var senderID : String!
+    var receiverID : String!
+    var msgType : String!
+
     
+    let appDel = UIApplication.shared.delegate as! AppDelegate
+    let mainColor = UserDefaults.standard.string(forKey: "mainColor")
     @IBOutlet weak var lblDocs: UILabel!
     @IBOutlet weak var lblImages: UILabel!
     @IBOutlet weak var btnImgDoc: UIButton!
@@ -52,7 +68,12 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             pointOrigin = self.view.frame.origin
         }
     }
+    //MARK: - Custom
+    func showLoader() {
+        self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
+    }
     
+
     //MARK:- @IBActions
     @IBAction func ActionMediaAttachment(_ sender: Any) {
         //        self.btnImageAttach?()
@@ -73,26 +94,52 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         //        self.present(imagePickerConroller,animated:true, completion:nil)
     }
     func adForest_openGallery() {
-        let imagePickerConroller = UIImagePickerController()
-        imagePickerConroller.delegate = self
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            imagePickerConroller.sourceType = .photoLibrary
-            
-        }else{
-            let alert = UIAlertController(title:"objExtraTxt?.alertName", message: "message", preferredStyle: UIAlertController.Style.alert)
-            let OkAction = UIAlertAction(title:" dataTabs.data.progressTxt.btnOk", style: UIAlertAction.Style.cancel, handler: nil)
-            alert.addAction(OkAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-        self.present(imagePickerConroller,animated:true, completion:nil)
-        //        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-        //            imagePicker.delegate = self
-        //            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        //            self.appDel.presentController(ShowVC: imagePicker)
-        //        }
-        //        else {
+        //        let imagePickerConroller = UIImagePickerController()
+        //        imagePickerConroller.delegate = self
+        //        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+        //            imagePickerConroller.sourceType = .photoLibrary
+        //            imagePickerConroller.modalPresentationStyle = .fullScreen
+        //            imagePickerConroller.view.tintColor = .black
+        //                //UIColor(hex:mainColor!)
         //
+        //        }else{
+        //            let alert = UIAlertController(title:"objExtraTxt?.alertName", message: "message", preferredStyle: UIAlertController.Style.alert)
+        //            let OkAction = UIAlertAction(title:" dataTabs.data.progressTxt.btnOk", style: UIAlertAction.Style.cancel, handler: nil)
+        //            alert.addAction(OkAction)
+        //            self.present(alert, animated: true, completion: nil)
         //        }
+        //        self.present(imagePickerConroller,animated:true, completion:nil)
+        let imagePicker = OpalImagePickerController()
+        imagePicker.navigationBar.tintColor = UIColor.white
+        imagePicker.maximumSelectionsAllowed = 5
+        //self.maximumImagesAllowed
+        //         print(self.maximumImagesAllowed)
+        imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
+        // maximum message
+        let configuration = OpalImagePickerConfiguration()
+        configuration.maximumSelectionsAllowedMessage = NSLocalizedString("(objData?.data.images.message", comment: "")
+        imagePicker.configuration = configuration
+        imagePicker.imagePickerDelegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    //MARK:- Delegates For OPAL ImagePicker
+    
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
+        print(images)
+        if images.isEmpty {
+        }
+        else {
+            self.photoArray = images
+//            let param: [String: Any] = [ "ad_id": String(adID)]
+            let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+            print(parameter)
+            self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
+        }
+        presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerDidCancel(_ picker: OpalImagePickerController) {
+        self.dismissVC(completion: nil)
     }
     //MARK:- Delegates For UIImagePicker
     
@@ -123,10 +170,21 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         let options = [kUTTypePDF as String, kUTTypeZipArchive  as String, kUTTypePNG as String, kUTTypeJPEG as String, kUTTypeText  as String, kUTTypePlainText as String]
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: options, in: .import)
         documentPicker.delegate = self
-        documentPicker.modalPresentationStyle = .formSheet
-        self.present(documentPicker, animated: true, completion: nil)
+        documentPicker.view.tintColor = UIColor(hex:mainColor!)
+        //.orange
+        documentPicker.view.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
+        UINavigationBar.appearance().isTranslucent = false
+        documentPicker.modalPresentationStyle = .fullScreen
+        //        self.present(documentPicker, animated: true, completion: nil)
+        //        UINavigationBar.appearance().tintColor = .black
+        present(documentPicker, animated: true) {
+            UINavigationBar.appearance().tintColor = UIColor(hex:self.mainColor!)
+            //.white
+        }
         //        self.btnDocuAttach?()
     }
+    
+    
     //MARK:- Delegates For UIDocumentPicker
     
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
@@ -145,37 +203,39 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     }
     
     func saveFileToDocumentDirectory(document: URL) {
+        print(document.pathExtension)
         if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "my_cv_upload", extention: document.pathExtension) {
             print(fileUrl.pathExtension)
-//            let newURL = fileUrl
-//            if let fileURL = URL(string: newURL){
-                    let fileUTI = UTI(withExtension: fileUrl.pathExtension)
-                    switch fileUTI {
-                    case .pdf:
-                        print("add PDF Options")
-                    case .jpeg:
-                        print("add jpg Options")
-                    case .png:
-                        print("add png Options")
-                    case .tiff:
-                        print("add tiff Options")
-                    case .gif:
-                        print("add gif options")
-                    case .spreadsheet:
-                        print("add excel Options")
-                    case .html:
-                        print("add html options")
-                    case .zipArchive:
-                        print("add zip Options")
-                        break
-                    case .docx , .doc:
-                        print("add dox options")
-                    default:
-                        print("default")
-                    }
             
-//        }
-
+            //            let newURL = fileUrl
+            //            if let fileURL = URL(string: newURL){
+            //                    let fileUTI = UTI(withExtension: fileUrl.pathExtension)
+            //                    switch fileUTI {
+            //                    case .pdf:
+            //                        print("add PDF Options")
+            //                    case .jpeg:
+            //                        print("add jpg Options")
+            //                    case .png:
+            //                        print("add png Options")
+            //                    case .tiff:
+            //                        print("add tiff Options")
+            //                    case .gif:
+            //                        print("add gif options")
+            //                    case .spreadsheet:
+            //                        print("add excel Options")
+            //                    case .html:
+            //                        print("add html options")
+            //                    case .zipArchive:
+            //                        print("add zip Options")
+            //                        break
+            //                    case .docx , .doc:
+            //                        print("add dox options")
+            //                    default:
+            //                        print("default")
+            //                    }
+            
+            //        }
+            
             //            self.adforest_DownloadFiles(url: fileUrl as URL, to: fileUrl as URL){
             //                print("OK")
             //            }
@@ -189,7 +249,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let request = try! URLRequest(url: url, method: .get)
-        //        showLoader()
+        showLoader()
         let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {
                 // Success
@@ -198,7 +258,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
                     
                     DispatchQueue.main.async {
                         self.perform(#selector(self.showSuccess), with: nil, afterDelay: 0.0)
-                        //                        self.stopAnimating()
+                        self.stopAnimating()
                         
                     }
                 }
@@ -221,7 +281,76 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     
     //MARK:-End of Downlaod Task
+    //MARK:- API Call
     
+    //post images
+    
+    func adForest_uploadImages(param: NSDictionary, images: [UIImage]) {
+        self.showLoader()
+        uploadingProgressBar.progress = 0.0
+        uploadingProgressBar.detailTextLabel.text = "0% Completed"
+        uploadingProgressBar.show(in: view)
+//
+        adPostUploadImages(parameter: param, imagesArray: images, fileName: "File", uploadProgress: { (uploadProgress) in
+
+        }, success: { (successResponse) in
+            self.uploadingProgressBar.dismiss(animated: true)
+            self.stopAnimating()
+            if successResponse.success {
+                self.stopAnimating()
+                self.uploadingProgressBar.dismiss(animated: true)
+
+//                self.imageArray = successResponse.data.adImages
+//                self.imgCtrlCount = successResponse.data.adImages.count
+                //add image id to array to send to next View Controller and hit to server
+//                for item in self.imageArray {
+//                    self.imageIDArray.append(item.imgId)
+//                }
+//                self.maximumImagesAllowed = successResponse.data.images.numbers
+//                self.imagesMsg = successResponse.data.images.message
+//
+//                UserDefaults.standard.set( self.imagesMsg, forKey: "imgMsg")
+//                self.tableView.reloadData()
+            }
+            else {
+                self.stopAnimating()
+                self.uploadingProgressBar.dismiss(animated: true)
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            self.uploadingProgressBar.dismiss(animated: true)
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+    
+     func adPostUploadImages(parameter: NSDictionary , imagesArray: [UIImage], fileName: String, uploadProgress: @escaping(Int)-> Void, success: @escaping(AdPostImagesRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        
+        let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
+        print(url)
+        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
+            print(uploadProgress)
+            let currentProgress = Float(uploadProgress)/100
+            self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
+            self.uploadingProgressBar.setProgress(currentProgress, animated: true)
+        }, success: { (successResponse) in
+//            let dictionary = successResponse as! [String: Any]
+//            let objImg = AdPostImagesRoot(fromDictionary: dictionary)
+//            success(objImg)
+            
+            self.stopAnimating()
+            self.uploadingProgressBar.dismiss(animated: true)
+            self.presentedViewController?.dismiss(animated: true, completion: nil)
+
+            print("true")
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            print("false")
+
+        }
+    }
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         
@@ -247,336 +376,336 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
 }
 class UTI: RawRepresentable, Equatable {
-
-    /**
-    The TagClass enum represents the supported tag classes.
     
-    - fileExtension: kUTTagClassFilenameExtension
-    - mimeType: kUTTagClassMIMEType
-    - pbType: kUTTagClassNSPboardType
-    - osType: kUTTagClassOSType
-    */
+    /**
+     The TagClass enum represents the supported tag classes.
+     
+     - fileExtension: kUTTagClassFilenameExtension
+     - mimeType: kUTTagClassMIMEType
+     - pbType: kUTTagClassNSPboardType
+     - osType: kUTTagClassOSType
+     */
     public enum TagClass: String {
-
+        
         /// Equivalent to kUTTagClassFilenameExtension
         case fileExtension = "public.filename-extension"
-
+        
         /// Equivalent to kUTTagClassMIMEType
         case mimeType = "public.mime-type"
-
+        
         #if os (macOS)
-
+        
         /// Equivalent to kUTTagClassNSPboardType
         case pbType =  "com.apple.nspboard-type"
-
+        
         /// Equivalent to kUTTagClassOSType
         case osType =  "com.apple.ostype"
         #endif
-
+        
         /// Convenience variable for internal use.
         
         fileprivate var rawCFValue: CFString {
             return self.rawValue as CFString
         }
     }
-
+    
     public typealias RawValue = String
     public let rawValue: String
-
-
+    
+    
     /// Convenience variable for internal use.
-
+    
     private var rawCFValue: CFString {
-
+        
         return self.rawValue as CFString
     }
-
+    
     // MARK: Initialization
-
-
+    
+    
     /**
-    
-    This is the designated initializer of the UTI class.
-    
+     
+     This is the designated initializer of the UTI class.
+     
      - Parameters:
-            - rawValue: A string that is a Universal Type Identifier, i.e. "com.foobar.baz" or a constant like kUTTypeMP3.
+     - rawValue: A string that is a Universal Type Identifier, i.e. "com.foobar.baz" or a constant like kUTTypeMP3.
      - Returns:
-            An UTI instance representing the specified rawValue.
+     An UTI instance representing the specified rawValue.
      - Note:
-            You should rarely use this method. The preferred way to initialize a known UTI is to use its static variable (i.e. UTI.pdf). You should make an extension to make your own types available as static variables.
+     You should rarely use this method. The preferred way to initialize a known UTI is to use its static variable (i.e. UTI.pdf). You should make an extension to make your own types available as static variables.
+     
+     */
     
-    */
-
     public required init(rawValue: UTI.RawValue) {
-
+        
         self.rawValue = rawValue
     }
-
+    
     /**
-
-    Initialize an UTI with a tag of a specified class.
-
-    - Parameters:
-        - tagClass: The class of the tag.
-        - value: The value of the tag.
-        - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An UTI instance representing the specified rawValue. If no known UTI with the specified tags is found, a dynamic UTI is created.
-    - Note:
-        You should rarely need this method. It's usually simpler to use one of the specialized initialzers like
-        ```convenience init?(withExtension fileExtension: String, conformingTo conforming: UTI? = nil)```
-    */
-
+     
+     Initialize an UTI with a tag of a specified class.
+     
+     - Parameters:
+     - tagClass: The class of the tag.
+     - value: The value of the tag.
+     - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An UTI instance representing the specified rawValue. If no known UTI with the specified tags is found, a dynamic UTI is created.
+     - Note:
+     You should rarely need this method. It's usually simpler to use one of the specialized initialzers like
+     ```convenience init?(withExtension fileExtension: String, conformingTo conforming: UTI? = nil)```
+     */
+    
     public convenience init(withTagClass tagClass: TagClass, value: String, conformingTo conforming: UTI? = nil) {
-
+        
         let unmanagedIdentifier = UTTypeCreatePreferredIdentifierForTag(tagClass.rawCFValue, value as CFString, conforming?.rawCFValue)
-
+        
         // UTTypeCreatePreferredIdentifierForTag only returns nil if the tag class is unknwown, which can't happen to us since we use an
         // enum of known values. Hence we can force-cast the result.
-
+        
         let identifier = (unmanagedIdentifier?.takeRetainedValue() as String?)!
-
+        
         self.init(rawValue: identifier)
     }
-
-    /**
-
-    Initialize an UTI with a file extension.
     
-    - Parameters:
-        - withExtension: The file extension (e.g. "txt").
-        - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An UTI corresponding to the specified values.
-    **/
-
+    /**
+     
+     Initialize an UTI with a file extension.
+     
+     - Parameters:
+     - withExtension: The file extension (e.g. "txt").
+     - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An UTI corresponding to the specified values.
+     **/
+    
     public convenience init(withExtension fileExtension: String, conformingTo conforming: UTI? = nil) {
-
+        
         self.init(withTagClass:.fileExtension, value: fileExtension, conformingTo: conforming)
     }
-
-    /**
-
-    Initialize an UTI with a MIME type.
     
-    - Parameters:
-        - mimeType: The MIME type (e.g. "text/plain").
-        - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An UTI corresponding to the specified values.
-    */
-
+    /**
+     
+     Initialize an UTI with a MIME type.
+     
+     - Parameters:
+     - mimeType: The MIME type (e.g. "text/plain").
+     - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An UTI corresponding to the specified values.
+     */
+    
     public convenience init(withMimeType mimeType: String, conformingTo conforming: UTI? = nil) {
-
+        
         self.init(withTagClass:.mimeType, value: mimeType, conformingTo: conforming)
     }
-
+    
     #if os(macOS)
-
+    
     /**
-
-    Initialize an UTI with a pasteboard type.
-    - Important: **This function is de-facto deprecated!** The old cocoa pasteboard types ( `NSStringPboardType`, `NSPDFPboardType`, etc) have been deprecated in favour of actual UTIs, and the constants are not available anymore in Swift. This function only works correctly with the values of these old constants, but _not_ with the replacement values (like `NSPasteboardTypeString` etc), since these already are UTIs.
-    - Parameters:
-        - pbType: The pasteboard type (e.g. NSPDFPboardType).
-        - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An UTI corresponding to the specified values.
-    */
+     
+     Initialize an UTI with a pasteboard type.
+     - Important: **This function is de-facto deprecated!** The old cocoa pasteboard types ( `NSStringPboardType`, `NSPDFPboardType`, etc) have been deprecated in favour of actual UTIs, and the constants are not available anymore in Swift. This function only works correctly with the values of these old constants, but _not_ with the replacement values (like `NSPasteboardTypeString` etc), since these already are UTIs.
+     - Parameters:
+     - pbType: The pasteboard type (e.g. NSPDFPboardType).
+     - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An UTI corresponding to the specified values.
+     */
     public convenience init(withPBType pbType: String, conformingTo conforming: UTI? = nil) {
-
+        
         self.init(withTagClass:.pbType, value: pbType, conformingTo: conforming)
     }
-
-    /**
-    Initialize an UTI with a OSType.
     
-    - Parameters:
-        - osType: The OSType type as a string (e.g. "PDF ").
-        - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An UTI corresponding to the specified values.
-    - Note:
-        You can use the variable ```OSType.string``` to get a string from an actual OSType.
-    */
-
+    /**
+     Initialize an UTI with a OSType.
+     
+     - Parameters:
+     - osType: The OSType type as a string (e.g. "PDF ").
+     - conformingTo: If specified, the returned UTI must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An UTI corresponding to the specified values.
+     - Note:
+     You can use the variable ```OSType.string``` to get a string from an actual OSType.
+     */
+    
     public convenience init(withOSType osType: String, conformingTo conforming: UTI? = nil) {
-
+        
         self.init(withTagClass:.osType, value: osType, conformingTo: conforming)
     }
-
-    #endif
-
-    // MARK: Accessing Tags
-
-    /**
-
-    Returns the tag with the specified class.
     
-    - Parameters:
-        - tagClass: The tag class to return.
-    - Returns:
-        The requested tag, or nil if there is no tag of the specified class.
-    */
-
+    #endif
+    
+    // MARK: Accessing Tags
+    
+    /**
+     
+     Returns the tag with the specified class.
+     
+     - Parameters:
+     - tagClass: The tag class to return.
+     - Returns:
+     The requested tag, or nil if there is no tag of the specified class.
+     */
+    
     public func tag(with tagClass: TagClass) -> String? {
-
+        
         let unmanagedTag = UTTypeCopyPreferredTagWithClass(self.rawCFValue, tagClass.rawCFValue)
-
+        
         guard let tag = unmanagedTag?.takeRetainedValue() as String? else {
             return nil
         }
-
+        
         return tag
     }
-
+    
     /// Return the file extension that corresponds the the UTI. Returns nil if not available.
-
+    
     public var fileExtension: String? {
-
+        
         return self.tag(with: .fileExtension)
     }
-
+    
     /// Return the MIME type that corresponds the the UTI. Returns nil if not available.
-
+    
     public var mimeType: String? {
-
+        
         return self.tag(with: .mimeType)
     }
-
+    
     #if os(macOS)
-
+    
     /// Return the pasteboard type that corresponds the the UTI. Returns nil if not available.
-
+    
     public var pbType: String? {
-
+        
         return self.tag(with: .pbType)
     }
-
+    
     /// Return the OSType as a string that corresponds the the UTI. Returns nil if not available.
     /// - Note: you can use the ```init(with string: String)``` initializer to construct an actual OSType from the returnes string.
-
+    
     public var osType: String? {
-
+        
         return self.tag(with: .osType)
     }
-
-    #endif
-
-    /**
-
-    Returns all tags of the specified tag class.
     
-    - Parameters:
-        - tagClass: The class of the requested tags.
-    - Returns:
-        An array of all tags of the receiver of the specified class.
-    */
-
+    #endif
+    
+    /**
+     
+     Returns all tags of the specified tag class.
+     
+     - Parameters:
+     - tagClass: The class of the requested tags.
+     - Returns:
+     An array of all tags of the receiver of the specified class.
+     */
+    
     public func tags(with tagClass: TagClass) -> Array<String> {
-
+        
         let unmanagedTags = UTTypeCopyAllTagsWithClass(self.rawCFValue, tagClass.rawCFValue)
-
+        
         guard let tags = unmanagedTags?.takeRetainedValue() as? Array<CFString> else {
             return []
         }
-
+        
         return tags as Array<String>
     }
-
-    // MARK: List all UTIs associated with a tag
-
-
-    /**
-    Returns all UTIs that are associated with a specified tag.
     
-    - Parameters:
-      - tag: The class of the specified tag.
-      - value: The value of the tag.
-      - conforming: If specified, the returned UTIs must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
-    - Returns:
-        An array of all UTIs that satisfy the specified parameters.
-    */
-
+    // MARK: List all UTIs associated with a tag
+    
+    
+    /**
+     Returns all UTIs that are associated with a specified tag.
+     
+     - Parameters:
+     - tag: The class of the specified tag.
+     - value: The value of the tag.
+     - conforming: If specified, the returned UTIs must conform to this UTI. If nil is specified, this parameter is ignored. The default is nil.
+     - Returns:
+     An array of all UTIs that satisfy the specified parameters.
+     */
+    
     public static func utis(for tag: TagClass, value: String, conformingTo conforming: UTI? = nil) -> Array<UTI> {
-
+        
         let unmanagedIdentifiers = UTTypeCreateAllIdentifiersForTag(tag.rawCFValue, value as CFString, conforming?.rawCFValue)
-
-
+        
+        
         guard let identifiers = unmanagedIdentifiers?.takeRetainedValue() as? Array<CFString> else {
             return []
         }
-
+        
         return identifiers.compactMap { UTI(rawValue: $0 as String) }
     }
-
-    // MARK: Equality and Conformance to other UTIs
-
-    /**
-
-    Checks if the receiver conforms to a specified UTI.
     
-    - Parameters:
-        - otherUTI: The UTI to which the receiver is compared.
-    - Returns:
-        ```true``` if the receiver conforms to the specified UTI, ```false```otherwise.
-    */
-
+    // MARK: Equality and Conformance to other UTIs
+    
+    /**
+     
+     Checks if the receiver conforms to a specified UTI.
+     
+     - Parameters:
+     - otherUTI: The UTI to which the receiver is compared.
+     - Returns:
+     ```true``` if the receiver conforms to the specified UTI, ```false```otherwise.
+     */
+    
     public func conforms(to otherUTI: UTI) -> Bool {
-
+        
         return UTTypeConformsTo(self.rawCFValue, otherUTI.rawCFValue) as Bool
     }
-
+    
     public static func ==(lhs: UTI, rhs: UTI) -> Bool {
-
+        
         return UTTypeEqual(lhs.rawCFValue, rhs.rawCFValue) as Bool
     }
-
+    
     // MARK: Accessing Information about an UTI
-
+    
     /// Returns the localized, user-readable type description string associated with a uniform type identifier.
     
     public var description: String? {
-
+        
         let unmanagedDescription = UTTypeCopyDescription(self.rawCFValue)
-
+        
         guard let description = unmanagedDescription?.takeRetainedValue() as String? else {
             return nil
         }
-
+        
         return description
     }
-
+    
     /// Returns a uniform type’s declaration as a Dictionary, or nil if if no declaration for that type can be found.
-
+    
     public var declaration: [AnyHashable:Any]? {
-
+        
         let unmanagedDeclaration = UTTypeCopyDeclaration(self.rawCFValue)
-
+        
         guard let declaration = unmanagedDeclaration?.takeRetainedValue() as? [AnyHashable:Any] else {
             return nil
         }
-
+        
         return declaration
     }
-
+    
     /// Returns the location of a bundle containing the declaration for a type, or nil if the bundle could not be located.
-
+    
     public var declaringBundleURL: URL? {
-
+        
         let unmanagedURL = UTTypeCopyDeclaringBundleURL(self.rawCFValue)
-
+        
         guard let url = unmanagedURL?.takeRetainedValue() as URL? else {
             return nil
         }
-
+        
         return url
     }
-
+    
     /// Returns ```true``` if the receiver is a dynamic UTI.
-
+    
     public var isDynamic: Bool {
-
+        
         return UTTypeIsDynamic(self.rawCFValue)
     }
 }
@@ -584,8 +713,8 @@ class UTI: RawRepresentable, Equatable {
 
 // MARK: System defined UTIs
 
- extension UTI {
-
+extension UTI {
+    
     static       let  item                        =    UTI(rawValue:  kUTTypeItem                        as  String)
     static       let  content                     =    UTI(rawValue:  kUTTypeContent                     as  String)
     static       let  compositeContent            =    UTI(rawValue:  kUTTypeCompositeContent            as  String)
@@ -723,26 +852,26 @@ class UTI: RawRepresentable, Equatable {
 
 #if os(OSX)
 
-    extension OSType {
-
-
-        /// Returns the OSType encoded as a String.
-
-        var string: String {
-
-            let unmanagedString = UTCreateStringForOSType(self)
-
-            return unmanagedString.takeRetainedValue() as String
-        }
-
-
-        /// Initializes a OSType from a String.
-        ///
-        /// - Parameter string: A String representing an OSType.
+extension OSType {
+    
+    
+    /// Returns the OSType encoded as a String.
+    
+    var string: String {
         
-        init(with string: String) {
-            
-            self = UTGetOSTypeFromString(string as CFString)
-        }
+        let unmanagedString = UTCreateStringForOSType(self)
+        
+        return unmanagedString.takeRetainedValue() as String
     }
+    
+    
+    /// Initializes a OSType from a String.
+    ///
+    /// - Parameter string: A String representing an OSType.
+    
+    init(with string: String) {
+        
+        self = UTGetOSTypeFromString(string as CFString)
+    }
+}
 #endif

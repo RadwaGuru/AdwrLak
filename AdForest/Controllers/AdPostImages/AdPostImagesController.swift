@@ -538,7 +538,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                        imagePicker.navigationBar.tintColor = UIColor.white
                                        imagePicker.maximumSelectionsAllowed = self.maximumImagesAllowed
                                         print(self.maximumImagesAllowed)
-                                       imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
+                                    imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
+                                        //Set([PHAssetMediaType.image])
                                        // maximum message
                                        let configuration = OpalImagePickerConfiguration()
                                        configuration.maximumSelectionsAllowedMessage = NSLocalizedString((objData?.data.images.message)!, comment: "")

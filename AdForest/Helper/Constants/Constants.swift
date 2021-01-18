@@ -75,6 +75,7 @@ class Constants {
         static let offerOnAds = "message/inbox"
         static let getSentOfferChatMessages = "message/chat"
         static let sendmessage = "message/chat"
+        static let messageAttachment = "message/chat_media"
         static let offerOnAdsDetail = "message/offers"
         static let adDetailPopUpMsg = "message/popup"
         
