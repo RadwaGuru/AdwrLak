@@ -558,10 +558,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let objData = dataArray[indexPath.row]
         if objData.type == "reply" {
             let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-            
+            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+
             if userBlocked == true{
                 cell.isHidden = true
             }
@@ -572,31 +574,37 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                cell.imgprofileUserAttachment.isHidden = true
 //                cell.containerViewDocsAttachments.isHidden  = true
 //                cell.imgUserProfileDocs.isHidden = true
-                if let imgUrl = URL(string: "https://picsum.photos/id/237/200/300") {
-                    self.imageUrlnew = imgUrl
-                    cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
-                    cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
-                    cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
-//                    self.tableView.reloadData()
-                    
-
-                }
-                cell.btnFullAction = { () in
-//                    let imageView = sender.view as! UIImageView
-                     
-                   
-                        let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
-                        newImageView.frame = UIScreen.main.bounds
-                        newImageView.backgroundColor = .black
-                        newImageView.contentMode = .scaleAspectFit
-                        newImageView.isUserInteractionEnabled = true
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
-                        newImageView.addGestureRecognizer(tap)
-                        self.view.addSubview(newImageView)
-                        self.navigationController?.isNavigationBarHidden = true
-                        self.tabBarController?.tabBar.isHidden = true
-
-                }
+                //"https://picsum.photos/id/237/200/300"'
+//                if objData.imgAttachment != nil{
+//                    if let imgUrl = URL(string: objData.imgAttachment) {
+//                        self.imageUrlnew = imgUrl
+//                        cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
+//                        cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
+//                        cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
+//    //                    self.tableView.reloadData()
+//
+//
+//                    }
+//                }
+                print(objData.chatImages)
+                cell.chatImgs = objData.chatImages
+                cell.collageView.reload()
+//                cell.btnFullAction = { () in
+////                    let imageView = sender.view as! UIImageView
+//
+//
+//                        let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
+//                        newImageView.frame = UIScreen.main.bounds
+//                        newImageView.backgroundColor = .black
+//                        newImageView.contentMode = .scaleAspectFit
+//                        newImageView.isUserInteractionEnabled = true
+//                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
+//                        newImageView.addGestureRecognizer(tap)
+//                        self.view.addSubview(newImageView)
+//                        self.navigationController?.isNavigationBarHidden = true
+//                        self.tabBarController?.tabBar.isHidden = true
+//
+//                }
                 let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
                     //"http://www.africau.edu/images/default/sample.pdf"
 //                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
@@ -657,7 +665,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else {
             
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-            
+            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+
             if userBlocked == true{
                 cell.isHidden = true
             }
@@ -676,28 +685,28 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 
             }
-            if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
-                cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
-                cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
-                cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
-//                    self.tableView.reloadData()
-
-            }
-            cell.btnFullReceiverAction = { () in
-//                    let imageView = sender.view as! UIImageView
-                 
-              
-                    let newImageView = UIImageView(image: cell.imgReceiverAttachment.image)
-                    newImageView.frame = UIScreen.main.bounds
-                    newImageView.backgroundColor = .black
-                    newImageView.contentMode = .scaleAspectFit
-                    newImageView.isUserInteractionEnabled = true
-                let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
-                    newImageView.addGestureRecognizer(tap)
-                    self.view.addSubview(newImageView)
-                    self.navigationController?.isNavigationBarHidden = true
-                    self.tabBarController?.tabBar.isHidden = true
-            }
+//            if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
+//                cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
+//                cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
+//                cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
+////                    self.tableView.reloadData()
+//
+//            }
+//            cell.btnFullReceiverAction = { () in
+////                    let imageView = sender.view as! UIImageView
+//
+//
+//                    let newImageView = UIImageView(image: cell.imgReceiverAttachment.image)
+//                    newImageView.frame = UIScreen.main.bounds
+//                    newImageView.backgroundColor = .black
+//                    newImageView.contentMode = .scaleAspectFit
+//                    newImageView.isUserInteractionEnabled = true
+//                let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
+//                    newImageView.addGestureRecognizer(tap)
+//                    self.view.addSubview(newImageView)
+//                    self.navigationController?.isNavigationBarHidden = true
+//                    self.tabBarController?.tabBar.isHidden = true
+//            }
             if UserDefaults.standard.bool(forKey: "isRtl") {
                 if let message = objData.text {
                     let image = UIImage(named: "bubble_sent")
@@ -837,6 +846,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.isBlocked = String(successResponse.data.isBlock)
                 print(self.isBlocked)
                 self.btn_text = successResponse.data.btnText
+                
                 self.dataArray = self.reverseArray.reversed()
                 self.adForest_populateData()
                 self.tableView.reloadData()
@@ -1053,16 +1063,53 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 }
 
-
-class SenderCell: UITableViewCell {
+import CollageView
+import NVActivityIndicatorView
+import Alamofire
+class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVActivityIndicatorViewable{
+    var chatImgs : [String] = []
+    fileprivate let images = [#imageLiteral(resourceName: "usa"), #imageLiteral(resourceName: "chat-2"), #imageLiteral(resourceName: "twitter"), #imageLiteral(resourceName: "googleSocial"),#imageLiteral(resourceName: "heart")]
+                              //#imageLiteral(resourceName: "mirror"), #imageLiteral(resourceName: "amsterdam"), #imageLiteral(resourceName: "istanbul"), #imageLiteral(resourceName: "camera"), #imageLiteral(resourceName: "istanbul2"), #imageLiteral(resourceName: "mirror")];
     
+    fileprivate var shownImagesCount = 4
+    
+    fileprivate var moreImagesCount: Int {
+        get {
+            return images.count - shownImagesCount
+        }
+    }
+    var layoutDirection: CollageViewLayoutDirection = .horizontal
+    var layoutNumberOfColomn: Int = 2
+
+//    fileprivate lazy var reOrderButton: UIBarButtonItem = {
+//        let button = UIBarButtonItem(title: "ReOrder", style: .plain, target: self, action: #selector(self.reOrderButtonTapped(sender: )))
+//        return button
+//    }()
+    
+
+    @IBOutlet weak var collageView: CollageView!{
+        didSet{
+            collageView.delegate    = self
+            collageView.dataSource  = self
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+//
+//
+//                collageView.layer.borderWidth = 3
+//                collageView.layer.cornerRadius = 5
+//                collageView.layer.borderColor = UIColor.white.cgColor
+//                    //Constants.hexStringToUIColor(hex: mainColor).cgColor
+//            }
+
+        }
+    }
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var viewBg: UIView!
     let label =  UILabel()
-    var btnFullAction: (()->())?
+//    var btnFullAction: (()->())?
     var btnDownloadDocsAction: (()->())?
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     @IBOutlet weak var btnDownloadDocs: UIButton!
     @IBOutlet weak var imgDownloadDocs: UIImageView!
@@ -1072,9 +1119,10 @@ class SenderCell: UITableViewCell {
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
             
 
-                containerViewDocsAttachments.layer.borderWidth = 3
-                containerViewDocsAttachments.layer.cornerRadius = 3
-                containerViewDocsAttachments.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+                containerViewDocsAttachments.layer.borderWidth = 1
+                containerViewDocsAttachments.layer.cornerRadius = 10
+                containerViewDocsAttachments.backgroundColor = UIColor.white
+                containerViewDocsAttachments.layer.borderColor = UIColor.white.cgColor
             }
         }
     }
@@ -1101,14 +1149,22 @@ class SenderCell: UITableViewCell {
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
             
 
-            containerViewImg.layer.borderWidth = 3
-            containerViewImg.layer.cornerRadius = 3
-                containerViewImg.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+            containerViewImg.layer.borderWidth = 1
+            containerViewImg.layer.cornerRadius = 10
+                containerViewImg.backgroundColor = UIColor.white
+                containerViewImg.layer.borderColor = UIColor.white.cgColor
+//                containerViewImg.addShadow()
+                ///Constants.hexStringToUIColor(hex: mainColor).cgColor
             }
         }
     }
-    @IBOutlet weak var chatAttachmentImage: UIImageView!
-    @IBOutlet weak var btnOpenImage: UIButton!
+//    @IBOutlet weak var chatAttachmentImage: UIImageView!
+//    @IBOutlet weak var btnOpenImage: UIButton!
+    
+//    override func loadView() {
+//        super.loadView()
+//        navigationItem.rightBarButtonItem = reOrderButton
+//    }
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -1116,25 +1172,240 @@ class SenderCell: UITableViewCell {
         self.txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         //self.imgPicture.layer.cornerRadius = 15
         self.imgPicture.clipsToBounds = true
+        
         //imgPicture.backgroundColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)
         
         //showIncomingMessage()
     }
     //MARK:-Actions
-    @IBAction func OpenImageAction(_ sender: Any) {
-        print("OpenImage")
-        self.btnFullAction?()
-    }
+//    @IBAction func OpenImageAction(_ sender: Any) {
+//        print("OpenImage")
+//        self.btnFullAction?()
+//    }
     
     @IBAction func BtnDownloadDocsAction(_ sender: Any) {
         print("Download Docs")
         self.btnDownloadDocsAction?()
     }
+    // MARK: Button Actions
     
-}
+    @objc private func reOrderButtonTapped(sender: UIBarButtonItem) {
+        
+        sender.tag += 1
+        if sender.tag%2 == 0 {
+            layoutDirection = .horizontal
+            layoutNumberOfColomn = 3
+        } else {
+            layoutDirection = .vertical
+            layoutNumberOfColomn = 2
+        }
+        collageView.reload()
+    }
+    func notifyUser(message: String) -> Void {
+        
+        let alert = UIAlertController(title: nil,
+                                      message: message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",
+                                         style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+    
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+    }
+    
+    func collageView(_ collageView: CollageView, configure itemView: CollageItemView, at index: Int) {
+        
+        // MAGIC is in this code block
+        // You can prepare your item here also,
+        // You can fetch Images from Remote here!,
+        // Customize UI for item, and etc..
+        itemView.contentMode = .scaleAspectFit
+//        if chatImgs.count != 0 {
+//        let isIndexValid = chatImgs.indices.contains(index)
+//                if isIndexValid {
+//        if let imgUrl = URL(string:(chatImgs[index])) {
+//            itemView.sd_setShowActivityIndicatorView(true)
+//            itemView.sd_setIndicatorStyle(.gray)
+//
+//            do {
+//                let url = URL(string: chatImgs[index])
+//                print(url)
+//                                //"https://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
+//                let data = try Data(contentsOf: url!)
+//                itemView.image = UIImage(data: data)
+//            }
+//
+//            catch{
+//                print(error)
+//            }
 
-class ReceiverCell: UITableViewCell {
+//        if let boo = chatImgs[safe: index]{
+//
+//            do{
+//                itemView.image = UIImage(contentsOfFile: boo)
+//            }
+//            catch{
+//                print("asassa")
+//
+//            }
+//
+//        }
+//        if let boo = chatImgs[safe: index]{
+//            itemView.image = UIImage(contentsOfFile: boo)
+//        }
+//        else{
+//            itemView.image = images[index]
+//
+//
+//        }
+
+//        if chatImgs[index].isEmpty {
+//            print("empty\(index)")
+//        }
+//        else{
+//            itemView.image = UIImage(contentsOfFile: chatImgs[index])
+//        }
+        //images[index]
+        //UIImage(contentsOfFile: imgUrl.absoluteString)
+                                        //chatImgs[index])
+                
+                            //images[index]
+
+//            UIImageView(itemView.sd_setImage(with: imgUrl, completed: nil))
+//                    self.tableView.reloadData()
+            
+
+//        }
+        
+            itemView.image = images[index]
+        
+                //UIImage(contentsOfFile: chatImgs[index])
+            
+//        }
+            //images[index]
+        itemView.layer.borderWidth = 3
+      
+        if index == shownImagesCount - 1 {
+            addBlackViewAndLabel(to: itemView)
+        }
+    }
+    func collageViewNumberOfTotalItem(_ collageView: CollageView) -> Int {
+        
+        return shownImagesCount
+    }
     
+    func collageViewNumberOfRowOrColoumn(_ collageView: CollageView) -> Int {
+        
+        return layoutNumberOfColomn
+    }
+    
+    func collageViewLayoutDirection(_ collageView: CollageView) -> CollageViewLayoutDirection {
+        
+        return layoutDirection
+    }
+    
+    // Helpers
+    private func addBlackViewAndLabel(to view:UIView) {
+        
+        let blackView = UIView()
+        blackView.backgroundColor = .black
+        blackView.alpha = 0.4
+        view.addSubview(blackView)
+        
+        addConstraints(to: blackView, parentView: view)
+        
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "+\(moreImagesCount)"
+        view.addSubview(label)
+        
+        addConstraints(to: label, parentView: view)
+    }
+    
+    private func addConstraints(to view:UIView, parentView:UIView) {
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let horConstraint = NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal,
+                                               toItem: parentView, attribute: .centerX,
+                                               multiplier: 1.0, constant: 0.0)
+        let verConstraint = NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal,
+                                               toItem: parentView, attribute: .centerY,
+                                               multiplier: 1.0, constant: 0.0)
+        let widConstraint = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal,
+                                               toItem: parentView, attribute: .width,
+                                               multiplier: 1, constant: 0.0)
+        let heiConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal,
+                                               toItem: parentView, attribute: .height,
+                                               multiplier: 1, constant: 0.0)
+        
+        parentView.addConstraints([horConstraint, verConstraint, widConstraint, heiConstraint])
+    }
+    func collageView(_ collageView: CollageView, didSelect itemView: CollageItemView, at index: Int) {
+        
+        let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
+        print(itemView.image)
+//        let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
+
+        let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
+        print(chatImgs)
+//        categoryVC.imageAttachment = chatImgs
+            //UIImage(contentsOfFile: chatImgs[index])
+            //UIImage(chatImgs)
+            //images
+//        categoryVC
+//        cell.dataArray = catLocationsArray
+//
+//        categoryVC.modalPresentationStyle = .fullScreen
+        UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
+
+
+//        notifyUser(message: message)
+    }
+}
+import CollageView
+class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
+//    var chatImgs : [String] = []
+    fileprivate let images = [#imageLiteral(resourceName: "usa"), #imageLiteral(resourceName: "chat-2"), #imageLiteral(resourceName: "twitter"), #imageLiteral(resourceName: "googleSocial"),#imageLiteral(resourceName: "heart")]
+                              //#imageLiteral(resourceName: "mirror"), #imageLiteral(resourceName: "amsterdam"), #imageLiteral(resourceName: "istanbul"), #imageLiteral(resourceName: "camera"), #imageLiteral(resourceName: "istanbul2"), #imageLiteral(resourceName: "mirror")];
+    
+    fileprivate var shownImagesCount = 4
+    
+    fileprivate var moreImagesCount: Int {
+        get {
+            return images.count - shownImagesCount
+        }
+    }
+    var layoutDirection: CollageViewLayoutDirection = .horizontal
+    var layoutNumberOfColomn: Int = 2
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+//    fileprivate lazy var reOrderButton: UIBarButtonItem = {
+//        let button = UIBarButtonItem(title: "ReOrder", style: .plain, target: self, action: #selector(self.reOrderButtonTapped(sender: )))
+//        return button
+//    }()
+    
+
+
+    
+    @IBOutlet weak var collageViewReceiverImages: CollageView!{
+        didSet{
+            collageViewReceiverImages.delegate    = self
+            collageViewReceiverImages.dataSource  = self
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
+//
+//
+//                collageViewReceiverImages.layer.borderWidth = 3
+//                collageViewReceiverImages.layer.cornerRadius = 3
+//                collageViewReceiverImages.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+//            }
+
+        }
+    }
     @IBOutlet weak var lblFileName: UILabel!
     @IBOutlet weak var imgProfileDocumentReceiver: UIImageView!{
         didSet{
@@ -1160,19 +1431,20 @@ class ReceiverCell: UITableViewCell {
             imgProfileReceiverAttachment.round()
         }
     }
-    @IBOutlet weak var btnOpenreceiverAttachment: UIButton!
-    @IBOutlet weak var imgReceiverAttachment: UIImageView!
+//    @IBOutlet weak var btnOpenreceiverAttachment: UIButton!
+//    @IBOutlet weak var imgReceiverAttachment: UIImageView!
     @IBOutlet weak var containerReceiverAttachment: UIView!{
         didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
           
-            containerReceiverAttachment.layer.borderWidth = 3
-            containerReceiverAttachment.layer.cornerRadius = 3
-                containerReceiverAttachment.layer.borderColor = Constants.hexStringToUIColor(hex: mainColor).cgColor
+            containerReceiverAttachment.layer.borderWidth = 1
+            containerReceiverAttachment.layer.cornerRadius = 10
+                containerReceiverAttachment.layer.borderColor = UIColor.white.cgColor
+                    //Constants.hexStringToUIColor(hex: mainColor).cgColor
             }
         }
     }
-    var btnFullReceiverAction: (()->())?
+//    var btnFullReceiver Action: (()->())?
     var btnDownloadAttachmentReceiverAction: (()->())?
 
     override func awakeFromNib() {
@@ -1183,9 +1455,9 @@ class ReceiverCell: UITableViewCell {
         self.imgBackground.clipsToBounds = true
     }
     //MARK:- @IBAction
-    @IBAction func ActionOpenReceiverAttachment(_ sender: Any) {
-        self.btnFullReceiverAction?()
-    }
+//    @IBAction func ActionOpenReceiverAttachment(_ sender: Any) {
+//        self.btnFullReceiverAction?()
+//    }
     
     
     @IBAction func actionDocumentDownlaodReceiverCell(_ sender: Any) {
@@ -1193,6 +1465,183 @@ class ReceiverCell: UITableViewCell {
 
     }
     
+//    @objc private func reOrderButtonTapped(sender: UIBarButtonItem) {
+//
+//        sender.tag += 1
+//        if sender.tag%2 == 0 {
+//            layoutDirection = .horizontal
+//            layoutNumberOfColomn = 3
+//        } else {
+//            layoutDirection = .vertical
+//            layoutNumberOfColomn = 2
+//        }
+//        collageView.reload()
+//    }
+    func notifyUser(message: String) -> Void {
+        
+        let alert = UIAlertController(title: nil,
+                                      message: message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",
+                                         style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+    
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+    }
+    
+    func collageView(_ collageView: CollageView, configure itemView: CollageItemView, at index: Int) {
+        
+        // MAGIC is in this code block
+        // You can prepare your item here also,
+        // You can fetch Images from Remote here!,
+        // Customize UI for item, and etc..
+        itemView.contentMode = .scaleAspectFit
+//        if chatImgs.count != 0 {
+//        let isIndexValid = chatImgs.indices.contains(index)
+//                if isIndexValid {
+//        if let imgUrl = URL(string:(chatImgs[index])) {
+//            itemView.sd_setShowActivityIndicatorView(true)
+//            itemView.sd_setIndicatorStyle(.gray)
+//
+//            do {
+//                let url = URL(string: chatImgs[index])
+//                print(url)
+//                                //"https://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
+//                let data = try Data(contentsOf: url!)
+//                itemView.image = UIImage(data: data)
+//            }
+//
+//            catch{
+//                print(error)
+//            }
+
+//        if let boo = chatImgs[safe: index]{
+//
+//            do{
+//                itemView.image = UIImage(contentsOfFile: boo)
+//            }
+//            catch{
+//                print("asassa")
+//
+//            }
+//
+//        }
+//        if let boo = chatImgs[safe: index]{
+//            itemView.image = UIImage(contentsOfFile: boo)
+//        }
+//        else{
+//            itemView.image = images[index]
+//
+//
+//        }
+
+//        if chatImgs[index].isEmpty {
+//            print("empty\(index)")
+//        }
+//        else{
+//            itemView.image = UIImage(contentsOfFile: chatImgs[index])
+//        }
+        //images[index]
+        //UIImage(contentsOfFile: imgUrl.absoluteString)
+                                        //chatImgs[index])
+                
+                            //images[index]
+
+//            UIImageView(itemView.sd_setImage(with: imgUrl, completed: nil))
+//                    self.tableView.reloadData()
+            
+
+//        }
+        
+            itemView.image = images[index]
+        
+                //UIImage(contentsOfFile: chatImgs[index])
+            
+//        }
+            //images[index]
+        itemView.layer.borderWidth = 3
+      
+        if index == shownImagesCount - 1 {
+            addBlackViewAndLabel(to: itemView)
+        }
+    }
+    func collageViewNumberOfTotalItem(_ collageView: CollageView) -> Int {
+        
+        return shownImagesCount
+    }
+    
+    func collageViewNumberOfRowOrColoumn(_ collageView: CollageView) -> Int {
+        
+        return layoutNumberOfColomn
+    }
+    
+    func collageViewLayoutDirection(_ collageView: CollageView) -> CollageViewLayoutDirection {
+        
+        return layoutDirection
+    }
+    
+    // Helpers
+    private func addBlackViewAndLabel(to view:UIView) {
+        
+        let blackView = UIView()
+        blackView.backgroundColor = .black
+        blackView.alpha = 0.4
+        view.addSubview(blackView)
+        
+        addConstraints(to: blackView, parentView: view)
+        
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "+\(moreImagesCount)"
+        view.addSubview(label)
+        
+        addConstraints(to: label, parentView: view)
+    }
+    
+    private func addConstraints(to view:UIView, parentView:UIView) {
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let horConstraint = NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal,
+                                               toItem: parentView, attribute: .centerX,
+                                               multiplier: 1.0, constant: 0.0)
+        let verConstraint = NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal,
+                                               toItem: parentView, attribute: .centerY,
+                                               multiplier: 1.0, constant: 0.0)
+        let widConstraint = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal,
+                                               toItem: parentView, attribute: .width,
+                                               multiplier: 1, constant: 0.0)
+        let heiConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal,
+                                               toItem: parentView, attribute: .height,
+                                               multiplier: 1, constant: 0.0)
+        
+        parentView.addConstraints([horConstraint, verConstraint, widConstraint, heiConstraint])
+    }
+    func collageView(_ collageView: CollageView, didSelect itemView: CollageItemView, at index: Int) {
+        
+        let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
+        print(itemView.image)
+//        let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
+
+        let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
+//        print(chatImgs)
+//        categoryVC.imageAttachment = images
+            //UIImage(contentsOfFile: chatImgs[index])
+            //UIImage(chatImgs)
+            //images
+//        categoryVC
+//        cell.dataArray = catLocationsArray
+//
+//        categoryVC.modalPresentationStyle = .fullScreen
+        UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
+
+
+//        notifyUser(message: message)
+    }
 }
 
 public extension UIColor {
@@ -1292,5 +1741,16 @@ extension URL {
     }
     var localizedName: String? {
         return (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName
+    }
+}
+extension Collection {
+    
+    subscript(optional i: Index) -> Iterator.Element? {
+        return self.indices.contains(i) ? self[i] : "" as! Self.Element
+    }
+}
+extension Collection where Indices.Iterator.Element == Index {
+    subscript (safe index: Index) -> Iterator.Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }

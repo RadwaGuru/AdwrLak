@@ -11,6 +11,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.3.0)
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
+  - CollageView (1.0.4)
   - Cosmos (13.0.0)
   - DeviceKit (1.4.0)
   - DropDown (2.0.2)
@@ -174,6 +175,7 @@ PODS:
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
+  - SKPhotoBrowser (6.1.0)
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (4.0.1)
   - SOTabBar (1.1.3)
@@ -191,6 +193,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0
   - Alamofire
   - Alamofire-SwiftyJSON
+  - CollageView (~> 1.0.4)
   - Cosmos
   - DeviceKit
   - DropDown
@@ -221,6 +224,7 @@ DEPENDENCIES:
   - Popover
   - RangeSeekSlider
   - SDWebImage
+  - SKPhotoBrowser
   - SlideMenuControllerSwift
   - SOTabBar
   - SwiftCheckboxDialog
@@ -239,6 +243,7 @@ SPEC REPOS:
     - Alamofire-SwiftyJSON
     - AlamofireImage
     - AppAuth
+    - CollageView
     - Cosmos
     - DeviceKit
     - DropDown
@@ -286,6 +291,7 @@ SPEC REPOS:
     - Protobuf
     - RangeSeekSlider
     - SDWebImage
+    - SKPhotoBrowser
     - SlideMenuControllerSwift
     - SnapKit
     - SOTabBar
@@ -305,6 +311,7 @@ SPEC CHECKSUMS:
   Alamofire-SwiftyJSON: 2b3649d57dc7bb2880fb8b86f8bb969397666916
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
+  CollageView: a3a95a1ff964562c71ab0f6d2b3f438abdb24d16
   Cosmos: af3973becc045af335b64498c9812034876b7661
   DeviceKit: fa74d97499660e88081718b16688e19217595dba
   DropDown: 75562633a203f57a917021b4edb96c76f293b0ec
@@ -352,6 +359,7 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   RangeSeekSlider: 0386c5a9aa5ebcb2fa5238e8a627280cf46c7c0a
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
+  SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
@@ -365,6 +373,6 @@ SPEC CHECKSUMS:
   YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
   ZGTooltipView: 729e358044530a05be00c8c1e1092e81db491996
 
-PODFILE CHECKSUM: fe0fd498379ba08d59e990df438ac30741ebdb4d
+PODFILE CHECKSUM: 2f76605446c02a124b14f170475006e15700a83b
 
 COCOAPODS: 1.9.3

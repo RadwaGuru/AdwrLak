@@ -373,11 +373,13 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
                 self.maximumPage = successResponse.pagination.maxNumPages
                 
                 //set drop down data
-                self.orderName = successResponse.topbar.sortArrKey.value
-                self.orderArray = []
-                for order in successResponse.topbar.sortArr {
-                    self.orderKeysArray.append(order.key)
-                    self.orderArray.append(order.value)
+                if successResponse.topbar.sortArrKey != nil {
+                    self.orderName = successResponse.topbar.sortArrKey.value
+                    self.orderArray = []
+                    for order in successResponse.topbar.sortArr {
+                        self.orderKeysArray.append(order.key)
+                        self.orderArray.append(order.value)
+                    }
                 }
                 AddsHandler.sharedInstance.objCategory = successResponse
                 AddsHandler.sharedInstance.isShowFeatureOnCategory = successResponse.extra.isShowFeatured

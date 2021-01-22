@@ -168,9 +168,13 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     @IBAction func ActionAttachment(_ sender: Any) {
         print("ActionAttachment")
         let options = [kUTTypePDF as String, kUTTypeZipArchive  as String, kUTTypePNG as String, kUTTypeJPEG as String, kUTTypeText  as String, kUTTypePlainText as String]
+//        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.apple.iwork.pages.pages", "com.apple.iwork.numbers.numbers", "com.apple.iwork.keynote.key","public.image", "com.apple.application", "public.item","public.data", "public.content", "public.audiovisual-content", "public.movie", "public.audiovisual-content", "public.video", "public.audio", "public.text", "public.data", "public.zip-archive", "com.pkware.zip-archive", "public.composite-content", "public.text"], in: .import)
+
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: options, in: .import)
         documentPicker.delegate = self
         documentPicker.view.tintColor = UIColor(hex:mainColor!)
+        documentPicker.allowsMultipleSelection = true
+        
         //.orange
         documentPicker.view.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
         UINavigationBar.appearance().isTranslucent = false
@@ -186,14 +190,25 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     
     //MARK:- Delegates For UIDocumentPicker
-    
+    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: CIContext) {
+            uiViewController.allowsMultipleSelection = true
+        }
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         self.saveFileToDocumentDirectory(document: url)
-        print("Library document \(String(describing: url))")
+        print("Library document \(String(describing: url.standardizedFileURL))")
         
     }
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+//        guard let myURL = urls.first else {
+//            return
+//        }
+        print("import result : \(urls)")
+
+    }
+          
     public func documentMenu(_ documentMenu:UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         documentPicker.delegate = self
+//        documentPicker.allowsMultipleSelection = true
         present(documentPicker, animated: true, completion: nil)
     }
     
