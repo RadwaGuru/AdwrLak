@@ -14,7 +14,7 @@ import MapKit
 
 
 protocol SearchAutoDelegate {
-    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String)
+    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String,lat: Double, long: Double,NearByLong: String,nearByLat:String)
 }
 
 class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextViewDelegate,CLLocationManagerDelegate,latLongitudePro {
@@ -37,8 +37,11 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     var delegate : SearchAutoDelegate?
     var index = 0
     var fieldTypeNam = "ad_location"
+    var nearBYLat = "nearby_latitude"
+    var nearByLong = "nearby_longitude"
 //    var latitude = ""
 //    var longitude = ""
+    
     var latitude : Double!
     var longitude : Double!
     var fullAddress = ""
@@ -55,7 +58,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         } else {
             txtAutoComplete.textAlignment = .left
         }
-//        self.currentUserlocationManager()
+        //self.currentUserlocationManager()
         
     }
     
@@ -83,9 +86,10 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     // Google Places Delegate Methods
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place Name : \(place.name)")
+       
         print("Place Address : \(place.formattedAddress ?? "null")")
         txtAutoComplete.text = place.formattedAddress
-        self.delegate?.searchAutoValue(searchAuto:txtAutoComplete.text! , fieldType: "glocation_textfield", indexPath: index,fieldTypeName:fieldTypeNam)
+        self.delegate?.searchAutoValue(searchAuto:txtAutoComplete.text! , fieldType: "glocation_textfield", indexPath: index,fieldTypeName:fieldTypeNam,lat:  place.coordinate.latitude,long: place.coordinate.longitude,NearByLong: self.nearByLong,nearByLat: self.nearBYLat)
         self.appDel.dissmissController()
     }
     
@@ -165,7 +169,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
                     print(addressString)
                     self.fullAddress = addressString
                     self.txtAutoComplete.text = addressString
-                    self.delegate?.searchAutoValue(searchAuto:addressString , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam)
+                    self.delegate?.searchAutoValue(searchAuto:addressString , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam,lat: center.latitude,long: center.longitude,NearByLong:self.nearByLong,nearByLat: self.nearBYLat)
                     
                 }
         })
@@ -182,7 +186,7 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
     func latLong(lat: String, long: String,place:String) {
         print(place)
         self.txtAutoComplete.text = place
-        self.delegate?.searchAutoValue(searchAuto:place , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam)
+        self.delegate?.searchAutoValue(searchAuto:place , fieldType: "glocation_textfield", indexPath: self.index,fieldTypeName:self.fieldTypeNam,lat:Double(lat)!,long: Double(long)!,NearByLong:self.nearByLong,nearByLat: self.nearBYLat)
     }
 
 

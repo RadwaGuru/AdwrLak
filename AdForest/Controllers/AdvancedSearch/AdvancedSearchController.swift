@@ -44,7 +44,9 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     
     var searchTitle = ""
     var param: [String: Any] = [:]
-    
+    var latitude  = 0
+    var longitude = 0
+
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -182,15 +184,30 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 }
                 if newArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
                     addInfoDictionary[value.fieldTypeName] = value.fieldVal
+
+                    addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
+
                     //customDictionary[value.fieldTypeName] = value.fieldVal // NEW
                     print(addInfoDictionary)
                 } else {
                     customDictionary[value.fieldTypeName] = value.fieldVal
                     addInfoDictionary[value.fieldTypeName] = value.fieldVal // NEW
+                    //Nawa
+                    addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
+                    
+                    customDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    customDictionary.updateValue(longitude, forKey: "nearby_longitude")
+///Nawa
                     print(customDictionary)
                 }
             }
-            
+//        parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
+        //,longitude,"nearby_longitude",latitude]
+//        param = ["nearby_latitude" : latitude ]
+//        param = ["nearby_longitude" : longitude ]
+
             let custom = Constants.json(from: customDictionary)
             param = ["custom_fields": custom ?? ""]
             param.merge(with: addInfoDictionary)
@@ -406,6 +423,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 if let fieldValue = objData.fieldVal {
                     cell.txtAutoComplete.text = fieldValue
                 }
+                
                 cell.fieldName = objData.fieldTypeName
                 cell.delegate = self
                 
@@ -853,7 +871,7 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
         }
     }
     
-    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String) {
+    func searchAutoValue(searchAuto: String, fieldType: String, indexPath: Int,fieldTypeName:String,lat:Double,long:Double,NearByLong: String,nearByLat:String) {
         if fieldType == "glocation_textfield" {
           //print("Index Path Selected \(indexPath,searchAuto,fieldType)")
             var obj = SearchData()
@@ -861,6 +879,21 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
             obj.fieldVal = searchAuto
             dataArray[indexPath].fieldVal = searchAuto
             obj.fieldTypeName = fieldTypeName //"glocation_textfield"
+            latitude  = Int(lat)
+            longitude  = Int(long)
+            print("assaassasa kasayyyyy:\(latitude):\(longitude)")
+//            obj.latitude = lat
+//            obj.longitude = long
+//            obj.nearByLatitude = nearByLat
+//            obj.nearByLongitude = NearByLong
+
+//            var availabilitiesDict = [String: Any]()
+//            availabilitiesDict["availabilities"] = [["availabilites_start_time" : "6:00", "availabilites_end_time": "10:00", "availabilites_dayofweek" : "1.", "availabilites_shift" : "Morning"]]
+//
+//            let jsonData = try? JSONSerialization.data(withJSONObject: availabilitiesDict, options: [])
+//            let jsonString = String(data: jsonData!, encoding: .utf8)!
+//            print(jsonString)
+//            let param: [String: Any] = ["nearby_latitude": lat, "nearby_longitude": long, "nearby_distance": searchDistance]
             self.data.append(obj)
         }
     }
