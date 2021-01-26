@@ -591,8 +591,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                print(objData.chatImages)
                 cell.chatImgs = objData.chatImages
                 cell.collageView.reload()
-                cell.collectionView.reloadData()
-//                cell.btnFullAction = { () in
+            //                cell.btnFullAction = { () in
 ////                    let imageView = sender.view as! UIImageView
 //
 //
@@ -678,7 +677,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            cell.imgProfileReceiverAttachment.isHidden = true
 //
             cell.lblFileName.text = "fileName.pdf"
+            print(objData.chatImages)
             cell.chatImgs = objData.chatImages
+            cell.collageViewReceiverImages.reload()
             cell.btnDownloadAttachmentReceiverAction = { () in
                 let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
                     //"http://www.africau.edu/images/default/sample.pdf"
@@ -1075,19 +1076,8 @@ import SDWebImage
 protocol ChatImageDisplay {
     func goToNextController(chatImgs: [String])
 }
-class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVActivityIndicatorViewable,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate{
+class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVActivityIndicatorViewable{
    
-    
-    
-
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    {
-        didSet{
-            collectionView.delegate = self
-            collectionView.dataSource = self
-        }
-    }
     var chatImgs : [String] = []
     fileprivate let images = [#imageLiteral(resourceName: "usa"), #imageLiteral(resourceName: "chat-2"), #imageLiteral(resourceName: "twitter"), #imageLiteral(resourceName: "googleSocial"),#imageLiteral(resourceName: "heart")]
                               //#imageLiteral(resourceName: "mirror"), #imageLiteral(resourceName: "amsterdam"), #imageLiteral(resourceName: "istanbul"), #imageLiteral(resourceName: "camera"), #imageLiteral(resourceName: "istanbul2"), #imageLiteral(resourceName: "mirror")];
@@ -1096,7 +1086,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     
     fileprivate var moreImagesCount: Int {
         get {
-            return images.count - shownImagesCount
+            return chatImgs.count - shownImagesCount
         }
     }
     var layoutDirection: CollageViewLayoutDirection = .horizontal
@@ -1133,6 +1123,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     var btnDownloadDocsAction: (()->())?
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
+    @IBOutlet weak var attachmentContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnDownloadDocs: UIButton!
     @IBOutlet weak var imgDownloadDocs: UIImageView!
     @IBOutlet weak var lblFileName: UILabel!
@@ -1198,19 +1189,13 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
         self.txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         //self.imgPicture.layer.cornerRadius = 15
         self.imgPicture.clipsToBounds = true
-//        collageView.isHidden = true
-//
+        
+        //collageView.isHidden = true
 //        containerViewImg.isHidden = true
-        collectionView.isHidden = true
-        //imgPicture.backgroundColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)
-//        getPhoto()
-        //showIncomingMessage()
+//        imgprofileUserAttachment.isHidden = true
+//        imgUserProfileDocs.isHidden = true
     }
-    //MARK:-Actions
-//    @IBAction func OpenImageAction(_ sender: Any) {
-//        print("OpenImage")
-//        self.btnFullAction?()
-//    }
+   
     
     @IBAction func BtnDownloadDocsAction(_ sender: Any) {
         print("Download Docs")
@@ -1240,106 +1225,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
         }
     }
 
-    // MARK: - Table view data source
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(chatImgs.count)
-        return chatImgs.count
-    }
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 2
-//    }
-
-    // cell size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //        let multiplier: CGFloat = UIDevice.current.modelName == "iPhone 5" ? 0.1 : 0.08
-        //        let interSpacing = contentView.frame.width * multiplier
-        //        let cellWidth = (contentView.frame.width - interSpacing * 2) / 3
-        //        return .init(width: contentView.frame.width/2, height: cellWidth + 20)
-        let padding: CGFloat =  50
-        let collectionViewSize = collectionView.frame.size.width - padding
-
-        return CGSize(width: collectionViewSize/2, height: collectionViewSize/4)
-//        let leftAndRightPaddings: CGFloat = 45.0
-//                let numberOfItemsPerRow: CGFloat = 2.0
-//
-//                let width = (collectionView.frame.width-leftAndRightPaddings)/numberOfItemsPerRow
-//                return CGSize(width: width/2, height: width/2) // You can change width and height here as pr your requirement
-    }
-
-    // cell paddings
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-////        let leftRightPadding = contentView.frame.width * 0.05
-////        return .init(top: 2, left: leftRightPadding, bottom: 2, right: leftRightPadding)
-//        return UIEdgeInsetsMake(10, 0, 0, 10)
-//
-//    }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    // reuse cell
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollageCollectionViewCell", for: indexPath) as! CollageCollectionViewCell
-//        cell.updateCollectionViewCell(withUrl: photoStoreClass.storagePhoto[indexPath.row].urls.small)
-//        cell.photoImageView.image = Collimages[indexPath.row]
-        if let imgUrl = URL(string: chatImgs[indexPath.row]) {
-            cell.photoImageView.sd_setShowActivityIndicatorView(true)
-            cell.photoImageView.sd_setIndicatorStyle(.gray)
-            cell.photoImageView.sd_setImage(with: imgUrl, completed: nil)
-            
-        }
-        if indexPath.row == 3 {
-//            if chatImgs.count
-            if indexPath.row == shownImagesCount - 1 {
-                cell.photoImageCount.text = "+\(ImagesCount)"
-
-//                addBlackViewAndLabel(to: itemView)
-            }
-
-//            cell.photoImageCount.text = "4"
-//            cell.photoImageCount.backgroundColor = UIColor.white
-            cell.photoImageCount.textColor = UIColor.white
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = cell.photoImageView.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            blurEffectView.alpha = 0.3
-            cell.photoImageView.addSubview(blurEffectView)
-//            cell.photoImageCount.font = cell.photoImageCount.font.withSize(20)
-//
-//            cell.photoImageCount.isHidden = false
-        }
-        else{
-            cell.photoImageCount.isHidden = true
-        }
-//        cell.photoImageView.image = UIImage(contentsOfFile: chatImgs[indexPath.row])
-//        cell.delegate = self
-//        collectionView.reloadData()
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
-        print(chatImgs)
-        categoryVC.imageAttachment = chatImgs
-
-        UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
-    
-        
-    }
-    // pagination pages
-//     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        if indexPath.row == photoStoreClass.storagePhoto.count - 1 {
-//            receiveNewPage()
-//        }
-//    }
-    
-    
-    //
+  
     
     func notifyUser(message: String) -> Void {
         
@@ -1361,218 +1247,75 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
         // You can prepare your item here also,
         // You can fetch Images from Remote here!,
         // Customize UI for item, and etc..
-        itemView.contentMode = .scaleAspectFit
-//        if chatImgs.count != 0 {
-//        let isIndexValid = chatImgs.indices.contains(index)
-//                if isIndexValid {
-//        if let imgUrl = URL(string:(chatImgs[index])) {
-//            itemView.sd_setShowActivityIndicatorView(true)
-//            itemView.sd_setIndicatorStyle(.gray)
-//
-//            do {
-//                let url = URL(string: chatImgs[index])
-//                print(url)
-//                                //"https://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
-//                let data = try Data(contentsOf: url!)
-//                itemView.image = UIImage(data: data)
-//            }
-//
-//            catch{
-//                print(error)
-//            }
+        itemView.contentMode = .scaleAspectFill
 
-//        if let boo = chatImgs[safe: index]{
-//
-//            do{
-//                itemView.image = UIImage(contentsOfFile: boo)
-//            }
-//            catch{
-//                print("asassa")
-//
-//            }
-//
-//        }
-//        if let boo = chatImgs[safe: index]{
-//            itemView.image = UIImage(contentsOfFile: boo)
-//        }
-//        else{
-//            itemView.image = images[index]
-//
-//
-//        }
-
-//        if chatImgs[index].isEmpty {
-//            print("empty\(index)")
-//        }
-//        else{
-//            itemView.image = UIImage(contentsOfFile: chatImgs[index])
-//        }
-        //images[index]
-        //UIImage(contentsOfFile: imgUrl.absoluteString)
-                                        //chatImgs[index])
-                
-                            //images[index]
-
-//            UIImageView(itemView.sd_setImage(with: imgUrl, completed: nil))
-//                    self.tableView.reloadData()
-            
-
-//        }
-//        if let imgUrl = URL(string:(chatImgs[index])) {
-//            itemView.sd_setShowActivityIndicatorView(true)
-//            itemView.sd_setIndicatorStyle(.gray)
-//            itemView.image = UIImage(contentsOfFile:imgUrl)
-////            itemView.sd_setImage(with: imgUrl, completed: nil)
-//    }
-//        imageFromServerURL(urlString: "imageUrlString") { (image, error) in
-//
-//            itemView.image = image
-//        }
-
-//        for item in chatImgs{
-//            if item.contains(""){
-//                collageView.isHidden = true
-//                containerViewImg.isHidden = true
-//                print("empty")
-////                collageView.isHidden = false
-////                itemView.image = UIImage(contentsOfFile: chatImgs[index])
-//            }
-//            else{
-//                collageView.isHidden = false
-//                containerViewImg.isHidden = false
-//
-////                itemView.image = UIImage(contentsOfFile: item)
-//                do{
-//                    let url = URL(string: item)
-////                    print(url)
-//                    let data = try Data(contentsOf: url!)
-//                    itemView.image = UIImage(data: data)
-//                    //UIImage(contentsOfFile: chatImgs[index])
-//                    //            itemView.image = images[index]
-//                    //                collageView.isHidden = true
-//                    //                containerViewImg.isHidden = true
-//                    //                print("empty")
-//                }
-//
-//
-//                catch{
-//                    print(error)
-//                }
-//            }
-//
-//        }
-        let arr = chatImgs
-        let str1 = arr[optional: 1] // --> str1 is now Optional("bar")
-//        itemView.image = arr[optional: 1]
-    
-        if let str2 = arr[optional: 2] {
-            print(str2) // --> this still wouldn't run
-        } else {
-            print("No string found at that index") // --> this would be printed
-        }
-
-        //"http://i.imgur.com/w5rkSIj.jpg"
-//        if chatImgs.isEmpty {
-//            print("polo")
-//        }
-//        else{
-//            Alamofire.request(chatImgs[index]).responseImage { response in
-//                if let catPicture = response.result.value {
-//                    print("image downloaded: \(catPicture)")
-//                    itemView.image = catPicture
-//                }
-//            }
-//        }
-//        let catPictureURL = URL(string: "http://i.imgur.com/w5rkSIj.jpg")!
-//            //URL(string: chatImgs[safe:index] ?? " ")
-//        let emptyUrString  = URL(string: "")
-//        //"http://i.imgur.com/w5rkSIj.jpg")! // We can force unwrap because we are 100% certain the constructor will not return nil in this case.
-//
-//        // Creating a session object with the default configuration.
-//        // You can read more about it here https://developer.apple.com/reference/foundation/urlsessionconfiguration
-//        let session = URLSession(configuration: .default)
-//
-//        // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
-//        let downloadPicTask = session.dataTask(with: catPictureURL ) { (data, response, error) in
-//            // The download has finished.
-//            if let e = error {
-//                print("Error downloading cat picture: \(e)")
-//            } else {
-//                // No errors found.
-//                // It would be weird if we didn't have a response, so check for that too.
-//                if let res = response as? HTTPURLResponse {
-//                    print("Downloaded cat picture with response code \(res.statusCode)")
-//                    if let imageData = data {
-//                        // Finally convert that Data into an image and do what you wish with it.
-//                        let image = UIImage(data: imageData)
-//                        // Do something with your image.
-//                        itemView.image = image
-//                    } else {
-//                        print("Couldn't get image: Image is nil")
-//                    }
-//                } else {
-//                    print("Couldn't get response code for some reason")
-//                }
-//            }
-//        }
-//        downloadPicTask.resume()
-//        do{
-//            let url = URL(string: chatImgs[safe: index]!)
-////                    print(url)
-//            let data = try Data(contentsOf: url!)
-//            itemView.image = UIImage(data: data)
-//            //UIImage(contentsOfFile: chatImgs[index])
-//            //            itemView.image = images[index]
-//            //                collageView.isHidden = true
-//            //                containerViewImg.isHidden = true
-//            //                print("empty")
-//        }
-//
-//
-//        catch{
-//            print(error)
-//        }
-                ///images[index]
-        
-                //UIImage(contentsOfFile: chatImgs[index])
-            
-//        }
-            //images[index]
         itemView.layer.borderWidth = 3
         let array = chatImgs
             //["Apples", "Peaches", "Plums"]
-//apples!
         let isIndexValid = array.indices.contains(index)
         if isIndexValid {
-            print("shtaka")
-//            itemView.image = UIImage(contentsOfFile: array[index])
-            if let url = NSURL(string: array[index])
-                {
-                if let data = NSData(contentsOf: url as URL)
-                    {
-                    itemView.image = UIImage(data: data as Data)
-                    }
-                }
-
-//            itemView.image.imageFromUrl("https://robohash.org/123.png")
-
-//            itemView.image.
+            collageView.isHidden = false
+            containerViewImg.isHidden = false
+//            imgprofileUserAttachment.isHidden = false
             
+            if let url = NSURL(string: array[index]){
+//                if let data = NSData(contentsOf: url as URL)
+//                    {
+//                let imageView = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
+                
+//                itemView.image = UIImage(named: UIImage(image))
+//                var image = UIImageView()
+//                itemView.image = image
+//
+//                image.sd_setImage(with: url as URL, completed: nil)
+//                var bgImage: UIImageView?
+
+//                var image: UIImage = UIImage(named: "afternoon")!
+//                bgImage  = UIImageView(image: itemView.imageView)
+//                bgImage = UIImageView(image: image)
+                itemView.imageView.sd_setShowActivityIndicatorView(true)
+                itemView.imageView.sd_setIndicatorStyle(.gray)
+                itemView.imageView.sd_setImage(with: url as URL, completed: nil)
+                
+//                    itemView.image = UIImage(data: data as Data)
+//                        DispatchQueue.global().async {
+//                            if let data = try? Data( contentsOf:url as URL)
+//                          {
+//                            DispatchQueue.main.async {
+//                                itemView.image = UIImage( data:data)
+////                                imageView.image = itemView.image
+////                                imageView.backgroundColor = UIColor.red
+////                                imageView.contentMode = UIView.ContentMode.scaleAspectFit
+////                                self.contentView.addSubview(imageView)
+//
+//                            }
+//                          }
+//                       }
+                    
+//                    containerViewDocsAttachments.topAnchor.constraint(equalTo: collageView.bottomAnchor, constant: 8).isActive = true
+            
+                    
+//                    }
+                }
         }
         else{
-            print("Appel khaaa")
-        }
-//        if array.contains() {
-//            print("We've got empty string ")
-//        } else {
-//            print("No apples here – sorry!")
-//        }
-//                                itemView.image = images[index]
+//        attachmentContainerTopConstraint.constant -= 300
+//            self.containerViewDocsAttachments.translatesAutoresizingMaskIntoConstraints = false
+//            containerViewDocsAttachments.topAnchor.constraint(equalTo: imgPicture.bottomAnchor,constant: 8).isActive = true
 
+
+//            collageView.isHidden = true
+//            containerViewImg.isHidden = true
+//            imgprofileUserAttachment.isHidden = true
+//            print("Appel khaaa")
+        }
         if index == shownImagesCount - 1 {
             addBlackViewAndLabel(to: itemView)
         }
     }
+    
+
+
     func collageViewNumberOfTotalItem(_ collageView: CollageView) -> Int {
         
         return shownImagesCount
@@ -1607,11 +1350,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
         
         addConstraints(to: label, parentView: view)
     }
-    public func imageFromUrl(urlString: String) {
 
-       
-        
-            }
     private func addConstraints(to view:UIView, parentView:UIView) {
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -1634,7 +1373,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     func collageView(_ collageView: CollageView, didSelect itemView: CollageItemView, at index: Int) {
         
         let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
-        print(itemView.image)
+//        print(itemView.imageView)
 //        let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
 
         let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
@@ -1655,6 +1394,10 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     
 }
 import CollageView
+import SDWebImage
+import NVActivityIndicatorView
+import Alamofire
+
 class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
     var chatImgs : [String] = []
     fileprivate let images = [#imageLiteral(resourceName: "usa"), #imageLiteral(resourceName: "chat-2"), #imageLiteral(resourceName: "twitter"), #imageLiteral(resourceName: "googleSocial"),#imageLiteral(resourceName: "heart")]
@@ -1798,6 +1541,21 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
         // You can fetch Images from Remote here!,
         // Customize UI for item, and etc..
         itemView.contentMode = .scaleToFill
+        let array = chatImgs
+            //["Apples", "Peaches", "Plums"]
+        let isIndexValid = array.indices.contains(index)
+        if isIndexValid {
+            if let url = NSURL(string: array[index]){
+                itemView.imageView.sd_setShowActivityIndicatorView(true)
+                itemView.imageView.sd_setIndicatorStyle(.gray)
+                itemView.imageView.sd_setImage(with: url as URL, completed: nil)
+                
+            }
+            
+        }
+        else{
+            print("nathhooooo..............")
+        }
 //        if chatImgs.count != 0 {
 //        let isIndexValid = chatImgs.indices.contains(index)
 //                if isIndexValid {
@@ -1832,7 +1590,7 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
 //            itemView.image = UIImage(contentsOfFile: boo)
 //        }
 //        else{
-            itemView.image = images[index]
+//            itemView.image = images[index]
 
 
 //        }
@@ -1924,7 +1682,7 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
     func collageView(_ collageView: CollageView, didSelect itemView: CollageItemView, at index: Int) {
         
         let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
-        print(itemView.image)
+//        print(itemView.image)
 //        let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
 
         let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
@@ -2044,11 +1802,7 @@ extension URL {
     }
 }
 
-//extension Collection where Indices.Iterator.Element == Index {
-//    subscript (safe index: Index) -> Iterator.Element? {
-//        return indices.contains(index) ? self[index] : nil
-//    }
-//}
+
 extension Collection {
     subscript(optional i: Index) -> Iterator.Element? {
         return self.indices.contains(i) ? self[i] : nil
@@ -2056,19 +1810,26 @@ extension Collection {
 
 }
 
-//extension UIImageView {
-//
 
-        
-        
-        
-        
-//        if let url = NSURL(string: urlString) {
-//            let request = NSURLRequest(url: url as URL)
-//            NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: OperationQueue.mainQueue) {
-//                (response: URLResponse!, data: NSData!, error: NSError!) -> Void in
-//                self.image = UIImage(data: data as Data)
-//            }
-//        }
-//    }
-//}
+extension UIImageView {
+    func downloaded(from url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
+            }
+        }.resume()
+    }
+    func downloaded(from link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+        guard let url = URL(string: link) else { return }
+        downloaded(from: url, contentMode: mode)
+    }
+}
+
+
