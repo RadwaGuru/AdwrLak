@@ -32,7 +32,9 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
     
     var dataArray = [CategoryAd]()
     var categotyAdArray = [CategoryAd]()
-    
+    var addInfoDict = [String: Any]()
+    var param: [String: Any] = [:]
+
     var currentPage = 0
     var maximumPage = 0
     
@@ -272,7 +274,11 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
         }
         if indexPath.row == dataArray.count - 1 && currentPage < maximumPage {
             currentPage = currentPage + 1
-            let param: [String: Any] = ["ad_cats1" : categoryID, "page_number": currentPage]
+             param = ["ad_cats1" : categoryID, "page_number": currentPage]
+            if isFromAdvanceSearch == true {
+                param.merge(with: addInfoDict)
+            }
+            
             print(param)
             self.adForest_loadMoreData(param: param as NSDictionary)
         }

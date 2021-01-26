@@ -768,6 +768,8 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 categoryVC.currentPage = successResponse.pagination.currentPage
                 categoryVC.maximumPage = successResponse.pagination.maxNumPages
                 categoryVC.title = successResponse.extra.title
+                categoryVC.addInfoDict = parameter as! [String : Any]
+
                 self.tableView.reloadData()
                 self.navigationController?.pushViewController(categoryVC, animated: true)
             
