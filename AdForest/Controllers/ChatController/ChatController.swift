@@ -126,6 +126,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
     var imageUrlnew : URL?
     let documentInteractionController = UIDocumentInteractionController()
+    //MARK:- Properties for msg attachemnts
+    var txtImgDoc = true
+    var txtImg = true
+    var txtDoc = true
+    var docOnly = true
+    var imgOnly = true
+    var txtOnly = true
+    
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -143,7 +151,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.hideKeyboard()
         self.showBackButton()
         self.refreshButton()
-        self.tableView.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//        self.tableView.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
 
         self.googleAnalytics(controllerName: "Chat Controller")
         documentInteractionController.delegate = self
@@ -517,27 +525,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         task.resume()
 
-//        let sessionConfig = URLSessionConfiguration.default
-//        let session = URLSession(configuration: sessionConfig)
-//        let request = try! URLRequest(url: url, method: .get)
-//        showLoader()
-//        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
-//            if let tempLocalUrl = tempLocalUrl, error == nil {
-//                // Success
-//                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-//                    print("Success: \(statusCode)")
-//
-//                    DispatchQueue.main.async {
-//                        self.perform(#selector(self.showSuccess), with: nil, afterDelay: 0.0)
-//                        self.stopAnimating()
-//
-//                    }
-//                }
-//
-//            } else {
-//            }
-//        }
-//        task.resume()
     }
     @objc func showSuccess(){
         let hud = JGProgressHUD(style: .dark)
@@ -564,49 +551,130 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let objData = dataArray[indexPath.row]
         if objData.type == "reply" {
             let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
 
             if userBlocked == true{
                 cell.isHidden = true
             }
+//            var txtImgDoc = true
+//            var txtImg = true
+//            var txtDoc = true
+//            var docOnly = true
+//            var imgOnly = true
+//            var txtOnly = true
+        //MARK:- CHAT Attachment Use Cases
+            //For all 3 items
+//            if txtImgDoc == true{
+//                cell.imgPicture.isHidden = false
+//                cell.txtMessage.isHidden = false
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = false
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                cell.collageView.isHidden = false
+//                cell.containerViewDocsAttachments.isHidden = false
+//
+//            }
+            //   For txtImg items
+
+//            if txtImg == true {
+//                cell.imgPicture.isHidden = false
+//                cell.txtMessage.isHidden = false
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = false
+//                cell.collageView.isHidden = false
+//                cell.containerViewDocsAttachments.isHidden = true
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//            }
+            //   For txtDoc items
+
+//            if txtDoc == true {
+//                cell.imgPicture.isHidden = false
+//                cell.txtMessage.isHidden = false
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = true
+//                cell.collageView.isHidden = true
+//                cell.containerViewDocsAttachments.isHidden = false
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgPicture.bottomAnchor,constant: 4).isActive = true
+//               cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgprofileUserAttachment.bottomAnchor,constant: 4).isActive = true
+//
+//            }
+            // For Document Only
             
+//            if docOnly == true{
+//                cell.imgPicture.isHidden = true
+//                cell.txtMessage.isHidden = true
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = true
+//                cell.collageView.isHidden = true
+//                cell.containerViewDocsAttachments.isHidden = false
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                 cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor,constant: 4).isActive = true
+//
+//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor,constant: 12).isActive = true
+//
+//            }
+            //for Image only
+//            if imgOnly == true {
+//                if objData.chatImages.isEmpty == false{
+//                    cell.collageView.isHidden = false
+//                    cell.containerViewImg.isHidden = false
+//                    cell.imgprofileUserAttachment.isHidden = true
+//                    cell.imgPicture.isHidden = true
+//                    cell.txtMessage.isHidden = true
+//                    cell.imgProfile.isHidden = false
+//                    cell.imgprofileUserAttachment.isHidden = true
+//                    cell.imgUserProfileDocs.isHidden = true
+//                    cell.containerViewDocsAttachments.isHidden = true
+//                    cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor,constant: 0).isActive = true
+//
+//                }
+//                else{
+//                    cell.collageView.isHidden = true
+//                    cell.containerViewImg.isHidden = true
+//                    cell.imgprofileUserAttachment.isHidden = true
+//                    cell.imgPicture.isHidden = true
+//                    cell.txtMessage.isHidden = true
+//                    cell.imgProfile.isHidden = true
+//                    cell.imgUserProfileDocs.isHidden = true
+//                    cell.imgprofileUserAttachment.isHidden = true
+//                    cell.containerViewDocsAttachments.isHidden = true
+//
+//                }
+//                cell.txtMessage.isHidden = true
+////                cell.containerViewDocsAttachments.addConstaintsToSuperview( leadingOffset: 44, topOffset: 12)
+////                let constraints = [
+////                    cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: self.view.topAnchor),
+////                cell.containerViewDocsAttachments.leftAnchor.constraint(equalTo: cell.imgprofileUserAttachment.rightAnchor, constant: 40).isActive = true
+//
+////worlking one
+////two kay liye attachment
+////               cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.containerViewImg.bottomAnchor,constant: 4).isActive = true
+////??
+//                //working fo0r one attachemnt
+//                    cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgprofileUserAttachment.bottomAnchor,constant: 4).isActive = true
+////                    outerSquare.rightAnchor.constraint(equalTo: innerSquare.rightAnchor, constant: 40)
+////                ]
+//
+////                NSLayoutConstraint.activate(constraints)
+////                cell.translatesAutoresizingMaskIntoConstraints = false
+////                elf.buttonGoogleLogin.translatesAutoresizingMaskIntoConstraints
+////                cell.containerViewDocsAttachments.isHidden = true
+//                cell.imgPicture.isHidden = true
+//                cell.imgProfile.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                cell.containerViewImg.isHidden = true
+////                cell.containerViewDocsAttachments.isHidden = true
+//            }
             if let message = objData.text {
                 cell.txtMessage.text = message
-//                cell.containerViewImg.isHidden = true
-//                cell.imgprofileUserAttachment.isHidden = true
-//                cell.containerViewDocsAttachments.isHidden  = true
-//                cell.imgUserProfileDocs.isHidden = true
-                //"https://picsum.photos/id/237/200/300"'
-//                if objData.imgAttachment != nil{
-//                    if let imgUrl = URL(string: objData.imgAttachment) {
-//                        self.imageUrlnew = imgUrl
-//                        cell.chatAttachmentImage.sd_setShowActivityIndicatorView(true)
-//                        cell.chatAttachmentImage.sd_setIndicatorStyle(.gray)
-//                        cell.chatAttachmentImage.sd_setImage(with: imgUrl, completed: nil)
-//    //                    self.tableView.reloadData()
-//
-//
-//                    }
-//                }
-//                print(objData.chatImages)
                 cell.chatImgs = objData.chatImages
                 cell.collageView.reload()
-            //                cell.btnFullAction = { () in
-////                    let imageView = sender.view as! UIImageView
-//
-//
-//                        let newImageView = UIImageView(image: cell.chatAttachmentImage.image)
-//                        newImageView.frame = UIScreen.main.bounds
-//                        newImageView.backgroundColor = .black
-//                        newImageView.contentMode = .scaleAspectFit
-//                        newImageView.isUserInteractionEnabled = true
-//                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
-//                        newImageView.addGestureRecognizer(tap)
-//                        self.view.addSubview(newImageView)
-//                        self.navigationController?.isNavigationBarHidden = true
-//                        self.tabBarController?.tabBar.isHidden = true
-//
-//                }
+     
                 let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
                     //"http://www.africau.edu/images/default/sample.pdf"
 //                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
@@ -614,10 +682,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.btnDownloadDocsAction =  {()in
                     /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
                     self.storeAndShare(withURLString: fileUrl)
-                    
-//                    self.adforest_DownloadFiles(url: fileUrl as URL, to: fileUrl as URL){
-//                        print("OK")
-//                    }
                 }
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     let image = UIImage(named: "bubble_se")
@@ -667,12 +731,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else {
             
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//            cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
 
 
             if userBlocked == true{
                 cell.isHidden = true
             }
+
 //            cell.containerReceiverAttachment.isHidden = true
 //            cell.imgProfileReceiverAttachment.isHidden = true
 //
@@ -682,36 +747,13 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.collageViewReceiverImages.reload()
             cell.btnDownloadAttachmentReceiverAction = { () in
                 let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
-                    //"http://www.africau.edu/images/default/sample.pdf"
-//                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
                     /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
                     self.storeAndShare(withURLString: fileUrl)
                     
                 
                 
             }
-//            if let imgUrl = URL(string: "https://homepages.cae.wisc.edu/~ece533/images/fruits.png") {
-//                cell.imgReceiverAttachment.sd_setShowActivityIndicatorView(true)
-//                cell.imgReceiverAttachment.sd_setIndicatorStyle(.gray)
-//                cell.imgReceiverAttachment.sd_setImage(with: imgUrl, completed: nil)
-////                    self.tableView.reloadData()
 //
-//            }
-//            cell.btnFullReceiverAction = { () in
-////                    let imageView = sender.view as! UIImageView
-//
-//
-//                    let newImageView = UIImageView(image: cell.imgReceiverAttachment.image)
-//                    newImageView.frame = UIScreen.main.bounds
-//                    newImageView.backgroundColor = .black
-//                    newImageView.contentMode = .scaleAspectFit
-//                    newImageView.isUserInteractionEnabled = true
-//                let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissFullscreenImage))
-//                    newImageView.addGestureRecognizer(tap)
-//                    self.view.addSubview(newImageView)
-//                    self.navigationController?.isNavigationBarHidden = true
-//                    self.tabBarController?.tabBar.isHidden = true
-//            }
             if UserDefaults.standard.bool(forKey: "isRtl") {
                 if let message = objData.text {
                     let image = UIImage(named: "bubble_sent")
@@ -758,14 +800,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
         }
     }
-    //MARK:-DismissFullscreenImage Action
-    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        sender.view?.removeFromSuperview()
-    }
     
-
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let section = indexPath.section
+//        var totalHeight : CGFloat = 0
+//        var height: CGFloat = 0
+//        if section == 0{
+//            if txtOnly == true {
+//                height = 100
+//            }
+//            height = 220
+//        }
+//        return height
+//    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataArray.count && currentPage < maximumPage {
@@ -780,24 +827,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- IBActions
     @IBAction func actionSendMessage(_ sender: UIButton) {
         
-        //        if isBlocked == "true"{
-        //            print(blockMessage)
-        //            let alert = Constants.showBasicAlert(message: blockMessage)
-        //            self.presentVC(alert)
-        //        }else{
-        //            print("Not Blocked..")
-        
+               
         guard let messageField = txtMessage.text else {
             return
         }
-//        if messageField == "" {
-//
-//        } else {
-//            let parameter : [String: Any] = ["ad_id": ad_id, "sender_id": receiver_id, "receiver_id": sender_id, "type": messageType, "message": messageField]
-//            print(parameter)
-//            self.adForest_sendMessage(param: parameter as NSDictionary)
-//            self.showLoader()
-//        }
         
                 if messageField == "" {
         
@@ -858,11 +891,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.scrollToBottom()
                 self.tableView.setEmptyMessage("")
                 self.btnBlock.setTitle( self.btn_text, for: .normal)
-                //                if isBlocked == "true"{
-                //                          btnBlock.setTitle("UnBlock", for: .normal)
-                //                      }else{
-                //                           btnBlock.setTitle("Block", for: .normal)
-                //                      }
             }
             else {
                 //let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -883,6 +911,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
+    
     
     //Load More Chat
     func adForest_loadMoreChat(parameter: NSDictionary) {
@@ -1079,9 +1108,6 @@ protocol ChatImageDisplay {
 class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVActivityIndicatorViewable{
    
     var chatImgs : [String] = []
-    fileprivate let images = [#imageLiteral(resourceName: "usa"), #imageLiteral(resourceName: "chat-2"), #imageLiteral(resourceName: "twitter"), #imageLiteral(resourceName: "googleSocial"),#imageLiteral(resourceName: "heart")]
-                              //#imageLiteral(resourceName: "mirror"), #imageLiteral(resourceName: "amsterdam"), #imageLiteral(resourceName: "istanbul"), #imageLiteral(resourceName: "camera"), #imageLiteral(resourceName: "istanbul2"), #imageLiteral(resourceName: "mirror")];
-    
     fileprivate var shownImagesCount = 4
     
     fileprivate var moreImagesCount: Int {
@@ -1093,24 +1119,12 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     var layoutNumberOfColomn: Int = 2
     var delegate : ChatImageDisplay?
 
-//    fileprivate lazy var reOrderButton: UIBarButtonItem = {
-//        let button = UIBarButtonItem(title: "ReOrder", style: .plain, target: self, action: #selector(self.reOrderButtonTapped(sender: )))
-//        return button
-//    }()
     
 
     @IBOutlet weak var collageView: CollageView!{
         didSet{
             collageView.delegate    = self
             collageView.dataSource  = self
-//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
-//
-//
-//                collageView.layer.borderWidth = 3
-//                collageView.layer.cornerRadius = 5
-//                collageView.layer.borderColor = UIColor.white.cgColor
-//                    //Constants.hexStringToUIColor(hex: mainColor).cgColor
-//            }
 
         }
     }
@@ -1119,7 +1133,6 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     
     @IBOutlet weak var viewBg: UIView!
     let label =  UILabel()
-//    var btnFullAction: (()->())?
     var btnDownloadDocsAction: (()->())?
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -1129,19 +1142,15 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     @IBOutlet weak var lblFileName: UILabel!
     @IBOutlet weak var containerViewDocsAttachments: UIView!{
         didSet{
-            
-
-                containerViewDocsAttachments.layer.borderWidth = 1
-                containerViewDocsAttachments.layer.cornerRadius = 10
-                containerViewDocsAttachments.backgroundColor = UIColor.white
-                containerViewDocsAttachments.layer.borderColor = UIColor.white.cgColor
-            
+            containerViewDocsAttachments.layer.borderWidth = 1
+            containerViewDocsAttachments.layer.cornerRadius = 10
+            containerViewDocsAttachments.backgroundColor = UIColor.white
+            containerViewDocsAttachments.layer.borderColor = UIColor.white.cgColor
         }
     }
     @IBOutlet weak var imgUserProfileDocs: UIImageView!{
         didSet{
             imgUserProfileDocs.round()
-
         }
     }
     @IBOutlet weak var imgprofileUserAttachment: UIImageView!{
@@ -1158,66 +1167,34 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     }
     @IBOutlet weak var containerViewImg: UIView!{
         didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
-            
-
             containerViewImg.layer.borderWidth = 1
             containerViewImg.layer.cornerRadius = 10
-                containerViewImg.backgroundColor = UIColor.white
-                containerViewImg.layer.borderColor = UIColor.white.cgColor
-//                containerViewImg.addShadow()
-                ///Constants.hexStringToUIColor(hex: mainColor).cgColor
-            }
+            containerViewImg.backgroundColor = UIColor.white
+            containerViewImg.layer.borderColor = UIColor.white.cgColor
         }
     }
-//    @IBOutlet weak var chatAttachmentImage: UIImageView!
-//    @IBOutlet weak var btnOpenImage: UIButton!
-    
-//    override func loadView() {
-//        super.loadView()
-//        navigationItem.rightBarButtonItem = reOrderButton
-//    }
-    var Collimages =  [#imageLiteral(resourceName: "regfbicon"),#imageLiteral(resourceName: "chat_Selected"),#imageLiteral(resourceName: "chat-1"),#imageLiteral(resourceName: "home-1")]
      var displayImagesCount = 4
-
-        //[UIImage]()
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
         self.txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        //self.imgPicture.layer.cornerRadius = 15
         self.imgPicture.clipsToBounds = true
+        collageView.isHidden = true
+        containerViewImg.isHidden = true
+        containerViewDocsAttachments.isHidden = true
+        imgUserProfileDocs.isHidden = true
+        imgprofileUserAttachment.isHidden = true
         
-        //collageView.isHidden = true
-//        containerViewImg.isHidden = true
-//        imgprofileUserAttachment.isHidden = true
-//        imgUserProfileDocs.isHidden = true
     }
    
-    
+    // MARK: Button Actions
     @IBAction func BtnDownloadDocsAction(_ sender: Any) {
         print("Download Docs")
         self.btnDownloadDocsAction?()
     }
-    // MARK: Button Actions
-    
-    @objc private func reOrderButtonTapped(sender: UIBarButtonItem) {
-        
-        sender.tag += 1
-        if sender.tag%2 == 0 {
-            layoutDirection = .horizontal
-            layoutNumberOfColomn = 3
-        } else {
-            layoutDirection = .vertical
-            layoutNumberOfColomn = 2
-        }
-        collageView.reload()
-    }
-    
-    //
-   
+
     
      var ImagesCount: Int {
         get {
@@ -1227,19 +1204,7 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
 
   
     
-    func notifyUser(message: String) -> Void {
-        
-        let alert = UIAlertController(title: nil,
-                                      message: message,
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        
-        let cancelAction = UIAlertAction(title: "OK",
-                                         style: .cancel, handler: nil)
-        
-        alert.addAction(cancelAction)
     
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
-    }
     
     func collageView(_ collageView: CollageView, configure itemView: CollageItemView, at index: Int) {
         
@@ -1251,67 +1216,24 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
 
         itemView.layer.borderWidth = 3
         let array = chatImgs
-            //["Apples", "Peaches", "Plums"]
         let isIndexValid = array.indices.contains(index)
         if isIndexValid {
-            collageView.isHidden = false
-            containerViewImg.isHidden = false
-//            imgprofileUserAttachment.isHidden = false
+//            collageView.isHidden = false
+//            containerViewImg.isHidden = false
             
             if let url = NSURL(string: array[index]){
-//                if let data = NSData(contentsOf: url as URL)
-//                    {
-//                let imageView = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
-                
-//                itemView.image = UIImage(named: UIImage(image))
-//                var image = UIImageView()
-//                itemView.image = image
-//
-//                image.sd_setImage(with: url as URL, completed: nil)
-//                var bgImage: UIImageView?
-
-//                var image: UIImage = UIImage(named: "afternoon")!
-//                bgImage  = UIImageView(image: itemView.imageView)
-//                bgImage = UIImageView(image: image)
                 itemView.imageView.sd_setShowActivityIndicatorView(true)
                 itemView.imageView.sd_setIndicatorStyle(.gray)
                 itemView.imageView.sd_setImage(with: url as URL, completed: nil)
                 
-//                    itemView.image = UIImage(data: data as Data)
-//                        DispatchQueue.global().async {
-//                            if let data = try? Data( contentsOf:url as URL)
-//                          {
-//                            DispatchQueue.main.async {
-//                                itemView.image = UIImage( data:data)
-////                                imageView.image = itemView.image
-////                                imageView.backgroundColor = UIColor.red
-////                                imageView.contentMode = UIView.ContentMode.scaleAspectFit
-////                                self.contentView.addSubview(imageView)
-//
-//                            }
-//                          }
-//                       }
-                    
-//                    containerViewDocsAttachments.topAnchor.constraint(equalTo: collageView.bottomAnchor, constant: 8).isActive = true
-            
-                    
-//                    }
                 }
         }
         else{
-//        attachmentContainerTopConstraint.constant -= 300
-//            self.containerViewDocsAttachments.translatesAutoresizingMaskIntoConstraints = false
-//            containerViewDocsAttachments.topAnchor.constraint(equalTo: imgPicture.bottomAnchor,constant: 8).isActive = true
-
-
-//            collageView.isHidden = true
-//            containerViewImg.isHidden = true
-//            imgprofileUserAttachment.isHidden = true
-//            print("Appel khaaa")
         }
         if index == shownImagesCount - 1 {
             addBlackViewAndLabel(to: itemView)
         }
+        
     }
     
 
@@ -1373,23 +1295,10 @@ class SenderCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate,NVAc
     func collageView(_ collageView: CollageView, didSelect itemView: CollageItemView, at index: Int) {
         
         let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
-//        print(itemView.imageView)
-//        let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
-
         let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentImageViewController") as! ViewAttachmentImageViewController
         print(chatImgs)
         categoryVC.imageAttachment = chatImgs
-            //UIImage(contentsOfFile: chatImgs[index])
-            //UIImage(chatImgs)
-            //images
-//        categoryVC
-//        cell.dataArray = catLocationsArray
-//
-//        categoryVC.modalPresentationStyle = .fullScreen
         UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
-
-
-//        notifyUser(message: message)
     }
     
 }
@@ -1494,32 +1403,11 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
         self.imgBackground.clipsToBounds = true
     }
     //MARK:- @IBAction
-//    @IBAction func ActionOpenReceiverAttachment(_ sender: Any) {
-//        self.btnFullReceiverAction?()
-//    }
-    
-    
     @IBAction func actionDocumentDownlaodReceiverCell(_ sender: Any) {
         self.btnDownloadAttachmentReceiverAction?()
 
     }
     
-    
-    
-    
-    
-//    @objc private func reOrderButtonTapped(sender: UIBarButtonItem) {
-//
-//        sender.tag += 1
-//        if sender.tag%2 == 0 {
-//            layoutDirection = .horizontal
-//            layoutNumberOfColomn = 3
-//        } else {
-//            layoutDirection = .vertical
-//            layoutNumberOfColomn = 2
-//        }
-//        collageView.reload()
-//    }
     func notifyUser(message: String) -> Void {
         
         let alert = UIAlertController(title: nil,
@@ -1542,7 +1430,6 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
         // Customize UI for item, and etc..
         itemView.contentMode = .scaleToFill
         let array = chatImgs
-            //["Apples", "Peaches", "Plums"]
         let isIndexValid = array.indices.contains(index)
         if isIndexValid {
             if let url = NSURL(string: array[index]){
@@ -1556,69 +1443,6 @@ class ReceiverCell: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
         else{
             print("nathhooooo..............")
         }
-//        if chatImgs.count != 0 {
-//        let isIndexValid = chatImgs.indices.contains(index)
-//                if isIndexValid {
-//        if let imgUrl = URL(string:(chatImgs[index])) {
-//            itemView.sd_setShowActivityIndicatorView(true)
-//            itemView.sd_setIndicatorStyle(.gray)
-//
-//            do {
-//                let url = URL(string: chatImgs[index])
-//                print(url)
-//                                //"https://verona-api.municipiumstaging.it/system/images/image/image/22/app_1920_1280_4.jpg")
-//                let data = try Data(contentsOf: url!)
-//                itemView.image = UIImage(data: data)
-//            }
-//
-//            catch{
-//                print(error)
-//            }
-
-//        if let boo = chatImgs[safe: index]{
-//
-//            do{
-//                itemView.image = UIImage(contentsOfFile: boo)
-//            }
-//            catch{
-//                print("asassa")
-//
-//            }
-//
-//        }
-//        if let boo = chatImgs[safe: index]{
-//            itemView.image = UIImage(contentsOfFile: boo)
-//        }
-//        else{
-//            itemView.image = images[index]
-
-
-//        }
-
-//        if chatImgs[index].isEmpty {
-//            print("empty\(index)")
-//        }
-//        else{
-//            itemView.image = UIImage(contentsOfFile: chatImgs[index])
-//        }
-        //images[index]
-        //UIImage(contentsOfFile: imgUrl.absoluteString)
-                                        //chatImgs[index])
-                
-                            //images[index]
-
-//            UIImageView(itemView.sd_setImage(with: imgUrl, completed: nil))
-//                    self.tableView.reloadData()
-            
-
-//        }
-        
-//            itemView.image = images[index]
-        
-                //UIImage(contentsOfFile: chatImgs[index])
-            
-//        }
-            //images[index]
         itemView.layer.borderWidth = 3
       
         if index == shownImagesCount - 1 {
@@ -1833,3 +1657,27 @@ extension UIImageView {
 }
 
 
+extension UIView {
+
+    func addConstaintsToSuperview(leadingOffset: CGFloat, topOffset: CGFloat) {
+
+        guard superview != nil else {
+            return
+        }
+
+        translatesAutoresizingMaskIntoConstraints = false
+
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor,
+                                 constant: leadingOffset).isActive = true
+
+        topAnchor.constraint(equalTo: superview!.topAnchor,
+                             constant: topOffset).isActive = true
+    }
+
+    func addConstaints(height: CGFloat, width: CGFloat) {
+
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+    }
+
+}
