@@ -15,6 +15,10 @@ import Photos
 import Alamofire
 import JGProgressHUD
 import NVActivityIndicatorView
+
+protocol OpenChatControllerDelegate {
+    func openChatFromAttachment()
+}
 class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate,OpalImagePickerControllerDelegate,NVActivityIndicatorViewable {
     private lazy var uploadingProgressBar: JGProgressHUD = {
         let progressBar = JGProgressHUD(style: .dark)
@@ -33,8 +37,8 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     var senderID : String!
     var receiverID : String!
     var msgType : String!
+    var delegate : OpenChatControllerDelegate?
 
-    
     let appDel = UIApplication.shared.delegate as! AppDelegate
     let mainColor = UserDefaults.standard.string(forKey: "mainColor")
     @IBOutlet weak var lblDocs: UILabel!
@@ -76,39 +80,9 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
 
     //MARK:- @IBActions
     @IBAction func ActionMediaAttachment(_ sender: Any) {
-        //        self.btnImageAttach?()
-        print("ActionMediaAttachment")
-        
         adForest_openGallery()
-        //        let imagePickerConroller = UIImagePickerController()
-        //        imagePickerConroller.delegate = self
-        //        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-        //            imagePickerConroller.sourceType = .photoLibrary
-        //
-        //        }else{
-        //            let alert = UIAlertController(title:"objExtraTxt?.alertName", message: "message", preferredStyle: UIAlertController.Style.alert)
-        //            let OkAction = UIAlertAction(title:" dataTabs.data.progressTxt.btnOk", style: UIAlertAction.Style.cancel, handler: nil)
-        //            alert.addAction(OkAction)
-        //            self.present(alert, animated: true, completion: nil)
-        //        }
-        //        self.present(imagePickerConroller,animated:true, completion:nil)
     }
     func adForest_openGallery() {
-        //        let imagePickerConroller = UIImagePickerController()
-        //        imagePickerConroller.delegate = self
-        //        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-        //            imagePickerConroller.sourceType = .photoLibrary
-        //            imagePickerConroller.modalPresentationStyle = .fullScreen
-        //            imagePickerConroller.view.tintColor = .black
-        //                //UIColor(hex:mainColor!)
-        //
-        //        }else{
-        //            let alert = UIAlertController(title:"objExtraTxt?.alertName", message: "message", preferredStyle: UIAlertController.Style.alert)
-        //            let OkAction = UIAlertAction(title:" dataTabs.data.progressTxt.btnOk", style: UIAlertAction.Style.cancel, handler: nil)
-        //            alert.addAction(OkAction)
-        //            self.present(alert, animated: true, completion: nil)
-        //        }
-        //        self.present(imagePickerConroller,animated:true, completion:nil)
         let imagePicker = OpalImagePickerController()
         imagePicker.navigationBar.tintColor = UIColor.white
         imagePicker.maximumSelectionsAllowed = 5
@@ -135,7 +109,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             print(parameter)
             self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
         }
+//        self.delegate?.openChatFromAttachment()
+
         presentedViewController?.dismiss(animated: true, completion: nil)
+        
+
     }
     
     func imagePickerDidCancel(_ picker: OpalImagePickerController) {
@@ -196,15 +174,21 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         self.saveFileToDocumentDirectory(document: url)
         print("Library document \(String(describing: url.standardizedFileURL))")
+        let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+        print(parameter)
+        adForest_uploadFileDocs(param: parameter as NSDictionary, file: url)
         
     }
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-//        guard let myURL = urls.first else {
-//            return
-//        }
-        print("import result : \(urls)")
-
-    }
+//    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+////        guard let myURL = urls.first else {
+////            return
+////        }
+//        print("import result : \(urls)")
+////        let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+////        print(parameter)
+////        adForest_uploadFileDocs(param: parameter as NSDictionary, file: urls)
+//       
+//    }
           
     public func documentMenu(_ documentMenu:UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         documentPicker.delegate = self
@@ -219,7 +203,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     func saveFileToDocumentDirectory(document: URL) {
         print(document.pathExtension)
-        if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "my_cv_upload", extention: document.pathExtension) {
+        if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "File", extention: document.pathExtension) {
             print(fileUrl.pathExtension)
             
             //            let newURL = fileUrl
@@ -254,7 +238,9 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             //            self.adforest_DownloadFiles(url: fileUrl as URL, to: fileUrl as URL){
             //                print("OK")
             //            }
-            
+//            let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+//            print(parameter)
+//            adForest_uploadFileDocs(param: parameter as NSDictionary, file: fileUrl.absoluteURL)
             //self.uploadResume(documentUrl: fileUrl)
         }
     }
@@ -314,6 +300,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             if successResponse.success {
                 self.stopAnimating()
                 self.uploadingProgressBar.dismiss(animated: true)
+ 
 
 //                self.imageArray = successResponse.data.adImages
 //                self.imgCtrlCount = successResponse.data.adImages.count
@@ -351,19 +338,74 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
             self.uploadingProgressBar.setProgress(currentProgress, animated: true)
         }, success: { (successResponse) in
-//            let dictionary = successResponse as! [String: Any]
-//            let objImg = AdPostImagesRoot(fromDictionary: dictionary)
-//            success(objImg)
             
             self.stopAnimating()
             self.uploadingProgressBar.dismiss(animated: true)
-            self.presentedViewController?.dismiss(animated: true, completion: nil)
-
+            self.delegate?.openChatFromAttachment()
+            self.dismiss(animated: true, completion: nil)
             print("true")
         }) { (error) in
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
             print("false")
 
+        }
+    }
+    
+    //uplaod file
+    
+    func adForest_uploadFileDocs(param: NSDictionary, file: URL) {
+        self.showLoader()
+        uploadingProgressBar.progress = 0.0
+        uploadingProgressBar.detailTextLabel.text = "0% Completed"
+        uploadingProgressBar.show(in: view)
+        msgUploadFiles(parameter: param, fileURL: file, fileName: "File", uploadProgress: { (uploadProgress) in
+
+        }, success: { (successResponse) in
+            self.uploadingProgressBar.dismiss(animated: true)
+            self.stopAnimating()
+            if successResponse.success {
+                self.stopAnimating()
+                self.uploadingProgressBar.dismiss(animated: true)
+
+            }
+            else {
+                self.stopAnimating()
+                self.uploadingProgressBar.dismiss(animated: true)
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            self.uploadingProgressBar.dismiss(animated: true)
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+    
+    
+    
+    func msgUploadFiles(parameter: NSDictionary , fileURL: URL, fileName: String, uploadProgress: @escaping(Int)-> Void, success: @escaping(AdPostImagesRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        
+        let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
+        print(url)
+        NetworkHandler.upload(url: url, fileUrl: fileURL, fileName: fileName, params: parameter as! Parameters, uploadProgress: {(uploadProgress) in
+            
+            let currentProgress = Float(uploadProgress)/100
+            self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
+            self.uploadingProgressBar.setProgress(currentProgress, animated: true)
+            
+            
+        }, success: {(successResponse) in
+            self.stopAnimating()
+            
+            self.uploadingProgressBar.dismiss(animated: true)
+            self.presentedViewController?.dismiss(animated: true, completion: nil)
+            
+            print("true")
+            
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            print("false")
         }
     }
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {

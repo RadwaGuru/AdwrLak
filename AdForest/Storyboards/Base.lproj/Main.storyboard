@@ -9646,15 +9646,31 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTY-7I-Pb7" customClass="FSPagerView" customModule="FSPagerView">
-                                        <rect key="frame" x="0.0" y="23" width="414" height="760"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="768"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="776" id="luI-HZ-5LY"/>
+                                        </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cancel-music" translatesAutoresizingMaskIntoConstraints="NO" id="pKQ-GK-wfT">
+                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hk-Kx-xGT">
+                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="BtnActionCancel:" destination="3Tg-Jd-ijw" eventType="touchUpInside" id="g7s-MX-l0V"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="CTY-7I-Pb7" secondAttribute="trailing" id="6N2-QQ-0GE"/>
-                                    <constraint firstItem="CTY-7I-Pb7" firstAttribute="centerY" secondItem="LQx-ja-gM0" secondAttribute="centerY" constant="-6" id="AN5-H9-388"/>
+                                    <constraint firstItem="CTY-7I-Pb7" firstAttribute="centerY" secondItem="LQx-ja-gM0" secondAttribute="centerY" constant="25" id="AN5-H9-388"/>
                                     <constraint firstItem="CTY-7I-Pb7" firstAttribute="leading" secondItem="LQx-ja-gM0" secondAttribute="leading" id="TAR-9v-rGw"/>
-                                    <constraint firstItem="CTY-7I-Pb7" firstAttribute="top" secondItem="LQx-ja-gM0" secondAttribute="top" constant="23" id="zPz-Da-yzL"/>
+                                    <constraint firstAttribute="trailing" secondItem="CTY-7I-Pb7" secondAttribute="trailing" id="dpF-DO-dUS"/>
+                                    <constraint firstItem="CTY-7I-Pb7" firstAttribute="leading" secondItem="LQx-ja-gM0" secondAttribute="leading" id="nnJ-1h-WFM"/>
+                                    <constraint firstItem="CTY-7I-Pb7" firstAttribute="top" secondItem="LQx-ja-gM0" secondAttribute="top" constant="50" id="zPz-Da-yzL"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -9668,7 +9684,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancel" destination="2Hk-Kx-xGT" id="1JK-34-nuH"/>
                         <outlet property="containerView" destination="LQx-ja-gM0" id="Nqn-Fw-2mG"/>
+                        <outlet property="imgCancel" destination="pKQ-GK-wfT" id="LhN-2n-jS1"/>
                         <outlet property="pagerView" destination="CTY-7I-Pb7" id="w4C-jU-OAS"/>
                     </connections>
                 </viewController>
@@ -10140,7 +10158,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="NSj-uN-bNP" secondAttribute="bottom" constant="14" id="TeI-Cw-bzC"/>
                                                 <constraint firstItem="Iz8-an-MgR" firstAttribute="centerY" secondItem="egq-tR-EOO" secondAttribute="centerY" id="V4d-5h-7Ba"/>
                                                 <constraint firstItem="Iz8-an-MgR" firstAttribute="centerX" secondItem="egq-tR-EOO" secondAttribute="centerX" constant="-1" id="Zgy-HI-fQO"/>
-                                                <constraint firstAttribute="bottom" secondItem="6De-Vx-anS" secondAttribute="bottom" id="bR1-jM-35y"/>
                                                 <constraint firstItem="Iz8-an-MgR" firstAttribute="height" secondItem="egq-tR-EOO" secondAttribute="height" id="eYi-Z5-Uoa"/>
                                                 <constraint firstItem="6De-Vx-anS" firstAttribute="top" secondItem="MV6-sd-5Ec" secondAttribute="bottom" constant="5" id="go5-22-GtX"/>
                                                 <constraint firstAttribute="bottom" secondItem="Iz8-an-MgR" secondAttribute="bottom" constant="181" id="ldP-3R-DWe"/>

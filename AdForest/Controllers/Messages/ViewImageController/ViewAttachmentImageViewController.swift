@@ -14,13 +14,15 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
     
     
     
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var imgCancel: UIImageView!
     
     @IBOutlet weak var pagerView: FSPagerView!{didSet {
         self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         self.pagerView.delegate = self
         self.pagerView.dataSource = self
         self.pagerView.isInfinite = true
-        self.pagerView.transformer = FSPagerViewTransformer(type: .cubic)
+        self.pagerView.transformer = FSPagerViewTransformer(type: .coverFlow)
         let transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         let screenSize = UIScreen.main.bounds
     
@@ -57,8 +59,16 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
 //        let images = [#imageLiteral(resourceName: "pak"),#imageLiteral(resourceName: "menu-1"),#imageLiteral(resourceName: "home-1"),#imageLiteral(resourceName: "instagram"),#imageLiteral(resourceName: "heart")]
 //        photoSliderView.configure(with: imageAttachment)
         print(imageAttachment)
+        imgCancel.isHidden = true
+        btnCancel.isHidden = true
 
     }
+    
+    
+    @IBAction func BtnActionCancel(_ sender: Any) {
+//        self.dismiss(animated: true, completion: nil)
+    }
+    
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return imageAttachment.count
             //(data?.catLocations.count)!

