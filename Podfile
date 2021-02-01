@@ -118,9 +118,7 @@ pod 'FSPagerView'
 pod "ZGTooltipView"
 pod 'LTHRadioButton'
 pod 'KGRadioButton'
-#pod 'FittedSheets'
 pod 'CollageView', '~> 1.0.4'
-pod 'SKPhotoBrowser'
 
 
 end

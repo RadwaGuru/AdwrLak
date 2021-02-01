@@ -22,6 +22,9 @@ class MultiSearchSectionCell: UITableViewCell , refreshdata{
     @IBOutlet weak var searchView: UIView!{
         didSet{
             searchView.roundCorners()
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                searchView.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
         }
     }
     @IBOutlet weak var lblSearchKeywords: UITextField!

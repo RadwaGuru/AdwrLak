@@ -814,7 +814,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
             if self.homeStyle == "home1"{
                 self.appDelegate.moveToHome()
-
             }else if self.homeStyle == "home2"{
                 self.appDelegate.moveToMultiHome()
             }

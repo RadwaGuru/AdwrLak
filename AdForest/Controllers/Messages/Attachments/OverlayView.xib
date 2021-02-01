@@ -14,10 +14,12 @@
                 <outlet property="btnImgDoc" destination="m5d-fA-EE7" id="ahf-U3-VVv"/>
                 <outlet property="btnImgMedia" destination="vLD-CW-OdZ" id="cV6-9a-pit"/>
                 <outlet property="containerAttachment" destination="mZR-bG-g5K" id="ci5-VL-T9y"/>
+                <outlet property="containerImg" destination="acZ-JE-fq8" id="Cqz-m9-gyU"/>
                 <outlet property="containerMain" destination="JxY-R7-1Ou" id="nVJ-Zk-4Bk"/>
                 <outlet property="imgDoc" destination="a0g-FX-LVq" id="baY-tH-MSF"/>
                 <outlet property="imgMedia" destination="U7H-S3-Oce" id="Ul5-F5-q0Y"/>
                 <outlet property="lblDocs" destination="mLK-Yr-qI3" id="gbp-6e-ddW"/>
+                <outlet property="lblHeading" destination="dvI-mX-Liq" id="FIW-TC-lik"/>
                 <outlet property="lblImages" destination="qtb-bf-RRt" id="Oom-um-YZi"/>
                 <outlet property="slideIdicator" destination="UPi-Jr-Sp2" id="pdz-Mu-Rsd"/>
                 <outlet property="view" destination="PDC-OZ-HeP" id="na2-xg-3bT"/>
@@ -136,7 +138,7 @@
                         <constraint firstItem="mZR-bG-g5K" firstAttribute="leading" secondItem="JxY-R7-1Ou" secondAttribute="leading" constant="5" id="n0D-5i-2a0"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What would you like to upload?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvI-mX-Liq">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvI-mX-Liq">
                     <rect key="frame" x="20" y="30" width="374" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="rXD-Lw-qKe"/>

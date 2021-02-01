@@ -138,6 +138,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var imgOnly = true
     var txtOnly = true
 
+    var attachmentAllow = false
+    var attachmentType = ""
+    var chatImageSize = ""
+    var chatDocSize = ""
+    var attachmentFormat : [String]!
+    var headingPopUp = ""
+    var imgLImitTxt = ""
+    var docLimitTxt = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -256,6 +264,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         slideVC.receiverID = receiver_id
         slideVC.msgType = messageType
         slideVC.delegate = self
+        slideVC.chatAttachmentAllowed = attachmentAllow
+        slideVC.chatAttachmentType = attachmentType
+        slideVC.chatImageSize = chatImageSize
+        slideVC.chatDocSize = chatDocSize
+        slideVC.chatAttachmentFormat = attachmentFormat
+        slideVC.headingPopUp = headingPopUp
+        slideVC.imgLImitTxt = imgLImitTxt
+        slideVC.docLimitTxt = docLimitTxt
         present(slideVC, animated: true, completion: nil)
     }
     func openChatFromAttachment() {
@@ -665,7 +681,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.lblFileName.text = "fileName.txt"
                 cell.btnDownloadDocsAction = { () in
                     /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
-                    self.storeAndShare(withURLString: fileUrl)
+                    let fileUrls = objData.chatFiles
+                    for files in fileUrls!{
+                        /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                        self.storeAndShare(withURLString: files)
+
+                    }
                 }
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     let image = UIImage(named: "bubble_se")
@@ -729,17 +750,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // MARK: - CHAT Attachment Use Cases
 
             // For all 3 items
-                        if txtImgDoc == true{
-                            cell.imgBackground.isHidden = false
-                            cell.txtMessage.isHidden = false
-                            cell.imgIcon.isHidden = false
-                            cell.containerReceiverAttachment.isHidden = false
-                            cell.imgProfileReceiverAttachment.isHidden = true
-                            cell.imgProfileDocumentReceiver.isHidden = true
-                            cell.collageViewReceiverImages.isHidden = false
-                            cell.containerDocumentReceiver.isHidden = false
-            
-                        }
+//                        if txtImgDoc == true{
+//                            cell.imgBackground.isHidden = false
+//                            cell.txtMessage.isHidden = false
+//                            cell.imgIcon.isHidden = false
+//                            cell.containerReceiverAttachment.isHidden = false
+//                            cell.imgProfileReceiverAttachment.isHidden = true
+//                            cell.imgProfileDocumentReceiver.isHidden = true
+//                            cell.collageViewReceiverImages.isHidden = false
+//                            cell.containerDocumentReceiver.isHidden = false
+//
+//                        }
             //   For txtImg items
 
 //                        if txtImg == true {
@@ -812,34 +833,55 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.collageViewReceiverImages.reload()
             cell.btnDownloadAttachmentReceiverAction = { () in
                 let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
-                /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
-                self.storeAndShare(withURLString: fileUrl)
+                let fileUrls = objData.chatFiles
+                for files in fileUrls!{
+                    /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                    self.storeAndShare(withURLString: files)
+
+                }
             }
 //
             if UserDefaults.standard.bool(forKey: "isRtl") {
-                if let message = objData.text {
-                    let image = UIImage(named: "bubble_sent")
-                    cell.imgBackground.image = image!
-                        .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
-                            resizingMode: .stretch)
-                        .withRenderingMode(.alwaysTemplate)
-                    cell.txtMessage.text = message
-                    // let height = cell.heightConstraint.constant + 20
-                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                if objData.text != nil {
+                    if let message = objData.text {
+                        let image = UIImage(named: "bubble_sent")
+                        cell.imgBackground.image = image!
+                            .resizableImage(withCapInsets:
+                                UIEdgeInsetsMake(17, 21, 17, 21),
+                                resizingMode: .stretch)
+                            .withRenderingMode(.alwaysTemplate)
+                        cell.txtMessage.text = message
+                        // let height = cell.heightConstraint.constant + 20
+                        cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    }
                 }
+                else{
+                    cell.imgBackground.isHidden = true
+                    cell.txtMessage.isHidden = true
+                    
+                }
+                
             } else {
-                if let message = objData.text {
-                    let image = UIImage(named: "bubble_se")
-                    cell.imgBackground.image = image!
-                        .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
-                            resizingMode: .stretch)
-                        .withRenderingMode(.alwaysTemplate)
-                    cell.txtMessage.text = message
-                    // let height = cell.heightConstraint.constant + 20
-                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                if !objData.text.isEmpty {
+                    if let message = objData.text {
+                        let image = UIImage(named: "bubble_se")
+                        cell.imgBackground.image = image!
+                            .resizableImage(withCapInsets:
+                                UIEdgeInsetsMake(17, 21, 17, 21),
+                                resizingMode: .stretch)
+                            .withRenderingMode(.alwaysTemplate)
+                        cell.txtMessage.text = message
+                        // let height = cell.heightConstraint.constant + 20
+                        cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    }
                 }
+                else{
+                    cell.imgBackground.isHidden = true
+                    cell.txtMessage.isHidden = true
+                    cell.imgIcon.isHidden = true
+
+                }
+               
             }
 
             if let imgUrl = URL(string: objData.img) {
@@ -925,8 +967,18 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.isBlocked = String(successResponse.data.isBlock)
                 print(self.isBlocked)
                 self.btn_text = successResponse.data.btnText
-
                 self.dataArray = self.reverseArray.reversed()
+               
+
+                self.attachmentAllow = successResponse.data.messageSettings.attachmentAllowed
+                self.attachmentType = successResponse.data.messageSettings.attachmentType
+                self.chatImageSize = successResponse.data.messageSettings.imageSize
+                self.chatDocSize = successResponse.data.messageSettings.attachmentSize
+                self.attachmentFormat = successResponse.data.messageSettings.attachmentformat
+                self.headingPopUp = successResponse.data.messageSettings.headingPopUp
+                self.imgLImitTxt = successResponse.data.messageSettings.imgLImitTxt
+                self.docLimitTxt = successResponse.data.messageSettings.docLimitTxt
+                
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.scrollToBottom()
@@ -1143,6 +1195,7 @@ class SenderCell: UITableViewCell, CollageViewDataSource, CollageViewDelegate, N
         didSet {
             collageView.delegate = self
             collageView.dataSource = self
+            
         }
     }
 
@@ -1404,6 +1457,7 @@ class ReceiverCell: UITableViewCell, CollageViewDataSource, CollageViewDelegate 
         txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         // self.imgBackground.layer.cornerRadius = 15
         imgBackground.clipsToBounds = true
+        
     }
 
     // MARK: - @IBAction
