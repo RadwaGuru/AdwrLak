@@ -16,6 +16,7 @@ struct ChatMessageSettings {
     var headingPopUp: String!
     var imgLImitTxt: String!
     var docLimitTxt: String!
+    var docTypeTxt: String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -29,6 +30,7 @@ struct ChatMessageSettings {
         headingPopUp = dictionary["upload_txt"] as? String
         imgLImitTxt  = dictionary["image_limit_txt"] as? String
         docLimitTxt = dictionary["doc_limit_txt"] as? String
+        docTypeTxt = dictionary["doc_format_txt"] as? String
     }
     
     /**

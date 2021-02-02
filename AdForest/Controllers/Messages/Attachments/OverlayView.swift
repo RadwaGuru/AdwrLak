@@ -46,6 +46,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     var headingPopUp = ""
     var imgLImitTxt = ""
     var docLimitTxt = ""
+    var docTypeTxt = ""
+    var imageSize: Int!
+    var uploadImageTrueSize = false
+    var fileSize = false
+
     let appDel = UIApplication.shared.delegate as! AppDelegate
     let mainColor = UserDefaults.standard.string(forKey: "mainColor")
     @IBOutlet weak var lblDocs: UILabel!
@@ -130,49 +135,45 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     //MARK:- Delegates For OPAL ImagePicker
     
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
-        print(images)
-//        for item in images{
-//            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
-//            // var imgData: NSData = UIImagePNGRepresentation(image)
-//            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
-//            var imageSize: Int = imgData.count
-//            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
-//            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
-//            print("File Size Device selected: \(fileSizeWithUnit)")
-//            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(chatImageSize)!, countStyle: .file)
-//            print("File Size Api: \(fileSizeWithUnit2)")
-//             print(chatImageSize)
-//
-//            if !(imageSize < Int(chatImageSize)! || imageSize == Int(chatImageSize)){
-//                print(images.index(of: item))
-//                var  indextoremove = 0
-//                indextoremove =  images.index(of: item)!
-//                var imagesToRemove = images
-//                imagesToRemove.remove(at: indextoremove)
-//                print(imagesToRemove)
-//                let alert = Constants.showBasicAlert(message: imgLImitTxt)
-//                presentedViewController?.dismiss(animated: true, completion: nil)
-//                self.presentVC(alert)
-//
-//
-//            }
-//            else{
-//                print("charlieeee!!!!!!")
-//
-//            }
-//        }
-        if images.isEmpty {
+        for item in images{
+            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
+            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+            imageSize  = imgData.count
+            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
+            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
+            print("File Size Device selected: \(fileSizeWithUnit)")
+            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(self.chatImageSize)!, countStyle: .file)
+            print("File Size Api: \(fileSizeWithUnit2)")
+            print(self.chatImageSize)
+            
+            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
+                let alert = Constants.showBasicAlert(message: self.imgLImitTxt)
+                self.presentedViewController?.dismiss(animated: true, completion: nil)
+                self.presentVC(alert)
+                uploadImageTrueSize = false
+                break
+            }
+            else{
+                uploadImageTrueSize = true
+                
+            }
         }
-        else {
-            self.photoArray = images
-            let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
-            print(parameter)
+        if uploadImageTrueSize == true {
+            if images.isEmpty {
+            }
+            else {
+                self.photoArray = images
+                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+                print(parameter)
+                
+                self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
+            }
+            self.delegate?.openChatFromAttachment()
+            
+            presentedViewController?.dismiss(animated: true, completion: nil)
+        }
+                
 
-            self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
-        }
-        self.delegate?.openChatFromAttachment()
-//
-        presentedViewController?.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerDidCancel(_ picker: OpalImagePickerController) {
@@ -184,7 +185,6 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         
         // To handle image
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            //            self.imagePickedBlock?(image)
             saveFileToDocumentDirectory(image: image)
         } else{
             print("Something went wrong in  image")
@@ -205,24 +205,17 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     @IBAction func ActionAttachment(_ sender: Any) {
         print("ActionAttachment")
         let options = [kUTTypePDF as String, kUTTypeZipArchive  as String, kUTTypePNG as String, kUTTypeJPEG as String, kUTTypeText  as String, kUTTypePlainText as String]
-//        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.apple.iwork.pages.pages", "com.apple.iwork.numbers.numbers", "com.apple.iwork.keynote.key","public.image", "com.apple.application", "public.item","public.data", "public.content", "public.audiovisual-content", "public.movie", "public.audiovisual-content", "public.video", "public.audio", "public.text", "public.data", "public.zip-archive", "com.pkware.zip-archive", "public.composite-content", "public.text"], in: .import)
+
 
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: options, in: .import)
         documentPicker.delegate = self
         documentPicker.view.tintColor = UIColor(hex:mainColor!)
-        documentPicker.allowsMultipleSelection = true
-        
-        //.orange
         documentPicker.view.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
         UINavigationBar.appearance().isTranslucent = false
         documentPicker.modalPresentationStyle = .fullScreen
-        //        self.present(documentPicker, animated: true, completion: nil)
-        //        UINavigationBar.appearance().tintColor = .black
         present(documentPicker, animated: true) {
             UINavigationBar.appearance().tintColor = UIColor(hex:self.mainColor!)
-            //.white
         }
-        //        self.btnDocuAttach?()
     }
     
     
@@ -233,25 +226,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         self.saveFileToDocumentDirectory(document: url)
         print("Library document \(String(describing: url.standardizedFileURL))")
-//        let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
-//        print(parameter)
-//        adForest_uploadFileDocs(param: parameter as NSDictionary, file: url)
-        
     }
-//    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-////        guard let myURL = urls.first else {
-////            return
-////        }
-//        print("import result : \(urls)")
-////        let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
-////        print(parameter)
-////        adForest_uploadFileDocs(param: parameter as NSDictionary, file: urls)
-//       
-//    }
+
           
     public func documentMenu(_ documentMenu:UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         documentPicker.delegate = self
-//        documentPicker.allowsMultipleSelection = true
         present(documentPicker, animated: true, completion: nil)
     }
     
@@ -261,59 +240,23 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     }
     
     func saveFileToDocumentDirectory(document: URL) {
-        print(document.pathExtension)
         if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "File", extention: document.pathExtension) {
-            print(fileUrl.pathExtension)
-            for item in chatAttachmentFormat{
-                if document.pathExtension == item {
-                    print("true eeeeeeee")
-                    let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
-                    print(parameter)
-                    adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
-                }
-                else{
-                    let alert = Constants.showBasicAlert(message: "asssasaas")
-                    self.presentVC(alert)
-                }
-
+            if chatAttachmentFormat.contains(document.pathExtension){
+                fileSize = true
+            }else{
+                fileSize = false
             }
-            //chatAttachmentFormat
-            //            let newURL = fileUrl
-            //            if let fileURL = URL(string: newURL){
-            //                    let fileUTI = UTI(withExtension: fileUrl.pathExtension)
-            //                    switch fileUTI {
-            //                    case .pdf:
-            //                        print("add PDF Options")
-            //                    case .jpeg:
-            //                        print("add jpg Options")
-            //                    case .png:
-            //                        print("add png Options")
-            //                    case .tiff:
-            //                        print("add tiff Options")
-            //                    case .gif:
-            //                        print("add gif options")
-            //                    case .spreadsheet:
-            //                        print("add excel Options")
-            //                    case .html:
-            //                        print("add html options")
-            //                    case .zipArchive:
-            //                        print("add zip Options")
-            //                        break
-            //                    case .docx , .doc:
-            //                        print("add dox options")
-            //                    default:
-            //                        print("default")
-            //                    }
             
-            //        }
-            
-            //            self.adforest_DownloadFiles(url: fileUrl as URL, to: fileUrl as URL){
-            //                print("OK")
-            //            }
-//            let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
-//            print(parameter)
-//            adForest_uploadFileDocs(param: parameter as NSDictionary, file: fileUrl.absoluteURL)
-            //self.uploadResume(documentUrl: fileUrl)
+            if fileSize == true{
+                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+                print(parameter)
+                adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
+                
+            }
+            else{
+                let alert = Constants.showBasicAlert(message: "\(docLimitTxt):\(docTypeTxt)")
+                self.presentVC(alert)
+            }
         }
     }
     

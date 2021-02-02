@@ -40,8 +40,8 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
          showBackButton()
-//        imgCancel.isHidden = true
-//        btnCancel.isHidden = true
+        imgCancel.isHidden = true
+        btnCancel.isHidden = true
 
     }
     

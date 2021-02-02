@@ -19,6 +19,8 @@ struct SentOfferChat{
     var imgAttachment: String!
     var chatImages: [String]!
     var chatFiles: [String]!
+    var hasFiles: Bool!
+    var hasImages: Bool!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -32,6 +34,8 @@ struct SentOfferChat{
         imgAttachment = dictionary["files"] as? String
         chatImages = dictionary["images"] as? [String]
         chatFiles = dictionary["files"] as? [String]
+        hasFiles = dictionary["is_file"] as? Bool
+        hasImages = dictionary["is_image"] as? Bool
        
     }
     

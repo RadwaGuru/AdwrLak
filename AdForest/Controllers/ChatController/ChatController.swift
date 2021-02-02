@@ -146,6 +146,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var headingPopUp = ""
     var imgLImitTxt = ""
     var docLimitTxt = ""
+    var docTypeTxt = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -272,6 +273,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         slideVC.headingPopUp = headingPopUp
         slideVC.imgLImitTxt = imgLImitTxt
         slideVC.docLimitTxt = docLimitTxt
+        slideVC.docTypeTxt = docTypeTxt
         present(slideVC, animated: true, completion: nil)
     }
     func openChatFromAttachment() {
@@ -790,7 +792,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                        }
             // For Document Only
 
-//            if docOnly == true {
+//            if objData.hasFiles == true {
 //                cell.imgBackground.isHidden = true
 //                cell.txtMessage.isHidden = true
 //                cell.imgIcon.isHidden = false
@@ -826,21 +828,44 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //
 //                            }
 //                        }
+            
+            if let theFileName = objData.chatFiles{
+//                let filename:URL = URL(theFileName)
+                for files in theFileName{
+                    let fileName:URL = URL(files)
+                    cell.lblFileName.text = fileName.lastPathComponent
+                }
+                
+            }
 
             cell.lblFileName.text = "fileName.pdf"
-            print(objData.chatImages)
-            cell.chatImgs = objData.chatImages
-            cell.collageViewReceiverImages.reload()
-            cell.btnDownloadAttachmentReceiverAction = { () in
-                let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
-                let fileUrls = objData.chatFiles
-                for files in fileUrls!{
-                    /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
-                    self.storeAndShare(withURLString: files)
+            if objData.hasFiles == true{
+                cell.containerDocumentReceiver.isHidden = false
+                cell.btnDownloadAttachmentReceiverAction = { () in
+                    let fileUrls = objData.chatFiles
+                    for files in fileUrls!{
+                        /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                        self.storeAndShare(withURLString: files)
 
+                    }
                 }
+                cell.containerDocumentReceiver.topAnchor.constraint(equalTo: cell.imgIcon.centerYAnchor).isActive = true
             }
-//
+            else{
+                cell.containerDocumentReceiver.isHidden = true
+            }
+            if objData.hasImages {
+                cell.containerReceiverAttachment.isHidden = false
+                cell.collageViewReceiverImages.isHidden = false
+                print(objData.chatImages)
+                cell.chatImgs = objData.chatImages
+                cell.collageViewReceiverImages.reload()
+                cell.collageViewReceiverImages.topAnchor.constraint(equalTo: cell.imgIcon.topAnchor, constant: 8).isActive = true
+                cell.containerReceiverAttachment.topAnchor.constraint(equalTo: cell.imgIcon.topAnchor, constant: 8).isActive = true
+            }else{
+                cell.containerReceiverAttachment.isHidden = true
+                cell.collageViewReceiverImages.isHidden = true
+            }
             if UserDefaults.standard.bool(forKey: "isRtl") {
                 if objData.text != nil {
                     if let message = objData.text {
@@ -873,12 +898,16 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         cell.txtMessage.text = message
                         // let height = cell.heightConstraint.constant + 20
                         cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                        cell.imgBackground.isHidden = false
+                        cell.txtMessage.isHidden = false
+                        cell.imgIcon.isHidden = false
+
                     }
                 }
                 else{
                     cell.imgBackground.isHidden = true
                     cell.txtMessage.isHidden = true
-                    cell.imgIcon.isHidden = true
+//                    cell.imgIcon.isHidden = true
 
                 }
                
@@ -978,7 +1007,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.headingPopUp = successResponse.data.messageSettings.headingPopUp
                 self.imgLImitTxt = successResponse.data.messageSettings.imgLImitTxt
                 self.docLimitTxt = successResponse.data.messageSettings.docLimitTxt
-                
+                self.docTypeTxt = successResponse.data.messageSettings.docTypeTxt
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.scrollToBottom()
@@ -1457,7 +1486,11 @@ class ReceiverCell: UITableViewCell, CollageViewDataSource, CollageViewDelegate 
         txtMessage.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         // self.imgBackground.layer.cornerRadius = 15
         imgBackground.clipsToBounds = true
-        
+        containerDocumentReceiver.isHidden = true
+        imgProfileDocumentReceiver.isHidden = true
+        imgProfileReceiverAttachment.isHidden = true
+        containerReceiverAttachment.isHidden = true
+        collageViewReceiverImages.isHidden = true
     }
 
     // MARK: - @IBAction
