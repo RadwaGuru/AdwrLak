@@ -77,7 +77,6 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         
         slideIdicator.roundCorners(.allCorners, radius: 10)
         lblHeading.text = headingPopUp
-        print("ayashiiiiii:\(chatAttachmentAllowed):\(chatAttachmentType):\(chatImageSize):\(chatDocSize):\(chatAttachmentFormat)")
         adforest_getAttachmentData()
         //        subscribeButton.roundCorners(.allCorners, radius: 10)
     }

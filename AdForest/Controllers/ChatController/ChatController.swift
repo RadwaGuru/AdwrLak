@@ -147,6 +147,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var imgLImitTxt = ""
     var docLimitTxt = ""
     var docTypeTxt = ""
+    var fileNameLabel = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -607,19 +608,19 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            }
             // For Document Only
 
-            if docOnly == true {
-                cell.imgPicture.isHidden = true
-                cell.txtMessage.isHidden = true
-                cell.imgProfile.isHidden = false
-                cell.containerViewImg.isHidden = true
-                cell.collageView.isHidden = true
-                cell.containerViewDocsAttachments.isHidden = false
-                cell.imgprofileUserAttachment.isHidden = true
-                cell.imgUserProfileDocs.isHidden = true
-                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor, constant: 4).isActive = true
-
-                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor, constant: 12).isActive = true
-            }
+//            if docOnly == true {
+//                cell.imgPicture.isHidden = true
+//                cell.txtMessage.isHidden = true
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = true
+//                cell.collageView.isHidden = true
+//                cell.containerViewDocsAttachments.isHidden = false
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor, constant: 4).isActive = true
+//
+//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor, constant: 12).isActive = true
+//            }
             // for Image only
 //            if imgOnly == true {
 //                if objData.chatImages.isEmpty == false{
@@ -672,17 +673,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             ////                cell.containerViewImg.isHidden = true
             ////                cell.containerViewDocsAttachments.isHidden = true
 //            }
-            if let message = objData.text {
-                cell.txtMessage.text = message
-                cell.chatImgs = objData.chatImages
-                cell.collageView.reload()
-
-                let fileUrl = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
-                // "http://www.africau.edu/images/default/sample.pdf"
-//                let fileUrl = URL(string: "http://www.africau.edu/images/default/sample.pdf")!
-                cell.lblFileName.text = "fileName.txt"
+            
+            if objData.hasFiles == true{
+                if let theFileName = objData.chatFiles{
+                    for item in theFileName{
+                        let fileUrl = URL(string: item)
+                        let paths = fileUrl?.pathComponents
+                        fileNameLabel = (paths?.last)!
+                    }
+                     cell.lblFileName.text =  fileNameLabel
+                }
+            }
+            if objData.hasFiles == true{
+                cell.containerViewDocsAttachments.isHidden = false
                 cell.btnDownloadDocsAction = { () in
-                    /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
                     let fileUrls = objData.chatFiles
                     for files in fileUrls!{
                         /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
@@ -690,31 +694,75 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
                     }
                 }
-                if UserDefaults.standard.bool(forKey: "isRtl") {
-                    let image = UIImage(named: "bubble_se")
-                    cell.imgPicture.image = image!
-                        .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
-                            resizingMode: .stretch)
-                        .withRenderingMode(.alwaysTemplate)
-                    cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-                    cell.imgPicture.tintColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1) // (hex:"D4FB79")
+
+                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor,constant: 8).isActive = true
+//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+            }
+            else{
+                cell.containerViewDocsAttachments.isHidden = true
+            }
+            
+            if objData.hasImages {
+                cell.containerViewImg.isHidden = false
+                cell.collageView.isHidden = false
+                print(objData.chatImages)
+                cell.chatImgs = objData.chatImages
+                cell.collageView.reload()
+                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor
+//                ).isActive = true
+//                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor).isActive = true
+            }else{
+                cell.containerViewImg.isHidden = true
+                cell.collageView.isHidden = true
+            }
+            if let message = objData.text {
                     cell.txtMessage.text = message
-                    // let height = cell.heightConstraint.constant + 20
-                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    if UserDefaults.standard.bool(forKey: "isRtl") {
+                        if !objData.text.isEmpty {
+
+                        let image = UIImage(named: "bubble_se")
+                        cell.imgPicture.image = image!
+                            .resizableImage(withCapInsets:
+                                UIEdgeInsetsMake(17, 21, 17, 21),
+                                resizingMode: .stretch)
+                            .withRenderingMode(.alwaysTemplate)
+                        cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
+                        cell.imgPicture.tintColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1) // (hex:"D4FB79")
+                        cell.txtMessage.text = message
+                        // let height = cell.heightConstraint.constant + 20
+                        cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                        cell.imgPicture.isHidden = false
+                        cell.txtMessage.isHidden = false
+                }else{
+
+                    cell.imgPicture.isHidden = true
+                    cell.txtMessage.isHidden = true
+                }
+               
 
                 } else {
-                    let image = UIImage(named: "bubble_sent")
-                    cell.imgPicture.image = image!
-                        .resizableImage(withCapInsets:
-                            UIEdgeInsetsMake(17, 21, 17, 21),
-                            resizingMode: .stretch)
-                        .withRenderingMode(.alwaysTemplate)
-                    cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-                    cell.imgPicture.tintColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1) // (hex:"D4FB79")
-                    cell.txtMessage.text = message
-                    // let height = cell.heightConstraint.constant + 20
-                    cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                    if !objData.text.isEmpty {
+                        let image = UIImage(named: "bubble_sent")
+                        cell.imgPicture.image = image!
+                            .resizableImage(withCapInsets:
+                                UIEdgeInsetsMake(17, 21, 17, 21),
+                                resizingMode: .stretch)
+                            .withRenderingMode(.alwaysTemplate)
+                        cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
+                        cell.imgPicture.tintColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1) // (hex:"D4FB79")
+                        cell.txtMessage.text = message
+                        // let height = cell.heightConstraint.constant + 20
+                        cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                        cell.imgPicture.isHidden = false
+                        cell.txtMessage.isHidden = false
+                    }else{
+                        cell.imgPicture.isHidden = true
+                        cell.txtMessage.isHidden = true
+                    }
+                    
                 }
             }
             if let imgUrl = URL(string: objData.img) {
@@ -828,17 +876,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //
 //                            }
 //                        }
-            
-            if let theFileName = objData.chatFiles{
-//                let filename:URL = URL(theFileName)
-                for files in theFileName{
-                    let fileName:URL = URL(files)
-                    cell.lblFileName.text = fileName.lastPathComponent
+            if objData.hasFiles == true{
+                if let theFileName = objData.chatFiles{
+                    for item in theFileName{
+                        let fileUrl = URL(string: item)
+                        let paths = fileUrl?.pathComponents
+                        fileNameLabel = (paths?.last)!
+                    }
+
+                     cell.lblFileName.text =  fileNameLabel
                 }
-                
+
             }
 
-            cell.lblFileName.text = "fileName.pdf"
+//            cell.lblFileName.text = "fileName.pdf"
             if objData.hasFiles == true{
                 cell.containerDocumentReceiver.isHidden = false
                 cell.btnDownloadAttachmentReceiverAction = { () in
@@ -860,14 +911,14 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(objData.chatImages)
                 cell.chatImgs = objData.chatImages
                 cell.collageViewReceiverImages.reload()
-                cell.collageViewReceiverImages.topAnchor.constraint(equalTo: cell.imgIcon.topAnchor, constant: 8).isActive = true
-                cell.containerReceiverAttachment.topAnchor.constraint(equalTo: cell.imgIcon.topAnchor, constant: 8).isActive = true
+//                cell.collageViewReceiverImages.topAnchor.constraint(equalTo: cell.imgIcon.bottomAnchor,constant: -18).isActive = true
+//                cell.containerReceiverAttachment.topAnchor.constraint(equalTo: cell.imgIcon.bottomAnchor,constant: -18).isActive = true
             }else{
                 cell.containerReceiverAttachment.isHidden = true
                 cell.collageViewReceiverImages.isHidden = true
             }
             if UserDefaults.standard.bool(forKey: "isRtl") {
-                if objData.text != nil {
+                if !objData.text.isEmpty {
                     if let message = objData.text {
                         let image = UIImage(named: "bubble_sent")
                         cell.imgBackground.image = image!
@@ -878,6 +929,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         cell.txtMessage.text = message
                         // let height = cell.heightConstraint.constant + 20
                         cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+                        cell.imgBackground.isHidden = false
+                        cell.txtMessage.isHidden = false
+                        cell.imgIcon.isHidden = false
                     }
                 }
                 else{
