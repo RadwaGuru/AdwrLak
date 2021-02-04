@@ -673,7 +673,114 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             ////                cell.containerViewImg.isHidden = true
             ////                cell.containerViewDocsAttachments.isHidden = true
 //            }
+           
+//            if objData.hasImages == true && objData.hasFiles == true && objData.text != nil{
+//                cell.imgPicture.isHidden = false
+//                cell.txtMessage.isHidden = false
+//                cell.imgProfile.isHidden = false
+//                cell.containerViewImg.isHidden = false
+//                cell.imgprofileUserAttachment.isHidden = true
+//                cell.imgUserProfileDocs.isHidden = true
+//                cell.collageView.isHidden = false
+//                cell.containerViewDocsAttachments.isHidden = false
+//                cell.containerViewDocsAttachments.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+//                cell.containerViewDocsAttachments.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+//                cell.containerViewImg.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+//                cell.containerViewImg.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+//            }
+          
+            if objData.hasFiles == true && objData.text != nil && objData.hasImages == false {
+                cell.containerViewDocsAttachments.isHidden = false
+                cell.imgProfile.isHidden = false
+                cell.imgUserProfileDocs.isHidden = true
+                cell.btnDownloadDocsAction = { () in
+                    let fileUrls = objData.chatFiles
+                    for files in fileUrls!{
+                        /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                        self.storeAndShare(withURLString: files)
+
+                    }
+                }
+                cell.containerViewDocsAttachments.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewDocsAttachments.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+//                cell.imgprofileUserAttachment.isHidden = false
+                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgprofileUserAttachment.topAnchor).isActive = true
+
+                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgprofileUserAttachment.bottomAnchor,constant: 8).isActive = true
+
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgPicture.bottomAnchor,constant: 8).isActive = true
+//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor).isActive = true
+
+            }
+            else if objData.hasImages == true && objData.hasFiles == true && objData.text != nil{
+                cell.imgPicture.isHidden = false
+                cell.txtMessage.isHidden = false
+                cell.imgProfile.isHidden = false
+                cell.containerViewImg.isHidden = false
+                cell.imgprofileUserAttachment.isHidden = true
+                cell.imgUserProfileDocs.isHidden = true
+                cell.collageView.isHidden = false
+                cell.containerViewDocsAttachments.isHidden = false
+                cell.containerViewDocsAttachments.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewDocsAttachments.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+                cell.containerViewImg.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewImg.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+            }
+            else if objData.hasFiles == true{
+                cell.containerViewDocsAttachments.isHidden = false
+                cell.imgProfile.isHidden = true
+                cell.imgUserProfileDocs.isHidden = false
+                cell.btnDownloadDocsAction = { () in
+                    let fileUrls = objData.chatFiles
+                    for files in fileUrls!{
+                        /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
+                        self.storeAndShare(withURLString: files)
+
+                    }
+                }
+                cell.containerViewDocsAttachments.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewDocsAttachments.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor,constant: 8).isActive = true
+//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+            }
+            else{
+                cell.containerViewDocsAttachments.isHidden = true
+                cell.imgProfile.isHidden = false
+                cell.imgUserProfileDocs.isHidden = true
+
+
+            }
             
+            if objData.hasImages == true && objData.text != nil{
+                cell.containerViewImg.isHidden = false
+                cell.collageView.isHidden = false
+                cell.imgProfile.isHidden = false
+                print(objData.chatImages)
+                cell.chatImgs = objData.chatImages
+                cell.collageView.reload()
+                cell.containerViewImg.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+                cell.containerViewImg.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgPicture.bottomAnchor,constant: 8).isActive = true
+            }
+            else if objData.hasImages {
+                cell.containerViewImg.isHidden = false
+                cell.collageView.isHidden = false
+                print(objData.chatImages)
+                cell.chatImgs = objData.chatImages
+                cell.collageView.reload()
+                cell.containerViewImg.backgroundColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1)
+                cell.containerViewImg.layer.borderColor = UIColor(red: 216 / 255, green: 238 / 255, blue: 160 / 255, alpha: 1).cgColor
+                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor
+//                ).isActive = true
+//                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
+//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor).isActive = true
+            }else{
+                cell.containerViewImg.isHidden = true
+                cell.collageView.isHidden = true
+            }
             if objData.hasFiles == true{
                 if let theFileName = objData.chatFiles{
                     for item in theFileName{
@@ -683,40 +790,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                      cell.lblFileName.text =  fileNameLabel
                 }
-            }
-            if objData.hasFiles == true{
-                cell.containerViewDocsAttachments.isHidden = false
-                cell.btnDownloadDocsAction = { () in
-                    let fileUrls = objData.chatFiles
-                    for files in fileUrls!{
-                        /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
-                        self.storeAndShare(withURLString: files)
-
-                    }
-                }
-
-                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.topAnchor,constant: 8).isActive = true
-//                cell.containerViewDocsAttachments.bottomAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
-//                cell.containerViewDocsAttachments.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
-            }
-            else{
-                cell.containerViewDocsAttachments.isHidden = true
-            }
-            
-            if objData.hasImages {
-                cell.containerViewImg.isHidden = false
-                cell.collageView.isHidden = false
-                print(objData.chatImages)
-                cell.chatImgs = objData.chatImages
-                cell.collageView.reload()
-                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
-//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor
-//                ).isActive = true
-//                cell.containerViewImg.topAnchor.constraint(equalTo: cell.imgProfile.centerYAnchor).isActive = true
-//                cell.containerViewImg.bottomAnchor.constraint(equalTo: cell.imgProfile.bottomAnchor).isActive = true
-            }else{
-                cell.containerViewImg.isHidden = true
-                cell.collageView.isHidden = true
             }
             if let message = objData.text {
                     cell.txtMessage.text = message
@@ -1366,6 +1439,7 @@ class SenderCell: UITableViewCell, CollageViewDataSource, CollageViewDelegate, N
         itemView.contentMode = .scaleAspectFill
 
         itemView.layer.borderWidth = 3
+//        itemView.layer.cornerRadius = 3
         let array = chatImgs
         let isIndexValid = array.indices.contains(index)
         if isIndexValid {
