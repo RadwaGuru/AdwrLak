@@ -51,10 +51,11 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+       
     }
     
     
-    
+   
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataArray.count

@@ -42,6 +42,7 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
          showBackButton()
         imgCancel.isHidden = true
         btnCancel.isHidden = true
+    
 
     }
     

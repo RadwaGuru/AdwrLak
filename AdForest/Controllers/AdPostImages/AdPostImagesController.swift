@@ -156,7 +156,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //                    gesture.delaysTouchesBegan = true
 //                }
 //            }
-        
+   
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -165,6 +165,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 
 //        self.tableView.reloadData()
     }
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
