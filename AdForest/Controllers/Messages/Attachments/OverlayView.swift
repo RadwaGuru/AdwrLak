@@ -50,7 +50,10 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     var imageSize: Int!
     var uploadImageTrueSize = false
     var fileSize = false
-
+    var uploadImageHeading = ""
+    var uploadDocumentHeading = ""
+    var sizeFile = 0.0
+    var uploadFileTrueSize = false
     let appDel = UIApplication.shared.delegate as! AppDelegate
     let mainColor = UserDefaults.standard.string(forKey: "mainColor")
     @IBOutlet weak var lblDocs: UILabel!
@@ -78,6 +81,8 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         slideIdicator.roundCorners(.allCorners, radius: 10)
         lblHeading.text = headingPopUp
         adforest_getAttachmentData()
+        lblDocs.text = uploadDocumentHeading
+        lblImages.text = uploadImageHeading
         //        subscribeButton.roundCorners(.allCorners, radius: 10)
     }
     
@@ -162,7 +167,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             }
             else {
                 self.photoArray = images
-                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType,"FileType":"Images"]
                 print(parameter)
                 
                 self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
@@ -241,13 +246,43 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     func saveFileToDocumentDirectory(document: URL) {
         if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "File", extention: document.pathExtension) {
             if chatAttachmentFormat.contains(document.pathExtension){
+               
                 fileSize = true
             }else{
                 fileSize = false
             }
+            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: document.path) {
+                if let bytes = fileAttributes[.size] as? Int64 {
+                
             
-            if fileSize == true{
-                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType]
+            let bcf = ByteCountFormatter()
+            bcf.allowedUnits = [.useKB]
+            bcf.countStyle = .file
+            let string = bcf.string(fromByteCount: bytes)
+            print(string)
+                }
+            }
+            do {
+                let attribute = try FileManager.default.attributesOfItem(atPath: document.path)
+                    if let size = attribute[FileAttributeKey.size] as? NSNumber {
+                         sizeFile =  size.doubleValue / 1000000.0
+                        print(sizeFile)
+                        let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(sizeFile), countStyle: .decimal)
+                        print("File Size: \(fileSizeWithUnit)")
+                    }
+                } catch {
+                    print("Error: \(error)")
+                }
+            if  String(sizeFile) < chatDocSize || String(sizeFile) == chatDocSize {
+                uploadFileTrueSize = true
+            }
+            else{
+                uploadFileTrueSize = false
+            }
+//            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
+
+            if fileSize == true && uploadFileTrueSize == true {
+                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType,"FileType":"Document"]
                 print(parameter)
                 adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
                 
@@ -259,42 +294,6 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         }
     }
     
-    //MARK:- DOwnload files
-    func adforest_DownloadFiles(url: URL, to localUrl: URL, completion: @escaping () -> ()) {
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        let request = try! URLRequest(url: url, method: .get)
-        showLoader()
-        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
-            if let tempLocalUrl = tempLocalUrl, error == nil {
-                // Success
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Success: \(statusCode)")
-                    
-                    DispatchQueue.main.async {
-                        self.perform(#selector(self.showSuccess), with: nil, afterDelay: 0.0)
-                        self.stopAnimating()
-                        
-                    }
-                }
-                
-            } else {
-            }
-        }
-        task.resume()
-    }
-    
-    @objc func showSuccess(){
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Downloaded Successfully"
-        hud.detailTextLabel.text = nil
-        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-        hud.position = .bottomCenter
-        hud.show(in: self.view)
-        hud.dismiss(afterDelay: 2.0)
-    }
-    
-    
     //MARK:- API Call
     
     //MARK:- Post Images
@@ -305,11 +304,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         uploadingProgressBar.detailTextLabel.text = "0% Completed"
         uploadingProgressBar.show(in: view)
 //
-        adPostUploadImages(parameter: param, imagesArray: images, fileName: "chat_media[]", uploadProgress: { (uploadProgress) in
+        adPostUploadImages(parameter: param, imagesArray: images, fileName: "File", uploadProgress: { (uploadProgress) in
 
         }, success: { (successResponse) in
-            self.uploadingProgressBar.dismiss(animated: true)
-            self.stopAnimating()
+//            self.uploadingProgressBar.dismiss(animated: true)
+//            self.stopAnimating()
             if successResponse.success {
                 self.stopAnimating()
                 self.uploadingProgressBar.dismiss(animated: true)
@@ -345,13 +344,12 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         
         let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
         print(url)
-        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "chat_media[]", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
+        NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
             print(uploadProgress)
             let currentProgress = Float(uploadProgress)/100
             self.uploadingProgressBar.detailTextLabel.text = "\(uploadProgress)% Completed"
             self.uploadingProgressBar.setProgress(currentProgress, animated: true)
         }, success: { (successResponse) in
-            
             self.stopAnimating()
             self.uploadingProgressBar.dismiss(animated: true)
             self.delegate?.openChatFromAttachment()

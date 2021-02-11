@@ -60,8 +60,8 @@
                                         <action selector="ActionMediaAttachment:" destination="-1" eventType="touchUpInside" id="Ta2-ob-7Ng"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtb-bf-RRt">
-                                    <rect key="frame" x="62" y="8" width="114" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtb-bf-RRt">
+                                    <rect key="frame" x="62" y="8" width="0.0" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="5sW-uw-XUY"/>
                                     </constraints>
@@ -103,8 +103,8 @@
                                         <action selector="ActionAttachment:" destination="-1" eventType="touchUpInside" id="s1d-pF-8Bj"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Docs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLK-Yr-qI3">
-                                    <rect key="frame" x="62" y="8" width="98" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLK-Yr-qI3">
+                                    <rect key="frame" x="62" y="8" width="0.0" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="QeK-by-4sW"/>
                                     </constraints>

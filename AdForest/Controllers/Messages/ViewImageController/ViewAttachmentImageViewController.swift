@@ -62,7 +62,7 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
         if let imgUrl = URL(string: imageAttachment[index]) {
             
             cell.imageView?.sd_setShowActivityIndicatorView(true)
-            cell.imageView?.sd_setIndicatorStyle(.white)
+            cell.imageView?.sd_setIndicatorStyle(.gray)
             cell.imageView?.sd_setImage(with: imgUrl, completed: nil)
             cell.imageView?.contentMode = .scaleAspectFit
             cell.imageView?.clipsToBounds = true
