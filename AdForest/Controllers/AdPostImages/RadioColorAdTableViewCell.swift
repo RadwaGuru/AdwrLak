@@ -15,18 +15,15 @@ protocol ColorRadioDelegateAdpost {
 
 class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    
-    
-    
     //MARK:- Outlets
     
     @IBOutlet weak var collectionView: UICollectionView!
-    {
-        didSet{
-            collectionView.delegate = self
-            collectionView.dataSource = self
-        }
-    }
+//    {
+//        didSet{
+//            collectionView.delegate = self
+//            collectionView.dataSource = self
+//        }
+//    }
     
     @IBOutlet weak var containerView: UIView!{
         didSet{
@@ -51,11 +48,14 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-       
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+//        tap.cancelsTouchesInView = false
+//        self.contentVi.addGestureRecognizer(tap)
+        
     }
-    
-    
-   
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataArray.count
@@ -75,17 +75,27 @@ class RadioColorAdTableViewCell: UITableViewCell, UICollectionViewDelegate, UICo
         cell.dataArray = dataArray
         id = cell.id
         print(objData.id)
-        cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
         cell.reloadInputViews()
-
+        cell.initializeData(value: objData, radioButtonCellRef: self, index: indexPath.row)
+        
         return cell
         
     }
-//
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        let cell = collectionView.cellForItem(at: indexPath) as! RadioColorAdCollectionViewCell
-//       }
-//
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let cell = collectionView.cellForItem(at: indexPath) as! RadioColorAdCollectionViewCell
+        
+        print(dataArray[indexPath.row].id!)
+        cell.imgViewRadio.image = UIImage(named: "radio-on-button")
+        cell.imgViewRadio.image = cell.imgViewRadio.image?.withRenderingMode(.alwaysTemplate)
+        cell.imgViewRadio.tintColor = UIColor(hex: dataArray[indexPath.row].id)
+        id = dataArray[indexPath.row].id
+        selectedColor = dataArray[indexPath.row].id
+        isselected = true
+        self.delegate?.colorVal(colorCode: selectedColor, fieldType: "radio_color", indexPath: index, isSelected: true,fieldNam: fieldName)
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! RadioColorAdCollectionViewCell
         

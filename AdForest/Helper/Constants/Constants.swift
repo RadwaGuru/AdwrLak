@@ -13,8 +13,7 @@ import DeviceKit
 class Constants {
     struct  URL {
         
-        static let ipAddress = "https://adforest-testapp.scriptsbundle.com/"
-//        static let ipAddress =  "https://adforest-api.scriptsbundle.com/"//Enter your domain name here
+        static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"//Enter your domain name here
 
 
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
@@ -122,30 +121,16 @@ class Constants {
     
     struct customCodes {
         
- 
-
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
-
-//        static let purchaseCode = "aaBMQWH8vIWZjOR07nEyJbOnqrzWbHk-ios"
-//        static let securityCode = "212PQoz1zAICAxui55AZuSTNhajjTTs-ios"
-
-        
     }
     
     
     struct LinkedInConstants {
-            static let CLIENT_ID = "86tji4rrl6tgq5"
-                static let CLIENT_SECRET = "RjxmPtKp1R11ECyq"
-                static let REDIRECT_URI = "https://adforest-api.scriptsbundle.com/"
-                
-//        static let CLIENT_ID = "864iqrnf6d0ivz";//Enter Your LINKEDIN_CLIENT_ID here
-//              static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
-//              static let REDIRECT_URI = "https://adforest-testapp.scriptsbundle.com/";//Enter Your LINKEDIN_REDIRECT_URL here
             
-//        static let CLIENT_ID = "Enter Your LINKEDIN_CLIENT_ID here";//Enter Your LINKEDIN_CLIENT_ID here
-//        static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
-//        static let REDIRECT_URI = "Enter Your LINKEDIN_REDIRECT_URL here";//Enter Your LINKEDIN_REDIRECT_URL here
+        static let CLIENT_ID = "Enter Your LINKEDIN_CLIENT_ID here";//Enter Your LINKEDIN_CLIENT_ID here
+        static let CLIENT_SECRET = "mXCJWg7YGrcmBvPp";//Enter Your LINKEDIN_CLIENT_SECRET here
+        static let REDIRECT_URI = "Enter Your LINKEDIN_REDIRECT_URL here";//Enter Your LINKEDIN_REDIRECT_URL here
         static let SCOPE = "r_liteprofile%20r_emailaddress" //Get lite profile info and e-mail address
         
         static let AUTHURL = "https://www.linkedin.com/oauth/v2/authorization"
@@ -155,14 +140,12 @@ class Constants {
     
     struct googlePlacesAPIKey {
         
-//        static let placesKey = "placeskey "
-        static let placesKey =  "AIzaSyCU9-DVKNM2GyoJ2_9MdMtCSU8zqD1pTLc"
+        static let placesKey = "placeskey "
 
         
     }
     struct MapboxAccessToken {
         
-//        static let placesKey = "placeskey "
         static let MapboxAccessToken =  "pk.eyJ1IjoiZ2xpeGVuIiwiYSI6ImNrMmFkNXdjbjJpeHgzbG16bW5kZ3R5OGkifQ.sUMfX4HRKF9l3YorJ4a02A"
 
         

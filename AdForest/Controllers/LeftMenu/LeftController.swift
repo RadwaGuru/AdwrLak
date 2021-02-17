@@ -306,13 +306,12 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- For Side Menu Pages
-    func initializePagesView(pageID: Int, type: String, pageUrl: String,pageTitle: String) {
+    func initializePagesView(pageID: Int, type: String, pageUrl: String) {
         let pagesView = storyboard?.instantiateViewController(withIdentifier: PagesController.className) as! PagesController
         pagesView.delegate = self
         pagesView.page_id = pageID
         pagesView.type = type
         pagesView.pageUrl = pageUrl
-        pagesView.pageTitle = pageTitle
         self.viewPages = UINavigationController(rootViewController: pagesView)
     }
     
@@ -893,7 +892,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             if isShowPage {
                 if let menu = pageMenu(rawValue: 0) {
-                    initializePagesView(pageID: objData.pageId, type: objData.type, pageUrl: objData.pageUrl, pageTitle: objData.pageTitle)
+                    initializePagesView(pageID: objData.pageId, type: objData.type, pageUrl: objData.pageUrl)
                     self.changePage(menu)
                 }
             }

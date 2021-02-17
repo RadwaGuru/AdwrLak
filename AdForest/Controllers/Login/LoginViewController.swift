@@ -427,6 +427,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             if isShowFacebook && isShowGoogle && isShowApple  && isShowLinkedin == false {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
+                self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = true
             }
@@ -484,7 +485,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
-//                self.btnGoogleLog.isHidden = false
+                self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
                 self.topConstraintBtnLinkedIn.constant -= 60
@@ -814,6 +815,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
             if self.homeStyle == "home1"{
                 self.appDelegate.moveToHome()
+
             }else if self.homeStyle == "home2"{
                 self.appDelegate.moveToMultiHome()
             }

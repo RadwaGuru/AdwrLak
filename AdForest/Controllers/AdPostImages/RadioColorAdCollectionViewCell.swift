@@ -25,7 +25,6 @@ class RadioColorAdCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         //self.selectionStyle = .none
         
-        
     }
     
     func initializeData(value: AdPostValue, radioButtonCellRef: RadioColorAdTableViewCell, index: Int) {

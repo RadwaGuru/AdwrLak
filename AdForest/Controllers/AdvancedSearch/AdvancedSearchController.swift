@@ -789,6 +789,10 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 
 extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,checkBoxesValues/*,searchTextDelegate*/,SearchAutoDelegate,SeekBarDelegate,DateFieldsDelegateMax,radioDelegate,selectValue{
     
+    
+    
+    
+    
 
     func selectValue(selectVal: String, selectKey: String, fieldType: String, section: Int,indexPath: Int, fieldTypeName: String) {
         

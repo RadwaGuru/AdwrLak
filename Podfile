@@ -14,7 +14,6 @@ target 'AdForest' do
     
     #Google Login With Firebase
     pod 'GoogleSignIn'
-    pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'GoogleAnalytics'
@@ -116,8 +115,6 @@ pod 'SOTabBar'
 pod 'FSPagerView'
 #pod 'FanMenu'
 pod "ZGTooltipView"
-pod 'LTHRadioButton'
-pod 'KGRadioButton'
 pod 'CollageView', '~> 1.0.4'
 
 

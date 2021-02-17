@@ -145,7 +145,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.saveContext()
         UserDefaults.standard.set("3", forKey: "fromNotification")
     }
-   
     
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
@@ -398,7 +397,6 @@ extension AppDelegate  {
                     UserDefaults.standard.set("1", forKey: "fromNotification")
                     self.window?.makeKeyAndVisible()
                 }
-        completionHandler()
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

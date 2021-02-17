@@ -1,23 +1,17 @@
 //
-//  ViewAttachmentImageViewController.swift
+//  ViewAttachmentViewController.swift
 //  AdForest
 //
-//  Created by Apple on 19/01/2021.
+//  Created by Apple on 16/02/2021.
 //  Copyright © 2021 apple. All rights reserved.
 //
 
 import UIKit
 import FSPagerView
-class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate {
-   
-    
-    
-    
-    
-    @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var imgCancel: UIImageView!
-    
-    @IBOutlet weak var pagerView: FSPagerView!{didSet {
+class ViewAttachmentViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate {
+
+    @IBOutlet weak var pagerView: FSPagerView!
+    {didSet {
         self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         self.pagerView.delegate = self
         self.pagerView.dataSource = self
@@ -33,27 +27,29 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
         self.pagerView.decelerationDistance = FSPagerView.automaticDistance
     }
 }
+    @IBOutlet weak var containerView: UIView!
+    //MARK:- Properties
     var imageAttachment: [String] = []
 
-    @IBOutlet weak var containerView: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-         showBackButton()
-        imgCancel.isHidden = true
-        btnCancel.isHidden = true
+
+        // Do any additional setup after loading the view.
+    }
     
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
-    
-    
-    @IBAction func BtnActionCancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+    */
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return imageAttachment.count
-            //(data?.catLocations.count)!
 
     }
     
@@ -82,6 +78,4 @@ class ViewAttachmentImageViewController: UIViewController,FSPagerViewDataSource,
 
         
     }
-
 }
-

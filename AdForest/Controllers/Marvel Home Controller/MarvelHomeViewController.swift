@@ -1351,7 +1351,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 //                            //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
                 //
                 //
-//                                            self.showAd()
+                //                            self.showAd()
                 //
                 //                            //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
                 //                            //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
