@@ -255,7 +255,6 @@
 		182D6FBD20A44C8F00430E53 /* SettingsIsShowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D6FBC20A44C8F00430E53 /* SettingsIsShowMenu.swift */; };
 		183287B520EC9B9E0096A21E /* AdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183287B420EC9B9E0096A21E /* AdMob.swift */; };
 		1834EC0E20DBF85800BF027C /* HomeBlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */; };
-		1836446C25DA4D740031CDAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1836446B25DA4D730031CDAA /* GoogleService-Info.plist */; };
 		1836447825DA4E430031CDAA /* ChatImages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836447725DA4E430031CDAA /* ChatImages.xib */; };
 		1836447D25DA50150031CDAA /* ChatImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836447C25DA50150031CDAA /* ChatImages.swift */; };
 		1836449825DA9B440031CDAA /* ChatFiles.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836449725DA9B440031CDAA /* ChatFiles.xib */; };
@@ -572,6 +571,7 @@
 		18CE381925DD4F0C0053A299 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CE381825DD4F0C0053A299 /* OverlayView.swift */; };
 		18CE381E25DD4F600053A299 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CE381D25DD4F600053A299 /* PresentationController.swift */; };
 		18CE382325DD53600053A299 /* ChatMessageSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CE382225DD53600053A299 /* ChatMessageSettings.swift */; };
+		18CE386D25DD594A0053A299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CE386C25DD594A0053A299 /* GoogleService-Info.plist */; };
 		18D04FDA21380A99001329D4 /* AdPostBumpAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D04FD921380A99001329D4 /* AdPostBumpAdd.swift */; };
 		18D04FDC21382496001329D4 /* AdPostFeaturedAdText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D04FDB21382496001329D4 /* AdPostFeaturedAdText.swift */; };
 		18D8DCB021A6C46D008888BA /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8DCAE21A6C46D008888BA /* CustomHeader.swift */; };
@@ -930,7 +930,6 @@
 		182D6FBC20A44C8F00430E53 /* SettingsIsShowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsIsShowMenu.swift; sourceTree = "<group>"; };
 		183287B420EC9B9E0096A21E /* AdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMob.swift; sourceTree = "<group>"; };
 		1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlogCell.swift; sourceTree = "<group>"; };
-		1836446B25DA4D730031CDAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1836447725DA4E430031CDAA /* ChatImages.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatImages.xib; sourceTree = "<group>"; };
 		1836447C25DA50150031CDAA /* ChatImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImages.swift; sourceTree = "<group>"; };
 		1836449725DA9B440031CDAA /* ChatFiles.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatFiles.xib; sourceTree = "<group>"; };
@@ -1255,6 +1254,7 @@
 		18CE381825DD4F0C0053A299 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		18CE381D25DD4F600053A299 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		18CE382225DD53600053A299 /* ChatMessageSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageSettings.swift; sourceTree = "<group>"; };
+		18CE386C25DD594A0053A299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		18D04FD921380A99001329D4 /* AdPostBumpAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostBumpAdd.swift; sourceTree = "<group>"; };
 		18D04FDB21382496001329D4 /* AdPostFeaturedAdText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostFeaturedAdText.swift; sourceTree = "<group>"; };
 		18D8DCAE21A6C46D008888BA /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
@@ -2685,7 +2685,7 @@
 			isa = PBXGroup;
 			children = (
 				18522C2A20B5439F00FC7F38 /* AdForest.entitlements */,
-				1836446B25DA4D730031CDAA /* GoogleService-Info.plist */,
+				18CE386C25DD594A0053A299 /* GoogleService-Info.plist */,
 				9650913A250664290058CA7D /* CountdownViewModel.swift */,
 				18BBFACB20510F620067662F /* Models */,
 				18BBFABA205109BA0067662F /* Helper */,
@@ -3878,12 +3878,12 @@
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				CB4A7323253431D5005FE49F /* MultiSearchSectionCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
+				18CE386D25DD594A0053A299 /* GoogleService-Info.plist in Resources */,
 				96BFE9F424F7A87200B4B2F7 /* MarvelSearchSectionTableViewCell.xib in Resources */,
 				18CE378C25DD2EC10053A299 /* ChatImagesReceiver.xib in Resources */,
 				18BBFA8C2051098C0067662F /* Main.storyboard in Resources */,
 				181DDA9823339465001FF048 /* sad.gif in Resources */,
 				185B3C79207E374900EDBBB4 /* AddBidsCell.xib in Resources */,
-				1836446C25DA4D740031CDAA /* GoogleService-Info.plist in Resources */,
 				181DDA90233380B5001FF048 /* thumb.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
