@@ -24,7 +24,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
     var page_id = 0
     var type = ""
     var pageUrl = ""
-    
+    var pagetItle = ""
     
     
     let defaults = UserDefaults.standard
@@ -55,7 +55,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Pages"
+        self.title = pagetItle
         self.addBackButtonToNavigationBar()
         self.googleAnalytics(controllerName: "Pages Controller")
         if type == "simple" {
