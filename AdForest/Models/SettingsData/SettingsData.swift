@@ -70,6 +70,8 @@ struct SettingsData {
     var locationSectionStyle: String!
     var placesSearchType: Bool!
     var adDetailStyle: String!
+    var appTopLocation : [HomeAppTopLocation]!
+
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -150,7 +152,13 @@ struct SettingsData {
                 langData.append(value)
             }
         }
-        
+        appTopLocation = [HomeAppTopLocation]()
+        if let appTopLocationListArray = dictionary["app_top_location_list"] as? [[String:Any]]{
+            for dic in appTopLocationListArray{
+                let value = HomeAppTopLocation(fromDictionary: dic)
+                appTopLocation.append(value)
+            }
+        }
         
         buyText = dictionary["app_paid_cat_text"] as? String
         appPageTestUrl = dictionary["app_page_test_url"] as? String
@@ -306,7 +314,13 @@ struct SettingsData {
         if InValidUrl != nil {
             dictionary["invalid_url"] = InValidUrl
         }
-
+        if appTopLocation != nil{
+            var dictionaryElements = [[String:Any]]()
+            for appTopLocationListElement in appTopLocation {
+                dictionaryElements.append(appTopLocationListElement.toDictionary())
+            }
+            dictionary["app_top_location_list"] = dictionaryElements
+        }
         return dictionary
     }
     

@@ -116,6 +116,7 @@ pod 'FSPagerView'
 #pod 'FanMenu'
 pod "ZGTooltipView"
 pod 'CollageView', '~> 1.0.4'
+pod 'KSImageCarousel'
 
 
 end

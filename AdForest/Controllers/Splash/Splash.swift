@@ -37,6 +37,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var featuredTime : String!
     var featuredLoop = ""
     var home = "homeMulti"
+    var topLocArr : [HomeAppTopLocation]!
     //MARK:- Properties
     
     override func viewDidLoad() {
@@ -140,7 +141,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
 
                 self.home = successResponse.data.homeStyles
                 self.defaults.set(successResponse.data.homeStyles,forKey: "homeStyles")
-
+                self.topLocArr = successResponse.data.appTopLocation
                 self.defaults.set(successResponse.data.isAppOpen, forKey: "isAppOpen")
                 self.defaults.set(successResponse.data.showNearby, forKey: "showNearBy")
                 self.defaults.set(successResponse.data.showHome, forKey: "showHome")
@@ -208,7 +209,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 }
                 
                 UserDefaults.standard.set(successResponse.data.wpml_menu_text, forKey: "langHeading")
-                
+                UserDefaults.standard.set(successResponse.data.menu.topLocation, forKey: "locHeading")
+
                 if successResponse.data.menu.iStaticMenu.array == nil{
                     if  successResponse.data.menu.iStaticMenu.array == nil {
                         if self.isWplOn == true{
@@ -293,7 +295,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 
                 let isLang = UserDefaults.standard.string(forKey: "langFirst")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
+                let islocFirst = UserDefaults.standard.string(forKey: "locFirst")
                 if self.isWplOn == true {
                     
                     if isLang != "1" {
@@ -308,7 +310,23 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                             self.adForest_checkLogin()
                         }
                     }
-                }else{
+                } else if self.isToplocationOn == true {
+                    if islocFirst != "1"{
+                        let locCtrl = storyboard.instantiateViewController(withIdentifier: SetLocationController.className) as! SetLocationController
+                        locCtrl.dataArr = self.topLocArr
+                        self.navigationController?.pushViewController(locCtrl, animated: true)
+                    }else{
+                        if successResponse.data.isRtl {
+                            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                            self.adForest_checkLogin()
+                        } else {
+                            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                            self.adForest_checkLogin()
+                        }
+                    }
+                    
+                }
+                else{
                     if successResponse.data.isRtl {
                         UIView.appearance().semanticContentAttribute = .forceRightToLeft
                         self.adForest_checkLogin()

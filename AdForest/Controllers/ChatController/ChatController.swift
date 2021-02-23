@@ -160,6 +160,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+
         tableView.register(UINib(nibName: "ChatImages", bundle: nil), forCellReuseIdentifier: "ChatImages")
         tableView.register(UINib(nibName: "ChatFiles", bundle: nil), forCellReuseIdentifier: "ChatFiles")
         tableView.register(UINib(nibName: "ChatFilesImagestext", bundle: nil), forCellReuseIdentifier: "ChatFilesImagestext")
@@ -495,7 +497,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if objData.type == "reply" {
             
             let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-                        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//                        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+            cell.backgroundColor = UIColor.groupTableViewBackground
 
             if userBlocked == true{
                 cell.isHidden = true
@@ -516,7 +519,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.estimatedRowHeight = UITableViewAutomaticDimension
 
             let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-                        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//                        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+            cell.backgroundColor = UIColor.groupTableViewBackground
 
             if userBlocked == true{
                 cell.isHidden = true
@@ -576,15 +580,17 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func cellFor(message: [SentOfferChat], at indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell  {
         let objdta =  dataArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatImages", for: indexPath) as! ChatImages
-        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+//        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+        cell.backgroundColor = UIColor.groupTableViewBackground
+
 
         if objdta.type == "reply" {
             //            let objdta =  dataArray[indexPath.row]
             if objdta.hasFiles == true && objdta.hasImages == true && objdta.text != nil {
                 
                 let cell3 = tableView.dequeueReusableCell(withIdentifier: "ChatFilesImagestext", for: indexPath) as! ChatFilesImagestext
-                cell3.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                cell3.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                cell3.backgroundColor = UIColor.groupTableViewBackground
                 cell3.chatImgs = objdta.chatImages
                 cell3.collageViewImages.reload()
                 if let imgUrl = URL(string: objdta.img) {
@@ -708,8 +714,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             else if objdta.hasFiles == true && objdta.text != nil{
                 let ChatFile =  tableView.dequeueReusableCell(withIdentifier: "ChatFiles", for: indexPath) as! ChatFiles
-                ChatFile.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                ChatFile.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                ChatFile.backgroundColor = UIColor.groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
                         let fileUrl = URL(string: item)
@@ -777,8 +783,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             else if objdta.text != nil {
                 let cellw = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-                cellw.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                cellw.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                cellw.backgroundColor = UIColor.groupTableViewBackground
                 if let message = objdta.text {
                     cellw.txtMessage.text = message
                     //cell.label.text = message
@@ -822,8 +828,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             if objdta.hasFiles == true && objdta.hasImages == true && objdta.text != nil {
                 let ChatThreeItemsReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFIlesTextImageReceiver", for: indexPath) as! ChatFIlesTextImageReceiver
-                ChatThreeItemsReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                ChatThreeItemsReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                ChatThreeItemsReceiver.backgroundColor = UIColor.groupTableViewBackground
                 ChatThreeItemsReceiver.chatImgs = objdta.chatImages
                 ChatThreeItemsReceiver.collageViewreceiver.reload()
                 if let imgUrl = URL(string: objdta.img) {
@@ -895,8 +901,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             else  if objdta.hasFiles == true && objdta.text != nil{
                 let ChatFileReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFilesReceiver", for: indexPath) as! ChatFilesReceiver
-                ChatFileReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                ChatFileReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                ChatFileReceiver.backgroundColor = UIColor.groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
                         let fileUrl = URL(string: item)
@@ -967,8 +973,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
              else if objdta.hasImages == true && objdta.text != nil{
                 
                 let ChatImageReceiver = tableView.dequeueReusableCell(withIdentifier: "ChatImagesReceiver", for: indexPath) as! ChatImagesReceiver
-                ChatImageReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                ChatImageReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                ChatImageReceiver.backgroundColor = UIColor.groupTableViewBackground
                 ChatImageReceiver.chatImgs = objdta.chatImages
                 ChatImageReceiver.collageViewReceiver.reload()
                 
@@ -1026,8 +1032,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
              }
              else if objdta.text != nil {
                 let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-                cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-
+//                cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                cell.backgroundColor = UIColor.groupTableViewBackground
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     if let message = objdta.text {
                         let image = UIImage(named: "bubble_sent")

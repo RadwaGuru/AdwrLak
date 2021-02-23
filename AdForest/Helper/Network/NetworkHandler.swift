@@ -15,7 +15,8 @@ class NetworkHandler {
     class func postRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
-        var locID = UserDefaults.standard.string(forKey: "locId")
+        var locID = UserDefaults.standard.string(forKey: "ToplocId")
+        //
         if locID == nil {
             locID = ""
         }
@@ -155,7 +156,7 @@ class NetworkHandler {
     class func postDataRequest(url: String, parameters: Parameters?, success: @escaping (Any) -> Void, failure: @escaping (NetworkError) -> Void) {
         
          var langCode = UserDefaults.standard.string(forKey: "langCode")
-        var locID = UserDefaults.standard.string(forKey: "locId")
+        var locID = UserDefaults.standard.string(forKey: "ToplocId")
         if locID == nil {
                    locID = ""
                }
@@ -218,7 +219,9 @@ class NetworkHandler {
                     "Purchase-Code" : Constants.customCodes.purchaseCode,
                     "Custom-Security": Constants.customCodes.securityCode,
                      "Adforest-Request-From" : "ios",
-                      "Adforest-Lang-Locale" : langCode
+                      "Adforest-Lang-Locale" : langCode,
+                    "Adforest-Location-Id" : locID
+
                     ] as! HTTPHeaders
             }
             print(headers)
@@ -241,7 +244,7 @@ class NetworkHandler {
     class func getRequest(url: String, parameters: Parameters?, success: @escaping (Any?) -> Void, failure: @escaping (NetworkError) -> Void) {
         
         var langCode = UserDefaults.standard.string(forKey: "langCode")
-        var locID = UserDefaults.standard.string(forKey: "locId")
+        var locID = UserDefaults.standard.string(forKey: "ToplocId")
         if locID == nil {
                    locID = ""
                }

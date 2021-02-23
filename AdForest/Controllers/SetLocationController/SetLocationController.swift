@@ -27,6 +27,7 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
     @IBOutlet weak var btnRefresh: UIButton!
     
     var window: UIWindow?
+    var delegate :leftMenuProtocol?
 
     let defaults = UserDefaults.standard
     var nearByTitle = ""
@@ -39,7 +40,7 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
-
+    var dataArr : [HomeAppTopLocation]!
     
     //MARK:- Life Cycle
     override func viewDidLoad() {
@@ -56,8 +57,34 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
         print(AddsHandler.sharedInstance.topLocationArray)
         
         navigationButtons()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let loc = UserDefaults.standard.string(forKey: "locHeading")
+        let isLoc = UserDefaults.standard.string(forKey: "locFirst")
+        if isLoc == "0"{
+            self.navigationController?.isNavigationBarHidden = true
+            
+        }else{
+            self.navigationController?.isNavigationBarHidden = false
+//            self.title = loc
+//            self.addLeftBarButtonWithImage()
+            addBackButtonToNavigationBar()
+        }
+        UserDefaults.standard.setValue("1", forKey: "locFirst")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        // self.navigationController?.isNavigationBarHidden = false
+        
+        let isLoc = UserDefaults.standard.string(forKey: "locFirst")
+        if isLoc != "1"{
+            self.navigationController?.isNavigationBarHidden = false
+        }
+        
+    }
     
     @IBAction func btnRefreshClicked(_ sender: UIButton) {
 //        UIView.animate(withDuration: 2.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
@@ -73,6 +100,27 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
     }
     
     //MARK:- Custom
+    
+    func addBackButtonToNavigationBar() {
+        let leftButton = UIBarButtonItem(image: #imageLiteral(resourceName: "backbutton"), style: .done, target: self, action: #selector(moveToParentController))
+        leftButton.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = leftButton
+    }
+    
+    @objc func moveToParentController() {
+        if homeStyle == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyle == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyle == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }
+        self.dismissVC(completion: nil)
+    }
+    
+
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
@@ -115,12 +163,14 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AddsHandler.sharedInstance.topLocationArray.count
+        return dataArr.count
+            //AddsHandler.sharedInstance.topLocationArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SetLocationCell.className, for: indexPath) as! SetLocationCell
-        let objData = AddsHandler.sharedInstance.topLocationArray[indexPath.row]
+        let objData = dataArr[indexPath.row]
+            //AddsHandler.sharedInstance.topLocationArray[indexPath.row]
         
         if let name = objData.locationName {
             cell.lblName.text = name
@@ -134,9 +184,10 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let objData = AddsHandler.sharedInstance.topLocationArray[indexPath.row]
+        let objData = dataArr[indexPath.row]
+            //AddsHandler.sharedInstance.topLocationArray[indexPath.row]
         if let id = objData.locationId {
-            UserDefaults.standard.set(id, forKey: "locId")
+            UserDefaults.standard.set(id, forKey: "ToplocId")
             let param : [String:Any] = ["location_id":id]
             setLocation(parameter: param)
         }
