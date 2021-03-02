@@ -116,7 +116,8 @@ pod 'FSPagerView'
 #pod 'FanMenu'
 pod "ZGTooltipView"
 pod 'CollageView', '~> 1.0.4'
-pod 'KSImageCarousel'
+    #Socket
+    pod 'Socket.IO-Client-Swift', '~> 15.2.0'
 
 
 end

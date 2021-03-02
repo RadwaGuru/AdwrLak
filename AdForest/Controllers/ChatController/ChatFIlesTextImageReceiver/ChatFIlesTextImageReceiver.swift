@@ -41,7 +41,7 @@ class ChatFIlesTextImageReceiver: UITableViewCell,CollageViewDelegate,CollageVie
         didSet{
             containerFilesReceiver.layer.borderWidth = 1
             containerFilesReceiver.layer.cornerRadius = 10
-            containerFilesReceiver.backgroundColor = UIColor.groupTableViewBackground
+            containerFilesReceiver.backgroundColor = UIColor.white
             containerFilesReceiver.layer.borderColor = UIColor.white.cgColor
 
         }

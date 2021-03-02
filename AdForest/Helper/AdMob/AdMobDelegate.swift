@@ -12,13 +12,13 @@ import GoogleMobileAds
 
 class AdMobDelegate: NSObject, GADInterstitialDelegate {
     
-    var interstitialView: DFPInterstitial!
+    var interstitialView: GADInterstitial!
     //GADInterstitial!
-    
-    func createAd() -> DFPInterstitial {
-        interstitialView = DFPInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
+    //ca-app-pub-3521346996890484/7679081330"
+    func createAd() -> GADInterstitial {
+        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         interstitialView.delegate = self
-        let request = DFPRequest()
+        let request = GADRequest()
 //            GADRequest()
         interstitialView.load(request)
         return interstitialView
@@ -38,34 +38,34 @@ class AdMobDelegate: NSObject, GADInterstitialDelegate {
         }
     }
     
-    private func interstitialDidReceiveAd(_ ad: DFPInterstitial) {
+    private func interstitialDidReceiveAd(_ ad: GADInterstitial) {
         print("Ad Received")
         if ad.isReady {
             interstitialView.present(fromRootViewController: currentVc)
         }
     }
     
-    private func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
+    private func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         print("Did Dismiss Screen")
     }
     
-    private func interstitialWillDismissScreen(_ ad: DFPInterstitial) {
+    private func interstitialWillDismissScreen(_ ad: GADInterstitial) {
         print("Will Dismiss Screen")
     }
     
-    private func interstitialWillPresentScreen(_ ad: DFPInterstitial) {
+    private func interstitialWillPresentScreen(_ ad: GADInterstitial) {
         print("Will present screen")
     }
     
-    private func interstitialWillLeaveApplication(_ ad: DFPInterstitial) {
+    private func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
         print("Will leave application")
     }
     
-    private func interstitialDidFail(toPresentScreen ad: DFPInterstitial) {
+    private func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
         print("Failed to present screen")
     }
     
-    private func interstitial(_ ad: DFPInterstitial, didFailToReceiveAdWithError error: GADRequestError!) {
+    private func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError!) {
         print("\(ad) did fail to receive ad with error \(String(describing: error))")
     }
 }

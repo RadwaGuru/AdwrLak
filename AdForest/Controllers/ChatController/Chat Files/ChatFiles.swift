@@ -20,7 +20,7 @@ class ChatFiles: UITableViewCell {
         didSet{
             containerFiles.layer.borderWidth = 1
             containerFiles.layer.cornerRadius = 10
-            containerFiles.backgroundColor = UIColor.groupTableViewBackground
+            containerFiles.backgroundColor = UIColor.white
             containerFiles.layer.borderColor = UIColor.white.cgColor
         }
     }

@@ -13,6 +13,8 @@ import IQKeyboardManagerSwift
 class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UITextViewDelegate,OpenChatControllerDelegate {
     
     //MARK:- Outlets
+  
+
     @IBOutlet weak var containerAttachments: UIView!
     @IBOutlet var btnAttachment: UIButton!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -139,6 +141,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var docTypeTxt = ""
     var uploadImageHeading = ""
     var uploadDocumentHeading = ""
+    var txtMsg = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -193,7 +196,6 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         btnBlock.backgroundColor  = UIColor(hex: defaults.string(forKey: "mainColor")!)
         btnBlock.roundCornors()
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -214,8 +216,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.showLoader()
             self.adForest_getChatData(parameter: parameter as NSDictionary)
         }
-        
-        
+    
+
         keyboardHandling()
     }
     
@@ -502,7 +504,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             if userBlocked == true{
                 cell.isHidden = true
+                containerViewBottom.isHidden = true
             }
+            
             
             var cellImg = cellFor(message: dataArray, at: indexPath, in: tableView)
             return cellImg
@@ -524,6 +528,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             if userBlocked == true{
                 cell.isHidden = true
+                containerViewBottom.isHidden = true
             }
             
             var cellReceiver = cellFor(message: dataArray, at: indexPath, in: tableView)
@@ -583,6 +588,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
         cell.backgroundColor = UIColor.groupTableViewBackground
 
+        if userBlocked == true{
+            cell.isHidden = true
+            containerViewBottom.isHidden = true
+        }
 
         if objdta.type == "reply" {
             //            let objdta =  dataArray[indexPath.row]
@@ -590,6 +599,10 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let cell3 = tableView.dequeueReusableCell(withIdentifier: "ChatFilesImagestext", for: indexPath) as! ChatFilesImagestext
 //                cell3.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    cell3.isHidden = true
+                }
+
                 cell3.backgroundColor = UIColor.groupTableViewBackground
                 cell3.chatImgs = objdta.chatImages
                 cell3.collageViewImages.reload()
@@ -715,6 +728,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else if objdta.hasFiles == true && objdta.text != nil{
                 let ChatFile =  tableView.dequeueReusableCell(withIdentifier: "ChatFiles", for: indexPath) as! ChatFiles
 //                ChatFile.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    ChatFile.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
                 ChatFile.backgroundColor = UIColor.groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
@@ -766,6 +784,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             ChatFile.imgIconBg.image = ChatFile.imgIconBg.image?.withRenderingMode(.alwaysTemplate)
                             ChatFile.imgIconBg.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
                             ChatFile.txtMessageFiles.text = message
+                                //self.txtMsg
+                                //
                             //let height = cell.heightConstraint.constant + 20
                             ChatFile.bgImageHeightConstraint.constant += ChatFile.heightConstraint.constant
                         }
@@ -784,6 +804,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else if objdta.text != nil {
                 let cellw = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
 //                cellw.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    cellw.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
                 cellw.backgroundColor = UIColor.groupTableViewBackground
                 if let message = objdta.text {
                     cellw.txtMessage.text = message
@@ -828,6 +853,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             if objdta.hasFiles == true && objdta.hasImages == true && objdta.text != nil {
                 let ChatThreeItemsReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFIlesTextImageReceiver", for: indexPath) as! ChatFIlesTextImageReceiver
+                if userBlocked == true{
+                    ChatThreeItemsReceiver.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
 //                ChatThreeItemsReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
                 ChatThreeItemsReceiver.backgroundColor = UIColor.groupTableViewBackground
                 ChatThreeItemsReceiver.chatImgs = objdta.chatImages
@@ -902,6 +932,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else  if objdta.hasFiles == true && objdta.text != nil{
                 let ChatFileReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFilesReceiver", for: indexPath) as! ChatFilesReceiver
 //                ChatFileReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    ChatFileReceiver.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
                 ChatFileReceiver.backgroundColor = UIColor.groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
@@ -974,6 +1009,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let ChatImageReceiver = tableView.dequeueReusableCell(withIdentifier: "ChatImagesReceiver", for: indexPath) as! ChatImagesReceiver
 //                ChatImageReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    ChatImageReceiver.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
                 ChatImageReceiver.backgroundColor = UIColor.groupTableViewBackground
                 ChatImageReceiver.chatImgs = objdta.chatImages
                 ChatImageReceiver.collageViewReceiver.reload()
@@ -1033,6 +1073,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
              else if objdta.text != nil {
                 let cell: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
 //                cell.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                if userBlocked == true{
+                    cell.isHidden = true
+                    containerViewBottom.isHidden = true
+                }
+
                 cell.backgroundColor = UIColor.groupTableViewBackground
                 if UserDefaults.standard.bool(forKey: "isRtl") {
                     if let message = objdta.text {
@@ -1169,11 +1214,24 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 else{
                     self.containerAttachments.isHidden = false
                 }
+                if self.userBlocked == false {
+                    self.containerViewBottom.isHidden = false
+
+                }else{
+                    self.containerViewBottom.isHidden = true
+
+                }
+                
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.scrollToBottom()
                 self.tableView.setEmptyMessage("")
                 self.btnBlock.setTitle(self.btn_text, for: .normal)
+                let testVC = SocketIOManager()
+                testVC.establishConnection()
+
+//                self.txtMsg =  testVC.name!
+
             } else {
                 // let alert = Constants.showBasicAlert(message: successResponse.message)
                 // self.presentVC(alert)
@@ -1192,7 +1250,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
-
+  
     //Load More Chat
     func adForest_loadMoreChat(parameter: NSDictionary) {
         UserHandler.getSentOfferMessages(parameter: parameter, success: { (successResponse) in
@@ -1530,3 +1588,336 @@ public extension UIColor {
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
 }
+
+import UIKit
+import SocketIO
+
+class SocketIOManager: NSObject {
+    static let sharedInstance = SocketIOManager()
+    
+    var socket:SocketIOClient!
+    var name: String?
+    var resetAck: SocketAckEmitter?
+    var manager: SocketManager?
+
+    var clientNickname = ""
+    var message = ""
+    var currentDateTime = ""
+
+    
+    
+//          let manager = SocketManager(socketURL: URL(string: "wss://socket.agilepusher.com:3000")!, config: [.log(true), .compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true)])
+
+    override init() {
+        super.init()
+    }
+
+    func establishConnection() {
+        print("----establishConnection")
+        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B","website":Constants.URL.baseUrl,"type":"gtChatPro"
+])])
+//                                config: [.log(true), .compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true),.reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
+
+//        manager =    SocketManager(socketURL: URL(string: "http://192.168.10.17:3000")!, config: [.log(true), .reconnects(true), .reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
+//
+//        manager =    SocketManager(socketURL: URL(string: "http://192.168.10.44:3000")!, config: [.log(true), .reconnects(true), .reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
+        socket = manager?.defaultSocket
+        manager?.forceNew = true
+        manager?.reconnects = true
+        manager?.reconnectWaitMax = 0
+        manager?.reconnectWait = 0
+        socket.connect()
+        addHandlers()
+        print("----\(socket.sid)")
+        print("----connect request sent")
+    }
+    
+    func closeConnection() {
+        socket.disconnect()
+        socket.removeAllHandlers()
+        manager = nil
+        socket = nil
+    }
+
+
+
+    // MARK: - socket listeners methods
+    
+    func addHandlers() {
+        
+        socket.on(clientEvent: .connect) {data, ack in
+            debugPrint("----socket connected----------")
+            print("---- handlers\(self.socket.handlers)")
+            self.go()
+
+        }
+        
+        socket.on(clientEvent: .disconnect) {data, ack in
+            debugPrint("socket disconnected-----\(data)----------")
+        }
+        
+        socket.on(clientEvent: .error) {data, ack in
+            debugPrint("error on socket-----\(data)-----")
+        }
+        
+        socket.on(clientEvent: .reconnect) {data, ack in
+//            socket.on('reconnect_attempt', function (count) {
+//                socket.io.opts.transports = ['websocket'];
+//                socket.io.opts.query = {                    apiKey: API_KEY, website:"https://google.com"
+//
+//                }
+//            });
+            debugPrint("socket reconnecting----------")
+        }
+        socket.on("error") {data, ack in
+            
+        }
+        socket.onAny {_ in
+   
+        }
+        
+//        socket.on("newChatMessage") { data,ack in
+//            print(data)
+//            debugPrint("---------------1-------------------WELCOME--------------------")
+//        }
+        socket.on("agInfoMessage_dev") { data,ack in
+            print(data)
+            self.name = data.debugDescription
+            debugPrint("---------------1-------------------WELCOME\(String(describing: self.name))--------------------")
+
+        }
+        socket.on("agAskedToJoin" ) { data,ack  in
+            debugPrint("---------------1-------------------WELCOMEto room\(data)--------------------")
+
+
+        }
+    }
+    func go(){
+        socket.emit("agRoomJoined", "RoomName", "SenderName", "ReceiverName")
+        socket.emit("agInfoMessage_dev", "usman message from emit")
+
+
+//        socket.emit("chatMessage", "usman","message by emit")
+    }
+    func  dataMsg(clientNickname:String, message:String, currentDateTime:String){
+        print("asaas")
+    }
+
+//    func connectToServerWithNickname(nickname: String) {
+//
+//        self.socket.connect()
+//
+//        self.socket.on("connect") {data, ack in
+//                print("socket connected")
+//            }
+//        let socketConnectionStatus = socket.status
+//
+//           switch socketConnectionStatus {
+//           case SocketIOStatus.connected:
+//               print("socket connected")
+//           case SocketIOStatus.connecting:
+//               print("socket connecting")
+//           case SocketIOStatus.disconnected:
+//               print("socket disconnected")
+//           case SocketIOStatus.notConnected:
+//               print("socket not connected")
+//           }
+////        socket.emit("connectUser", nickname)
+////        print("socket.emit:\(nickname)")
+//
+//    }
+//    func initialize() {
+//
+//
+//
+//        let manager = SocketManager(socketURL: URL(string: "ws://localhost:3000")!, config: [.log(true), .compress])
+//        let socket = manager.defaultSocket
+////        socket.connect()
+//        socket.on(clientEvent: .connect) {data, ack in
+//            print("socket connected")
+//                   }
+//
+//
+//
+//        socket.connect()
+//    }
+        
+        
+        
+//
+//        let socketUrl = "https://chatsapi.dummyUrl.io"
+//
+//        let specs: SocketIOClientConfiguration = [
+//            .log(true),
+//            .connectParams(getConnectionParam())]
+//
+////        manager = SocketManager(socketURL: URL(string: socketUrl)!, config: specs)
+////        socket = manager.defaultSocket
+    }
+
+//    func getConnectionParam() -> [String: Any] {
+//        return ["auth": "AUTHTOKEN", "user_id": "AUTH_USER_ID", "timeZone": "\(Date().timeIntervalSinceNow)"]
+//    }
+
+//    func connected() {
+//
+//
+//
+//        manager = SocketManager(socketURL: URL(string: "wss://socket.agilepusher.com:3000/")!, config: [.log(true),.forcePolling(true),.forceWebsockets(true),.compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true)
+//        ]);
+//        socket = manager.defaultSocket
+//
+//        socket.on(clientEvent: .connect) {data, ack in
+//            print(data)
+//            print("socket connected")
+//        }
+//
+//        socket.on(clientEvent: .error) { (data, eck) in
+//            print(data)
+//            print("socket error")
+//        }
+//
+//        socket.on(clientEvent: .disconnect) { (data, eck) in
+//            print(data)
+//            print("socket disconnect")
+//        }
+//
+//        socket.on(clientEvent: SocketClientEvent.reconnect) { (data, eck) in
+//            print(data)
+//            print("socket reconnect")
+//        }
+//
+//        socket.connect()
+//
+//
+////            print("socket try to connecting.....")
+////
+////            let socket = manager.socket(forNamespace: "/swift")
+////
+////            socket.on(clientEvent: .connect) {data, ack in
+////                print("socket connected")
+////            }
+////
+////            socket.on(clientEvent: .error) {data, ack in
+////                print("socket error")
+////            }
+////
+//////            socket.on(“itsMyPersonalChanel”) {data, ack in
+//////                guard let cur = data[0] as? Double else { return }
+////
+//////                print("socket listen for itsMyPersonalChanel : ", cur)
+////
+//////            }
+////
+////            socket.connect()
+//        }
+
+//    func addHandlers() {
+//
+//
+//
+//        socket.on(clientEvent: .connect) {data, ack in
+//            print("socket connected")
+//        }
+//
+////        socket.on("startGame") {[weak self] data, ack in
+////            self?.handleStart()
+////            return
+////        }
+////
+////        socket.on("name") {[weak self] data, ack in
+////            if let name = data[0] as? String {
+////                self?.name = name
+////            }
+////        }
+////
+////        socket.on("playerMove") {[weak self] data, ack in
+////            if let name = data[0] as? String, let x = data[1] as? Int, let y = data[2] as? Int {
+////                self?.handlePlayerMove(name, coord: (x, y))
+////            }
+////        }
+////
+////        socket.on("win") {[weak self] data, ack in
+////            if let name = data[0] as? String, let typeDict = data[1] as? NSDictionary {
+////                self?.handleWin(name, type: typeDict)
+////            }
+////        }
+////
+////        socket.on("draw") {[weak self] data, ack in
+////            self?.handleDraw()
+////            return
+////        }
+////
+////        socket.on("currentTurn") {[weak self] data, ack in
+////            if let name = data[0] as? String {
+////                self?.handleCurrentTurn(name)
+////
+////            }
+////        }
+////
+////        socket.on("gameReset") {[weak self] data, ack in
+////            guard let sself = self else { return }
+////            self?.resetAck = ack
+////            self?.present(sself.alertController, animated: true, completion: nil)
+////        }
+////
+////        socket.on("gameOver") {data, ack in
+////            exit(0)
+////        }
+////
+////        socket.onAny {print("Got event: \($0.event), with items: \($0.items!)")}
+//    }
+
+//        self.socket.connect()
+//        let socketConnectionStatus = socket.status
+//
+//           switch socketConnectionStatus {
+//           case SocketIOStatus.connected:
+//               print("socket connected")
+//           case SocketIOStatus.connecting:
+//               print("socket connecting")
+//           case SocketIOStatus.disconnected:
+//               print("socket disconnected")
+//           case SocketIOStatus.notConnected:
+//               print("socket not connected")
+//           }
+//
+//        self.socket.on("connect") {data, ack in
+//                print("socket connected")
+//            }
+//        if socket.status.active == true{
+//            let msg  = "usman is here"
+//            let data = [ "user" : "Usman",
+//              "chat_id" : "786" ]
+//        socket.emit("agInfoMessage_dev", msg,data)
+//            socket.on("agGotNewMessage") { (msg,data)   in
+//                print(msg)
+//            }
+//
+//        }
+//        else{
+//            print("not connected to any server")
+//        }
+//
+//
+//
+//
+//    }
+
+
+//    func establishConnection() {
+//        socket.connect()
+////        CFRunLoopRun()
+//
+//    }
+//
+//
+//    func closeConnection() {
+//        socket.disconnect()
+//    }
+//}
+
+
+
+
+

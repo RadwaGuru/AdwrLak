@@ -22,6 +22,7 @@ import NotificationBannerSwift
 import GoogleMobileAds
 //import LinkedinSwift
 import GoogleSignIn
+import SocketIO
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
@@ -128,6 +129,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         Messaging.messaging().shouldEstablishDirectChannel = true
         UserDefaults.standard.set("3", forKey: "fromNotification")
+//        SocketIOManager.sharedInstance.closeConnection()
+
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -139,6 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AppEvents.activateApp()
         //To Check Deep Link
         deepLinker.checkDeepLink()
+//        SocketIOManager.sharedInstance.establishConnection()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

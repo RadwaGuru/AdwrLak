@@ -95,7 +95,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var heightConstraintTitleLatestad = 0
     var heightConstraintTitlead = 0
     var inters : GADInterstitial!
-    
+    var bannerView: GADBannerView!
     var isAdvanceSearch:Bool = false
     var latColHeight: Double = 0
     var fetColHeight: Double = 0
@@ -111,10 +111,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         // self.navigationController?.isNavigationBarHidden = false
-        inters = GADInterstitial(adUnitID:"ca-app-pub-2596107136418753/4126592208")
+        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
         let request = GADRequest()
         // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
+       
         inters.load(request)
+
+//        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
         self.adForest_sendFCMToken()
@@ -1471,13 +1476,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     if isShowBanner {
                         SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
-                        
+//                        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+//                        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//                        self.rootViewController = self
+//                        self..load(GADRequest())
+
                         print(successResponse.settings.ads.bannerId)
                         
                         self.tableView.translatesAutoresizingMaskIntoConstraints = false
                         if successResponse.settings.ads.position == "top" {
                             self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .top)
+//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//                            self.bannerView.rootViewController = self
+//                            self.bannerView.load(GADRequest())
                         } else {
                             self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .bottom)
