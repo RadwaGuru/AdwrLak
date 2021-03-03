@@ -21,6 +21,9 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             tableView.separatorStyle = .none
             tableView.addSubview(refreshControl)
             tableView.register(UINib(nibName: "MessagesCell", bundle: nil), forCellReuseIdentifier: "MessagesCell")
+            tableView.register(UINib(nibName: "WhizChatList", bundle: nil), forCellReuseIdentifier: "WhizChatList")
+            
+
         }
     }
     
@@ -78,31 +81,64 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MessagesCell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
-        
-        let objData = dataArray[indexPath.row]
-        
-        
-        if let title = objData.messageAdTitle {
-            cell.lblName.text = title
-        }
-        if let name = objData.messageAuthorName {
-            cell.lblDetail.text = name
-        }
-        for item in objData.messageAdImg {
-            if let imgUrl = URL(string: item.thumb) {
-                cell.imgPicture.sd_setShowActivityIndicatorView(true)
-                cell.imgPicture.sd_setIndicatorStyle(.gray)
-                cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
+        var isWhizChatACtive = true
+        if isWhizChatACtive == true {
+            
+            let cell: WhizChatList = tableView.dequeueReusableCell(withIdentifier: "WhizChatList", for: indexPath) as! WhizChatList
+            tableView.separatorStyle = .singleLine
+
+            let objData = dataArray[indexPath.row]
+            
+            
+            if let title = objData.messageAdTitle {
+                cell.lblAdTitle.text = title
             }
+            if let name = objData.messageAuthorName {
+                cell.lblUserName.text = name
+            }
+            for item in objData.messageAdImg {
+                if let imgUrl = URL(string: item.thumb) {
+                    cell.imgUser.sd_setShowActivityIndicatorView(true)
+                    cell.imgUser.sd_setIndicatorStyle(.gray)
+                    cell.imgUser.sd_setImage(with: imgUrl, completed: nil)
+                }
+            }
+//            if objData.messageReadStatus == true {
+//                cell.imgBell.isHidden = true
+//            } else {
+//                cell.imgBell.image = UIImage(named: "bell")
+//                cell.backgroundColor = Constants.hexStringToUIColor(hex: Constants.AppColor.messageCellColor)
+//            }
+            return cell
+        
+        }else{
+            let cell: MessagesCell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
+            
+            let objData = dataArray[indexPath.row]
+            
+            
+            if let title = objData.messageAdTitle {
+                cell.lblName.text = title
+            }
+            if let name = objData.messageAuthorName {
+                cell.lblDetail.text = name
+            }
+            for item in objData.messageAdImg {
+                if let imgUrl = URL(string: item.thumb) {
+                    cell.imgPicture.sd_setShowActivityIndicatorView(true)
+                    cell.imgPicture.sd_setIndicatorStyle(.gray)
+                    cell.imgPicture.sd_setImage(with: imgUrl, completed: nil)
+                }
+            }
+            if objData.messageReadStatus == true {
+                cell.imgBell.isHidden = true
+            } else {
+                cell.imgBell.image = UIImage(named: "bell")
+                cell.backgroundColor = Constants.hexStringToUIColor(hex: Constants.AppColor.messageCellColor)
+            }
+            return cell
         }
-        if objData.messageReadStatus == true {
-            cell.imgBell.isHidden = true
-        } else {
-            cell.imgBell.image = UIImage(named: "bell")
-            cell.backgroundColor = Constants.hexStringToUIColor(hex: Constants.AppColor.messageCellColor)
-        }
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

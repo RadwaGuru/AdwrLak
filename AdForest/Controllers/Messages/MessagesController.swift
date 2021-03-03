@@ -30,7 +30,7 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
     let keyboardManager = IQKeyboardManager.sharedManager()
     var barButtonItems = [UIBarButtonItem]()
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
-
+    var isWhizChatActive = true
    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -99,13 +99,22 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         let SB = UIStoryboard(name: "Main", bundle: nil)
-        let sentOffers = SB.instantiateViewController(withIdentifier: "SentOffersController") as! SentOffersController
-        let addsOffer = SB.instantiateViewController(withIdentifier: "OffersOnAdsController") as! OffersOnAdsController
-        let blockedController = SB.instantiateViewController(withIdentifier: "BlockedUserChatViewController") as! BlockedUserChatViewController
-        
-        
-        let childVC = [sentOffers, addsOffer, blockedController]
-        return childVC
+        if isWhizChatActive == true {
+            let sentOffers = SB.instantiateViewController(withIdentifier: "SentOffersController") as! SentOffersController
+            let childVC = [sentOffers]
+            return childVC
+            
+        }else
+        {
+            let sentOffers = SB.instantiateViewController(withIdentifier: "SentOffersController") as! SentOffersController
+            let addsOffer = SB.instantiateViewController(withIdentifier: "OffersOnAdsController") as! OffersOnAdsController
+            let blockedController = SB.instantiateViewController(withIdentifier: "BlockedUserChatViewController") as! BlockedUserChatViewController
+            
+            
+            let childVC = [sentOffers, addsOffer, blockedController]
+            return childVC
+            
+        }
     }
     
     

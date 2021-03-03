@@ -635,4 +635,18 @@ class UserHandler {
                failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
           }
       }
+
+//MARK:- WhizChatSendMessage
+  class func WhizChatSendMessage(parameter: NSDictionary, success: @escaping(WhizChatInitRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+      let url = Constants.URL.baseUrl+Constants.URL.sendMessageWhizChat
+      print(url)
+      NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+          let dictionary = successResponse as! [String: Any]
+          let objFeedback = WhizChatInitRoot(fromDictionary: dictionary)
+          success(objFeedback)
+      }) { (error) in
+           failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+      }
+  }
+    
 }

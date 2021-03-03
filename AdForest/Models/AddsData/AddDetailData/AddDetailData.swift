@@ -28,6 +28,8 @@ struct AddDetailData {
     var editTxt : String!
     var showPhoneToLogin: Bool!
     var btnCLickText: String!
+    var whizChatBool: Bool!
+    var whizChatInitializeData: WhizChatInitData!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -67,6 +69,10 @@ struct AddDetailData {
         if let sellerContactData = dictionary["seller_contact"] as? [String:Any]{
             sellerContact = AdDetailContactSeller(fromDictionary: sellerContactData)
         }
+        if let whizChatData = dictionary["whizchat_data"] as? [String:Any]{
+            whizChatInitializeData = WhizChatInitData(fromDictionary: whizChatData)
+        }
+        whizChatBool = dictionary["isWhizActive"] as? Bool
         cantReportTxt = dictionary["cant_report_txt"] as? String
         clickHereText = dictionary["click_here_text"] as? String
         editTxt = dictionary["edit_txt"] as? String

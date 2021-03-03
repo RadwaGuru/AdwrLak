@@ -111,6 +111,10 @@ class Constants {
         static let contactSeller = "ad_post/seller_contact/"
         static let resendEmail = "login/confirm/resend/"
 
+        //MARK:- WizChatService
+        static let sendMessageWhizChat = "whizchat/whizchat_send_message"
+
+        
 
     }
     struct AdMob {

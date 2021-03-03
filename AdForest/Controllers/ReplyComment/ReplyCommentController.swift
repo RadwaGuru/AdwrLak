@@ -75,8 +75,11 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
     var phoneNumber = ""
     
     var post_id = 0
-    
-    
+    var isWhizChatActive: Bool!
+    var whizChatPostId: String!
+    var whizChatRoomID: String!
+    var whizChatCommunicationId: String!
+    var whizChatChatId: Int!
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -226,9 +229,17 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
                 self.txtComment.shake(6, withDelta: 10, speed: 0.06)
             }
             else  {
-                let param: [String: Any] = ["ad_id": ad_id, "message": commentField]
-                print(param)
-                self.adForest_popUpMessageReply(param: param as NSDictionary)
+                if isWhizChatActive == true {
+                    let param: [String: Any] = ["message": commentField,"post_id":whizChatPostId,"room_id":whizChatRoomID,"comm_id":whizChatCommunicationId,"chat-id":whizChatChatId]
+                    print(param)
+                    self.adForest_WhizChatpopUpMessageReply(param: param as NSDictionary)
+                    
+                }else{
+                    let param: [String: Any] = ["ad_id": ad_id, "message": commentField]
+                    print(param)
+                    self.adForest_popUpMessageReply(param: param as NSDictionary)
+                    
+                }
             }
         }
         else if isFromAddDetailReply {
@@ -315,7 +326,28 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
             self.presentVC(alert)
         }
     }
-    
+    // WizChatpop up message reply
+    func adForest_WhizChatpopUpMessageReply(param: NSDictionary) {
+        self.showLoader()
+        UserHandler.WhizChatSendMessage(parameter: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
+                    self.dismissVC(completion: {
+                        self.delegate?.isMoveMessages(isMove: true)
+                    })
+                })
+                self.presentVC(alert)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
     // pop up message reply
     func adForest_popUpMessageReply(param: NSDictionary) {
         self.showLoader()

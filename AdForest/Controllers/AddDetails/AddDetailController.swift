@@ -119,7 +119,12 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var interstitial: GADInterstitial!
     var fromAdDetail = false
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
-
+    var isWhizChatActive: Bool!
+    var whizData: WhizChatInitData!
+    var whizChatPostId: String!
+    var whizChatRoomID: String!
+    var whizChatCommunicationId: String!
+    var whizChatChatId: Int!
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1345,6 +1350,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 sendMsgVC.modalPresentationStyle = .overCurrentContext
                 sendMsgVC.modalTransitionStyle = .flipHorizontal
                 sendMsgVC.isFromMsg = true
+                sendMsgVC.isWhizChatActive = self.isWhizChatActive
+                sendMsgVC.whizChatPostId = self.whizChatPostId
+                sendMsgVC.whizChatRoomID = self.whizChatRoomID
+                sendMsgVC.whizChatCommunicationId = self.whizChatCommunicationId
+                sendMsgVC.whizChatChatId = self.whizChatChatId
                 sendMsgVC.objAddDetailData = AddsHandler.sharedInstance.objAddDetails
                 sendMsgVC.delegate = self
                 present(sendMsgVC, animated: true, completion: nil)
@@ -1410,6 +1420,18 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.fieldsArray = successResponse.data.adDetail.fieldsData
                 self.relatedAdsArray = successResponse.data.adDetail.relatedAds
                 AddsHandler.sharedInstance.ratingsAdds = successResponse.data.adRatting
+                self.isWhizChatActive = successResponse.data.whizChatBool
+                if self.isWhizChatActive == true {
+                    self.whizData = successResponse.data.whizChatInitializeData
+                    if self.whizData != nil {
+                        self.whizChatPostId = successResponse.data.whizChatInitializeData.postId
+                        self.whizChatRoomID = successResponse.data.whizChatInitializeData.roomId
+                        self.whizChatCommunicationId = successResponse.data.whizChatInitializeData.communicationId
+                        self.whizChatChatId = successResponse.data.whizChatInitializeData.chatId
+                        
+                    }
+                    
+                }
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1.5)

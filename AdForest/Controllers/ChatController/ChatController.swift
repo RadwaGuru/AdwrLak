@@ -1686,14 +1686,14 @@ class SocketIOManager: NSObject {
             debugPrint("---------------1-------------------WELCOME\(String(describing: self.name))--------------------")
 
         }
-        socket.on("agAskedToJoin" ) { data,ack  in
+        socket.on("agAskedToJoin") { data,ack  in
             debugPrint("---------------1-------------------WELCOMEto room\(data)--------------------")
 
-
         }
+        
     }
     func go(){
-        socket.emit("agRoomJoined", "RoomName", "SenderName", "ReceiverName")
+        socket.emit("agRoomJoined", "COD room", "Terminator", "Player")
         socket.emit("agInfoMessage_dev", "usman message from emit")
 
 
