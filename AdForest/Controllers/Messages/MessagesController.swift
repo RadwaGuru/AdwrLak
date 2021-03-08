@@ -68,6 +68,7 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
     }
     
     func customizePagerTabStrip() {
+        
         settings.style.buttonBarBackgroundColor = .white
         if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
             settings.style.buttonBarItemBackgroundColor = Constants.hexStringToUIColor(hex: mainColor)

@@ -190,6 +190,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.messagesScreen.sent, forKey: "sentOffers")
                 self.defaults.set(successResponse.data.messagesScreen.receive, forKey: "receiveOffers")
                 self.defaults.set(successResponse.data.messagesScreen.blocked, forKey: "blocked")
+                self.defaults.set(successResponse.data.is_WhizChat_active, forKey: "is_WhizChat_active")
+                self.defaults.set(successResponse.data.WhizChatPageTitle, forKey: "Whiz_ChatPageTitle")
                 self.defaults.synchronize()
                 UserHandler.sharedInstance.objSettings = successResponse.data
                 UserHandler.sharedInstance.objSettingsMenu = successResponse.data.menu.submenu.pages

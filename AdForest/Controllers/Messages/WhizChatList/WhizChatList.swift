@@ -37,3 +37,4 @@ class WhizChatList: UITableViewCell {
     }
 
 }
+//titleLabel.frame.origin.x-titleLabel.frame.size.height*imageAspect

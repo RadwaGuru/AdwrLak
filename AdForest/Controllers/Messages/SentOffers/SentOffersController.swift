@@ -11,7 +11,7 @@ import XLPagerTabStrip
 import NVActivityIndicatorView
 
 class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView!{
         didSet {
@@ -23,20 +23,22 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             tableView.register(UINib(nibName: "MessagesCell", bundle: nil), forCellReuseIdentifier: "MessagesCell")
             tableView.register(UINib(nibName: "WhizChatList", bundle: nil), forCellReuseIdentifier: "WhizChatList")
             
-
+            
         }
     }
     
     //MARK:- Properties
     var dataArray = [SentOffersItem]()
+    var whizDataArray = [WhizChatMessageListData]()
+    var Chatid : String!
     var defaults = UserDefaults.standard
     var currentPage = 0
     var maximumPage = 0
-    
+    var isWhizActive = true
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(refreshTableView),
+                                    #selector(refreshTableView),
                                  for: UIControlEvents.valueChanged)
         if let mainColor = defaults.string(forKey: "mainColor") {
             refreshControl.tintColor = Constants.hexStringToUIColor(hex: mainColor)
@@ -54,10 +56,14 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let builder = GAIDictionaryBuilder.createScreenView() else {return}
         tracker?.send(builder.build() as [NSObject: AnyObject])
     }
-   
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.adForest_sentOffersData()
+        if isWhizActive == true {
+            adForest_WhizChatListData()
+        }else{
+            self.adForest_sentOffersData()
+        }
         self.showLoader()
     }
     //MARK: - Custom
@@ -67,7 +73,12 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func refreshTableView() {
         self.refreshControl.beginRefreshing()
-        self.adForest_sentOffersData()
+        if isWhizActive == true {
+            adForest_WhizChatListData()
+        }else{
+            self.adForest_sentOffersData()
+        }
+        
     }
     
     //MARK:- table View Delegate Methods
@@ -77,7 +88,12 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
+        if isWhizActive == true {
+            return whizDataArray.count
+        }else{
+            return dataArray.count
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,31 +102,26 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let cell: WhizChatList = tableView.dequeueReusableCell(withIdentifier: "WhizChatList", for: indexPath) as! WhizChatList
             tableView.separatorStyle = .singleLine
-
-            let objData = dataArray[indexPath.row]
+            
+            let objData = whizDataArray[indexPath.row]
             
             
-            if let title = objData.messageAdTitle {
+            if let title = objData.AdTitle {
                 cell.lblAdTitle.text = title
             }
-            if let name = objData.messageAuthorName {
+            if let name = objData.receiverName {
                 cell.lblUserName.text = name
             }
-            for item in objData.messageAdImg {
-                if let imgUrl = URL(string: item.thumb) {
-                    cell.imgUser.sd_setShowActivityIndicatorView(true)
-                    cell.imgUser.sd_setIndicatorStyle(.gray)
-                    cell.imgUser.sd_setImage(with: imgUrl, completed: nil)
-                }
+            if let lastSeen = objData.lastActive {
+                cell.lblTime.text = lastSeen
             }
-//            if objData.messageReadStatus == true {
-//                cell.imgBell.isHidden = true
-//            } else {
-//                cell.imgBell.image = UIImage(named: "bell")
-//                cell.backgroundColor = Constants.hexStringToUIColor(hex: Constants.AppColor.messageCellColor)
-//            }
+            if let imgUrl = URL(string: objData.ImageUrl) {
+                cell.imgUser.sd_setShowActivityIndicatorView(true)
+                cell.imgUser.sd_setIndicatorStyle(.gray)
+                cell.imgUser.sd_setImage(with: imgUrl, completed: nil)
+            }
             return cell
-        
+            
         }else{
             let cell: MessagesCell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesCell
             
@@ -142,15 +153,24 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let objData = dataArray[indexPath.row]
-        let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatController") as! ChatController
-        chatVC.ad_id = objData.adId
-        chatVC.sender_id = objData.messageSenderId
-        chatVC.receiver_id = objData.messageReceiverId
-        chatVC.messageType = "sent"
-        chatVC.isBlocked = objData.is_block
-        
-        self.navigationController?.pushViewController(chatVC, animated: true)
+        if isWhizActive == true {
+            let whizChatVC = self.storyboard?.instantiateViewController(withIdentifier: "WhizChatController") as! WhizChatController
+            whizChatVC.ChatId = self.Chatid
+            
+            self.navigationController?.pushViewController(whizChatVC, animated: true)
+            
+        }else{
+            let objData = dataArray[indexPath.row]
+            let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+            chatVC.ad_id = objData.adId
+            chatVC.sender_id = objData.messageSenderId
+            chatVC.receiver_id = objData.messageReceiverId
+            chatVC.messageType = "sent"
+            chatVC.isBlocked = objData.is_block
+            
+            self.navigationController?.pushViewController(chatVC, animated: true)
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -192,13 +212,13 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.tableView.setEmptyMessage("")
                     }
                 }
-        
+                
                 self.tableView.reloadData()
             } else {
                 if successResponse.data.isRedirec == true{
                     let alert  = UIAlertController(title: successResponse.message, message: nil, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "Ok", style:.default, handler: { (ok) in
-                    self.appDelegate.moveToProfile()
+                        self.appDelegate.moveToProfile()
                         
                     })
                     alert.addAction(okAction)
@@ -215,7 +235,40 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             self.presentVC(alert)
         }
     }
-    
+    //MARK:- API Calls Whizzz
+    func adForest_WhizChatListData() {
+        UserHandler.WhizChatListMessage(success: { (successResponse) in
+            self.stopAnimating()
+            self.refreshControl.endRefreshing()
+            if successResponse.success {
+                self.whizDataArray = successResponse.data.ChatList
+                for item in self.whizDataArray {
+                    self.Chatid = item.ChatId
+                }
+
+                debugPrint(self.whizDataArray)
+                debugPrint("ChatID :: \(self.Chatid)")
+                if successResponse.message != nil{
+                    if self.dataArray.count == 0 {
+                        
+                        self.tableView.setEmptyMessage(successResponse.message)
+                    }else{
+                        self.tableView.setEmptyMessage("")
+                    }
+                }
+                
+                self.tableView.reloadData()
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+                
+            }
+        }) { (error) in
+            self.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
     func adForest_loadMoreData(param: NSDictionary) {
         UserHandler.moreSentOffersData(param: param, success: { (successResponse) in
             self.stopAnimating()
@@ -238,8 +291,20 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
 extension SentOffersController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         var pageTitle = ""
-        if let title = self.defaults.string(forKey: "sentOffers") {
-            pageTitle = title
+        var isWhizChatActive = "0"
+        if let WhizActive = self.defaults.string(forKey: "is_WhizChat_active") {
+            isWhizChatActive = WhizActive
+            debugPrint(isWhizChatActive)
+            
+        }
+        if isWhizChatActive == "1"{
+            if let WhizChtPagetitle = self.defaults.string(forKey: "Whiz_ChatPageTitle") {
+                pageTitle = WhizChtPagetitle
+            }
+        }else{
+            if let title = self.defaults.string(forKey: "sentOffers") {
+                pageTitle = title
+            }
         }
         return IndicatorInfo(title: pageTitle)
     }

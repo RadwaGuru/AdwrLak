@@ -52,7 +52,7 @@
                                     <constraint firstAttribute="width" constant="40" id="VaS-Cf-MLl"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.45 pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2o-Ln-4v7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2o-Ln-4v7">
                                 <rect key="frame" x="229" y="8" width="75" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="OvU-K9-u9n"/>

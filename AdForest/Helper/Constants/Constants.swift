@@ -113,6 +113,9 @@ class Constants {
 
         //MARK:- WizChatService
         static let sendMessageWhizChat = "whizchat/whizchat_send_message"
+        static let getMessageListWhizChat = "whizchat/whizchatApi_get_chat_list"
+        static let messagesWhizChatBox = "whizchat/whizchatApi_get_chat_box"
+
 
         
 

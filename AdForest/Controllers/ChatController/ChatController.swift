@@ -125,7 +125,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var dataArray = [SentOfferChat]()
     var reverseArray = [SentOfferChat]()
-    
+    var barButtonItems = [UIBarButtonItem]()
+
     var userBlocked = false
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
@@ -157,7 +158,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         self.hideKeyboard()
         self.showBackButton()
-        self.refreshButton()
+        navigationButtons()
+//        self.refreshButton()
+//        self.BlockButton()
         self.googleAnalytics(controllerName: "Chat Controller")
         documentInteractionController.delegate = self
 
@@ -408,22 +411,107 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
-    
-    func refreshButton() {
-        let button = UIButton(type: .custom)
-        button.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
+//    func BlockButton() {
+//        let button = UIButton(type: .custom)
+//        button.setBackgroundImage(#imageLiteral(resourceName: "reject"), for: .normal)
+//        if #available(iOS 11, *) {
+//            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        }
+//        else {
+//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        }
+//        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+//
+//        let barButton = UIBarButtonItem(customView: button)
+//        navigationItem.rightBarButtonItem = barButton
+//    }
+//
+//    func refreshButton() {
+//        let button = UIButton(type: .custom)
+//        button.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
+//        if #available(iOS 11, *) {
+//            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        }
+//        else {
+//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        }
+//        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+//
+//        let barButton = UIBarButtonItem(customView: button)
+//        navigationItem.rightBarButtonItem = barButton
+//    }
+    func navigationButtons() {
+        
+//        //block Button
+//        let button = UIButton(type: .custom)
+//        button.setBackgroundImage(#imageLiteral(resourceName: "reject"), for: .normal)
+//        button.tintColor = UIColor.white
+//        if #available(iOS 11, *) {
+//            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        }
+//        else {
+//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        }
+//        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+//
+//        let blockButtomItem = UIBarButtonItem(customView: button)
+//            barButtonItems.append(blockButtomItem)
+//        self.navigationItem.rightBarButtonItems = barButtonItems
+//
+//
+//        //refresh Button
+//        let refreshButton = UIButton(type: .custom)
+//        refreshButton.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
+//        refreshButton.tintColor = UIColor.white
+//        if #available(iOS 11, *) {
+//            refreshButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//            refreshButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        }
+//        else {
+//            refreshButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        }
+//        refreshButton.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+//
+//        let refreshButtomItem = UIBarButtonItem(customView: button)
+//            barButtonItems.append(refreshButtomItem)
+//      debugPrint(barButtonItems)
+        //refreshButton
+        let refreshButton = UIButton(type: .custom)
+        let ho = UIImage(named: "refresh")?.withRenderingMode(.alwaysTemplate)
+        refreshButton.setBackgroundImage(ho, for: .normal)
+        refreshButton.tintColor = UIColor.white
+        refreshButton.setImage(ho, for: .normal)
         if #available(iOS 11, *) {
-            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            refreshButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            refreshButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        } else {
+            refreshButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        }
+        refreshButton.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+        let homeItem = UIBarButtonItem(customView: refreshButton)
+        barButtonItems.append(homeItem)
+        
+        //Location Search
+        let blockButton = UIButton(type: .custom)
+        if #available(iOS 11, *) {
+            blockButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            blockButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         }
         else {
-            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            blockButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         }
-        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
-        
-        let barButton = UIBarButtonItem(customView: button)
-        navigationItem.rightBarButtonItem = barButton
+        let image = UIImage(named: "blackuser")?.withRenderingMode(.alwaysTemplate)
+        blockButton.setBackgroundImage(image, for: .normal)
+        blockButton.tintColor = UIColor.white
+        let barButtonLocation = UIBarButtonItem(customView: blockButton)
+            self.barButtonItems.append(barButtonLocation)
+        self.navigationItem.rightBarButtonItems = barButtonItems
+       
     }
+
     
     @objc func onClickRefreshButton() {
         if messageType == "sent"{
@@ -850,7 +938,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return cellw
                 
             }
-        }else{
+        }
+        else{
             if objdta.hasFiles == true && objdta.hasImages == true && objdta.text != nil {
                 let ChatThreeItemsReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFIlesTextImageReceiver", for: indexPath) as! ChatFIlesTextImageReceiver
                 if userBlocked == true{
@@ -1227,8 +1316,8 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.scrollToBottom()
                 self.tableView.setEmptyMessage("")
                 self.btnBlock.setTitle(self.btn_text, for: .normal)
-                let testVC = SocketIOManager()
-                testVC.establishConnection()
+//                let testVC = SocketsIOManager()
+//                testVC.establishConnection()
 
 //                self.txtMsg =  testVC.name!
 
@@ -1589,335 +1678,116 @@ public extension UIColor {
     }
 }
 
-import UIKit
-import SocketIO
-
-class SocketIOManager: NSObject {
-    static let sharedInstance = SocketIOManager()
-    
-    var socket:SocketIOClient!
-    var name: String?
-    var resetAck: SocketAckEmitter?
-    var manager: SocketManager?
-
-    var clientNickname = ""
-    var message = ""
-    var currentDateTime = ""
-
-    
-    
-//          let manager = SocketManager(socketURL: URL(string: "wss://socket.agilepusher.com:3000")!, config: [.log(true), .compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true)])
-
-    override init() {
-        super.init()
-    }
-
-    func establishConnection() {
-        print("----establishConnection")
-        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B","website":Constants.URL.baseUrl,"type":"gtChatPro"
-])])
-//                                config: [.log(true), .compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true),.reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
-
-//        manager =    SocketManager(socketURL: URL(string: "http://192.168.10.17:3000")!, config: [.log(true), .reconnects(true), .reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
+//import UIKit
+//import SocketIO
 //
-//        manager =    SocketManager(socketURL: URL(string: "http://192.168.10.44:3000")!, config: [.log(true), .reconnects(true), .reconnectWait(10), .forcePolling(true), .forceWebsockets(true)])
-        socket = manager?.defaultSocket
-        manager?.forceNew = true
-        manager?.reconnects = true
-        manager?.reconnectWaitMax = 0
-        manager?.reconnectWait = 0
-        socket.connect()
-        addHandlers()
-        print("----\(socket.sid)")
-        print("----connect request sent")
-    }
-    
-    func closeConnection() {
-        socket.disconnect()
-        socket.removeAllHandlers()
-        manager = nil
-        socket = nil
-    }
-
-
-
-    // MARK: - socket listeners methods
-    
-    func addHandlers() {
-        
-        socket.on(clientEvent: .connect) {data, ack in
-            debugPrint("----socket connected----------")
-            print("---- handlers\(self.socket.handlers)")
-            self.go()
-
-        }
-        
-        socket.on(clientEvent: .disconnect) {data, ack in
-            debugPrint("socket disconnected-----\(data)----------")
-        }
-        
-        socket.on(clientEvent: .error) {data, ack in
-            debugPrint("error on socket-----\(data)-----")
-        }
-        
-        socket.on(clientEvent: .reconnect) {data, ack in
-//            socket.on('reconnect_attempt', function (count) {
-//                socket.io.opts.transports = ['websocket'];
-//                socket.io.opts.query = {                    apiKey: API_KEY, website:"https://google.com"
+//class SocketsIOManager: NSObject {
+//    static let sharedInstance = SocketIOManager()
 //
-//                }
-//            });
-            debugPrint("socket reconnecting----------")
-        }
-        socket.on("error") {data, ack in
-            
-        }
-        socket.onAny {_ in
-   
-        }
-        
-//        socket.on("newChatMessage") { data,ack in
-//            print(data)
-//            debugPrint("---------------1-------------------WELCOME--------------------")
-//        }
-        socket.on("agInfoMessage_dev") { data,ack in
-            print(data)
-            self.name = data.debugDescription
-            debugPrint("---------------1-------------------WELCOME\(String(describing: self.name))--------------------")
-
-        }
-        socket.on("agAskedToJoin") { data,ack  in
-            debugPrint("---------------1-------------------WELCOMEto room\(data)--------------------")
-
-        }
-        
-    }
-    func go(){
-        socket.emit("agRoomJoined", "COD room", "Terminator", "Player")
-        socket.emit("agInfoMessage_dev", "usman message from emit")
-
-
-//        socket.emit("chatMessage", "usman","message by emit")
-    }
-    func  dataMsg(clientNickname:String, message:String, currentDateTime:String){
-        print("asaas")
-    }
-
-//    func connectToServerWithNickname(nickname: String) {
+//    var socket:SocketIOClient!
+//    var name: String?
+//    var resetAck: SocketAckEmitter?
+//    var manager: SocketManager?
 //
-//        self.socket.connect()
+//    var clientNickname = ""
+//    var message = ""
+//    var currentDateTime = ""
 //
-//        self.socket.on("connect") {data, ack in
-//                print("socket connected")
-//            }
-//        let socketConnectionStatus = socket.status
 //
-//           switch socketConnectionStatus {
-//           case SocketIOStatus.connected:
-//               print("socket connected")
-//           case SocketIOStatus.connecting:
-//               print("socket connecting")
-//           case SocketIOStatus.disconnected:
-//               print("socket disconnected")
-//           case SocketIOStatus.notConnected:
-//               print("socket not connected")
-//           }
-////        socket.emit("connectUser", nickname)
-////        print("socket.emit:\(nickname)")
 //
+//
+//    override init() {
+//        super.init()
 //    }
-//    func initialize() {
 //
-//
-//
-//        let manager = SocketManager(socketURL: URL(string: "ws://localhost:3000")!, config: [.log(true), .compress])
-//        let socket = manager.defaultSocket
-////        socket.connect()
-//        socket.on(clientEvent: .connect) {data, ack in
-//            print("socket connected")
-//                   }
-//
-//
-//
-//        socket.connect()
-//    }
-        
-        
-        
-//
-//        let socketUrl = "https://chatsapi.dummyUrl.io"
-//
-//        let specs: SocketIOClientConfiguration = [
-//            .log(true),
-//            .connectParams(getConnectionParam())]
-//
-////        manager = SocketManager(socketURL: URL(string: socketUrl)!, config: specs)
-////        socket = manager.defaultSocket
-    }
-
-//    func getConnectionParam() -> [String: Any] {
-//        return ["auth": "AUTHTOKEN", "user_id": "AUTH_USER_ID", "timeZone": "\(Date().timeIntervalSinceNow)"]
-//    }
-
-//    func connected() {
-//
-//
-//
-//        manager = SocketManager(socketURL: URL(string: "wss://socket.agilepusher.com:3000/")!, config: [.log(true),.forcePolling(true),.forceWebsockets(true),.compress,.connectParams(["apiKey": "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"]),.reconnects(true)
-//        ]);
-//        socket = manager.defaultSocket
-//
-//        socket.on(clientEvent: .connect) {data, ack in
-//            print(data)
-//            print("socket connected")
-//        }
-//
-//        socket.on(clientEvent: .error) { (data, eck) in
-//            print(data)
-//            print("socket error")
-//        }
-//
-//        socket.on(clientEvent: .disconnect) { (data, eck) in
-//            print(data)
-//            print("socket disconnect")
-//        }
-//
-//        socket.on(clientEvent: SocketClientEvent.reconnect) { (data, eck) in
-//            print(data)
-//            print("socket reconnect")
-//        }
-//
-//        socket.connect()
-//
-//
-////            print("socket try to connecting.....")
-////
-////            let socket = manager.socket(forNamespace: "/swift")
-////
-////            socket.on(clientEvent: .connect) {data, ack in
-////                print("socket connected")
-////            }
-////
-////            socket.on(clientEvent: .error) {data, ack in
-////                print("socket error")
-////            }
-////
-//////            socket.on(“itsMyPersonalChanel”) {data, ack in
-//////                guard let cur = data[0] as? Double else { return }
-////
-//////                print("socket listen for itsMyPersonalChanel : ", cur)
-////
-//////            }
-////
-////            socket.connect()
-//        }
-
-//    func addHandlers() {
-//
-//
-//
-//        socket.on(clientEvent: .connect) {data, ack in
-//            print("socket connected")
-//        }
-//
-////        socket.on("startGame") {[weak self] data, ack in
-////            self?.handleStart()
-////            return
-////        }
-////
-////        socket.on("name") {[weak self] data, ack in
-////            if let name = data[0] as? String {
-////                self?.name = name
-////            }
-////        }
-////
-////        socket.on("playerMove") {[weak self] data, ack in
-////            if let name = data[0] as? String, let x = data[1] as? Int, let y = data[2] as? Int {
-////                self?.handlePlayerMove(name, coord: (x, y))
-////            }
-////        }
-////
-////        socket.on("win") {[weak self] data, ack in
-////            if let name = data[0] as? String, let typeDict = data[1] as? NSDictionary {
-////                self?.handleWin(name, type: typeDict)
-////            }
-////        }
-////
-////        socket.on("draw") {[weak self] data, ack in
-////            self?.handleDraw()
-////            return
-////        }
-////
-////        socket.on("currentTurn") {[weak self] data, ack in
-////            if let name = data[0] as? String {
-////                self?.handleCurrentTurn(name)
-////
-////            }
-////        }
-////
-////        socket.on("gameReset") {[weak self] data, ack in
-////            guard let sself = self else { return }
-////            self?.resetAck = ack
-////            self?.present(sself.alertController, animated: true, completion: nil)
-////        }
-////
-////        socket.on("gameOver") {data, ack in
-////            exit(0)
-////        }
-////
-////        socket.onAny {print("Got event: \($0.event), with items: \($0.items!)")}
-//    }
-
-//        self.socket.connect()
-//        let socketConnectionStatus = socket.status
-//
-//           switch socketConnectionStatus {
-//           case SocketIOStatus.connected:
-//               print("socket connected")
-//           case SocketIOStatus.connecting:
-//               print("socket connecting")
-//           case SocketIOStatus.disconnected:
-//               print("socket disconnected")
-//           case SocketIOStatus.notConnected:
-//               print("socket not connected")
-//           }
-//
-//        self.socket.on("connect") {data, ack in
-//                print("socket connected")
-//            }
-//        if socket.status.active == true{
-//            let msg  = "usman is here"
-//            let data = [ "user" : "Usman",
-//              "chat_id" : "786" ]
-//        socket.emit("agInfoMessage_dev", msg,data)
-//            socket.on("agGotNewMessage") { (msg,data)   in
-//                print(msg)
-//            }
-//
-//        }
-//        else{
-//            print("not connected to any server")
-//        }
-//
-//
-//
-//
-//    }
-
-
 //    func establishConnection() {
+//        print("----establishConnection")
+//        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B","website":Constants.URL.baseUrl,"type":"gtChatPro"
+//])])
+//        socket = manager?.defaultSocket
+//        manager?.forceNew = true
+//        manager?.reconnects = true
+//        manager?.reconnectWaitMax = 0
+//        manager?.reconnectWait = 0
 //        socket.connect()
-////        CFRunLoopRun()
-//
+//        addHandlers()
+//        print("----\(socket.sid)")
+//        print("----connect request sent")
 //    }
-//
 //
 //    func closeConnection() {
 //        socket.disconnect()
+//        socket.removeAllHandlers()
+//        manager = nil
+//        socket = nil
 //    }
+//
+//
+//
+//    // MARK: - socket listeners methods
+//
+//    func addHandlers() {
+//
+//        socket.on(clientEvent: .connect) {data, ack in
+//            debugPrint("----socket connected----------")
+//            print("---- handlers\(self.socket.handlers)")
+//            self.go()
+//
+//        }
+//
+//        socket.on(clientEvent: .disconnect) {data, ack in
+//            debugPrint("socket disconnected-----\(data)----------")
+//        }
+//
+//        socket.on(clientEvent: .error) {data, ack in
+//            debugPrint("error on socket-----\(data)-----")
+//        }
+//
+//        socket.on(clientEvent: .reconnect) {data, ack in
+////            socket.on('reconnect_attempt', function (count) {
+////                socket.io.opts.transports = ['websocket'];
+////                socket.io.opts.query = {                    apiKey: API_KEY, website:"https://google.com"
+////
+////                }
+////            });
+//            debugPrint("socket reconnecting----------")
+//        }
+//        socket.on("error") {data, ack in
+//
+//        }
+//        socket.onAny {_ in
+//
+//        }
+//
+////        socket.on("newChatMessage") { data,ack in
+////            print(data)
+////            debugPrint("---------------1-------------------WELCOME--------------------")
+////        }
+//        socket.on("agInfoMessage_dev") { data,ack in
+//            print(data)
+//            self.name = data.debugDescription
+//            debugPrint("---------------1-------------------WELCOME\(String(describing: self.name))--------------------")
+//
+//        }
+//        socket.on("agAskedToJoin") { data,ack  in
+//            debugPrint("---------------1-------------------WELCOMEto room\(data)--------------------")
+//
+//        }
+//
+//    }
+//    func go(){
+//        socket.emit("agRoomJoined", "COD room", "Terminator", "Player")
+//        socket.emit("agInfoMessage_dev", "usman message from emit")
+//
+//
+////        socket.emit("chatMessage", "usman","message by emit")
+//    }
+//    func  dataMsg(clientNickname:String, message:String, currentDateTime:String){
+//        print("asaas")
+//    }
+//
+//
+//
 //}
-
-
-
 
 

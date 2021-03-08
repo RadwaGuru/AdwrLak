@@ -28,7 +28,7 @@ class UserHandler {
     var objProfileDetails: ProfileDetailsRoot?
     var objUserRating : UserRatings?
     var objPaymentType : PackagesData?
-   
+    
     var objStripeData: StripePaymentData?
     var objUserRatingReply: [UserRatingReply]?
     var objPublicProfile: PublicProfileData?
@@ -91,7 +91,7 @@ class UserHandler {
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
-
+    
     //MARK:- Login Post
     class func loginUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.logIn
@@ -185,7 +185,7 @@ class UserHandler {
             let objForgotUser = UserForgot(fromDictionary: dictionary)
             success(objForgotUser)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -211,7 +211,7 @@ class UserHandler {
             let objProfile = ProfileUpdateRoot(fromDictionary: dictionary)
             success(objProfile)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -224,7 +224,7 @@ class UserHandler {
             let objUser = UserRatingRoot(fromDictionary: dictionary)
             success(objUser)
         }) { (error) in
-               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -242,7 +242,7 @@ class UserHandler {
             let objImage = UpdateImageRoot(fromDictionary: dictionary)
             success(objImage)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -255,7 +255,7 @@ class UserHandler {
             let objPass = AdRemovedRoot(fromDictionary: dictionary)
             success(objPass)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -281,7 +281,7 @@ class UserHandler {
             let objCode = PhoneVerificationRoot(fromDictionary: dictionary)
             success(objCode)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -294,7 +294,7 @@ class UserHandler {
             let objBlog = BlogRoot(fromDictionary: dictionary)
             success(objBlog)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -307,7 +307,7 @@ class UserHandler {
             let objBlog = BlogRoot(fromDictionary: dictionary)
             success(objBlog)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -320,7 +320,7 @@ class UserHandler {
             let objBlog = BlogDetailRoot(fromDictionary: dictionary)
             success(objBlog)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -333,7 +333,7 @@ class UserHandler {
             let objPost = BlogPostRoot(fromDictionary: dictionary)
             success(objPost)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -398,7 +398,7 @@ class UserHandler {
             let objSentOffer = SentOffersRoot(fromDictionary: dictionary)
             success(objSentOffer)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -424,7 +424,7 @@ class UserHandler {
             let objOfferAds = OfferAdsRoot(fromDictionary: dictionary)
             success(objOfferAds)
         }) { (error) in
-              failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -450,7 +450,7 @@ class UserHandler {
             let objChat = SentOfferChatRoot(fromDictionary: dictionary)
             success(objChat)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -517,7 +517,7 @@ class UserHandler {
             let objResp = UserForgot(fromDictionary: dictionary)
             success(objResp)
         }) { (error) in
-              failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -530,7 +530,7 @@ class UserHandler {
             let objUser = TermsConditionsRoot(fromDictionary: dictionary)
             success(objUser)
         }) { (error) in
-              failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -543,7 +543,7 @@ class UserHandler {
             let objUser = BlockedUserRoot(fromDictionary: dictionary)
             success(objUser)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -569,7 +569,7 @@ class UserHandler {
             let objUser = UserForgot(fromDictionary: dictionary)
             success(objUser)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -582,7 +582,7 @@ class UserHandler {
             let objUser = UserForgot(fromDictionary: dictionary)
             success(objUser)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -595,7 +595,7 @@ class UserHandler {
             let objSetting = AppSettingRoot(fromDictionary: dictionary)
             success(objSetting)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     
@@ -608,45 +608,71 @@ class UserHandler {
             let objFeedback = UserForgot(fromDictionary: dictionary)
             success(objFeedback)
         }) { (error) in
-             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
     //MARK:- ContactSeller
-      class func contactSeller(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {
-          let url = Constants.URL.baseUrl+Constants.URL.contactSeller
-          print(url)
-          NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
-              let dictionary = successResponse as! [String: Any]
-              let objFeedback = UserForgot(fromDictionary: dictionary)
-              success(objFeedback)
-          }) { (error) in
-               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
-          }
-      }
+    class func contactSeller(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.contactSeller
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objFeedback = UserForgot(fromDictionary: dictionary)
+            success(objFeedback)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
     //MARK:- ResendEmail
-      class func resendEmail(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {
-          let url = Constants.URL.baseUrl+Constants.URL.resendEmail
-          print(url)
-          NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
-              let dictionary = successResponse as! [String: Any]
-              let objFeedback = UserForgot(fromDictionary: dictionary)
-              success(objFeedback)
-          }) { (error) in
-               failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
-          }
-      }
-
-//MARK:- WhizChatSendMessage
-  class func WhizChatSendMessage(parameter: NSDictionary, success: @escaping(WhizChatInitRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
-      let url = Constants.URL.baseUrl+Constants.URL.sendMessageWhizChat
-      print(url)
-      NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
-          let dictionary = successResponse as! [String: Any]
-          let objFeedback = WhizChatInitRoot(fromDictionary: dictionary)
-          success(objFeedback)
-      }) { (error) in
-           failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
-      }
-  }
+    class func resendEmail(parameter: NSDictionary, success: @escaping(UserForgot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.resendEmail
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objFeedback = UserForgot(fromDictionary: dictionary)
+            success(objFeedback)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
+    //MARK:- WhizChatSendMessage
+    class func WhizChatSendMessage(parameter: NSDictionary, success: @escaping(WhizChatInitRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.sendMessageWhizChat
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objFeedback = WhizChatInitRoot(fromDictionary: dictionary)
+            success(objFeedback)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    
+    
+    //MARK:- WhizChatListMessage
+    class func WhizChatListMessage(success: @escaping(WhizChatMessageListRoot)-> Void, failure: @escaping(NetworkError)-> Void){
+        let url = Constants.URL.baseUrl+Constants.URL.getMessageListWhizChat
+        print(url)
+        NetworkHandler.getRequest(url: url, parameters: nil, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objOfferAds = WhizChatMessageListRoot(fromDictionary: dictionary)
+            success(objOfferAds)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    //MARK:- WhizChatChatMessageBox
+    class func WhizChatChatMessageBox(parameter: NSDictionary, success: @escaping(WhizChatMessagesBoxRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.messagesWhizChatBox
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objFeedback = WhizChatMessagesBoxRoot(fromDictionary: dictionary)
+            success(objFeedback)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
     
 }
