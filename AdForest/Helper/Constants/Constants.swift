@@ -112,9 +112,11 @@ class Constants {
         static let resendEmail = "login/confirm/resend/"
 
         //MARK:- WizChatService
-        static let sendMessageWhizChat = "whizchat/whizchat_send_message"
+        static let sendMessageWhizChat = "whizchat/whizchatApi_send_message"
         static let getMessageListWhizChat = "whizchat/whizchatApi_get_chat_list"
         static let messagesWhizChatBox = "whizchat/whizchatApi_get_chat_box"
+        static let SendmessagesWhizChatBox = "whizchat/whizchatApi_send_message"
+
 
 
         

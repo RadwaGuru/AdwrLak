@@ -57,7 +57,11 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var containerViewSendMessage: UIView!
     @IBOutlet weak var btnAttachments: UIButton!
     @IBOutlet weak var containerViewAttachments: UIView!
-    @IBOutlet weak var containerViewBottom: UIView!
+    @IBOutlet weak var containerViewBottom: UIView!{
+        didSet{
+            containerViewBottom.roundCorners()
+        }
+    }
     
     //MARK:- Properties
     let keyboardManager = IQKeyboardManager.sharedManager()
@@ -68,8 +72,10 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     var receiverId = ""
     var ChatId = ""
     var devMsg = ""
-    
-    
+    var postId = ""
+    var messageId = ""
+    var ChatSenderName = ""
+    var ChatlastSeenNavBarTime = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,14 +90,14 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 40, width: bounds.width, height: bounds.height + height)
         
-        self.navigationItem.titleView = setTitle(title: "Farwa", subtitle: "LastSeen 2:30.00 am")
+        self.navigationItem.titleView = setTitle(title: self.ChatSenderName, subtitle: self.ChatlastSeenNavBarTime)
         //        initUI()
         BlockButton()
         socketManager.establishConnection()
         
-        Timer.every(5.second) {
+//        Timer.every(5.second) {
             self.startObservingMessages()
-        }
+//        }
 //        txtMessage.setTextWithTypeAnimation(typedText: self.txtMessage.text, characterDelay:  10) //less delay is faster
 
     }
@@ -119,12 +125,12 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func actionSendMessage(_ sender: Any) {
         
         socketManager.joinRoom(room: roomId, sender: senderId, receiver: receiverId)
-        
-        
         socketManager.send(roomId: roomId, message: self.txtMessage.text, receiverID: receiverId, ChatId: self.ChatId)
-
+        let parameter : [String: Any] = ["chat_id": ChatId,"msg":self.txtMessage.text,"session":"100","post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"text"]
+        PostChatMesages(param: parameter as NSDictionary)
+        
     }
-   
+    
    
     
     func keyboardHandling(){
@@ -250,14 +256,14 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func BlockButton() {
         let button = UIButton(type: .custom)
-        button.setBackgroundImage(#imageLiteral(resourceName: "reject"), for: .normal)
+        button.setBackgroundImage(#imageLiteral(resourceName: "blockuser.png"), for: .normal)
         button.tintColor = UIColor.white
         if #available(iOS 11, *) {
-            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         }
         else {
-            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         }
         //        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
         
@@ -407,12 +413,12 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                                 resizingMode: .stretch)
                 .withRenderingMode(.alwaysTemplate)
             cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
-            cell.txtMessage.text = message.chatMessage
+//            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
+            cell.txtMessage.text = message.msg
             cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
             cell.imgProfile.image = UIImage(named: "blackuser")
+            cell.lblChatTime.text = message.chatTime
             tableView.rowHeight = UITableViewAutomaticDimension
-            
         }
         else{
             let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
@@ -425,13 +431,10 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                                 resizingMode: .stretch)
                 .withRenderingMode(.alwaysTemplate)
             cellw.txtMessage.text = message.msg
-                
-                //self.devMsg
-                //
+            cellw.txtMessage.textColor = UIColor.white
+            cellw.lblChatReceiverTime.text = message.chatTime
             cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
             tableView.rowHeight = UITableViewAutomaticDimension
-            
-        
         return cellw
         }
         return cell
@@ -451,6 +454,11 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.roomId = successResponse.data.LiveRoomData
                 self.senderId =  successResponse.data.SenderId
                 self.receiverId = successResponse.data.communicationId
+                self.postId = successResponse.data.PostId
+               
+                for item in self.messages {
+                    self.messageId = item.chatMessageID
+                }
                 UserDefaults.standard.set(self.senderId, forKey: "senderId")
 
                 self.tableView.reloadData()
@@ -465,7 +473,24 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             self.presentVC(alert)
         }
     }
+    
+    func PostChatMesages(param: NSDictionary) {
+        UserHandler.WhizChatSendChatBoxMessage(parameter: param, success: { (successResponse) in
+            if successResponse.success {
+                debugPrint(successResponse.data)
+            }
+            else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+    
 }
+
 extension UILabel {
     func setTextWithTypeAnimation(typedText: String, characterDelay: TimeInterval = 5.0) {
         text = ""

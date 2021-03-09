@@ -15,7 +15,7 @@ struct WhizChatMessagesBoxChatList {
     var chatMessage: String!
     var chatPostID : String!
     var chatPostAuthor: String!
-    var  chatTime: String!
+    var chatTime: String!
     var isReply: String!
     var rel : String!
     var messageType: String!
@@ -29,10 +29,10 @@ struct WhizChatMessagesBoxChatList {
         chatMessageID = dictionary["chat_message_id"] as? String
         chatSenderID = dictionary["chat_sender_id"] as? String
         chatSenderName = dictionary["chat_sender_name"] as? String
-        chatMessage = dictionary["chat_message"] as? String
+//        chatMessage = dictionary["msg"] as? String
         chatPostID = dictionary["chat_post_id"] as? String
         chatPostAuthor = dictionary["chat_post_author"] as? String
-        chatTime = dictionary["chat_time"] as? String
+        chatTime = dictionary["time_chat"] as? String
         isReply = dictionary["is_reply"] as? String
         rel = dictionary["rel"] as? String
         messageType = dictionary["message_type"] as? String

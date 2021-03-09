@@ -22,7 +22,7 @@ struct WhizChatMessageListData {
         receiverName = dictionary["receiver_name"] as? String
         ImageUrl = dictionary["image_url"] as? String
         ChatId = dictionary["chat_id"] as? String
-        lastActive = dictionary["last_active_time-id"] as? String
+        lastActive = dictionary["last_active_time"] as? String
 
     }
     

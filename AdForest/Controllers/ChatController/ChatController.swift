@@ -1585,6 +1585,7 @@ class SenderCell: UITableViewCell {
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblChatTime: UILabel!
     @IBOutlet weak var viewBg: UIView!
     let label =  UILabel()
     @IBOutlet weak var imgPicture: UIImageView!
@@ -1614,6 +1615,7 @@ class ReceiverCell: UITableViewCell {
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblChatReceiverTime: UILabel!
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var txtMessage: UITextView!
     @IBOutlet weak var viewBg: UIView!

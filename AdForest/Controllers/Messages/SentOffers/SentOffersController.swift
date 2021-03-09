@@ -154,9 +154,12 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isWhizActive == true {
-            let whizChatVC = self.storyboard?.instantiateViewController(withIdentifier: "WhizChatController") as! WhizChatController
-            whizChatVC.ChatId = self.Chatid
+            let objD = whizDataArray[indexPath.row]
             
+            let whizChatVC = self.storyboard?.instantiateViewController(withIdentifier: "WhizChatController") as! WhizChatController
+            whizChatVC.ChatId = objD.ChatId
+            whizChatVC.ChatSenderName = objD.receiverName
+            whizChatVC.ChatlastSeenNavBarTime = objD.lastActive
             self.navigationController?.pushViewController(whizChatVC, animated: true)
             
         }else{
@@ -242,12 +245,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             self.refreshControl.endRefreshing()
             if successResponse.success {
                 self.whizDataArray = successResponse.data.ChatList
-                for item in self.whizDataArray {
-                    self.Chatid = item.ChatId
-                }
-
                 debugPrint(self.whizDataArray)
-                debugPrint("ChatID :: \(self.Chatid)")
                 if successResponse.message != nil{
                     if self.dataArray.count == 0 {
                         

@@ -19,11 +19,6 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
     
     override init() {
         super.init()
-        
-////        manager = SocketManager(socketURL: URL(string: "http://192.168.10.30:3000")!)
-//        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : "key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B","website":Constants.URL.baseUrl,"type":"gtChatPro"
-//])])
-//        socket = manager.defaultSocket
     }
     
     //MARK: - Instance Methods
@@ -142,7 +137,7 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
         
         socket.on("agAskedToJoin")  {data,ack in
             if UserDefaults.standard.string(forKey: "senderId") ==  (data[1] as! String) {
-                debugPrint("yes it is cooreect for to connect you can move ahead---------------------:\(data[0]): \(data[1])------->>>>>>>>>>>>>>")
+                debugPrint("isRoomJoin in fucntion ---------------------:\(data[0]): \(data[1])------->>>>>>>>>>>>>>")
                 
             }
             
