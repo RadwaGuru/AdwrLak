@@ -16,10 +16,10 @@ import Alamofire
 import JGProgressHUD
 import NVActivityIndicatorView
 
-protocol OpenChatControllerDelegate {
+protocol OpenWhizChatControllerDelegate {
     func openChatFromAttachment()
 }
-class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate,OpalImagePickerControllerDelegate,NVActivityIndicatorViewable {
+class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate,OpalImagePickerControllerDelegate,NVActivityIndicatorViewable, CLLocationManagerDelegate {
     private lazy var uploadingProgressBar: JGProgressHUD = {
         let progressBar = JGProgressHUD(style: .dark)
         progressBar.indicatorView = JGProgressHUDRingIndicatorView()
@@ -37,7 +37,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     var senderID : String!
     var receiverID : String!
     var msgType : String!
-    var delegate : OpenChatControllerDelegate?
+    var delegate : OpenWhizChatControllerDelegate?
     var chatAttachmentAllowed = false
     var chatAttachmentType = ""
     var chatImageSize = ""
@@ -56,6 +56,19 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     var uploadFileTrueSize = false
     let appDel = UIApplication.shared.delegate as! AppDelegate
     let mainColor = UserDefaults.standard.string(forKey: "mainColor")
+    let locationManager = CLLocationManager()
+    var latitude : Double!
+    var longitude : Double!
+    
+    
+    var roomId = ""
+    var senderId = ""
+    var receiverId = ""
+    var ChatId = ""
+    var postId = ""
+    var messageId = ""
+    
+    
     @IBOutlet weak var lblDocs: UILabel!
     @IBOutlet weak var lblImages: UILabel!
     @IBOutlet weak var btnImgDoc: UIButton!
@@ -69,9 +82,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     @IBOutlet weak var containerMain: UIView!
     
     @IBOutlet weak var slideIdicator: UIView!
+    @IBOutlet weak var containerLocation: UIView!
+    @IBOutlet weak var lblLocationHeading: UILabel!
+    @IBOutlet weak var btnLocation: UIButton!
     //    @IBOutlet weak var imageView: UIImageView!
     //    @IBOutlet weak var subscribeButton: UIView!
-    
     
     @IBOutlet weak var lblHeading: UILabel!
     override func viewDidLoad() {
@@ -82,8 +97,9 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         slideIdicator.roundCorners(.allCorners, radius: 10)
         lblHeading.text = headingPopUp
         adforest_getAttachmentData()
-        lblDocs.text = uploadDocumentHeading
-        lblImages.text = uploadImageHeading
+//        lblDocs.text = uploadDocumentHeading
+//        lblImages.text = uploadImageHeading
+        debugPrint("\(roomId): \(senderId): \(receiverId): \(ChatId): \(postId): \(messageId)")
         //        subscribeButton.roundCorners(.allCorners, radius: 10)
     }
     
@@ -102,6 +118,9 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     //MARK:- @IBActions
     @IBAction func ActionMediaAttachment(_ sender: Any) {
         adForest_openGallery()
+    }
+    @IBAction func btnLocationAction(_ sender: Any) {
+        currentUserlocationManager()
     }
     
     func adforest_getAttachmentData(){
@@ -130,46 +149,128 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         imagePicker.imagePickerDelegate = self
         self.present(imagePicker, animated: true, completion: nil)
     }
+    
+    
+    
+    func currentUserlocationManager(){
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            self.latitude =  locationManager.location?.coordinate.latitude
+            self.longitude =  locationManager.location?.coordinate.longitude
+            if (self.latitude != nil) && self.longitude != nil{
+              getAddressFromLatLon(pdblLatitude: String(self.latitude), withLongitude: String(self.longitude))
+            }
+        }
+    }
+    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
+        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+        let lat: Double = Double("\(pdblLatitude)")!
+        //21.228124
+        let lon: Double = Double("\(pdblLongitude)")!
+        //72.833770
+        let ceo: CLGeocoder = CLGeocoder()
+        center.latitude = lat
+        center.longitude = lon
+        
+        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+        
+        
+        ceo.reverseGeocodeLocation(loc, completionHandler:
+            {(placemarks, error) in
+                if (error != nil)
+                {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.country)
+                    print(pm.locality)
+                    print(pm.subLocality)
+                    print(pm.thoroughfare)
+                    print(pm.postalCode)
+                    print(pm.subThoroughfare)
+                    var addressString : String = ""
+                    if pm.subLocality != nil {
+                        addressString = addressString + pm.subLocality! + ", "
+                    }
+                    if pm.thoroughfare != nil {
+                        addressString = addressString + pm.thoroughfare! + ", "
+                    }
+                    if pm.locality != nil {
+                        addressString = addressString + pm.locality! + ", "
+                    }
+                    if pm.country != nil {
+                        addressString = addressString + pm.country! + ", "
+                    }
+                    if pm.postalCode != nil {
+                        addressString = addressString + pm.postalCode! + " "
+                    }
+                    
+                    
+                    print(addressString)
+                    
+                    
+                }
+        })
+        
+    }
+    
+    
+    
+    
+    
     //MARK:- Delegates For OPAL ImagePicker
     
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
-        for item in images{
-            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
-            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
-            imageSize  = imgData.count
-            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
-            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
-            print("File Size Device selected: \(fileSizeWithUnit)")
-            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(self.chatImageSize)!, countStyle: .file)
-            print("File Size Api: \(fileSizeWithUnit2)")
-            print(self.chatImageSize)
-            
-            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
-                let alert = Constants.showBasicAlert(message: self.imgLImitTxt)
-                self.presentedViewController?.dismiss(animated: true, completion: nil)
-                self.presentVC(alert)
-                uploadImageTrueSize = false
-                break
-            }
-            else{
-                uploadImageTrueSize = true
-                
-            }
-        }
-        if uploadImageTrueSize == true {
+//        for item in images{
+//            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
+//            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+//            imageSize  = imgData.count
+//            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
+//            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
+//            print("File Size Device selected: \(fileSizeWithUnit)")
+//            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(self.chatImageSize)!, countStyle: .file)
+//            print("File Size Api: \(fileSizeWithUnit2)")
+//            print(self.chatImageSize)
+//
+//            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
+//                let alert = Constants.showBasicAlert(message: self.imgLImitTxt)
+//                self.presentedViewController?.dismiss(animated: true, completion: nil)
+//                self.presentVC(alert)
+//                uploadImageTrueSize = false
+//                break
+//            }
+//            else{
+//                uploadImageTrueSize = true
+//
+//            }
+//        }
+//        if uploadImageTrueSize == true {
             if images.isEmpty {
             }
             else {
                 self.photoArray = images
-                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType,"FileType":"Images"]
-                print(parameter)
-                
+                let parameter : [String: Any] = [
+                    "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"image","upload_type":"image"]
+                //,"images":self.photoArray
+                                print(parameter)
+
                 self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
             }
-            self.delegate?.openChatFromAttachment()
+//            self.delegate?.openChatFromAttachment()
             
             presentedViewController?.dismiss(animated: true, completion: nil)
-        }
+//        }
         
         
     }
@@ -240,51 +341,52 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     func saveFileToDocumentDirectory(document: URL) {
         if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "File", extention: document.pathExtension) {
-            if chatAttachmentFormat.contains(document.pathExtension){
-                
-                fileSize = true
-            }else{
-                fileSize = false
-            }
-            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: document.path) {
-                if let bytes = fileAttributes[.size] as? Int64 {
-                    
-                    
-                    let bcf = ByteCountFormatter()
-                    bcf.allowedUnits = [.useKB]
-                    bcf.countStyle = .file
-                    let string = bcf.string(fromByteCount: bytes)
-                    print(string)
-                }
-            }
-            do {
-                let attribute = try FileManager.default.attributesOfItem(atPath: document.path)
-                if let size = attribute[FileAttributeKey.size] as? NSNumber {
-                    sizeFile =  size.doubleValue / 1000000.0
-                    print(sizeFile)
-                    let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(sizeFile), countStyle: .decimal)
-                    print("File Size: \(fileSizeWithUnit)")
-                }
-            } catch {
-                print("Error: \(error)")
-            }
-            if  String(sizeFile) < chatDocSize || String(sizeFile) == chatDocSize {
-                uploadFileTrueSize = true
-            }
-            else{
-                uploadFileTrueSize = false
-            }
-            
-            if fileSize == true && uploadFileTrueSize == true {
-                let parameter : [String: Any] = ["ad_id": adID, "sender_id": senderID, "receiver_id": receiverID, "type": msgType,"FileType":"Document"]
-                print(parameter)
+//            if chatAttachmentFormat.contains(document.pathExtension){
+//
+//                fileSize = true
+//            }else{
+//                fileSize = false
+//            }
+//            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: document.path) {
+//                if let bytes = fileAttributes[.size] as? Int64 {
+//
+//
+//                    let bcf = ByteCountFormatter()
+//                    bcf.allowedUnits = [.useKB]
+//                    bcf.countStyle = .file
+//                    let string = bcf.string(fromByteCount: bytes)
+//                    print(string)
+//                }
+//            }
+//            do {
+//                let attribute = try FileManager.default.attributesOfItem(atPath: document.path)
+//                if let size = attribute[FileAttributeKey.size] as? NSNumber {
+//                    sizeFile =  size.doubleValue / 1000000.0
+//                    print(sizeFile)
+//                    let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(sizeFile), countStyle: .decimal)
+//                    print("File Size: \(fileSizeWithUnit)")
+//                }
+//            } catch {
+//                print("Error: \(error)")
+//            }
+//            if  String(sizeFile) < chatDocSize || String(sizeFile) == chatDocSize {
+//                uploadFileTrueSize = true
+//            }
+//            else{
+//                uploadFileTrueSize = false
+//            }
+//
+//            if fileSize == true && uploadFileTrueSize == true {
+                let parameter : [String: Any] = [
+                    "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"file","upload_type":"file"]
+                                print(parameter)
                 adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
                 
-            }
-            else{
-                let alert = Constants.showBasicAlert(message: "\(docLimitTxt):\(docTypeTxt)")
-                self.presentVC(alert)
-            }
+//            }
+//            else{
+//                let alert = Constants.showBasicAlert(message: "\(docLimitTxt):\(docTypeTxt)")
+//                self.presentVC(alert)
+//            }
         }
     }
     
@@ -321,7 +423,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     func adPostUploadImages(parameter: NSDictionary , imagesArray: [UIImage], fileName: String, uploadProgress: @escaping(Int)-> Void, success: @escaping(AdPostImagesRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         
-        let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
+        let url = Constants.URL.baseUrl+Constants.URL.SendmessagesWhizChatBox
         print(url)
         NetworkHandler.uploadImageArray(url: url, imagesArray: imagesArray, fileName: "File", params: parameter as? Parameters, uploadProgress: { (uploadProgress) in
             print(uploadProgress)
@@ -333,7 +435,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
             self.uploadingProgressBar.dismiss(animated: true)
             self.delegate?.openChatFromAttachment()
             self.dismiss(animated: true, completion: nil)
-            print("true")
+            print(successResponse)
         }) { (error) in
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
             print("false")
@@ -376,7 +478,7 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
     
     func msgUploadFiles(parameter: NSDictionary , fileURL: URL, fileName: String, uploadProgress: @escaping(Int)-> Void, success: @escaping(AdPostImagesRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         
-        let url = Constants.URL.baseUrl+Constants.URL.messageAttachment
+        let url = Constants.URL.baseUrl+Constants.URL.SendmessagesWhizChatBox
         print(url)
         NetworkHandler.upload(url: url, fileUrl: fileURL, fileName: fileName, params: parameter as! Parameters, uploadProgress: {(uploadProgress) in
             

@@ -68,7 +68,6 @@
 		18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6C2092F9720020D440 /* AdPostImagesData.swift */; };
 		18108E6F2092F98A0020D440 /* AdPostImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6E2092F98A0020D440 /* AdPostImages.swift */; };
 		18108E732092FC6F0020D440 /* AdPostImageArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E722092FC6F0020D440 /* AdPostImageArray.swift */; };
-		18120B3D25E9485B003165DD /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 18120B3C25E9485B003165DD /* SocketIO */; };
 		18156A3225EF52030029B31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18BBFA902051098C0067662F /* Assets.xcassets */; };
 		18156B6125EFA3E60029B31B /* WhizChatInitRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6025EFA3E60029B31B /* WhizChatInitRoot.swift */; };
 		18156B6625EFA4060029B31B /* WhizChatInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6525EFA4060029B31B /* WhizChatInitData.swift */; };
@@ -123,6 +122,8 @@
 		181AD094206E80660059D534 /* BlogDetailCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AD093206E80660059D534 /* BlogDetailCat.swift */; };
 		181B19E920AEAC1B0016BA7B /* HomeIsShowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181B19E820AEAC1B0016BA7B /* HomeIsShowMenu.swift */; };
 		181B19EC20AF024A0016BA7B /* LocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181B19EB20AF024A0016BA7B /* LocationSearch.swift */; };
+		181C135F25F8AF3D0026F62C /* WhizChatOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181C135E25F8AF3D0026F62C /* WhizChatOverlayView.xib */; };
+		181C136425F8AF8A0026F62C /* WhizChatOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C136325F8AF8A0026F62C /* WhizChatOverlayView.swift */; };
 		181C880F205257110067B176 /* SentOffersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C880E205257110067B176 /* SentOffersController.swift */; };
 		181C8811205257250067B176 /* OffersOnAdsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8810205257250067B176 /* OffersOnAdsController.swift */; };
 		181C88172052618A0067B176 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C88152052618A0067B176 /* MessagesCell.swift */; };
@@ -814,6 +815,8 @@
 		181AD093206E80660059D534 /* BlogDetailCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogDetailCat.swift; sourceTree = "<group>"; };
 		181B19E820AEAC1B0016BA7B /* HomeIsShowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIsShowMenu.swift; sourceTree = "<group>"; };
 		181B19EB20AF024A0016BA7B /* LocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearch.swift; sourceTree = "<group>"; };
+		181C135E25F8AF3D0026F62C /* WhizChatOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhizChatOverlayView.xib; sourceTree = "<group>"; };
+		181C136325F8AF8A0026F62C /* WhizChatOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatOverlayView.swift; sourceTree = "<group>"; };
 		181C880E205257110067B176 /* SentOffersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentOffersController.swift; sourceTree = "<group>"; };
 		181C8810205257250067B176 /* OffersOnAdsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersOnAdsController.swift; sourceTree = "<group>"; };
 		181C88152052618A0067B176 /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
@@ -1403,7 +1406,6 @@
 				18244F192074B3B900B9BE8C /* MobileCoreServices.framework in Frameworks */,
 				18244F172074B3B100B9BE8C /* MessageUI.framework in Frameworks */,
 				18244F152074B3A600B9BE8C /* CoreMedia.framework in Frameworks */,
-				18120B3D25E9485B003165DD /* SocketIO in Frameworks */,
 				18244F132074B39D00B9BE8C /* CoreLocation.framework in Frameworks */,
 				18244F112074B31300B9BE8C /* AVFoundation.framework in Frameworks */,
 				18244F0F2074B30500B9BE8C /* AudioToolbox.framework in Frameworks */,
@@ -3410,6 +3412,8 @@
 				18CE381325DD4E950053A299 /* OverlayView.xib */,
 				18CE381825DD4F0C0053A299 /* OverlayView.swift */,
 				18CE381D25DD4F600053A299 /* PresentationController.swift */,
+				181C135E25F8AF3D0026F62C /* WhizChatOverlayView.xib */,
+				181C136325F8AF8A0026F62C /* WhizChatOverlayView.swift */,
 			);
 			path = Attachments;
 			sourceTree = "<group>";
@@ -3807,7 +3811,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				88A9F62C67DC21D440AAC43A /* [CP] Build Pods Frameworks */,
+				E599DEBF723111AF31AAC43A /* Build Project Frameworks */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3821,7 +3825,6 @@
 			);
 			name = AdForest;
 			packageProductDependencies = (
-				18120B3C25E9485B003165DD /* SocketIO */,
 			);
 			productName = AdForest;
 			productReference = 18BBFA832051098B0067662F /* AdForest.app */;
@@ -3948,6 +3951,7 @@
 				18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */,
 				18CE381425DD4E950053A299 /* OverlayView.xib in Resources */,
 				CBD318742552D8BF0090F2F9 /* Main2.storyboard in Resources */,
+				181C135F25F8AF3D0026F62C /* WhizChatOverlayView.xib in Resources */,
 				181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */,
 				1836447825DA4E430031CDAA /* ChatImages.xib in Resources */,
 				180DC4082057C9FC00A75C60 /* BlogCell.xib in Resources */,
@@ -4003,7 +4007,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	88A9F62C67DC21D440AAC43A /* [CP] Build Pods Frameworks */ = {
+	E599DEBF723111AF31AAC43A /* Build Project Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4012,7 +4016,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP] Build Pods Frameworks";
+			name = "Build Project Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -4023,72 +4027,6 @@
 
 \"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" false";			
 		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	
 
 	
@@ -4619,6 +4557,7 @@
 				182690FD2087655600E2C966 /* CategoryAdSaved.swift in Sources */,
 				18C2CD00206A4FC200235E0E /* MyAdsAd.swift in Sources */,
 				18CE377B25DD065F0053A299 /* ChatFilesImagestext.swift in Sources */,
+				181C136425F8AF8A0026F62C /* WhizChatOverlayView.swift in Sources */,
 				18BBFB0220515EBE0067662F /* ImageView.swift in Sources */,
 				184CAFA520B031F1008046C1 /* TermsConditionsController.swift in Sources */,
 				18D8F569206BAA7100D19830 /* AddDeleteRoot.swift in Sources */,
@@ -5217,28 +5156,6 @@
 		};
 /* End XCConfigurationList section */
 
-		
-			/* Begin PBXBuildRule section */
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-			
-
-			
-	
-			/* End PBXBuildRule section */
-		
-		
-
 /* Begin XCRemoteSwiftPackageReference section */
 		18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -5249,14 +5166,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		18120B3C25E9485B003165DD /* SocketIO */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
-			productName = SocketIO;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		18BBFA8D2051098C0067662F /* AdForest.xcdatamodeld */ = {

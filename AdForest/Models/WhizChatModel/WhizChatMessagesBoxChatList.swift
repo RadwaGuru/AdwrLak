@@ -20,6 +20,8 @@ struct WhizChatMessagesBoxChatList {
     var rel : String!
     var messageType: String!
     var msg: String!
+    var chatImages: [String]!
+    var chatFiles: [String]!
     //   var Attachemnt will be array
     //    var lastSeen will be a string!
     /**
@@ -37,8 +39,9 @@ struct WhizChatMessagesBoxChatList {
         rel = dictionary["rel"] as? String
         messageType = dictionary["message_type"] as? String
         msg = dictionary["msg"] as? String
-        
-        
+        chatImages = dictionary["image_url"] as?  [String]
+        chatFiles = dictionary["file_url"] as?  [String]
+
         
     }
     

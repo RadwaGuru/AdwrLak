@@ -597,8 +597,9 @@ class NetworkHandler {
         
         Alamofire.upload(multipartFormData:{ multipartFormData in
             var i = 0
+            debugPrint(imagesArray)
             for image in imagesArray {
-          
+              
                 if let imageData = UIImageJPEGRepresentation(image, 0.5) {
                 
                 print(imageData)
@@ -623,7 +624,10 @@ class NetworkHandler {
                     
                     
                 })
+                
                 upload.responseJSON { response in
+                    print("the resopnse code is : \(String(describing: response.response?.statusCode))")
+
                     let returnValue = response.result.value!
                     if let userToken = response.response?.allHeaderFields["Authorization"] as? String {
                         UserDefaults.standard.set(userToken, forKey: "userAuthToken")

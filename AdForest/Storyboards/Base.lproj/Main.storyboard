@@ -20008,6 +20008,9 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKo-wX-bpd">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <connections>
+                                                    <action selector="btnAttachmentAction:" destination="Cik-Ig-Chs" eventType="touchUpInside" id="noC-jy-BlL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -20027,9 +20030,9 @@
                                         <rect key="frame" x="374" y="0.0" width="40" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="03Y-Y9-0Fj">
-                                                <rect key="frame" x="0.0" y="10" width="40" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="0b1-xD-0S2"/>
+                                                    <constraint firstAttribute="height" constant="40" id="0b1-xD-0S2"/>
                                                 </constraints>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
@@ -20057,7 +20060,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ags-i7-Nex">
                                         <rect key="frame" x="0.0" y="0.0" width="35" height="40"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackhome" translatesAutoresizingMaskIntoConstraints="NO" id="Eco-su-K3S">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msg" translatesAutoresizingMaskIntoConstraints="NO" id="Eco-su-K3S">
                                                 <rect key="frame" x="10" y="12.666666666666629" width="15" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="15" id="cgn-Zo-O4v"/>
@@ -20315,7 +20318,7 @@
             <size key="intrinsicContentSize" width="79" height="15"/>
         </designable>
         <designable name="GT5-kh-Fha">
-            <size key="intrinsicContentSize" width="87.666666666666671" height="26"/>
+            <size key="intrinsicContentSize" width="87.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="Gw4-6u-kh6">
             <size key="intrinsicContentSize" width="5" height="22"/>
@@ -20342,10 +20345,10 @@
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
         </designable>
         <designable name="Wx3-33-6ZR">
-            <size key="intrinsicContentSize" width="60" height="26"/>
+            <size key="intrinsicContentSize" width="60" height="25.666666666666668"/>
         </designable>
         <designable name="aAQ-d9-WeA">
-            <size key="intrinsicContentSize" width="85.666666666666671" height="26"/>
+            <size key="intrinsicContentSize" width="85.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="aTT-AJ-UHf">
             <size key="intrinsicContentSize" width="4" height="18.666666666666668"/>
@@ -20372,7 +20375,7 @@
             <size key="intrinsicContentSize" width="104" height="20"/>
         </designable>
         <designable name="u4l-OG-JyN">
-            <size key="intrinsicContentSize" width="73.666666666666671" height="26"/>
+            <size key="intrinsicContentSize" width="73.666666666666671" height="25.666666666666668"/>
         </designable>
         <designable name="w97-Q9-Q5p">
             <size key="intrinsicContentSize" width="79" height="15"/>
