@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -79,7 +80,7 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="llG-Hq-iZv">
-                        <rect key="frame" x="210" y="80" width="20" height="36.5"/>
+                        <rect key="frame" x="209" y="80" width="21" height="36.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -88,7 +89,7 @@
                         </constraints>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17l-bX-T0i">
-                        <rect key="frame" x="215" y="80" width="10" height="36.5"/>
+                        <rect key="frame" x="214" y="80" width="11" height="36.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="1PW-E5-hAL"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="zhq-wR-NK0"/>
@@ -98,15 +99,27 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                     </textView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8e4-O8-yQR">
+                        <rect key="frame" x="77" y="77" width="130" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="130" id="Dgd-2j-mQ3"/>
+                            <constraint firstAttribute="height" constant="21" id="a9U-Dn-29H"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" systemColor="systemGrayColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="6zW-WI-BA7" secondAttribute="trailing" constant="6" id="2JD-XS-UFB"/>
                     <constraint firstItem="17l-bX-T0i" firstAttribute="top" secondItem="llG-Hq-iZv" secondAttribute="top" id="4AY-G2-bbi"/>
                     <constraint firstAttribute="trailing" secondItem="0AH-fX-JzG" secondAttribute="trailing" constant="56" id="5ON-LN-p1c"/>
                     <constraint firstItem="0AH-fX-JzG" firstAttribute="top" secondItem="mKS-mO-QRo" secondAttribute="top" constant="8" id="HaJ-Di-CCR"/>
+                    <constraint firstItem="8e4-O8-yQR" firstAttribute="top" secondItem="0AH-fX-JzG" secondAttribute="bottom" constant="8" id="PnD-gn-gPu"/>
                     <constraint firstItem="llG-Hq-iZv" firstAttribute="height" secondItem="17l-bX-T0i" secondAttribute="height" id="PzA-mq-26t"/>
                     <constraint firstItem="6zW-WI-BA7" firstAttribute="top" secondItem="mKS-mO-QRo" secondAttribute="top" constant="8" id="bad-J2-cMB"/>
                     <constraint firstItem="llG-Hq-iZv" firstAttribute="top" secondItem="0AH-fX-JzG" secondAttribute="bottom" constant="11" id="dKv-gb-8DB"/>
+                    <constraint firstItem="8e4-O8-yQR" firstAttribute="leading" secondItem="mKS-mO-QRo" secondAttribute="leadingMargin" constant="61" id="dWj-sg-cZ5"/>
                     <constraint firstItem="llG-Hq-iZv" firstAttribute="width" secondItem="17l-bX-T0i" secondAttribute="width" constant="10" id="emK-8b-eLK"/>
                     <constraint firstItem="0AH-fX-JzG" firstAttribute="leading" secondItem="mKS-mO-QRo" secondAttribute="leading" constant="11" id="evZ-9K-h1M"/>
                     <constraint firstItem="17l-bX-T0i" firstAttribute="top" secondItem="0AH-fX-JzG" secondAttribute="bottom" constant="11" id="fp0-BZ-maU"/>
@@ -115,6 +128,7 @@
                     <constraint firstItem="0AH-fX-JzG" firstAttribute="top" secondItem="mKS-mO-QRo" secondAttribute="top" constant="8" id="vhg-sy-LFr"/>
                     <constraint firstItem="0AH-fX-JzG" firstAttribute="top" secondItem="mKS-mO-QRo" secondAttribute="top" constant="8" id="vje-QH-43N"/>
                     <constraint firstAttribute="bottomMargin" secondItem="llG-Hq-iZv" secondAttribute="bottom" constant="1.5" id="yby-13-IaO"/>
+                    <constraint firstItem="llG-Hq-iZv" firstAttribute="leading" secondItem="8e4-O8-yQR" secondAttribute="trailing" constant="2" id="yes-nC-rIx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -123,7 +137,9 @@
                 <outlet property="containerFilesReceiver" destination="0AH-fX-JzG" id="kWU-wN-2Ro"/>
                 <outlet property="heightConstraint" destination="PzA-mq-26t" id="ufC-2T-FLH"/>
                 <outlet property="imgBgReceriver" destination="llG-Hq-iZv" id="HMM-0Q-QpZ"/>
+                <outlet property="imgDocsIcon" destination="LFV-2X-C63" id="Rer-5f-YPq"/>
                 <outlet property="imgProfileReceiver" destination="6zW-WI-BA7" id="LQW-pi-9RC"/>
+                <outlet property="lblChatTime" destination="8e4-O8-yQR" id="T1f-Gw-IxD"/>
                 <outlet property="lblFIleTitleReceiver" destination="M00-rk-XlH" id="AxP-dr-jCv"/>
                 <outlet property="txtMessageReceiver" destination="17l-bX-T0i" id="TEd-lN-jN6"/>
             </connections>
@@ -133,5 +149,8 @@
     <resources>
         <image name="docsChat" width="32" height="32"/>
         <image name="downloadCircular" width="32" height="32"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

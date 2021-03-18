@@ -61,16 +61,29 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                     </textView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APb-ZC-UlA">
+                        <rect key="frame" x="90" y="186" width="155" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="155" id="ZCY-KQ-xN0"/>
+                            <constraint firstAttribute="height" constant="21" id="giB-tZ-GOv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" systemColor="systemGrayColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="PYf-rL-Hoa" firstAttribute="leading" secondItem="81w-zW-kS5" secondAttribute="leading" id="8dE-C5-oM0"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="APb-ZC-UlA" secondAttribute="bottom" constant="2" id="BQB-Ku-3eb"/>
                     <constraint firstItem="Fw0-gT-5cb" firstAttribute="leading" secondItem="PYf-rL-Hoa" secondAttribute="leading" constant="5" id="QAL-yw-cN0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="APb-ZC-UlA" secondAttribute="trailing" constant="149" id="XNr-g6-YFT"/>
                     <constraint firstItem="PYf-rL-Hoa" firstAttribute="height" secondItem="Fw0-gT-5cb" secondAttribute="height" id="ZZ9-Mj-GGT"/>
                     <constraint firstItem="81w-zW-kS5" firstAttribute="leading" secondItem="Peh-Fq-JTK" secondAttribute="trailing" constant="14" id="dph-IY-Pqe"/>
                     <constraint firstItem="81w-zW-kS5" firstAttribute="top" secondItem="9TI-9e-tHh" secondAttribute="top" constant="8" id="fCD-TC-sFD"/>
                     <constraint firstItem="Fw0-gT-5cb" firstAttribute="height" secondItem="PYf-rL-Hoa" secondAttribute="height" id="gUS-ln-pUN"/>
                     <constraint firstItem="PYf-rL-Hoa" firstAttribute="width" secondItem="Fw0-gT-5cb" secondAttribute="width" constant="10" id="hNy-6T-Pfo"/>
                     <constraint firstAttribute="bottom" secondItem="PYf-rL-Hoa" secondAttribute="bottom" constant="7" id="keU-HQ-dtV"/>
+                    <constraint firstItem="APb-ZC-UlA" firstAttribute="top" secondItem="81w-zW-kS5" secondAttribute="bottom" constant="8" symbolic="YES" id="nU5-81-DcP"/>
                     <constraint firstAttribute="trailing" secondItem="81w-zW-kS5" secondAttribute="trailing" constant="169" id="oWc-bx-UCN"/>
                     <constraint firstItem="PYf-rL-Hoa" firstAttribute="top" secondItem="81w-zW-kS5" secondAttribute="bottom" constant="2" id="otl-OP-B9r"/>
                     <constraint firstItem="Peh-Fq-JTK" firstAttribute="leading" secondItem="9TI-9e-tHh" secondAttribute="leading" constant="8" id="vAH-C9-H1l"/>
@@ -85,6 +98,7 @@
                 <outlet property="heightConstraint" destination="ZZ9-Mj-GGT" id="PNj-V7-52j"/>
                 <outlet property="imgBg" destination="PYf-rL-Hoa" id="gci-RB-fAp"/>
                 <outlet property="imgProfileChatImages" destination="Peh-Fq-JTK" id="MMb-Du-K24"/>
+                <outlet property="lblChatTime" destination="APb-ZC-UlA" id="V7Z-F2-3IY"/>
                 <outlet property="txtSenderMessage" destination="Fw0-gT-5cb" id="xSQ-0J-pKz"/>
             </connections>
             <point key="canvasLocation" x="192.75362318840581" y="14.732142857142856"/>
@@ -93,6 +107,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

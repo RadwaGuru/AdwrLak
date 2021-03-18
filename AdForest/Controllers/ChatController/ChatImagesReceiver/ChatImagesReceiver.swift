@@ -11,6 +11,7 @@ import CollageView
 
 class ChatImagesReceiver: UITableViewCell,CollageViewDelegate,CollageViewDataSource {
     
+    @IBOutlet weak var lblChatTime: UILabel!
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!

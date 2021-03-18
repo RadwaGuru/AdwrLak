@@ -22,6 +22,8 @@ struct WhizChatMessagesBoxChatList {
     var msg: String!
     var chatImages: [String]!
     var chatFiles: [String]!
+    var latitude: String!
+    var longitude: String!
     //   var Attachemnt will be array
     //    var lastSeen will be a string!
     /**
@@ -41,6 +43,8 @@ struct WhizChatMessagesBoxChatList {
         msg = dictionary["msg"] as? String
         chatImages = dictionary["image_url"] as?  [String]
         chatFiles = dictionary["file_url"] as?  [String]
+        latitude = dictionary["latitude"] as? String
+        longitude = dictionary["longitude"] as? String
 
         
     }

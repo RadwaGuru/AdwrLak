@@ -163,14 +163,16 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArr.count
+        return AddsHandler.sharedInstance.topLocationArray.count
+            //dataArr.count
             //AddsHandler.sharedInstance.topLocationArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SetLocationCell.className, for: indexPath) as! SetLocationCell
-        let objData = dataArr[indexPath.row]
-            //AddsHandler.sharedInstance.topLocationArray[indexPath.row]
+        let objData = AddsHandler.sharedInstance.topLocationArray[indexPath.row]
+            //dataArr[indexPath.row]
+            //
         
         if let name = objData.locationName {
             cell.lblName.text = name
@@ -184,7 +186,8 @@ extension SetLocationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let objData = dataArr[indexPath.row]
+        let objData = AddsHandler.sharedInstance.topLocationArray[indexPath.row]
+            //dataArr[indexPath.row]
             //AddsHandler.sharedInstance.topLocationArray[indexPath.row]
         if let id = objData.locationId {
             UserDefaults.standard.set(id, forKey: "ToplocId")

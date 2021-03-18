@@ -79,7 +79,7 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
     var whizChatPostId: String!
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
-    var whizChatChatId: Int!
+    var whizChatChatId: String!
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -230,7 +230,7 @@ class ReplyCommentController: UIViewController , NVActivityIndicatorViewable{
             }
             else  {
                 if isWhizChatActive == true {
-                    let param: [String: Any] = ["message": commentField,"post_id":whizChatPostId,"room_id":whizChatRoomID,"comm_id":whizChatCommunicationId,"chat-id":whizChatChatId]
+                    let param: [String: Any] = ["msg": commentField,"post_id":ad_id,"chat_id":whizChatChatId]
                     print(param)
                     self.adForest_WhizChatpopUpMessageReply(param: param as NSDictionary)
                     

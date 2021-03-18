@@ -11,6 +11,7 @@ import UIKit
 class ChatFiles: UITableViewCell {
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblChatTime: UILabel!
     @IBOutlet weak var lblFileTitle: UILabel!
     @IBOutlet weak var btnDownlaodDocuments: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!

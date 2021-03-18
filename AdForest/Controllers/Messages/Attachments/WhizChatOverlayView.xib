@@ -19,6 +19,7 @@
                 <outlet property="containerLocation" destination="uha-r8-e6x" id="oWk-Cd-ZYj"/>
                 <outlet property="containerMain" destination="JxY-R7-1Ou" id="nVJ-Zk-4Bk"/>
                 <outlet property="imgDoc" destination="a0g-FX-LVq" id="baY-tH-MSF"/>
+                <outlet property="imgLocation" destination="EqW-ei-Fay" id="mOS-RY-A0L"/>
                 <outlet property="imgMedia" destination="U7H-S3-Oce" id="Ul5-F5-q0Y"/>
                 <outlet property="lblDocs" destination="mLK-Yr-qI3" id="gbp-6e-ddW"/>
                 <outlet property="lblHeading" destination="dvI-mX-Liq" id="FIW-TC-lik"/>
@@ -26,6 +27,7 @@
                 <outlet property="lblLocationHeading" destination="VEg-O7-e8c" id="kQY-ot-ZgZ"/>
                 <outlet property="slideIdicator" destination="UPi-Jr-Sp2" id="pdz-Mu-Rsd"/>
                 <outlet property="view" destination="PDC-OZ-HeP" id="na2-xg-3bT"/>
+                <outlet property="viewSeperator" destination="UPi-Jr-Sp2" id="YUO-yI-8iB"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -63,8 +65,8 @@
                                         <action selector="ActionMediaAttachment:" destination="-1" eventType="touchUpInside" id="Ta2-ob-7Ng"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtb-bf-RRt">
-                                    <rect key="frame" x="62" y="8" width="107" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtb-bf-RRt">
+                                    <rect key="frame" x="62" y="8" width="0.0" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="5sW-uw-XUY"/>
                                     </constraints>
@@ -106,8 +108,8 @@
                                         <action selector="ActionAttachment:" destination="-1" eventType="touchUpInside" id="s1d-pF-8Bj"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select documents" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLK-Yr-qI3">
-                                    <rect key="frame" x="62" y="8" width="138" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLK-Yr-qI3">
+                                    <rect key="frame" x="62" y="8" width="0.0" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="QeK-by-4sW"/>
                                     </constraints>
@@ -149,8 +151,8 @@
                                         <action selector="btnLocationAction:" destination="-1" eventType="touchUpInside" id="79H-Q6-cC0"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEg-O7-e8c">
-                                    <rect key="frame" x="62" y="8" width="109" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEg-O7-e8c">
+                                    <rect key="frame" x="62" y="8" width="0.0" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="Uap-NB-YuG"/>
                                     </constraints>

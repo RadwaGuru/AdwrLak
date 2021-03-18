@@ -17,7 +17,7 @@ import JGProgressHUD
 import NVActivityIndicatorView
 
 protocol OpenWhizChatControllerDelegate {
-    func openChatFromAttachment()
+    func openChatFromWhizAttachment()
 }
 class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIDocumentPickerDelegate,OpalImagePickerControllerDelegate,NVActivityIndicatorViewable, CLLocationManagerDelegate {
     private lazy var uploadingProgressBar: JGProgressHUD = {
@@ -50,7 +50,6 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     var imageSize: Int!
     var uploadImageTrueSize = false
     var fileSize = false
-    var uploadImageHeading = ""
     var uploadDocumentHeading = ""
     var sizeFile = 0.0
     var uploadFileTrueSize = false
@@ -68,6 +67,22 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     var postId = ""
     var messageId = ""
     
+    var attachmentImageFormat : [String]!
+    var attachmentFileFormat : [String]!
+    var imageSizeAllowed : Int!
+    var imageAllowed:String!
+    var fileSizeAllowed: Int!
+    var fileAllowed: String!
+    var imageLimitText: String!
+    var FilesLimitText: String!
+    var imageFormatText: String!
+    var FileFormatText: String!
+    var uploadImagesHeading: String!
+    var uploadFileHeading: String!
+    var uploadLocationHeading:String!
+    var isLocationAllowed : String!
+    private var socketManager = Managers.socketManager
+    
     
     @IBOutlet weak var lblDocs: UILabel!
     @IBOutlet weak var lblImages: UILabel!
@@ -79,12 +94,20 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     
     @IBOutlet weak var containerImg: UIView!
     
+    @IBOutlet weak var viewSeperator: UIView!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                viewSeperator.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+    }
     @IBOutlet weak var containerMain: UIView!
     
     @IBOutlet weak var slideIdicator: UIView!
     @IBOutlet weak var containerLocation: UIView!
     @IBOutlet weak var lblLocationHeading: UILabel!
     @IBOutlet weak var btnLocation: UIButton!
+    @IBOutlet weak var imgLocation: UIImageView!
     //    @IBOutlet weak var imageView: UIImageView!
     //    @IBOutlet weak var subscribeButton: UIView!
     
@@ -96,11 +119,24 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
         
         slideIdicator.roundCorners(.allCorners, radius: 10)
         lblHeading.text = headingPopUp
+        lblDocs.isHidden = true
+        btnImgDoc.isHidden = true
+        imgDoc.isHidden = true
+        containerAttachment.isHidden = true
+        lblImages.isHidden = true
+        btnImgMedia.isHidden = true
+        imgMedia.isHidden = true
+        containerImg.isHidden = true
+        containerLocation.isHidden = true
+        btnLocation.isHidden = true
+        lblLocationHeading.isHidden  = true
+        imgLocation.isHidden = true
         adforest_getAttachmentData()
-//        lblDocs.text = uploadDocumentHeading
-//        lblImages.text = uploadImageHeading
+        lblDocs.text = uploadFileHeading
+        lblImages.text = uploadImagesHeading
+        lblLocationHeading.text = uploadLocationHeading
+
         debugPrint("\(roomId): \(senderId): \(receiverId): \(ChatId): \(postId): \(messageId)")
-        //        subscribeButton.roundCorners(.allCorners, radius: 10)
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,18 +160,83 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     }
     
     func adforest_getAttachmentData(){
-        if chatAttachmentType == "images" {
-            containerAttachment.isHidden = true
-            lblDocs.isHidden = true
-            btnImgDoc.isHidden = true
-            imgDoc.isHidden = true
+        if isLocationAllowed == "0" && fileAllowed == "0" && imageAllowed == "1" {
+            lblImages.isHidden = false
+            btnImgMedia.isHidden = false
+            imgMedia.isHidden = false
+            containerImg.isHidden = false
         }
-        else if chatAttachmentType == "attachments" {
-            lblImages.isHidden = true
-            btnImgMedia.isHidden = true
-            imgMedia.isHidden = true
-            containerAttachment.topAnchor.constraint(equalTo: lblHeading.bottomAnchor,constant: 8).isActive = true
+        else if isLocationAllowed == "0" && fileAllowed == "1" && imageAllowed == "0"{
+            lblDocs.isHidden = false
+            btnImgDoc.isHidden = false
+            imgDoc.isHidden = false
+            containerAttachment.isHidden = false
+            containerAttachment.topAnchor.constraint(equalTo: lblHeading.bottomAnchor, constant: 8).isActive = true
         }
+        else if isLocationAllowed == "1" && fileAllowed == "0" && imageAllowed == "0"{
+            containerLocation.isHidden = false
+            btnLocation.isHidden = false
+            lblLocationHeading.isHidden  = false
+            imgLocation.isHidden = false
+            containerLocation.topAnchor.constraint(equalTo: lblHeading.bottomAnchor, constant: 8).isActive = true
+        }
+        else if isLocationAllowed == "1" && fileAllowed == "1" && imageAllowed == "1"{
+            lblDocs.isHidden = false
+            btnImgDoc.isHidden = false
+            imgDoc.isHidden = false
+            containerAttachment.isHidden = false
+            lblImages.isHidden = false
+            btnImgMedia.isHidden = false
+            imgMedia.isHidden = false
+            containerImg.isHidden = false
+            containerLocation.isHidden = false
+            btnLocation.isHidden = false
+            lblLocationHeading.isHidden  = false
+            imgLocation.isHidden = false
+        }
+
+        else if fileAllowed == "1" && imageAllowed == "1" {
+            lblImages.isHidden = false
+            btnImgMedia.isHidden = false
+            imgMedia.isHidden = false
+            containerImg.isHidden = false
+            lblDocs.isHidden = false
+            btnImgDoc.isHidden = false
+            imgDoc.isHidden = false
+            containerAttachment.isHidden = false
+            containerAttachment.topAnchor.constraint(equalTo: containerImg.bottomAnchor, constant: 8).isActive = true
+        
+        }
+        else if fileAllowed == "1" && isLocationAllowed == "1" {
+            lblDocs.isHidden = false
+            btnImgDoc.isHidden = false
+            imgDoc.isHidden = false
+            containerAttachment.isHidden = false
+            containerAttachment.topAnchor.constraint(equalTo: lblHeading.bottomAnchor, constant: 8).isActive = true
+            containerLocation.isHidden = false
+            btnLocation.isHidden = false
+            lblLocationHeading.isHidden  = false
+            imgLocation.isHidden = false
+            containerLocation.topAnchor.constraint(equalTo: containerAttachment.bottomAnchor, constant: 8).isActive = true
+        }
+        else if imageAllowed == "1" && isLocationAllowed == "1" {
+            lblImages.isHidden = false
+            btnImgMedia.isHidden = false
+            imgMedia.isHidden = false
+            containerImg.isHidden = false
+            containerLocation.isHidden = false
+            btnLocation.isHidden = false
+            lblLocationHeading.isHidden  = false
+            imgLocation.isHidden = false
+            containerLocation.topAnchor.constraint(equalTo: containerImg.bottomAnchor, constant: 8).isActive = true
+        }
+//        else if isLocationAllowed == "1" && fileAllowed == "0" && imageAllowed == "0"{
+//            containerLocation.isHidden = false
+//            btnLocation.isHidden = false
+//            lblLocationHeading.isHidden  = false
+//            imgLocation.isHidden = false
+//            containerLocation.topAnchor.constraint(equalTo: lblHeading.bottomAnchor, constant: 8).isActive = true
+//        }
         else{
             print("saasassassa")
         }
@@ -166,65 +267,12 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             self.latitude =  locationManager.location?.coordinate.latitude
             self.longitude =  locationManager.location?.coordinate.longitude
             if (self.latitude != nil) && self.longitude != nil{
-              getAddressFromLatLon(pdblLatitude: String(self.latitude), withLongitude: String(self.longitude))
+                let parameter : [String: Any] = ["chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"map","upload_type":"map","latitude":self.latitude,"longitude":self.longitude]
+                debugPrint("-------->>>>>>> PArams to send location in Chat\(parameter)")
+                PostChatMesages(param: parameter as NSDictionary)
             }
         }
     }
-    func getAddressFromLatLon(pdblLatitude: String, withLongitude pdblLongitude: String) {
-        var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
-        let lat: Double = Double("\(pdblLatitude)")!
-        //21.228124
-        let lon: Double = Double("\(pdblLongitude)")!
-        //72.833770
-        let ceo: CLGeocoder = CLGeocoder()
-        center.latitude = lat
-        center.longitude = lon
-        
-        let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
-        
-        
-        ceo.reverseGeocodeLocation(loc, completionHandler:
-            {(placemarks, error) in
-                if (error != nil)
-                {
-                    print("reverse geodcode fail: \(error!.localizedDescription)")
-                }
-                let pm = placemarks! as [CLPlacemark]
-                
-                if pm.count > 0 {
-                    let pm = placemarks![0]
-                    print(pm.country)
-                    print(pm.locality)
-                    print(pm.subLocality)
-                    print(pm.thoroughfare)
-                    print(pm.postalCode)
-                    print(pm.subThoroughfare)
-                    var addressString : String = ""
-                    if pm.subLocality != nil {
-                        addressString = addressString + pm.subLocality! + ", "
-                    }
-                    if pm.thoroughfare != nil {
-                        addressString = addressString + pm.thoroughfare! + ", "
-                    }
-                    if pm.locality != nil {
-                        addressString = addressString + pm.locality! + ", "
-                    }
-                    if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
-                    }
-                    if pm.postalCode != nil {
-                        addressString = addressString + pm.postalCode! + " "
-                    }
-                    
-                    
-                    print(addressString)
-                    
-                    
-                }
-        })
-        
-    }
-    
     
     
     
@@ -232,45 +280,44 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     //MARK:- Delegates For OPAL ImagePicker
     
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
-//        for item in images{
-//            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
-//            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
-//            imageSize  = imgData.count
-//            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
-//            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
-//            print("File Size Device selected: \(fileSizeWithUnit)")
-//            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(self.chatImageSize)!, countStyle: .file)
-//            print("File Size Api: \(fileSizeWithUnit2)")
-//            print(self.chatImageSize)
-//
-//            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
-//                let alert = Constants.showBasicAlert(message: self.imgLImitTxt)
-//                self.presentedViewController?.dismiss(animated: true, completion: nil)
-//                self.presentVC(alert)
-//                uploadImageTrueSize = false
-//                break
-//            }
-//            else{
-//                uploadImageTrueSize = true
-//
-//            }
-//        }
-//        if uploadImageTrueSize == true {
-            if images.isEmpty {
-            }
-            else {
-                self.photoArray = images
-                let parameter : [String: Any] = [
-                    "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"image","upload_type":"image"]
-                //,"images":self.photoArray
-                                print(parameter)
-
-                self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
-            }
-//            self.delegate?.openChatFromAttachment()
-            
-            presentedViewController?.dismiss(animated: true, completion: nil)
-//        }
+        //        for item in images{
+        //            var imgData: NSData = NSData(data: UIImageJPEGRepresentation((item), 1)!)
+        //            // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+        //            imageSize  = imgData.count
+        //            print("size of image in KB: %f ", Double(imageSize) / 1000.0)
+        //            let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(imageSize), countStyle: .file)
+        //            print("File Size Device selected: \(fileSizeWithUnit)")
+        //            let fileSizeWithUnit2 = ByteCountFormatter.string(fromByteCount: Int64(self.chatImageSize)!, countStyle: .file)
+        //            print("File Size Api: \(fileSizeWithUnit2)")
+        //            print(self.chatImageSize)
+        //
+        //            if !(imageSize < Int(self.chatImageSize)! || imageSize == Int(chatImageSize)){
+        //                let alert = Constants.showBasicAlert(message: self.imgLImitTxt)
+        //                self.presentedViewController?.dismiss(animated: true, completion: nil)
+        //                self.presentVC(alert)
+        //                uploadImageTrueSize = false
+        //                break
+        //            }
+        //            else{
+        //                uploadImageTrueSize = true
+        //
+        //            }
+        //        }
+        //        if uploadImageTrueSize == true {
+        if images.isEmpty {
+        }
+        else {
+            self.photoArray = images
+            let parameter : [String: Any] = [
+                "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"image","upload_type":"image"]
+            //,"images":self.photoArray
+            print(parameter)
+            self.adForest_uploadImages(param: parameter as NSDictionary, images: self.photoArray)
+        }
+        self.delegate?.openChatFromWhizAttachment()
+        
+        presentedViewController?.dismiss(animated: true, completion: nil)
+        //        }
         
         
     }
@@ -311,7 +358,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
         documentPicker.view.tintColor = UIColor(hex:mainColor!)
         documentPicker.view.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
         UINavigationBar.appearance().isTranslucent = false
-    
+        
         documentPicker.modalPresentationStyle = .fullScreen
         present(documentPicker, animated: true) {
             UINavigationBar.appearance().tintColor = UIColor(hex:self.mainColor!)
@@ -341,56 +388,74 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     
     func saveFileToDocumentDirectory(document: URL) {
         if let fileUrl = FileManager.default.saveFileToDocumentDirectory(fileUrl: document, name: "File", extention: document.pathExtension) {
-//            if chatAttachmentFormat.contains(document.pathExtension){
-//
-//                fileSize = true
-//            }else{
-//                fileSize = false
-//            }
-//            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: document.path) {
-//                if let bytes = fileAttributes[.size] as? Int64 {
-//
-//
-//                    let bcf = ByteCountFormatter()
-//                    bcf.allowedUnits = [.useKB]
-//                    bcf.countStyle = .file
-//                    let string = bcf.string(fromByteCount: bytes)
-//                    print(string)
-//                }
-//            }
-//            do {
-//                let attribute = try FileManager.default.attributesOfItem(atPath: document.path)
-//                if let size = attribute[FileAttributeKey.size] as? NSNumber {
-//                    sizeFile =  size.doubleValue / 1000000.0
-//                    print(sizeFile)
-//                    let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(sizeFile), countStyle: .decimal)
-//                    print("File Size: \(fileSizeWithUnit)")
-//                }
-//            } catch {
-//                print("Error: \(error)")
-//            }
-//            if  String(sizeFile) < chatDocSize || String(sizeFile) == chatDocSize {
-//                uploadFileTrueSize = true
-//            }
-//            else{
-//                uploadFileTrueSize = false
-//            }
-//
-//            if fileSize == true && uploadFileTrueSize == true {
-                let parameter : [String: Any] = [
-                    "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"file","upload_type":"file"]
-                                print(parameter)
-                adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
-                
-//            }
-//            else{
-//                let alert = Constants.showBasicAlert(message: "\(docLimitTxt):\(docTypeTxt)")
-//                self.presentVC(alert)
-//            }
+            //            if chatAttachmentFormat.contains(document.pathExtension){
+            //
+            //                fileSize = true
+            //            }else{
+            //                fileSize = false
+            //            }
+            //            if let fileAttributes = try? FileManager.default.attributesOfItem(atPath: document.path) {
+            //                if let bytes = fileAttributes[.size] as? Int64 {
+            //
+            //
+            //                    let bcf = ByteCountFormatter()
+            //                    bcf.allowedUnits = [.useKB]
+            //                    bcf.countStyle = .file
+            //                    let string = bcf.string(fromByteCount: bytes)
+            //                    print(string)
+            //                }
+            //            }
+            //            do {
+            //                let attribute = try FileManager.default.attributesOfItem(atPath: document.path)
+            //                if let size = attribute[FileAttributeKey.size] as? NSNumber {
+            //                    sizeFile =  size.doubleValue / 1000000.0
+            //                    print(sizeFile)
+            //                    let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(sizeFile), countStyle: .decimal)
+            //                    print("File Size: \(fileSizeWithUnit)")
+            //                }
+            //            } catch {
+            //                print("Error: \(error)")
+            //            }
+            //            if  String(sizeFile) < chatDocSize || String(sizeFile) == chatDocSize {
+            //                uploadFileTrueSize = true
+            //            }
+            //            else{
+            //                uploadFileTrueSize = false
+            //            }
+            //
+            //            if fileSize == true && uploadFileTrueSize == true {
+            let parameter : [String: Any] = [
+                "chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"file","upload_type":"file"]
+            print(parameter)
+            adForest_uploadFileDocs(param: parameter as NSDictionary, file: document)
+            
+            //            }
+            //            else{
+            //                let alert = Constants.showBasicAlert(message: "\(docLimitTxt):\(docTypeTxt)")
+            //                self.presentVC(alert)
+            //            }
         }
     }
     
-    //MARK:- API Call
+    //MARK:- API Calls
+    
+    //MARK:- Post Locations
+    
+    func PostChatMesages(param: NSDictionary) {
+        UserHandler.WhizChatSendChatBoxMessage(parameter: param, success: { (successResponse) in
+            if successResponse.success {
+                self.delegate?.openChatFromWhizAttachment()
+                debugPrint(successResponse.data)
+            }
+            else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
     
     //MARK:- Post Images
     
@@ -405,7 +470,8 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             if successResponse.success {
                 self.stopAnimating()
                 self.uploadingProgressBar.dismiss(animated: true)
-                
+                self.delegate?.openChatFromWhizAttachment()
+
             }
             else {
                 self.stopAnimating()
@@ -433,7 +499,13 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
         }, success: { (successResponse) in
             self.stopAnimating()
             self.uploadingProgressBar.dismiss(animated: true)
-            self.delegate?.openChatFromAttachment()
+            self.delegate?.openChatFromWhizAttachment()
+//            self.socketManager.send(roomId: self.roomId, message: "", receiverID: self.receiverId, ChatId: self.ChatId)
+            
+//            let jsonString = self.convertIntoJSONString(arrayObject: imagesArray)
+//            print("jsonString - \(jsonString)")
+
+//            self.socketManager.sendImage(roomId: self.roomId, message: jsonString!, receiverID: self.receiverId, ChatId: self.ChatId)
             self.dismiss(animated: true, completion: nil)
             print(successResponse)
         }) { (error) in
@@ -444,7 +516,20 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     }
     
     //MARK:- Uplaod File
-    
+    func convertIntoJSONString(arrayObject: [Any]) -> String? {
+
+            do {
+                let jsonData: Data = try JSONSerialization.data(withJSONObject: arrayObject, options: [])
+                if  let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
+                    return jsonString as String
+                }
+                
+            } catch let error as NSError {
+                print("Array convertIntoJSON - \(error.description)")
+            }
+            return nil
+        }
+
     func adForest_uploadFileDocs(param: NSDictionary, file: URL) {
         self.showLoader()
         uploadingProgressBar.progress = 0.0
@@ -491,7 +576,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             self.stopAnimating()
             
             self.uploadingProgressBar.dismiss(animated: true)
-            self.delegate?.openChatFromAttachment()
+            self.delegate?.openChatFromWhizAttachment()
             self.dismiss(animated: true, completion: nil)
             
             print("true")

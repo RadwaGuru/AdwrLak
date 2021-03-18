@@ -22,7 +22,7 @@ struct WhizChatInitData {
         postId = dictionary["post_id"] as? String
         roomId = dictionary["room_id"] as? String
         communicationId = dictionary["comm_id"] as? String
-        chatId = dictionary["chat-id"] as? Int
+        chatId = dictionary["id"] as? Int
 
     }
     

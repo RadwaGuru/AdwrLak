@@ -18,6 +18,5 @@ protocol SocketIOManager {
     func observeMessages(completionHandler: @escaping ([String: Any]) -> Void)
     func startTyping(RoomName: String,Message here: String,Chat ID: String)
     func stopTyping(RoomName: String,Chat ID: String)
-
-
+    func sendImage(roomId: String,message: String,receiverID: String,ChatId: String)
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class ChatFilesReceiver: UITableViewCell {
 
+    @IBOutlet weak var imgDocsIcon: UIImageView!
+    @IBOutlet weak var lblChatTime: UILabel!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var txtMessageReceiver: UITextView!
@@ -25,8 +27,8 @@ class ChatFilesReceiver: UITableViewCell {
         didSet{
             containerFilesReceiver.layer.borderWidth = 1
             containerFilesReceiver.layer.cornerRadius = 10
-            containerFilesReceiver.backgroundColor = UIColor.white
-            containerFilesReceiver.layer.borderColor = UIColor.white.cgColor
+            containerFilesReceiver.backgroundColor = UIColor.systemBlue
+            containerFilesReceiver.layer.borderColor = UIColor.systemBlue.cgColor
         }
     }
     
@@ -36,6 +38,7 @@ class ChatFilesReceiver: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

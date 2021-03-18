@@ -11,6 +11,7 @@ import CollageView
 import SDWebImage
 class ChatImages: UITableViewCell,CollageViewDataSource,CollageViewDelegate {
    
+    @IBOutlet weak var lblChatTime: UILabel!
     @IBOutlet weak var bgImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!

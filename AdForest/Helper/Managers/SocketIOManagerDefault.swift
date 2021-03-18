@@ -47,6 +47,7 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
     
     func closeConnection() {
         socket.disconnect()
+        debugPrint("=========>>>>>>Socket Closed<<<<<<<<=========")
     }
     
     func connectToChat(with name: String) {
@@ -167,35 +168,43 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
 
 
     }
+    func sendImage(roomId: String,message: String,receiverID: String,ChatId: String) {
+//     socket.emit("agInfoMessage_dev", message)
+        socket.emit("agSendMessage", roomId, message, receiverID, ChatId)
+
+
+    }
+
     
     func observeMessages(completionHandler: @escaping ([String: Any]) -> Void) {
-//        socket.on("agInfoMessage_dev") { data,ack in
-//                  debugPrint("---------------1-------------------WELCOME\(data)--------------------")
-//              }
+        //        socket.on("agInfoMessage_dev") { data,ack in
+        //                  debugPrint("---------------1-------------------WELCOME\(data)--------------------")
+        //              }
         
-
-//        socket.on("agGotNewMessage") { data,ack in
-//            debugPrint("-------------------22--------------WELCOME agGotNewMessage\(data)--------------------")
-//        }
-
+        
+        //        socket.on("agGotNewMessage") { data,ack in
+        //            debugPrint("-------------------22--------------WELCOME agGotNewMessage\(data)--------------------")
+        //        }
+        
         
         socket.on("agGotNewMessage") { dataArray, _ in
+            
             var messageDict: [String: Any] = [:]
-
+            
             messageDict["msg"] = dataArray[0] as! String
             messageDict["user"] = dataArray[1] as! String
             messageDict["chat_id"] = dataArray[2] as! String
             debugPrint("---------------agGotNewMessage Response\(dataArray)--------------------")
             completionHandler(messageDict)
         }
-
-
-//        socket.on("agInfoMessage_dev") { dataArray, _ in
-//            var messageDict: [String: Any] = [:]
-//
-//            messageDict["data"] = dataArray[0] as! String
-//
-//            completionHandler(messageDict)
-//        }
+        
+        
+        //        socket.on("agInfoMessage_dev") { dataArray, _ in
+        //            var messageDict: [String: Any] = [:]
+        //
+        //            messageDict["data"] = dataArray[0] as! String
+        //
+        //            completionHandler(messageDict)
+        //        }
     }
 }

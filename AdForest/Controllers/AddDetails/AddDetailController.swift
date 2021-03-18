@@ -1354,7 +1354,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 sendMsgVC.whizChatPostId = self.whizChatPostId
                 sendMsgVC.whizChatRoomID = self.whizChatRoomID
                 sendMsgVC.whizChatCommunicationId = self.whizChatCommunicationId
-                sendMsgVC.whizChatChatId = self.whizChatChatId
+                sendMsgVC.whizChatChatId = String(self.whizChatChatId)
                 sendMsgVC.objAddDetailData = AddsHandler.sharedInstance.objAddDetails
                 sendMsgVC.delegate = self
                 present(sendMsgVC, animated: true, completion: nil)

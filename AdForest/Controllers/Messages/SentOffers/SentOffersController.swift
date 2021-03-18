@@ -34,7 +34,9 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     var defaults = UserDefaults.standard
     var currentPage = 0
     var maximumPage = 0
-    var isWhizActive = true
+    
+    var isWhizActive = ""
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -59,7 +61,12 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isWhizActive == true {
+        if let WhizActive = self.defaults.string(forKey: "is_WhizChat_active") {
+            isWhizActive = WhizActive
+            debugPrint(isWhizActive)
+            
+        }
+        if isWhizActive == "1" {
             adForest_WhizChatListData()
         }else{
             self.adForest_sentOffersData()
@@ -73,7 +80,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func refreshTableView() {
         self.refreshControl.beginRefreshing()
-        if isWhizActive == true {
+        if isWhizActive == "1" {
             adForest_WhizChatListData()
         }else{
             self.adForest_sentOffersData()
@@ -88,7 +95,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isWhizActive == true {
+        if isWhizActive == "1" {
             return whizDataArray.count
         }else{
             return dataArray.count
@@ -97,8 +104,8 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var isWhizChatACtive = true
-        if isWhizChatACtive == true {
+//        var isWhizChatACtive = true
+        if isWhizActive == "1" {
             
             let cell: WhizChatList = tableView.dequeueReusableCell(withIdentifier: "WhizChatList", for: indexPath) as! WhizChatList
             tableView.separatorStyle = .singleLine
@@ -153,13 +160,13 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isWhizActive == true {
+        if isWhizActive == "1" {
             let objD = whizDataArray[indexPath.row]
             
             let whizChatVC = self.storyboard?.instantiateViewController(withIdentifier: "WhizChatController") as! WhizChatController
             whizChatVC.ChatId = objD.ChatId
-            whizChatVC.ChatSenderName = objD.receiverName
-            whizChatVC.ChatlastSeenNavBarTime = objD.lastActive
+            whizChatVC.ChatSenderName = objD.AdTitle
+            whizChatVC.ChatlastSeenNavBarTime = objD.receiverName
             self.navigationController?.pushViewController(whizChatVC, animated: true)
             
         }else{

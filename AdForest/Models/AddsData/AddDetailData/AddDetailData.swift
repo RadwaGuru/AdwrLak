@@ -72,6 +72,21 @@ struct AddDetailData {
         if let whizChatData = dictionary["whizchat_data"] as? [String:Any]{
             whizChatInitializeData = WhizChatInitData(fromDictionary: whizChatData)
         }
+//        whizChatInitializeData = [WhizChatInitData]()
+//        if let whizChatData = dictionary["whizchat_data"] as? [[String:Any]]{
+//            for dic in whizChatData{
+//                let value = WhizChatInitData(fromDictionary: dic)
+//                whizChatData.append(value)
+//            }
+//        }
+//        appTopLocation = [HomeAppTopLocation]()
+//        if let appTopLocationListArray = dictionary["app_top_location_list"] as? [[String:Any]]{
+//            for dic in appTopLocationListArray{
+//                let value = HomeAppTopLocation(fromDictionary: dic)
+//                appTopLocation.append(value)
+//            }
+//        }
+
         whizChatBool = dictionary["isWhizActive"] as? Bool
         cantReportTxt = dictionary["cant_report_txt"] as? String
         clickHereText = dictionary["click_here_text"] as? String

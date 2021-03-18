@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"
     var interstitial: GADInterstitial?
-    
+    private var socketManager = Managers.socketManager
+
     
     func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
@@ -129,7 +130,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         Messaging.messaging().shouldEstablishDirectChannel = true
         UserDefaults.standard.set("3", forKey: "fromNotification")
-//        SocketIOManager.sharedInstance.closeConnection()
 
     }
     
@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AppEvents.activateApp()
         //To Check Deep Link
         deepLinker.checkDeepLink()
-//        SocketIOManager.sharedInstance.establishConnection()
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

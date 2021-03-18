@@ -12,7 +12,7 @@ struct WhizChatMessagesBoxRoot {
     var data : WhizChatMessagesBoxData!
     var message : String!
     var success : Bool!
-    
+    var extra: WhizChatMessagesBoxExtraData!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -23,6 +23,9 @@ struct WhizChatMessagesBoxRoot {
         }
         message = dictionary["message"] as? String
         success = dictionary["success"] as? Bool
+        if let extraData = dictionary["extra"] as? [String:Any]{
+            extra = WhizChatMessagesBoxExtraData(fromDictionary: extraData)
+        }
     }
     
     /**
@@ -39,6 +42,9 @@ struct WhizChatMessagesBoxRoot {
         }
         if success != nil{
             dictionary["success"] = success
+        }
+        if extra != nil {
+            dictionary["extra"] = extra
         }
         return dictionary
     }
