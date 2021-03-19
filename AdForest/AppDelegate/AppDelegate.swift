@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return  willHandleByGoogle || willHandleByFacebook
     }
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         Messaging.messaging().shouldEstablishDirectChannel = true
         UserDefaults.standard.set("3", forKey: "fromNotification")

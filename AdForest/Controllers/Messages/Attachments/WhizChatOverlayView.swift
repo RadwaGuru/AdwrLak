@@ -270,6 +270,9 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
                 let parameter : [String: Any] = ["chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"map","upload_type":"map","latitude":self.latitude,"longitude":self.longitude]
                 debugPrint("-------->>>>>>> PArams to send location in Chat\(parameter)")
                 PostChatMesages(param: parameter as NSDictionary)
+                self.delegate?.openChatFromWhizAttachment()
+
+
             }
         }
     }
@@ -444,8 +447,9 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     func PostChatMesages(param: NSDictionary) {
         UserHandler.WhizChatSendChatBoxMessage(parameter: param, success: { (successResponse) in
             if successResponse.success {
-                self.delegate?.openChatFromWhizAttachment()
                 debugPrint(successResponse.data)
+                self.delegate?.openChatFromWhizAttachment()
+
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -500,7 +504,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             self.stopAnimating()
             self.uploadingProgressBar.dismiss(animated: true)
             self.delegate?.openChatFromWhizAttachment()
-//            self.socketManager.send(roomId: self.roomId, message: "", receiverID: self.receiverId, ChatId: self.ChatId)
+            self.socketManager.send(roomId: self.roomId, message: "", receiverID: self.receiverId, ChatId: self.ChatId)
             
 //            let jsonString = self.convertIntoJSONString(arrayObject: imagesArray)
 //            print("jsonString - \(jsonString)")

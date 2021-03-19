@@ -15,7 +15,6 @@ class WhizChatMapReceiver: UITableViewCell,MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var mainContainer: UIView!{
         didSet{
             mainContainer.roundCorners()
-            mainContainer.backgroundColor = UIColor.systemBlue
         }
     }
     

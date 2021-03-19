@@ -127,7 +127,8 @@ class Constants {
         static let intersetialId = objData?.adId
             //"ca-app-pub-3940256099942544/4411468910"
         }
-    
+    //2739faa44880d1e87703e1adaefa570c_whizchat11
+//    2739faa44880d1e87703e1adaefa570c_whizchat12
     struct customCodes {
         
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"

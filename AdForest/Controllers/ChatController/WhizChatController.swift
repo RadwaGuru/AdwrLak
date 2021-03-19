@@ -178,6 +178,9 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func actionSendMessage(_ sender: Any) {
         if self.txtMessage.text == "" {
             debugPrint("=======>>>>>>>>=====Empty Not allwed===<<<<<<<<")
+            showToast(message: "Please Input some text")
+            self.txtMessage.shake()
+
         }else{
             socketManager.joinRoom(room: roomId, sender: senderId, receiver: receiverId)
             socketManager.send(roomId: roomId, message: self.txtMessage.text, receiverID: receiverId, ChatId: self.ChatId)
@@ -450,15 +453,22 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK: -
     
     func startObservingMessages() {
+        
+        
         socketManager.observeMessages(completionHandler: { [weak self] data in
-        debugPrint(data)
-
+            debugPrint(data)
+            
             let message = WhizChatMessagesBoxChatList(fromDictionary: data as! [String : Any])
             debugPrint(message)
-
+            
             self?.messages.append(message)
-
+            self!.openChatFromWhizAttachment()
         })
+        
+//        let parameter : [String: Any] = ["chat_id": self.ChatId]
+//        debugPrint("\(parameter)")
+//
+//        getChatMesages(param: parameter as NSDictionary)
     }
 
     //MARK:-TableView Delegates
@@ -537,53 +547,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func cellFor(message: [WhizChatMessagesBoxChatList], at indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell{
         let objdta =  messages[indexPath.row]
-//        if objdta.msg != nil{
-//            let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-//            cellw.backgroundColor = UIColor.groupTableViewBackground
-//            
-//            let images = UIImage(named: "bubble_se")
-//            cellw.imgBackground.image = images!
-//                .resizableImage(withCapInsets:
-//                                    UIEdgeInsetsMake(17, 21, 17, 21),
-//                                resizingMode: .stretch)
-//                .withRenderingMode(.alwaysTemplate)
-//            cellw.txtMessage.text = objdta.msg
-//            cellw.txtMessage.textColor = UIColor.white
-//            cellw.lblChatReceiverTime.text = objdta.chatTime
-//            cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
-//            tableView.rowHeight = UITableViewAutomaticDimension
-//            return cellw
-//        }
-//        if goON == true{
-//            goON = false
-//            let parameter : [String: Any] = ["chat_id": ChatId]
-//            getChatMesages(param: parameter as NSDictionary)
-//
-//        }
-        debugPrint(objdta.msg)
-//        if(messages[indexPath.row].msg == "") {
-//            let ChatImage = tableView.dequeueReusableCell(withIdentifier: "ChatImages", for: indexPath) as! ChatImages
-//            ChatImage.backgroundColor = UIColor.groupTableViewBackground
-//            //groupTableViewBackground
-//            ChatImage.chatImgs = objdta.chatImages
-//            ChatImage.containerImageViewAttachment.layer.borderColor = UIColor.white.cgColor
-//            ChatImage.collageViewImages.reload()
-//            ChatImage.lblChatTime.isHidden = false
-//            ChatImage.lblChatTime.text = objdta.chatTime
-//            ChatImage.imgProfileChatImages.image = UIImage(named: "blackuser")
-//
-//            tableView.rowHeight = 220
-//            //        if let imgUrl = URL(string: objdta.) {
-//            //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
-//            //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setIndicatorStyle(.gray)
-//            //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setImage(with: imgUrl, completed: nil)
-//            //                }
-//
-//
-//
-//            return ChatImage
-//
-//        }
+
         let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
         //        cell.backgroundColor = UIColor.groupTableViewBackground
         cell.backgroundColor = UIColor.groupTableViewBackground
@@ -750,6 +714,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatFileReceiver.imgDocsIcon.image = ChatFileReceiver.imgDocsIcon.image?.withRenderingMode(.alwaysTemplate)
                 ChatFileReceiver.imgDocsIcon.tintColor = .white
                 ChatFileReceiver.containerFilesReceiver.layer.borderColor = Constants.hexStringToUIColor(hex: "#91b0ff").cgColor
+                ChatFileReceiver.containerFilesReceiver.backgroundColor = Constants.hexStringToUIColor(hex: "#91b0ff")
+
                 //groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
@@ -788,6 +754,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             else if objdta.messageType == "map"{
                 let cellMap: WhizChatMapReceiver = tableView.dequeueReusableCell(withIdentifier: "WhizChatMapReceiver", for: indexPath) as! WhizChatMapReceiver
                 cellMap.backgroundColor = UIColor.groupTableViewBackground
+                cellMap.mainContainer.backgroundColor = Constants.hexStringToUIColor(hex: "#91b0ff")
                 cellMap.latitude = String(objdta.latitude)
                 cellMap.longitude = String(objdta.longitude)
                 cellMap.lblChatTime.text = objdta.chatTime
@@ -840,12 +807,13 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
 //                self.scrollToBottom()
             }
             else {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
-                self.presentVC(alert)
+//                let alert = Constants.showBasicAlert(message: successResponse.message)
+//                self.presentVC(alert)
             }
         }) { (error) in
-            let alert = Constants.showBasicAlert(message: error.message)
-            self.presentVC(alert)
+            debugPrint("+++++++\(error.message)+++++++")
+//            let alert = Constants.showBasicAlert(message: error.message)
+//            self.presentVC(alert)
         }
     }
     

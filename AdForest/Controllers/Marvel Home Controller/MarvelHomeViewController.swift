@@ -14,7 +14,8 @@ import UserNotifications
 import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
-class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate {
+class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate {
+    
     
     
     
@@ -55,7 +56,17 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
-    
+//    @IBOutlet weak var bannerViewBottom: GADBannerView!{
+//        didSet{
+//            bannerViewBottom.isHidden = true
+//        }
+//    }
+//    @IBOutlet weak var bannerViewTop: GADBannerView!{
+//        didSet{
+//            bannerViewTop.isHidden = true
+//        }
+//    }
+//    
     
     var defaults = UserDefaults.standard
     var dataArray = [HomeSlider]()
@@ -205,7 +216,53 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
-  
+    
+    //MARK:- AdMob Delegate Methods
+    
+    func swiftyAdDidOpen(_ swiftyAd: SwiftyAd) {
+        print("Open")
+    }
+    
+    func swiftyAdDidClose(_ swiftyAd: SwiftyAd) {
+        print("Close")
+    }
+    
+    func swiftyAd(_ swiftyAd: SwiftyAd, didRewardUserWithAmount rewardAmount: Int) {
+        print(rewardAmount)
+    }
+    
+    // MARK: - GADBannerViewDelegate
+    // Called when an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+    }
+    
+    // Called when an ad request failed.
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("\(#function): \(error.localizedDescription)")
+    }
+    
+    // Called just before presenting the user a full screen view, such as a browser, in response to
+    // clicking on an ad.
+    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        print(#function)
+    }
+    
+    // Called just before dismissing a full screen view.
+    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        print(#function)
+    }
+    
+    // Called just after dismissing a full screen view.
+    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        print(#function)
+    }
+    
+    // Called just before the application will background or terminate because the user clicked on an
+    // ad that will launch another application (such as the App Store).
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        print(#function)
+    }
     //MARK:- Delegate Methods
     func numberOfSections(in tableView: UITableView) -> Int {
         if isAdPositionSort {
@@ -1320,48 +1377,72 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 if let adShow = successResponse.settings.ads.show {
                     isShowAd = adShow
                 }
-                //                    if isShowAd {
-                //                        SwiftyAd.shared.delegate = self
-                //                        var isShowBanner = false
-                //                        var isShowInterstital = false
-                //
-                //                        if let banner = successResponse.settings.ads.isShowBanner {
-                //                            isShowBanner = banner
-                //                        }
-                //                        if let intersitial = successResponse.settings.ads.isShowInitial {
-                //                            isShowInterstital = intersitial
-                //                        }
-                //                        if isShowBanner {
-                //                            SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
-                //
-                //                            print(successResponse.settings.ads.bannerId)
-                //
-                //                            self.tableView.translatesAutoresizingMaskIntoConstraints = false
-                //                            if successResponse.settings.ads.position == "top" {
-                //                                self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
-                //                                SwiftyAd.shared.showBanner(from: self, at: .top)
-                //                            } else {
-                //                                self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
-                //                                SwiftyAd.shared.showBanner(from: self, at: .bottom)
-                //                            }
-                //                        }
-                //                        //ca-app-pub-6905547279452514/6461881125
-                //                        if isShowInterstital {
-                //                            //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-                //                            //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
-                //
-                //
-                //                            self.showAd()
-                //
-                //                            //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
-                //                            //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
-                //
-                //                            self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
-                //                            self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
-                //
-                //
-                //                        }
-                //                    }
+//                if isShowAd {
+//                    SwiftyAd.shared.delegate = self
+//                    var isShowBanner = false
+//                    var isShowInterstital = false
+//
+//                    if let banner = successResponse.settings.ads.isShowBanner {
+//                        isShowBanner = banner
+//                    }
+//                    if let intersitial = successResponse.settings.ads.isShowInitial {
+//                        isShowInterstital = intersitial
+//                    }
+//                    if isShowBanner {
+//                        SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
+//                        print(successResponse.settings.ads.bannerId)
+//
+//                        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+//
+//                        if successResponse.settings.ads.position == "top" {
+//                            self.bannerViewTop.isHidden = false
+//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+//                            self.bannerViewTop.adUnitID = successResponse.settings.ads.bannerId
+//                            self.bannerViewTop.rootViewController = self
+//                            self.bannerViewTop.delegate = self
+//                            self.bannerViewTop.load(GADRequest())
+//                            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+////                            SwiftyAd.shared.showBanner(from: self, at: .top)
+////                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+//////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+////                            self.bannerView.rootViewController = self
+////                            self.bannerView.load(GADRequest())
+//                        } else {
+//                            self.bannerViewBottom.isHidden = false
+//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+//                            self.bannerViewBottom.adUnitID = successResponse.settings.ads.bannerId
+//                            self.bannerViewBottom.rootViewController = self
+//                            self.bannerViewBottom.delegate = self
+//                            self.bannerViewBottom.load(GADRequest())
+//                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+//                            //self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
+////                            SwiftyAd.shared.showBanner(from: self, at: .bottom)
+//                        }
+//                    }
+//                    else{
+//                        self.bannerViewTop.isHidden = true
+//                        self.bannerViewBottom.isHidden = true
+//                        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+//                        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+//
+//                    }
+//                    //ca-app-pub-6905547279452514/6461881125
+//                    if isShowInterstital {
+//                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+//                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+//
+//
+////                        self.showAd()
+//
+//                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
+//                        //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
+//
+////                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
+////                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
+//
+//
+//                    }
+//                }
                 // Here I set the Google Analytics Key
                 var isShowAnalytic = false
                 if let isShow = successResponse.settings.analytics.show {

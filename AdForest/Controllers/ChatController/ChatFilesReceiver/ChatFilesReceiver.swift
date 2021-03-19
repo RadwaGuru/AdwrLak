@@ -27,8 +27,6 @@ class ChatFilesReceiver: UITableViewCell {
         didSet{
             containerFilesReceiver.layer.borderWidth = 1
             containerFilesReceiver.layer.cornerRadius = 10
-            containerFilesReceiver.backgroundColor = UIColor.systemBlue
-            containerFilesReceiver.layer.borderColor = UIColor.systemBlue.cgColor
         }
     }
     
