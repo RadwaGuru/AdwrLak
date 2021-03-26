@@ -16,7 +16,7 @@ struct AdPostRoot {
     var success : Bool!
     var isBid :Bool!
     var isRequiredImages : Bool!
-    
+//    var requiredMessage: String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -31,6 +31,7 @@ struct AdPostRoot {
         success = dictionary["success"] as? Bool
         isBid = dictionary["bid_check"] as? Bool
         isRequiredImages = dictionary["is_required"] as? Bool
+//        requiredMessage = dictionary["require_message"] as? String
     }
     
     /**

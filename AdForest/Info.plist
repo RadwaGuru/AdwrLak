@@ -44,7 +44,7 @@
 	<key>FirebaseDataCollectionDefaultEnabled</key>
 	<false/>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-2596107136418753~6752755547</string>
+	<string>ca-app-pub-3940256099942544~1458002511</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

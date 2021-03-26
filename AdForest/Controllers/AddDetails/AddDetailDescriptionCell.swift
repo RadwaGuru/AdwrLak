@@ -172,8 +172,11 @@ class AddDetailDescriptionCell: UITableViewCell, UICollectionViewDelegate, UICol
        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemWidth = getItemWidth(boundWidth: collectionView.bounds.size.width)
-        
-        return CGSize(width: itemWidth, height:45)
+        let objData = fieldsArray[indexPath.row]
+
+        debugPrint("======itemSize:\(objData.value.count)")
+
+        return CGSize(width: itemWidth, height: CGFloat(objData.value.count + 50))
 
     }
     

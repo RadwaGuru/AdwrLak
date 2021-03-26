@@ -85,7 +85,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     
     @IBOutlet weak var btnFb: UIButton!
     @IBOutlet weak var buttonFBLogin: FBLoginButton!
-    @IBOutlet weak var btnGoogleLog: GIDSignInButton!
     @IBOutlet weak var socialLoginHeightConstraint: NSLayoutConstraint!
     
     
@@ -427,7 +426,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             if isShowFacebook && isShowGoogle && isShowApple  && isShowLinkedin == false {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false //New
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = true
             }
@@ -485,7 +483,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             else if isShowFacebook && isShowGoogle  && isShowApple == false && isShowLinkedin {
                 self.btnFb.isHidden = false
                 self.buttonGoogleLogin.isHidden = false
-                self.btnGoogleLog.isHidden = false
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
                 self.topConstraintBtnLinkedIn.constant -= 60
@@ -524,44 +521,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = true
-//                self.btnGoogleLog.isHidden = true // New
-//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
                 self.buttonLinkedIn.isHidden = false
-                //                self.topConstraintBtnLinkedIn.constant -= 140
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-                //                buttonGuestLogin.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
                 
             }
                 
             else if isShowFacebook == false && isShowGoogle == false && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = true
-//                self.btnGoogleLog.isHidden = true // New
-//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = false
-//                self.topConstraintBtnApple.constant -= 120
                 self.buttonLinkedIn.isHidden = false
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.buttonLinkedIn.bottomAnchor, constant: 8).isActive = true
-
-//                buttonLinkedIn.frame.origin.x = 120
-                    //lblOr.frame.origin.y
-//                self.topConstraintBtnLinkedIn.constant -= 90
             }
             else if isShowFacebook == false && isShowGoogle  && isShowApple  && isShowLinkedin {
                 self.buttonGoogleLogin.isHidden = false
-//                self.btnGoogleLog.isHidden = false // New
-                //                self.topConstraintBtnGoogle.constant -= 140
-                //                self.topConstraintBtnGoogle2.constant -= 140
-//                self.buttonFBLogin.isHidden = true
                 self.btnFb.isHidden = true
                 self.btnApple.isHidden = false
-                //                self.topConstraintBtnApple.constant -= 90
                 self.buttonLinkedIn.isHidden = false
-                //                self.topConstraintBtnLinkedIn.constant -= 60
-//                btnGoogleLog.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 buttonLinkedIn.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true

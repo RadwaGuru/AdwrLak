@@ -768,14 +768,42 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(menu)
                     //                    self.changeGuestMenu(menu)
                 }
-                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                debugPrint(UserHandler.sharedInstance.otherKeysArray)
+                for item in UserHandler.sharedInstance.otherKeysArray{
+                    if item == "top_location_text"{
+                        if toplocation == true{
+                            return 40
+                        }else{
+                            return 0
+                        }
+                    }else{
+                        print("ignore")
+                    }
+                }
+                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row + 1]
                 switch img.lowercased() {
                 case "blog":
-                    return 0
+                    if blog == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
                 case "top_location_text":
-                    return 0
+                    if toplocation == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
                 case "wpml_menu_text":
-                    return 0
+                    if wpml == true {
+                        return 40
+                    }
+                    else{
+                        return 0
+                        
+                    }
+                case "app_settings":
+                    return 40
                 default:
                     return 40
                 }

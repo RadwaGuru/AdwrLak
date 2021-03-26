@@ -81,6 +81,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isEditStart  = false
     var priceHide = ""
     var calledFromViewDidLoad = false;
+    var reqiop = false
+    var isEmptyField = false
+    var requireMessage = ""
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,7 +139,10 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         fieldsArray = dataArray
 
         print(fieldsArray)
-        
+        for item in fieldsArray{
+             reqiop = item.isRequired
+            debugPrint("==============================dekh bhai\(reqiop)")
+        }
         
         
         
@@ -271,10 +277,17 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         obj.fieldType = "textarea"
                         obj.fieldVal = cell.txtDescription.text!
                         print(cell.txtDescription.text!)
-                        obj.fieldTypeName = "ad_description"
-                        objArray.append(obj)
-                        //dataArray.app
-                        customArray.append(obj)
+                        if cell.txtDescription.text == "" && self.reqiop == true {
+                            isEmptyField = true
+                            cell.txtDescription.shake()
+                        }else{
+                            isEmptyField = false
+                            obj.fieldTypeName = "ad_description"
+                            objArray.append(obj)
+                            //dataArray.app
+                            customArray.append(obj)
+                            
+                        }
                     }
                 }
                     
@@ -404,6 +417,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 
             }
 
+        }else if isEmptyField == true {
+            let alert = Constants.showBasicAlert(message: self.requireMessage)
+            self.presentVC(alert)
         }
        
         else{
@@ -783,7 +799,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 if let title = objData.title {
                     cell.lblTitle.text = title
                 }
-                cell.dataArray = objData.values
+                if objData.values != nil {
+                    cell.dataArray = objData.values
+                }
                 cell.isSelected = objData.tempIsSelected
                 cell.index = indexPath.row
                 cell.section = 2

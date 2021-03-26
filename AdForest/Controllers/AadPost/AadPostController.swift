@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, textFieldValueDelegate, PopupValueChangeDelegate {
-   
+    
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -50,9 +50,9 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     var priceHide = ""
     // Empty Fields Check
     var adTitle = ""
-var calledFrom = ""
+    var calledFrom = ""
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
-
+    var requireMessage = ""
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ var calledFrom = ""
             }else{
                 self.showBackButton()
             }
-    //        self.forwardButton()
+            //        self.forwardButton()
             self.googleAnalytics(controllerName: "Add Post Controller")
             if homeStyles == "home3"{
                 btnNext.isHidden = false
@@ -73,16 +73,16 @@ var calledFrom = ""
                 btnNext.isHidden = true
             }
             if defaults.bool(forKey: "isRtl") {
-    
+                
                 btnNext.setImage(#imageLiteral(resourceName: "bckrtl"), for: .normal)
                 btnNext.semanticContentAttribute = .forceRightToLeft
-
+                
             }
             else{
                 btnNext.setImage(#imageLiteral(resourceName: "Arrow"), for: .normal)
-    
+                
             }
-
+            
             UserDefaults.standard.set(true, forKey: "isBid")
             UserDefaults.standard.set("0", forKey: "is")
             if isFromEditAd {
@@ -107,8 +107,8 @@ var calledFrom = ""
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       
-
+        
+        
     }
     // MARK:- Go toHOmepage from adpost
     func addBackButton() {
@@ -155,7 +155,7 @@ var calledFrom = ""
         if defaults.bool(forKey: "isRtl") {
             button.setBackgroundImage(#imageLiteral(resourceName: "backbutton"), for: .normal)
         } else {
-                button.setBackgroundImage(#imageLiteral(resourceName: "forwardButton"), for: .normal)
+            button.setBackgroundImage(#imageLiteral(resourceName: "forwardButton"), for: .normal)
         }
         button.addTarget(self, action: #selector(onForwardButtonClciked), for: .touchUpInside)
         let forwardBarButton = UIBarButtonItem(customView: button)
@@ -173,7 +173,7 @@ var calledFrom = ""
                         obj.fieldType = "textfield"
                         data.append(obj)
                         if fieldTitle == self.dataArray[index].fieldTypeName {
-                             self.dataArray[index].fieldVal = value
+                            self.dataArray[index].fieldVal = value
                         }
                     }
                 }
@@ -201,8 +201,8 @@ var calledFrom = ""
                             priceHide = selectedKey
                         }
                         tableView.reloadData()
-
-                           
+                        
+                        
                         
                         if fieldTitle == self.dataArray[index].fieldTypeName {
                             self.dataArray[index].fieldVal = selectedText
@@ -212,11 +212,11 @@ var calledFrom = ""
                 }
                 
                 
- 
+                
             }
         }
     }
-  
+    
     @objc func onForwardButtonClciked() {
         
         var option = ""
@@ -256,7 +256,7 @@ var calledFrom = ""
                         }
                         else{
                             obj.fieldVal = cell.selectedKey
-
+                            
                         }
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "select"
@@ -266,25 +266,25 @@ var calledFrom = ""
                         data.append(obj)
                         print(selectOption)
                         option = value
-                            //obj.fieldVal
-                       if obj.fieldTypeName == "ad_type" {
-                           //index == 7 &&
-                           if option == "" {
-                               value = cell.oltPopup.currentTitle!
-                               cell.oltPopup.titleLabel?.textColor = UIColor.red
-                               cell.oltPopup.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
-
-                           }
-                       }
-//                        if id == ""{
-//                            print("No..")
-//                            value = cell.oltPopup.currentTitle!
-//                            cell.oltPopup.titleLabel?.textColor = UIColor.red
-//
-//                        }else{
-//                            print("Yes..")
-//                            cell.oltPopup.titleLabel?.textColor = UIColor.gray
-//                        }
+                        //obj.fieldVal
+                        if obj.fieldTypeName == "ad_type" {
+                            //index == 7 &&
+                            if option == "" {
+                                value = cell.oltPopup.currentTitle!
+                                cell.oltPopup.titleLabel?.textColor = UIColor.red
+                                cell.oltPopup.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
+                                
+                            }
+                        }
+                        //                        if id == ""{
+                        //                            print("No..")
+                        //                            value = cell.oltPopup.currentTitle!
+                        //                            cell.oltPopup.titleLabel?.textColor = UIColor.red
+                        //
+                        //                        }else{
+                        //                            print("Yes..")
+                        //                            cell.oltPopup.titleLabel?.textColor = UIColor.gray
+                        //                        }
                         
                     }
                 }
@@ -306,19 +306,23 @@ var calledFrom = ""
                         
                         postVC.objArray = data
                         postVC.isfromEditAd = self.isFromEditAd
+                        postVC.requireMessage = self.requireMessage
+
                     }
                     else {
                         postVC.objArray = data
                         postVC.fieldsArray = self.dataArray
                         postVC.isfromEditAd = self.isFromEditAd
                         postVC.priceHide = self.priceHide
-                        
+                        postVC.requireMessage = self.requireMessage
+
                     }
                     postVC.imageArray = self.imagesArray
                     postVC.imageIDArray = self.imageIDArray
                     postVC.isBid = self.isBidding
                     postVC.isImg = self.isImage
-                    
+                    postVC.requireMessage = self.requireMessage
+
                     self.navigationController?.pushViewController(postVC, animated: true)
                 }
             }
@@ -333,6 +337,8 @@ var calledFrom = ""
                     
                     postVC.objArray = data
                     postVC.isfromEditAd = self.isFromEditAd
+                    postVC.requireMessage = self.requireMessage
+
                 }
                 else {
                     postVC.objArray = data
@@ -340,50 +346,56 @@ var calledFrom = ""
                     postVC.fieldsArray = self.dataArray
                     postVC.isfromEditAd = self.isFromEditAd
                     postVC.priceHide = self.priceHide
-                    
+                    postVC.requireMessage = self.requireMessage
+
                 }
                 postVC.imageArray = self.imagesArray
                 postVC.imageIDArray = self.imageIDArray
                 postVC.isBid = self.isBidding
                 postVC.isImg = self.isImage
-                
+                postVC.requireMessage = self.requireMessage
                 self.navigationController?.pushViewController(postVC, animated: true)
             }
             
         }
         else{
-//            if self.adTitle == "" {
-//
-//            }
-//            else {
-                let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
-                if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                    self.refreshArray = dataArray
-                    self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
-                    postVC.fieldsArray = self.refreshArray
-                    postVC.objArray = data
-                    postVC.isfromEditAd = self.isFromEditAd
-                }
-                else {
-                    postVC.objArray = data
-                    print(data)
-                    postVC.fieldsArray = self.dataArray
-                    postVC.isfromEditAd = self.isFromEditAd
-                    print(self.priceHide)
-                    postVC.priceHide = self.priceHide
-                   
-                }
-                postVC.imageArray = self.imagesArray
-                postVC.imageIDArray = self.imageIDArray
-                postVC.isBid = self.isBidding
-                postVC.isImg = self.isImage
+            //            if self.adTitle == "" {
+            //
+            //            }
+            //            else {
+            let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
+            if AddsHandler.sharedInstance.isCategoeyTempelateOn {
+                self.refreshArray = dataArray
+                self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                postVC.fieldsArray = self.refreshArray
+                postVC.objArray = data
+                postVC.isfromEditAd = self.isFromEditAd
+                postVC.requireMessage = self.requireMessage
+
+            }
+            else {
+                postVC.objArray = data
+                print(data)
+                postVC.fieldsArray = self.dataArray
+                postVC.isfromEditAd = self.isFromEditAd
+                print(self.priceHide)
+                postVC.priceHide = self.priceHide
+                postVC.requireMessage = self.requireMessage
+
                 
-                self.navigationController?.pushViewController(postVC, animated: true)
+            }
+            postVC.imageArray = self.imagesArray
+            postVC.imageIDArray = self.imageIDArray
+            postVC.isBid = self.isBidding
+            postVC.isImg = self.isImage
+            postVC.requireMessage = self.requireMessage
+
+            self.navigationController?.pushViewController(postVC, animated: true)
         }
         
-//
+        //
         
-//        }
+        //        }
     }
     
     //MARK:- Table View Delegate Methods
@@ -422,9 +434,9 @@ var calledFrom = ""
                 cell.lblType.text = title
             }
             
-//            if let fieldValue = objData.fieldVal {
-//                cell.oltPopup.setTitle(fieldValue, for: .normal)
-//            }
+            //            if let fieldValue = objData.fieldVal {
+            //                cell.oltPopup.setTitle(fieldValue, for: .normal)
+            //            }
             var i = 1
             for item in objData.values {
                 if item.id == "" {
@@ -437,37 +449,37 @@ var calledFrom = ""
                         cell.selectedKey = String(item.id)
                         if objData.values[0].name == nil{
                             value = objData.values[1].name
-
+                            
                         }
                         else{
-                        value = objData.values[0].name
+                            value = objData.values[0].name
                         }
                     }else{
                         cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
                         //cell.oltPopup.setTitle(item.name, for: .normal)
                         if isCatTempOn {
-//                            cell.selectedKey = String(item.id)
+                            //                            cell.selectedKey = String(item.id)
                         }else{
-//                            cell.selectedKey = String(item.id)
-     
+                            //                            cell.selectedKey = String(item.id)
+                            
                         }
                         if isFromEditAd{
-//                         cell.selectedKey = String(item.id)
+                            //                         cell.selectedKey = String(item.id)
                         }
-//                         cell.selectedKey = String(item.id)
+                        //                         cell.selectedKey = String(item.id)
                         if objData.values[0].name != nil{
                             value = objData.values[0].name
-
+                            
                         }
-//                        else{
-//                            value = objData.values[0].name
-//
-//                        }
+                        //                        else{
+                        //                            value = objData.values[0].name
+                        //
+                        //                        }
                         
                     }
-//                    id = objData.values[0].id
-                   // cell.oltPopup.setTitle(item.name, for: .normal)
-                   // cell.selectedKey = String(item.id)
+                    //                    id = objData.values[0].id
+                    // cell.oltPopup.setTitle(item.name, for: .normal)
+                    // cell.selectedKey = String(item.id)
                 }
                 i = i + 1
             }
@@ -488,7 +500,7 @@ var calledFrom = ""
                     cell.hasTempelateArray.append(items.hasTemplate)
                     cell.hasSubArray.append(items.hasSub)
                     self.id = items.id
-
+                    
                     if objData.fieldTypeName == "ad_cats1"{
                         cell.isBiddingArray.append(items.isBid)
                         cell.isPayArray.append(items.isPay)
@@ -496,8 +508,8 @@ var calledFrom = ""
                         cell.fieldTypeName = objData.fieldTypeName
                     }
                     
-                     cell.isShowArr.append(items.isShow)
-                   
+                    cell.isShowArr.append(items.isShow)
+                    
                 }
                 cell.popupShow()
                 cell.selectionDropdown.show()
@@ -509,7 +521,7 @@ var calledFrom = ""
         }
         return UITableViewCell()
     }
-  
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0
         let objData = dataArray[indexPath.row]
@@ -525,7 +537,7 @@ var calledFrom = ""
                 height = 60
             }
         }
-          
+        
         else if objData.fieldType == "select" {
             if priceHide == "no_price" || priceHide == "on_call" || priceHide == "free"{
                 if indexPath.row == 4 {
@@ -564,8 +576,9 @@ var calledFrom = ""
                 self.dataArray = successResponse.data.fields
                 self.newArray = successResponse.data.fields
                 self.imagesArray = successResponse.data.adImages
+                self.requireMessage = successResponse.extra.requiredMessage
                 self.forwardButton()
-
+                
                 for imageId in self.imagesArray {
                     if imageId.imgId == nil {
                         continue
@@ -599,7 +612,7 @@ var calledFrom = ""
                 self.tableView.reloadData()
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
-                  self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 })
                 self.presentVC(alert)
             }
@@ -612,7 +625,7 @@ var calledFrom = ""
     
     // Dynamic Fields
     func adForest_dynamicFields(param: NSDictionary) {
-       self.showLoader()
+        self.showLoader()
         AddsHandler.adPostDynamicFields(parameter: param, success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
@@ -624,15 +637,15 @@ var calledFrom = ""
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
             }
-             //self.isBidding = successResponse.isBid
+            //self.isBidding = successResponse.isBid
             
-//            if successResponse.isBid == true{
-//                 UserDefaults.standard.set(true, forKey: "isBid")
-//            }else{
-//                UserDefaults.standard.set(false, forKey: "isBid")
-//            }
+            //            if successResponse.isBid == true{
+            //                 UserDefaults.standard.set(true, forKey: "isBid")
+            //            }else{
+            //                UserDefaults.standard.set(false, forKey: "isBid")
+            //            }
             
-             //UserDefaults.standard.set(successResponse.isBid, forKey: "isBid")
+            //UserDefaults.standard.set(successResponse.isBid, forKey: "isBid")
             
             
         }) { (error) in
@@ -658,38 +671,38 @@ var calledFrom = ""
         messageLabel.sizeToFit()
         tableView.backgroundView = messageLabel
     }
-
+    
 }
 
 extension UIView {
-
+    
     // Using CAMediaTimingFunction
     func shake(duration: TimeInterval = 0.5, values: [CGFloat]) {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-
+        
         // Swift 4.2 and above
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-
+        
         // Swift 4.1 and below
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-
-
+        
+        
         animation.duration = duration // You can set fix duration
         animation.values = values  // You can set fix values here also
         self.layer.add(animation, forKey: "shake")
     }
-
-
+    
+    
     // Using SpringWithDamping
     func shake(duration: TimeInterval = 0.5, xValue: CGFloat = 12, yValue: CGFloat = 0) {
         self.transform = CGAffineTransform(translationX: xValue, y: yValue)
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transform = CGAffineTransform.identity
         }, completion: nil)
-
+        
     }
-
-
+    
+    
     // Using CABasicAnimation
     func shake(duration: TimeInterval = 0.05, shakeCount: Float = 6, xValue: CGFloat = 12, yValue: CGFloat = 0){
         let animation = CABasicAnimation(keyPath: "position")
@@ -700,5 +713,5 @@ extension UIView {
         animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + xValue, y: self.center.y - yValue))
         self.layer.add(animation, forKey: "shake")
     }
-
+    
 }

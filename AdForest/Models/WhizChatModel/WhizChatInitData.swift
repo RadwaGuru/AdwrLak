@@ -13,7 +13,7 @@ struct WhizChatInitData {
     var postId: String!
     var roomId: String!
     var communicationId:String!
-    var chatId: Int!
+    var chatId: String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -22,7 +22,7 @@ struct WhizChatInitData {
         postId = dictionary["post_id"] as? String
         roomId = dictionary["room_id"] as? String
         communicationId = dictionary["comm_id"] as? String
-        chatId = dictionary["id"] as? Int
+        chatId = dictionary["id"] as? String
 
     }
     

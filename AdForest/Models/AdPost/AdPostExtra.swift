@@ -19,6 +19,7 @@ struct AdPostExtra {
     var userInfo : String!
     var termsCondition : String!
     var termsUrl : String!
+    var requiredMessage: String!
     
     
     /**
@@ -40,6 +41,8 @@ struct AdPostExtra {
         userInfo = dictionary["user_info"] as? String
         termsUrl = dictionary["adpost_terms_url"] as? String
         termsCondition = dictionary["adpost_terms_title"] as? String
+        requiredMessage = dictionary["require_message"] as? String
+        
     }
     
     /**

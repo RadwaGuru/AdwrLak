@@ -19,7 +19,6 @@ import IQKeyboardManagerSwift
 
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
-
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate{
     
     //MARK:- Outlets
@@ -105,18 +104,28 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
     
+  
+   
+
+    // MARK: - De-Initialization
+
+    deinit {
+        print("Deinit PlainViewController")
+    }
+
+
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // self.navigationController?.isNavigationBarHidden = false
-        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
-        let request = GADRequest()
-        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
-        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
-       
-        inters.load(request)
+//        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
+//        let request = GADRequest()
+//        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+//        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
+//
+//        inters.load(request)
 
 //        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
 
@@ -129,7 +138,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
         self.adForest_homeData()
-        
+//        swiftyAds =  SwiftyAdsType
+//        self.swiftyAds = swiftyAds
+
         
     }
     
@@ -1366,6 +1377,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
     }
+   
     
     //MARK:- API Call
     
@@ -1393,8 +1405,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.numberOfColumns = CGFloat(columns!)
                 }
                 //To Show Title After Search Bar Hidden
-                self.viewAllText = successResponse.data.viewAll
-                
+                if successResponse.data.viewAll != nil {
+                    self.viewAllText = successResponse.data.viewAll
+
+                }                
                 //Get value of show/hide buttons of location and categories
                 if successResponse.data.catIconsColumnBtn != nil {
                     self.isShowCategoryButton = successResponse.data.catIconsColumnBtn.isShow
@@ -1503,12 +1517,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                         
                         self.showAd()
-                        
+//                        SwiftyAd.shared.showInterstitial(from: self, withIntervaladmo
                         //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
                         //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
                         
-                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
-                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
+//                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
+//                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
                         
                         
                     }
@@ -1552,6 +1566,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
+    
+    
+  
     
     @objc func nokri_showNavController1(){
         

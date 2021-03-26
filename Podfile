@@ -118,6 +118,9 @@ pod "ZGTooltipView"
 pod 'CollageView', '~> 1.0.4'
     #Socket
     pod 'Socket.IO-Client-Swift', '~> 15.2.0'
-
+    #progressBar
+    pod 'MaterialProgressBar'
+    #SLiderImages
+pod "ZoomableImageSlider"
 
 end

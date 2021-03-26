@@ -15,7 +15,7 @@ import Photos
 import Alamofire
 import JGProgressHUD
 import NVActivityIndicatorView
-
+import MaterialProgressBar
 protocol OpenWhizChatControllerDelegate {
     func openChatFromWhizAttachment()
 }
@@ -26,6 +26,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
         progressBar.textLabel.text = "Uploading"
         return progressBar
     }()
+    
     var hasSetPointOrigin = false
     var pointOrigin: CGPoint?
     var btnImageAttach: (()->())?
@@ -269,6 +270,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             if (self.latitude != nil) && self.longitude != nil{
                 let parameter : [String: Any] = ["chat_id": ChatId,"msg":"","session":self.senderId,"post_id":postId,"comm_id":self.receiverId,"messages_ids":messageId,"message_type":"map","upload_type":"map","latitude":self.latitude,"longitude":self.longitude]
                 debugPrint("-------->>>>>>> PArams to send location in Chat\(parameter)")
+                self.socketManager.send(roomId: self.roomId, message: "", receiverID: self.receiverId, ChatId: self.ChatId)
                 PostChatMesages(param: parameter as NSDictionary)
                 self.delegate?.openChatFromWhizAttachment()
 
@@ -445,11 +447,14 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     //MARK:- Post Locations
     
     func PostChatMesages(param: NSDictionary) {
+        showProgressBar()
+        self.delegate?.openChatFromWhizAttachment()
         UserHandler.WhizChatSendChatBoxMessage(parameter: param, success: { (successResponse) in
             if successResponse.success {
                 debugPrint(successResponse.data)
+            
                 self.delegate?.openChatFromWhizAttachment()
-
+                self.hideProgressBar()
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -520,20 +525,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
     }
     
     //MARK:- Uplaod File
-    func convertIntoJSONString(arrayObject: [Any]) -> String? {
-
-            do {
-                let jsonData: Data = try JSONSerialization.data(withJSONObject: arrayObject, options: [])
-                if  let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
-                    return jsonString as String
-                }
-                
-            } catch let error as NSError {
-                print("Array convertIntoJSON - \(error.description)")
-            }
-            return nil
-        }
-
+    
     func adForest_uploadFileDocs(param: NSDictionary, file: URL) {
         self.showLoader()
         uploadingProgressBar.progress = 0.0
@@ -547,6 +539,7 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             if successResponse.success {
                 self.stopAnimating()
                 self.uploadingProgressBar.dismiss(animated: true)
+
                 
             }
             else {
@@ -578,7 +571,8 @@ class WhizChatOverlayView: UIViewController, UIImagePickerControllerDelegate,UIN
             
         }, success: {(successResponse) in
             self.stopAnimating()
-            
+            self.socketManager.send(roomId: self.roomId, message: "", receiverID: self.receiverId, ChatId: self.ChatId)
+
             self.uploadingProgressBar.dismiss(animated: true)
             self.delegate?.openChatFromWhizAttachment()
             self.dismiss(animated: true, completion: nil)

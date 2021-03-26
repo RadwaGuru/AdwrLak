@@ -14268,7 +14268,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xo4-OA-2xe">
-                                <rect key="frame" x="0.0" y="44" width="320" height="1723"/>
+                                <rect key="frame" x="0.0" y="55" width="320" height="1660"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="CLw-SI-AJK" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
@@ -16599,7 +16599,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdz-fg-art">
-                                <rect key="frame" x="250" y="1706" width="50" height="50"/>
+                                <rect key="frame" x="250" y="1600" width="50" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="U0o-c9-pWM"/>
@@ -16610,23 +16610,50 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUU-A4-h8f" customClass="GADBannerView">
+                                <rect key="frame" x="8" y="4" width="304" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="2iv-Bf-wog"/>
+                                    <constraint firstAttribute="width" constant="304" id="LYN-G2-Zhw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryJ-OY-Pn9" customClass="GADBannerView">
+                                <rect key="frame" x="8" y="1717" width="304" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="YkK-7k-eE9"/>
+                                    <constraint firstAttribute="width" constant="304" id="swP-JK-J6a"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wN2-7q-ohF"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Xo4-OA-2xe" firstAttribute="top" secondItem="wN2-7q-ohF" secondAttribute="top" id="6vH-gD-kuY"/>
-                            <constraint firstItem="Hdz-fg-art" firstAttribute="top" secondItem="wN2-7q-ohF" secondAttribute="top" constant="1662" id="DIM-O1-D6p"/>
-                            <constraint firstItem="Xo4-OA-2xe" firstAttribute="bottom" secondItem="wN2-7q-ohF" secondAttribute="bottom" id="HYG-pv-fJR"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="bottom" secondItem="wN2-7q-ohF" secondAttribute="bottom" id="32j-Gq-9y8"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="top" secondItem="Xo4-OA-2xe" secondAttribute="bottom" constant="2" id="5fP-bH-1p2"/>
+                            <constraint firstItem="wN2-7q-ohF" firstAttribute="trailing" secondItem="ryJ-OY-Pn9" secondAttribute="trailing" constant="8" id="BW3-ob-eYY"/>
+                            <constraint firstItem="Hdz-fg-art" firstAttribute="top" secondItem="wN2-7q-ohF" secondAttribute="top" constant="1556" id="DIM-O1-D6p"/>
                             <constraint firstItem="Xo4-OA-2xe" firstAttribute="leading" secondItem="wN2-7q-ohF" secondAttribute="leading" id="KLa-EX-3E8"/>
-                            <constraint firstItem="wN2-7q-ohF" firstAttribute="bottom" secondItem="Hdz-fg-art" secondAttribute="bottom" constant="11" id="ZdT-rg-X2r"/>
+                            <constraint firstItem="wN2-7q-ohF" firstAttribute="trailing" secondItem="tUU-A4-h8f" secondAttribute="trailing" constant="8" id="Ojt-j5-roZ"/>
+                            <constraint firstItem="tUU-A4-h8f" firstAttribute="top" secondItem="7Xg-5r-mIc" secondAttribute="top" constant="4" id="QDn-mM-8Ax"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="leading" secondItem="wN2-7q-ohF" secondAttribute="leading" constant="8" id="XOJ-Od-0CH"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="leading" secondItem="wN2-7q-ohF" secondAttribute="leading" constant="8" id="YHh-05-5CM"/>
+                            <constraint firstItem="wN2-7q-ohF" firstAttribute="bottom" secondItem="Hdz-fg-art" secondAttribute="bottom" constant="117" id="ZdT-rg-X2r"/>
                             <constraint firstItem="wN2-7q-ohF" firstAttribute="trailing" secondItem="Hdz-fg-art" secondAttribute="trailing" constant="20" id="aUi-W7-1As"/>
                             <constraint firstItem="Xo4-OA-2xe" firstAttribute="trailing" secondItem="wN2-7q-ohF" secondAttribute="trailing" id="dLz-fg-HBM"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="top" secondItem="Xo4-OA-2xe" secondAttribute="bottom" constant="2" id="h1e-ea-K1D"/>
+                            <constraint firstItem="tUU-A4-h8f" firstAttribute="leading" secondItem="wN2-7q-ohF" secondAttribute="leading" constant="8" id="mgw-yF-rtT"/>
+                            <constraint firstItem="wN2-7q-ohF" firstAttribute="trailing" secondItem="ryJ-OY-Pn9" secondAttribute="trailing" constant="8" id="mjD-WW-QnL"/>
+                            <constraint firstItem="ryJ-OY-Pn9" firstAttribute="bottom" secondItem="wN2-7q-ohF" secondAttribute="bottom" id="xkS-MT-7ml"/>
+                            <constraint firstItem="Xo4-OA-2xe" firstAttribute="top" secondItem="tUU-A4-h8f" secondAttribute="bottom" constant="1" id="zfP-kL-IQj"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="blackhome" selectedImage="whitehome" id="6Vq-lR-RY9"/>
                     <navigationItem key="navigationItem" id="TwE-zC-6nv"/>
                     <size key="freeformSize" width="320" height="1850"/>
                     <connections>
+                        <outlet property="bannerViewBottom" destination="ryJ-OY-Pn9" id="G5O-Ue-dvn"/>
+                        <outlet property="bannerViewTop" destination="tUU-A4-h8f" id="cRb-Hi-0bw"/>
                         <outlet property="btnAddPost" destination="Hdz-fg-art" id="Mii-It-M8f"/>
                         <outlet property="tableView" destination="Xo4-OA-2xe" id="dpV-Z0-Y7l"/>
                     </connections>
@@ -17293,7 +17320,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CeI-pY-DgC">
-                                <rect key="frame" x="0.0" y="44" width="320" height="1772"/>
+                                <rect key="frame" x="0.0" y="62" width="320" height="1693"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="tsZ-Jg-FUE" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
@@ -19943,7 +19970,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gn4-zb-hZI">
-                                <rect key="frame" x="250" y="1716" width="50" height="48"/>
+                                <rect key="frame" x="250" y="1685" width="50" height="48"/>
                                 <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="mMh-u6-Zst"/>
@@ -19957,22 +19984,45 @@
                                     <action selector="actionAddPost:" destination="K3O-5F-we6" eventType="touchUpInside" id="Acj-NH-byr"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Som-FL-WYG" customClass="GADBannerView">
+                                <rect key="frame" x="8" y="4" width="304" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="304" id="nli-qQ-H85"/>
+                                    <constraint firstAttribute="height" constant="50" id="rGO-c2-xaO"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hT3-dE-QLF" customClass="GADBannerView">
+                                <rect key="frame" x="8" y="1758" width="304" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="CJW-Sl-0vj"/>
+                                    <constraint firstAttribute="width" constant="304" id="kda-yj-km0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dul-wp-RCd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="CeI-pY-DgC" firstAttribute="top" secondItem="dul-wp-RCd" secondAttribute="top" id="DqZ-Pu-Oj3"/>
-                            <constraint firstItem="dul-wp-RCd" firstAttribute="bottom" secondItem="Gn4-zb-hZI" secondAttribute="bottom" constant="52" id="MrW-I3-fnp"/>
+                            <constraint firstItem="dul-wp-RCd" firstAttribute="trailing" secondItem="hT3-dE-QLF" secondAttribute="trailing" constant="8" id="8HJ-dg-BvT"/>
+                            <constraint firstItem="dul-wp-RCd" firstAttribute="bottom" secondItem="Gn4-zb-hZI" secondAttribute="bottom" constant="83" id="MrW-I3-fnp"/>
                             <constraint firstItem="CeI-pY-DgC" firstAttribute="trailing" secondItem="dul-wp-RCd" secondAttribute="trailing" id="Yu3-SV-COi"/>
+                            <constraint firstItem="hT3-dE-QLF" firstAttribute="top" secondItem="CeI-pY-DgC" secondAttribute="bottom" constant="3" id="aac-6o-iWS"/>
                             <constraint firstItem="dul-wp-RCd" firstAttribute="trailing" secondItem="Gn4-zb-hZI" secondAttribute="trailing" constant="20" id="ebt-jO-pXr"/>
-                            <constraint firstItem="CeI-pY-DgC" firstAttribute="bottom" secondItem="dul-wp-RCd" secondAttribute="bottom" id="g2p-zL-J0W"/>
+                            <constraint firstItem="dul-wp-RCd" firstAttribute="bottom" secondItem="hT3-dE-QLF" secondAttribute="bottom" constant="8" id="gbP-TJ-YMK"/>
+                            <constraint firstItem="hT3-dE-QLF" firstAttribute="leading" secondItem="dul-wp-RCd" secondAttribute="leading" constant="8" id="gw7-aV-YaJ"/>
+                            <constraint firstItem="Som-FL-WYG" firstAttribute="leading" secondItem="dul-wp-RCd" secondAttribute="leading" constant="8" id="mpt-m7-mX3"/>
+                            <constraint firstItem="Som-FL-WYG" firstAttribute="top" secondItem="qGO-yh-6U2" secondAttribute="top" constant="4" id="tDu-gX-GJZ"/>
+                            <constraint firstItem="dul-wp-RCd" firstAttribute="trailing" secondItem="Som-FL-WYG" secondAttribute="trailing" constant="8" id="xiy-Nc-NT2"/>
                             <constraint firstItem="CeI-pY-DgC" firstAttribute="leading" secondItem="dul-wp-RCd" secondAttribute="leading" id="yWS-DN-1SM"/>
+                            <constraint firstItem="CeI-pY-DgC" firstAttribute="top" secondItem="Som-FL-WYG" secondAttribute="bottom" constant="8" id="zbO-1V-CpD"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="blackhome" selectedImage="whitehome" id="NKL-Xb-gAM"/>
                     <navigationItem key="navigationItem" id="Hbk-Q0-apZ"/>
                     <size key="freeformSize" width="320" height="1850"/>
                     <connections>
+                        <outlet property="bannerViewBottom" destination="hT3-dE-QLF" id="caw-sV-Uhp"/>
+                        <outlet property="bannerViewTop" destination="Som-FL-WYG" id="4pI-JX-X0X"/>
                         <outlet property="btnAddPost" destination="Gn4-zb-hZI" id="ZII-eb-4Ps"/>
                         <outlet property="tableView" destination="CeI-pY-DgC" id="7W5-6g-1dW"/>
                     </connections>

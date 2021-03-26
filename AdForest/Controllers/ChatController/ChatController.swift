@@ -158,15 +158,12 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         self.hideKeyboard()
         self.showBackButton()
-        navigationButtons()
-//        self.refreshButton()
-//        self.BlockButton()
+        self.refreshButton()
         self.googleAnalytics(controllerName: "Chat Controller")
         documentInteractionController.delegate = self
 
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
 
         tableView.register(UINib(nibName: "ChatImages", bundle: nil), forCellReuseIdentifier: "ChatImages")
         tableView.register(UINib(nibName: "ChatFiles", bundle: nil), forCellReuseIdentifier: "ChatFiles")
@@ -427,89 +424,20 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        navigationItem.rightBarButtonItem = barButton
 //    }
 //
-//    func refreshButton() {
-//        let button = UIButton(type: .custom)
-//        button.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
-//        if #available(iOS 11, *) {
-//            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-//            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        }
-//        else {
-//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        }
-//        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
-//
-//        let barButton = UIBarButtonItem(customView: button)
-//        navigationItem.rightBarButtonItem = barButton
-//    }
-    func navigationButtons() {
-        
-//        //block Button
-//        let button = UIButton(type: .custom)
-//        button.setBackgroundImage(#imageLiteral(resourceName: "reject"), for: .normal)
-//        button.tintColor = UIColor.white
-//        if #available(iOS 11, *) {
-//            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
-//            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        }
-//        else {
-//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        }
-//        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
-//
-//        let blockButtomItem = UIBarButtonItem(customView: button)
-//            barButtonItems.append(blockButtomItem)
-//        self.navigationItem.rightBarButtonItems = barButtonItems
-//
-//
-//        //refresh Button
-//        let refreshButton = UIButton(type: .custom)
-//        refreshButton.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
-//        refreshButton.tintColor = UIColor.white
-//        if #available(iOS 11, *) {
-//            refreshButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-//            refreshButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        }
-//        else {
-//            refreshButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        }
-//        refreshButton.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
-//
-//        let refreshButtomItem = UIBarButtonItem(customView: button)
-//            barButtonItems.append(refreshButtomItem)
-//      debugPrint(barButtonItems)
-        //refreshButton
-        let refreshButton = UIButton(type: .custom)
-        let ho = UIImage(named: "refresh")?.withRenderingMode(.alwaysTemplate)
-        refreshButton.setBackgroundImage(ho, for: .normal)
-        refreshButton.tintColor = UIColor.white
-        refreshButton.setImage(ho, for: .normal)
+    func refreshButton() {
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(#imageLiteral(resourceName: "refresh"), for: .normal)
         if #available(iOS 11, *) {
-            refreshButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            refreshButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        } else {
-            refreshButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        }
-        refreshButton.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
-        let homeItem = UIBarButtonItem(customView: refreshButton)
-        barButtonItems.append(homeItem)
-        
-        //Location Search
-        let blockButton = UIButton(type: .custom)
-        if #available(iOS 11, *) {
-            blockButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            blockButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
         else {
-            blockButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         }
-        let image = UIImage(named: "blackuser")?.withRenderingMode(.alwaysTemplate)
-        blockButton.setBackgroundImage(image, for: .normal)
-        blockButton.tintColor = UIColor.white
-        let barButtonLocation = UIBarButtonItem(customView: blockButton)
-            self.barButtonItems.append(barButtonLocation)
-        self.navigationItem.rightBarButtonItems = barButtonItems
-       
+        button.addTarget(self, action: #selector(onClickRefreshButton), for: .touchUpInside)
+
+        let barButton = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = barButton
     }
 
     

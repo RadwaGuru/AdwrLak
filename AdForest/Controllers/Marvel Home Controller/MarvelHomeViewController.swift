@@ -56,16 +56,16 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
-//    @IBOutlet weak var bannerViewBottom: GADBannerView!{
-//        didSet{
-//            bannerViewBottom.isHidden = true
-//        }
-//    }
-//    @IBOutlet weak var bannerViewTop: GADBannerView!{
-//        didSet{
-//            bannerViewTop.isHidden = true
-//        }
-//    }
+    @IBOutlet weak var bannerViewBottom: GADBannerView!{
+        didSet{
+            bannerViewBottom.isHidden = true
+        }
+    }
+    @IBOutlet weak var bannerViewTop: GADBannerView!{
+        didSet{
+            bannerViewTop.isHidden = true
+        }
+    }
 //    
     
     var defaults = UserDefaults.standard
@@ -135,7 +135,13 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
 
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        currentVc = self
+        //self.adForest_homeData()
+        
+    }
     /*
      // MARK: - Navigation
      
@@ -1377,72 +1383,77 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 if let adShow = successResponse.settings.ads.show {
                     isShowAd = adShow
                 }
-//                if isShowAd {
-//                    SwiftyAd.shared.delegate = self
-//                    var isShowBanner = false
-//                    var isShowInterstital = false
-//
-//                    if let banner = successResponse.settings.ads.isShowBanner {
-//                        isShowBanner = banner
-//                    }
-//                    if let intersitial = successResponse.settings.ads.isShowInitial {
-//                        isShowInterstital = intersitial
-//                    }
-//                    if isShowBanner {
-//                        SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
-//                        print(successResponse.settings.ads.bannerId)
-//
-//                        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-//
-//                        if successResponse.settings.ads.position == "top" {
-//                            self.bannerViewTop.isHidden = false
-//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-//                            self.bannerViewTop.adUnitID = successResponse.settings.ads.bannerId
-//                            self.bannerViewTop.rootViewController = self
-//                            self.bannerViewTop.delegate = self
-//                            self.bannerViewTop.load(GADRequest())
-//                            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-////                            SwiftyAd.shared.showBanner(from: self, at: .top)
-////                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-//////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-////                            self.bannerView.rootViewController = self
-////                            self.bannerView.load(GADRequest())
-//                        } else {
-//                            self.bannerViewBottom.isHidden = false
-//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-//                            self.bannerViewBottom.adUnitID = successResponse.settings.ads.bannerId
-//                            self.bannerViewBottom.rootViewController = self
-//                            self.bannerViewBottom.delegate = self
-//                            self.bannerViewBottom.load(GADRequest())
-//                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-//                            //self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
-////                            SwiftyAd.shared.showBanner(from: self, at: .bottom)
-//                        }
-//                    }
-//                    else{
-//                        self.bannerViewTop.isHidden = true
-//                        self.bannerViewBottom.isHidden = true
-//                        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-//                        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-//
-//                    }
-//                    //ca-app-pub-6905547279452514/6461881125
-//                    if isShowInterstital {
-//                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-//                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
-//
-//
-////                        self.showAd()
-//
-//                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
-//                        //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
-//
-////                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
-////                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
-//
-//
-//                    }
-//                }
+                if isShowAd {
+                    SwiftyAd.shared.delegate = self
+                    var isShowBanner = false
+                    var isShowInterstital = false
+
+                    if let banner = successResponse.settings.ads.isShowBanner {
+                        isShowBanner = banner
+                    }
+                    if let intersitial = successResponse.settings.ads.isShowInitial {
+                        isShowInterstital = intersitial
+                    }
+                    if isShowBanner {
+                        SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
+                        print(successResponse.settings.ads.bannerId)
+
+                        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+
+                        if successResponse.settings.ads.position == "top" {
+                            self.bannerViewTop.isHidden = false
+                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+                            self.bannerViewTop.adUnitID = successResponse.settings.ads.bannerId
+                            self.bannerViewTop.rootViewController = self
+                            self.bannerViewTop.delegate = self
+                            self.bannerViewTop.load(GADRequest())
+                            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+//                            SwiftyAd.shared.showBanner(from: self, at: .top)
+                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//                            self.bannerView.rootViewController = self
+//                            self.bannerView.load(GADRequest())
+                        } else {
+                            self.bannerViewBottom.isHidden = false
+                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+                            self.bannerViewBottom.adUnitID = successResponse.settings.ads.bannerId
+                            self.bannerViewBottom.rootViewController = self
+                            self.bannerViewBottom.delegate = self
+                            self.bannerViewBottom.load(GADRequest())
+                            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+//                            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
+//                            SwiftyAd.shared.showBanner(from: self, at: .bottom)
+                        }
+                    }
+                    else{
+                       self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+                        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+
+
+                    }
+                    
+                    //ca-app-pub-6905547279452514/6461881125
+                    if isShowInterstital {
+                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
+                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
+
+
+                        self.showAd()
+
+                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
+                        //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
+
+//                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
+//                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
+
+
+                    }
+                } else{
+                    self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+
+                    self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+
+                 }
                 // Here I set the Google Analytics Key
                 var isShowAnalytic = false
                 if let isShow = successResponse.settings.analytics.show {
@@ -1476,6 +1487,11 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
     }
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)

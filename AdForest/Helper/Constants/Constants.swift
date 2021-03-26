@@ -15,6 +15,7 @@ class Constants {
 //        static let ipAddress =  "https://adforest-api.scriptsbundle.com/"//Enter your domain name here
 
         static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"//Enter your domain name here
+//        static let ipAddress =  "https://www.dev.pflanzenkreisel.de/"//Enter your domain name here
 
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
@@ -123,14 +124,14 @@ class Constants {
 
     }
     struct AdMob {
-            static let objData = UserHandler.sharedInstance.objAdMob
+        static let objData = UserHandler.sharedInstance.objAdMob
         static let intersetialId = objData?.adId
-            //"ca-app-pub-3940256099942544/4411468910"
-        }
-    //2739faa44880d1e87703e1adaefa570c_whizchat11
-//    2739faa44880d1e87703e1adaefa570c_whizchat12
+    }
+
     struct customCodes {
-        
+//        static let purchaseCode = "9a4c23d6-55d9-4799-9e91-0d899fd5f503"
+//        static let securityCode = "2021"
+
         static let purchaseCode = "aaBMQWH8vI4h28KOQEyJbOnqrzWbHk-ios"
         static let securityCode = "212PQoz1zAICAxjajKIL67NhajjTTs-ios"
 //

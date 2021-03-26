@@ -145,7 +145,6 @@ final class SwiftyAd: NSObject {
         #endif
         
         loadInterstitialAd()
-       
        // loadRewardedVideoAd()
     }
     

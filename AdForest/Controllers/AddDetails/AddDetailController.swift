@@ -124,7 +124,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var whizChatPostId: String!
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
-    var whizChatChatId: Int!
+    var whizChatChatId: String!
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,8 +136,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
 //        self.showBackButton()
         self.hideKeyboard()
-//        self.adMob()
-        self.createAndLoadInterstitial()
+        self.adMob()
+//        self.createAndLoadInterstitial()
 
         self.googleAnalytics(controllerName: "Add Detail Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateAddDetails), object: nil, queue: nil) {[unowned self] (notification) in
@@ -160,6 +160,13 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         navigationButtons()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        currentVc = self
+        //self.adForest_homeData()
+        
     }
     // MARK:- Go toHOmepage from addetail
     func addBackButton() {
@@ -285,44 +292,30 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .top)
                     } else {
-                        self.containerViewbutton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 60).isActive = true
+                        self.containerViewbutton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 120).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .bottom)
                     }
                 }
                 if isShowInterstital {
 //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
 //                    SwiftyAd.shared.showInterstitial(from: self)
-//                    self.showAd()
+                    self.perform(#selector(self.showAd), with: nil, afterDelay: 2.5)
+
 //                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
 //                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
     }
-    fileprivate func createAndLoadInterstitial() {
-      interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-      let request = GADRequest()
-      // Request test ads on devices you specify. Your test device ID is printed to the console when
-      // an ad request is made.
-      request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
-      interstitial.load(request)
-        if self.interstitial.isReady {
-          self.interstitial.present(fromRootViewController: self)
-        } else {
-          print("Ad wasn't ready")
-        }
-    }
+   
 
     
-//    @objc func showAd(){
-//        currentVc = self
-//        admobDelegate.showAd()
-//    }
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     
-//    @objc func showAd2(){
-//        currentVc = self
-////        admobDelegate.showAd()
-//    }
+
     //MARK:- Counter
     func countDown(date: String) {
       
@@ -1428,7 +1421,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.whizChatRoomID = successResponse.data.whizChatInitializeData.roomId
                         self.whizChatCommunicationId = successResponse.data.whizChatInitializeData.communicationId
                         self.whizChatChatId = successResponse.data.whizChatInitializeData.chatId
-                        
+
                     }
                     
                 }

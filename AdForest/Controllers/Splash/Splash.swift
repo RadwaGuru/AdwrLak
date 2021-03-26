@@ -38,6 +38,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var featuredLoop = ""
     var home = "homeMulti"
     var topLocArr : [HomeAppTopLocation]!
+    
     //MARK:- Properties
     
     override func viewDidLoad() {
@@ -178,11 +179,14 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 UserDefaults.standard.set(self.footerSettings, forKey: "footerSettings")
                 
                 self.featuredScrollEnabled = successResponse.data.featuredScrollEnabled
-                self.featuredScrolldata = successResponse.data.featuredScroll
-                self.featuredTime = self.featuredScrolldata.duration
-                self.featuredLoop = self.featuredScrolldata.loop
-                UserDefaults.standard.set(self.featuredTime, forKey: "featuredTime")
-                UserDefaults.standard.set(self.featuredLoop, forKey: "featuredLoop")
+                if successResponse.data.featuredScroll != nil {
+                    self.featuredScrolldata = successResponse.data.featuredScroll
+                    self.featuredTime = self.featuredScrolldata.duration
+                    self.featuredLoop = self.featuredScrolldata.loop
+                    UserDefaults.standard.set(self.featuredTime, forKey: "featuredTime")
+                    UserDefaults.standard.set(self.featuredLoop, forKey: "featuredLoop")
+                    
+                }
                 
                 
                 //Offers title
@@ -192,6 +196,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.messagesScreen.blocked, forKey: "blocked")
                 self.defaults.set(successResponse.data.is_WhizChat_active, forKey: "is_WhizChat_active")
                 self.defaults.set(successResponse.data.WhizChatPageTitle, forKey: "Whiz_ChatPageTitle")
+                self.defaults.set(successResponse.data.WhizChatAPiKey, forKey: "WhizChatAPiKey")
+                AddsHandler.sharedInstance.topLocationArray  = successResponse.data.appTopLocation
                 self.defaults.synchronize()
                 UserHandler.sharedInstance.objSettings = successResponse.data
                 UserHandler.sharedInstance.objSettingsMenu = successResponse.data.menu.submenu.pages
@@ -315,7 +321,6 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 } else if self.isToplocationOn == true {
                     if islocFirst != "1"{
                         let locCtrl = storyboard.instantiateViewController(withIdentifier: SetLocationController.className) as! SetLocationController
-                        locCtrl.dataArr = self.topLocArr
                         self.navigationController?.pushViewController(locCtrl, animated: true)
                     }else{
                         if successResponse.data.isRtl {

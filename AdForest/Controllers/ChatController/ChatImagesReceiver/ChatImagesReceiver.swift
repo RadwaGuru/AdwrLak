@@ -8,7 +8,7 @@
 
 import UIKit
 import CollageView
-
+import ZoomableImageSlider
 class ChatImagesReceiver: UITableViewCell,CollageViewDelegate,CollageViewDataSource {
     
     @IBOutlet weak var lblChatTime: UILabel!
@@ -94,10 +94,13 @@ class ChatImagesReceiver: UITableViewCell,CollageViewDelegate,CollageViewDataSou
         // Trigger click event of each image item
 //        let message = "didSelect at index:  \(index), rowIndex: \(String(describing: itemView.collageItem!.rowIndex))"
 //        print(message)
-        let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentViewController") as! ViewAttachmentViewController
-        print(chatImgs)
-        categoryVC.imageAttachment = chatImgs
-        UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
+//        let categoryVC = storyboard.instantiateViewController(withIdentifier: "ViewAttachmentViewController") as! ViewAttachmentViewController
+//        print(chatImgs)
+//        categoryVC.imageAttachment = chatImgs
+//        UIApplication.shared.keyWindow?.rootViewController?.present(categoryVC, animated: true)
+        let vc = ZoomableImageSlider(images: chatImgs, currentIndex: nil, placeHolderImage: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+
     }
     func collageViewNumberOfTotalItem(_ collageView: CollageView) -> Int {
         return shownImagesCount

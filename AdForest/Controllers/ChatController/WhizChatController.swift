@@ -34,7 +34,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     private var socketManager = Managers.socketManager
-
+  
+    
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.dataSource = self
@@ -563,6 +564,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.txtMessage.text = objdta.msg
         cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
         cell.imgProfile.image = UIImage(named: "blackuser")
+        cell.imgProfile.isHidden = true
         cell.lblChatTime.text = objdta.chatTime
         tableView.rowHeight = UITableViewAutomaticDimension
         if objdta.isReply == "message-sender-box"{
@@ -580,6 +582,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
         //            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
                 cell.txtMessage.text = objdta.msg
+                cell.imgProfile.isHidden = true
                 cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
                 cell.imgProfile.image = UIImage(named: "blackuser")
                 cell.lblChatTime.text = objdta.chatTime
@@ -597,6 +600,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatImage.lblChatTime.isHidden = false
                 ChatImage.lblChatTime.text = objdta.chatTime
                 ChatImage.imgProfileChatImages.image = UIImage(named: "blackuser")
+                ChatImage.imgProfileChatImages.isHidden = true
 
                 tableView.rowHeight = 220
                 //        if let imgUrl = URL(string: objdta.) {
@@ -634,6 +638,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
     
                 }
+                ChatFile.imgProfileFiles.isHidden = true
                 ChatFile.imgProfileFiles.image = UIImage(named: "blackuser")
 
     //            if let imgUrl = URL(string: objdta.img) {
@@ -674,6 +679,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 cellw.imgBackground.image = cellw.imgBackground.image?.withRenderingMode(.alwaysTemplate)
                 cellw.imgBackground.tintColor = Constants.hexStringToUIColor(hex: "#91b0ff")
                 cellw.txtMessage.textColor = UIColor.white
+                cellw.imgIcon.isHidden = true
                 cellw.lblChatReceiverTime.text = objdta.chatTime
                 cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
                 tableView.rowHeight = UITableViewAutomaticDimension
@@ -693,7 +699,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatImageReceiver.lblChatTime.isHidden = false
                 ChatImageReceiver.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = 220
-                ChatImageReceiver.imgProfileUserReceiver.image = UIImage(named: "User")
+                ChatImageReceiver.imgProfileUserReceiver.isHidden = true
+//                ChatImageReceiver.imgProfileUserReceiver.image = UIImage(named: "User")
 
 //                if let imgUrl = URL(string: objdta.img) {
 //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
@@ -736,7 +743,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
 
                 }
-                ChatFileReceiver.imgProfileReceiver.image = UIImage(named: "User")
+                ChatFileReceiver.imgProfileReceiver.isHidden = true
+//                ChatFileReceiver.imgProfileReceiver.image = UIImage(named: "User")
 
 //                if let imgUrl = URL(string: objdta.img) {
 //                    ChatFileReceiver.imgProfileReceiver?.sd_setShowActivityIndicatorView(true)
@@ -802,6 +810,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.messageId = item.chatMessageID
                 }
                 UserDefaults.standard.set(self.senderId, forKey: "senderId")
+                self.socketManager.joinRoom(room: self.roomId, sender: self.senderId, receiver: self.receiverId)
 
                 self.tableView.reloadData()
 //                self.scrollToBottom()

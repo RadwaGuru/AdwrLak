@@ -13,10 +13,12 @@ import GoogleMobileAds
 class AdMobDelegate: NSObject, GADInterstitialDelegate {
     
     var interstitialView: GADInterstitial!
+    
     //GADInterstitial!
     //ca-app-pub-3521346996890484/7679081330"
     func createAd() -> GADInterstitial {
-        interstitialView = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        //"ca-app-pub-3940256099942544/4411468910"
+        interstitialView = GADInterstitial(adUnitID: Constants.AdMob.intersetialId!)
         interstitialView.delegate = self
         let request = GADRequest()
 //            GADRequest()

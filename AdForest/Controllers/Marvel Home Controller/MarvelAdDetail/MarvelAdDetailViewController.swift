@@ -30,17 +30,13 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
             tableView.separatorStyle = .none
             
             tableView.register(UINib(nibName: MarvelShareTableViewCell.className, bundle: nil), forCellReuseIdentifier: MarvelShareTableViewCell.className)
-//            tableView.register(UINib(nibName: ShareCell.className, bundle: nil), forCellReuseIdentifier: ShareCell.className)
             tableView.register(UINib(nibName: YouTubeVideoCell.className, bundle: nil), forCellReuseIdentifier: YouTubeVideoCell.className)
-            
             tableView.register(UINib(nibName: MarvelAdDetailProfileCell.className, bundle: nil), forCellReuseIdentifier: MarvelAdDetailProfileCell.className)
             tableView.register(UINib(nibName: MarvelContactWithSellerCell.className, bundle: nil), forCellReuseIdentifier: MarvelContactWithSellerCell.className)
             tableView.register(UINib(nibName: AdRatingCell.className, bundle: nil), forCellReuseIdentifier: AdRatingCell.className)
             tableView.register(UINib(nibName: AddBidsCell.className, bundle: nil), forCellReuseIdentifier: AddBidsCell.className)
-//            tableView.register(UINib(nibName: ReplyCell.className, bundle: nil), forCellReuseIdentifier: ReplyCell.className)
             tableView.register(UINib(nibName: CommentCell.className, bundle: nil), forCellReuseIdentifier: CommentCell.className)
             tableView.register(UINib(nibName: LoadMoreCell.className, bundle: nil), forCellReuseIdentifier: LoadMoreCell.className)
-            
             tableView.register(UINib(nibName: ReplyReactionCell.className, bundle: nil), forCellReuseIdentifier: ReplyReactionCell.className)
         }
     }
@@ -132,7 +128,7 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     var whizChatPostId: String!
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
-    var whizChatChatId: Int!
+    var whizChatChatId: String!
 
     
     
@@ -149,8 +145,7 @@ var fromAdDetail = false
 
         }
         self.hideKeyboard()
-//        self.adMob()
-        self.createAndLoadInterstitial()
+        self.adMob()
 
         self.googleAnalytics(controllerName: "Add Detail Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.updateAddDetails), object: nil, queue: nil) {[unowned self] (notification) in
@@ -173,6 +168,13 @@ var fromAdDetail = false
         }
         
         navigationButtons()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        currentVc = self
+        //self.adForest_homeData()
+        
     }
     // MARK:- Go toHOmepage from addetail
     func addBackButton() {
@@ -317,37 +319,16 @@ var fromAdDetail = false
                 if isShowInterstital {
 //                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
 //                    SwiftyAd.shared.showInterstitial(from: self)
-//                    self.showAd()
+                    self.perform(#selector(self.showAd), with: nil, afterDelay: 2.5)
 //                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
 //                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
                 }
             }
         }
     }
-    fileprivate func createAndLoadInterstitial() {
-      interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-      let request = GADRequest()
-      // Request test ads on devices you specify. Your test device ID is printed to the console when
-      // an ad request is made.
-      request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
-      interstitial.load(request)
-        if self.interstitial.isReady {
-          self.interstitial.present(fromRootViewController: self)
-        } else {
-          print("Ad wasn't ready")
-        }
-    }
+   
 
     
-//    @objc func showAd(){
-//        currentVc = self
-//        admobDelegate.showAd()
-//    }
-    
-//    @objc func showAd2(){
-//        currentVc = self
-////        admobDelegate.showAd()
-//    }
     //MARK:- Counter
     func countDown(date: String) {
       
@@ -1345,6 +1326,10 @@ var fromAdDetail = false
         return headerView
     }
     
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     //MARK:- IBActions
     @IBAction func actionSendMessage(_ sender: Any) {
         if defaults.bool(forKey: "isLogin") == false {
