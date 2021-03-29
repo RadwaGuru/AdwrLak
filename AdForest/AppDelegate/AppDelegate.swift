@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"
     var interstitial: GADInterstitial?
-    private var socketManager = Managers.socketManager
 
     
     func createAndLoadInterstitial() -> GADInterstitial? {

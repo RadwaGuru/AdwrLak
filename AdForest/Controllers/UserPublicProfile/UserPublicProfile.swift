@@ -128,14 +128,17 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
                     }
                 }
                 if isShowInterstital {
-                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.showAd()
                 }
+
             }
         }
     }
     
-    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     func adForest_populateData() {
         if UserHandler.sharedInstance.objPublicProfile != nil {
             let objData = UserHandler.sharedInstance.objPublicProfile

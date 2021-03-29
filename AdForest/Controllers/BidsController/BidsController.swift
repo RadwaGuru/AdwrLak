@@ -91,13 +91,15 @@ class BidsController: ButtonBarPagerTabStripViewController, NVActivityIndicatorV
                     }
                 }
                 if isShowInterstital {
-                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.showAd()
                 }
             }
         }
     }
-    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     //MARK:- API Call
     func adForest_bidsData(param: NSDictionary) {
         self.showLoader()

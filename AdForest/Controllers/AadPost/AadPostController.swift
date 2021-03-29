@@ -107,7 +107,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        adMob()
         
     }
     // MARK:- Go toHOmepage from adpost
@@ -397,7 +397,48 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
         
         //        }
     }
-    
+    //MARK:-ADMOB
+    func adMob() {
+        if UserHandler.sharedInstance.objAdMob != nil {
+            let objData = UserHandler.sharedInstance.objAdMob
+            var isShowAd = false
+            if let adShow = objData?.show {
+                isShowAd = adShow
+            }
+            if isShowAd {
+                var isShowBanner = false
+                var isShowInterstital = false
+                if let banner = objData?.isShowBanner {
+                    isShowBanner = banner
+                }
+                if let intersitial = objData?.isShowInitial {
+                    isShowInterstital = intersitial
+                }
+                if isShowBanner {
+                    SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
+                    self.tableView.translatesAutoresizingMaskIntoConstraints = false
+                    if objData?.position == "top" {
+                        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+                        SwiftyAd.shared.showBanner(from: self, at: .top)
+                    } else {
+                        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 60).isActive = true
+                        SwiftyAd.shared.showBanner(from: self, at: .bottom)
+                    }
+                }
+                if isShowInterstital {
+//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
+//                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.perform(#selector(self.showAd), with: nil, afterDelay: 2.5)
+//                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
+//                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
+                }
+            }
+        }
+    }
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {

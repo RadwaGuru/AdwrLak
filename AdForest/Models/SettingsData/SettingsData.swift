@@ -51,6 +51,8 @@ struct SettingsData {
     var is_WhizChat_active: Bool!
     var WhizChatPageTitle: String!
     var WhizChatAPiKey: String!
+    var WhizChatEmptyMessage: String!
+    var WhizChatStartTyping: String!
     var is_Top_Location: Bool!
     var wpml_menu_text: String!
     var langData : [LangData]!
@@ -190,6 +192,10 @@ struct SettingsData {
         is_WhizChat_active = dictionary["isWhizActive"] as? Bool
         WhizChatPageTitle = dictionary["chat_page_title"] as? String
         WhizChatAPiKey = dictionary["whizchat_api_key"] as? String
+        WhizChatEmptyMessage = dictionary["whizchat_empty_message"] as? String
+        WhizChatStartTyping = dictionary["whizchat_typing"] as? String
+
+        
     }
     
     /**

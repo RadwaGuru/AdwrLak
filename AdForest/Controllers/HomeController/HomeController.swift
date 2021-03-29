@@ -1510,21 +1510,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             SwiftyAd.shared.showBanner(from: self, at: .bottom)
                         }
                     }
-                    //ca-app-pub-6905547279452514/6461881125
                     if isShowInterstital {
-                        //                        SwiftyAd.shared.setup(withBannerID: "", interstitialID: successResponse.settings.ads.interstitalId, rewardedVideoID: "")
-                        //                        SwiftyAd.shared.showInterstitial(from: self, withInterval: 1)
-                        
-                        
                         self.showAd()
-//                        SwiftyAd.shared.showInterstitial(from: self, withIntervaladmo
-                        //self.perform(#selector(self.showAd), with: nil, afterDelay: Double(successResponse.settings.ads.timeInitial)!)
-                        //self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(successResponse.settings.ads.time)!)
-                        
-//                        self.perform(#selector(self.showAd), with: nil, afterDelay: Double(30))
-//                        self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(30))
-                        
-                        
                     }
                 }
                 // Here I set the Google Analytics Key

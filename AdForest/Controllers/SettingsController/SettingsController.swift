@@ -311,7 +311,7 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 let tabController = self.parent as? UITabBarController
                 tabController?.navigationItem.title = successResponse.data.pageTitle
-                //                self.title = successResponse.data.pageTitle
+                self.title = successResponse.data.pageTitle
                 self.isShowAboutApp = successResponse.data.about.isShow
                 self.isShowAppVersion = successResponse.data.appVersion.isShow
                 self.isShowAppRating = successResponse.data.appRating.isShow

@@ -160,6 +160,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        adMob()
 //        print(imageArray.count)
       
 
@@ -467,6 +468,45 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     */
+    
+    //MARK:-ADMOB
+    func adMob() {
+        if UserHandler.sharedInstance.objAdMob != nil {
+            let objData = UserHandler.sharedInstance.objAdMob
+            var isShowAd = false
+            if let adShow = objData?.show {
+                isShowAd = adShow
+            }
+            if isShowAd {
+                var isShowBanner = false
+                var isShowInterstital = false
+                if let banner = objData?.isShowBanner {
+                    isShowBanner = banner
+                }
+                if let intersitial = objData?.isShowInitial {
+                    isShowInterstital = intersitial
+                }
+                if isShowBanner {
+                    SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
+                    self.tableView.translatesAutoresizingMaskIntoConstraints = false
+                    if objData?.position == "top" {
+                        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+                        SwiftyAd.shared.showBanner(from: self, at: .top)
+                    } else {
+                        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 60).isActive = true
+                        SwiftyAd.shared.showBanner(from: self, at: .bottom)
+                    }
+                }
+//                if isShowInterstital {
+//                    self.perform(#selector(self.showAd), with: nil, afterDelay: 2.5)
+//                }
+            }
+        }
+    }
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     
     //MARK:- table View Delegate Methods
     

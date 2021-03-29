@@ -21,26 +21,27 @@ struct MessageData {
 
 class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDelegate,UITextViewDelegate,OpenWhizChatControllerDelegate {
     
-     var messages: [WhizChatMessagesBoxChatList] = [] {
+    var messages: [WhizChatMessagesBoxChatList] = [] {
         didSet {
             tableView.reloadData()
             DispatchQueue.main.async(execute: {
                 self.scrollToBottom()
             })
-
+            
             goON = true
-
+            
         }
     }
-
+    
     private var socketManager = Managers.socketManager
-  
+    
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.dataSource = self
             tableView.delegate = self
             tableView.separatorStyle = .none
+            
         }
     }
     @IBOutlet weak var textHeightConstraint: NSLayoutConstraint!
@@ -48,42 +49,59 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         didSet {
             txtMessage.layer.borderWidth = 0.5
+            txtMessage.layer.cornerRadius = 20
+            txtMessage.clipsToBounds  = true
             txtMessage.layer.borderColor = UIColor.lightGray.cgColor
             txtMessage.delegate = self
+            
         }
     }
     @IBOutlet weak var heightConstraintTxtView: NSLayoutConstraint!
     @IBOutlet weak var heightContraintViewBottom: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var btnOpenSmilies: UIButton!
     @IBOutlet weak var imgSimiles: UIImageView!
+    {
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                
+                imgSimiles.tintImageColor(color: Constants.hexStringToUIColor(hex: mainColor))
+            }
+        }
+    }
     @IBOutlet weak var containerViewSmilies: UIView!
     @IBOutlet weak var imgBtnSendMessage: UIImageView!
     {
         didSet{
-            imgBtnSendMessage.tintImageColor(color: UIColor.white)
-            
-        }
-    }
-    @IBOutlet weak var btnSendMessage: UIButton!{
-        didSet{
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                btnSendMessage.layer.cornerRadius = 10
-                btnSendMessage.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-                btnSendMessage.clipsToBounds = true
+                
+                imgBtnSendMessage.tintImageColor(color: Constants.hexStringToUIColor(hex: mainColor))
             }
         }
     }
-    @IBOutlet weak var containerViewSendMessage: UIView!{
+    @IBOutlet weak var btnSendMessage: UIButton!
+    {
         didSet{
-            containerViewSendMessage.layer.cornerRadius = 10
+            btnSendMessage.backgroundColor = UIColor.clear
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+//                btnSendMessage.layer.cornerRadius = 10
+//                btnSendMessage.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//                btnSendMessage.clipsToBounds = true
+//            }
+        }
+    }
+    @IBOutlet weak var containerViewSendMessage: UIView!
+    {
+        didSet{
+//            containerViewSendMessage.layer.cornerRadius = 10
             containerViewSendMessage.backgroundColor = UIColor.clear
-            containerViewSendMessage.clipsToBounds = true
-
+//            containerViewSendMessage.clipsToBounds = true
+//
         }
     }
     @IBOutlet weak var btnAttachments: UIButton!
     @IBOutlet weak var containerViewAttachments: UIView!
+    
+    @IBOutlet weak var lblEmptyHint: UILabel!
     @IBOutlet weak var containerViewBottom: UIView!{
         didSet{
             containerViewBottom.roundCorners()
@@ -93,6 +111,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK:- Properties
     var goON = false
     let keyboardManager = IQKeyboardManager.sharedManager()
+    var defaults = UserDefaults.standard
     let documentInteractionController = UIDocumentInteractionController()
     var dataArray = ["hi","there","listen","Come here"]
     var dataArr = ["hey","where?","hello","Yes please!"]
@@ -120,6 +139,9 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     var uploadImageHeading: String!
     var uploadFileHeading: String!
     var uploadLocationHeading:String!
+    var WhizChatEmptyMessage = ""
+    var WhizChatStartType = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -133,8 +155,15 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.register(UINib(nibName: "ChatImagesReceiver", bundle: nil), forCellReuseIdentifier: "ChatImagesReceiver")
         tableView.register(UINib(nibName: "WhizChatMap", bundle: nil), forCellReuseIdentifier: "WhizChatMap")
         tableView.register(UINib(nibName: "WhizChatMapReceiver", bundle: nil), forCellReuseIdentifier: "WhizChatMapReceiver")
-
+        tableView.backgroundView = UIImageView(image: UIImage(named: "background.jpg"))
         
+        if let WhizChatStartTyping = self.defaults.string(forKey: "WhizChatStartTyping") {
+            WhizChatStartType = WhizChatStartTyping
+    }
+        
+        lblEmptyHint.text = WhizChatStartType
+        lblEmptyHint.textColor = UIColor.lightGray
+        lblEmptyHint.font = lblEmptyHint.font.withSize(14)
 
         //
         //        let bounds = self.navigationController!.navigationBar.bounds
@@ -144,24 +173,24 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.navigationItem.titleView = setTitle(title: self.ChatSenderName, subtitle: self.ChatlastSeenNavBarTime)
         //        initUI()
-//        BlockButton()
+        //        BlockButton()
         socketManager.establishConnection()
         
-//        Timer.every(5.second) {
-            self.startObservingMessages()
-//        }
-//        txtMessage.setTextWithTypeAnimation(typedText: self.txtMessage.text, characterDelay:  10) //less delay is faster
+        //        Timer.every(5.second) {
+        self.startObservingMessages()
+        //        }
+        //        txtMessage.setTextWithTypeAnimation(typedText: self.txtMessage.text, characterDelay:  10) //less delay is faster
         
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         let parameter : [String: Any] = ["chat_id": ChatId]
         getChatMesages(param: parameter as NSDictionary)
         keyboardHandling()
     }
-
+    
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -178,10 +207,14 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK:-Actions
     @IBAction func actionSendMessage(_ sender: Any) {
         if self.txtMessage.text == "" {
-            debugPrint("=======>>>>>>>>=====Empty Not allwed===<<<<<<<<")
-            showToast(message: "Please Input some text")
-            self.txtMessage.shake()
+            if let WhizChtEmptyMsg = self.defaults.string(forKey: "WhizChatEmptyMessage") {
+                WhizChatEmptyMessage = WhizChtEmptyMsg
+            }
+            debugPrint("=======>>>>>>>>=====Empty Not allwed:\(WhizChatEmptyMessage)===<<<<<<<<")
 
+            showToast(message: WhizChatEmptyMessage)
+            self.txtMessage.shake()
+            
         }else{
             socketManager.joinRoom(room: roomId, sender: senderId, receiver: receiverId)
             socketManager.send(roomId: roomId, message: self.txtMessage.text, receiverID: receiverId, ChatId: self.ChatId)
@@ -194,7 +227,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-   
+    
     
     @IBAction func btnAttachmentAction(_ sender: Any) {
         showMiracle()
@@ -241,7 +274,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //if Constants.isIphoneX == true  {
         NotificationCenter.default.addObserver(self, selector: #selector(WhizChatController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-
+        
         keyboardManager.enable = false
         keyboardManager.enableAutoToolbar = false
         // }else{
@@ -272,9 +305,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func textViewDidEndEditing(_ textField: UITextView) {
-         self.bottomConstraint.constant = 0
-//        self.setTypingIndicatorVisible(false)
-
+        self.bottomConstraint.constant = 0
+        
         self.txtMessage.resignFirstResponder()
     }
     
@@ -294,69 +326,18 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         }else{
             self.textHeightConstraint.constant = newSize.height
             heightConstraintTxtView.constant = newSize.height
-            heightContraintViewBottom.constant = newSize.height
+            heightContraintViewBottom.constant = newSize.height + 10
+
         }
         self.view.layoutIfNeeded()
     }
     
     func textViewDidChange(_ textView: UITextView)
     {
-        
+        lblEmptyHint.isHidden = true
         self.adjustTextViewHeight()
-//        createTypingIndicator()
-//        socketManager.startTyping(RoomName: "RoomName",Message: "Messagehere",Chat: "Chat ID")
-//        func stopTyping(RoomName: String,Chat ID: String){
-//            socket.emit("agStopTyping", "RoomName" ,"Chat ID")
-//
-//        }
-
-//        self.setTypingIndicatorVisible(true)
-
+        
     }
-    
-    func updateCharacterCount() {
-      
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        label.center = CGPoint(x: 160, y: 485)
-        label.textAlignment = .center
-        label.text = "I'm a test label"
-        self.view.addSubview(label)
-
-    }
-    
-
-    
-//    private var typingIndicatorBottomConstraint: NSLayoutConstraint!
-//
-//    private func createTypingIndicator() {
-//      let typingIndicator = TypingIndicatorView(receiverName: "Farwa")
-//        view.insertSubview(typingIndicator, belowSubview: self.tableView)
-//
-//      typingIndicatorBottomConstraint = typingIndicator.bottomAnchor.constraint(
-//        equalTo: containerViewBottom.topAnchor,
-//        // Set the constant to 16 at start. This means that the top of the
-//        // typing indicator will be below the top of the text area.
-//        constant: 16)
-//      typingIndicatorBottomConstraint.isActive = true
-//
-//      NSLayoutConstraint.activate([
-//        typingIndicator.heightAnchor.constraint(equalToConstant: 20),
-//        typingIndicator.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 26)
-//      ])
-//
-//    }
-//
-//    private func setTypingIndicatorVisible(_ isVisible: Bool) {
-//      let constant: CGFloat = isVisible ? -16 : 16
-//      UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-//         self.typingIndicatorBottomConstraint.constant = constant
-//        self.view.layoutIfNeeded()
-//        debugPrint("insides")
-//
-//      })
-//        debugPrint("asasdad")
-//    }
-    
     
     func BlockButton() {
         let button = UIButton(type: .custom)
@@ -466,12 +447,12 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             self!.openChatFromWhizAttachment()
         })
         
-//        let parameter : [String: Any] = ["chat_id": self.ChatId]
-//        debugPrint("\(parameter)")
-//
-//        getChatMesages(param: parameter as NSDictionary)
+        //        let parameter : [String: Any] = ["chat_id": self.ChatId]
+        //        debugPrint("\(parameter)")
+        //
+        //        getChatMesages(param: parameter as NSDictionary)
     }
-
+    
     //MARK:-TableView Delegates
     
     
@@ -481,77 +462,78 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-//        let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-//        let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-//            cellw.backgroundColor = UIColor.groupTableViewBackground
-//
-//            let images = UIImage(named: "bubble_se")
-//            cellw.imgBackground.image = images!
-//                .resizableImage(withCapInsets:
-//                                    UIEdgeInsetsMake(17, 21, 17, 21),
-//                                resizingMode: .stretch)
-//                .withRenderingMode(.alwaysTemplate)
-//            cellw.txtMessage.text = message.msg
-//            cellw.txtMessage.textColor = UIColor.white
-//            cellw.lblChatReceiverTime.text = message.chatTime
-//            cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
-//            tableView.rowHeight = UITableViewAutomaticDimension
-
+        //        let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+        //        let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+        //            cellw.backgroundColor = UIColor.groupTableViewBackground
+        //
+        //            let images = UIImage(named: "bubble_se")
+        //            cellw.imgBackground.image = images!
+        //                .resizableImage(withCapInsets:
+        //                                    UIEdgeInsetsMake(17, 21, 17, 21),
+        //                                resizingMode: .stretch)
+        //                .withRenderingMode(.alwaysTemplate)
+        //            cellw.txtMessage.text = message.msg
+        //            cellw.txtMessage.textColor = UIColor.white
+        //            cellw.lblChatReceiverTime.text = message.chatTime
+        //            cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
+        //            tableView.rowHeight = UITableViewAutomaticDimension
+        
         if message.isReply == "message-sender-box"{
-//            let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-//
-//            cell.backgroundColor = UIColor.groupTableViewBackground
-//
-//            let image = UIImage(named: "bubble_sent")
-//            cell.imgPicture.image = image!
-//                .resizableImage(withCapInsets:
-//                                    UIEdgeInsetsMake(17, 21, 17, 21),
-//                                resizingMode: .stretch)
-//                .withRenderingMode(.alwaysTemplate)
-//            cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-////            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
-//            cell.txtMessage.text = message.msg
-//            cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
-//            cell.imgProfile.image = UIImage(named: "blackuser")
-//            cell.lblChatTime.text = message.chatTime
-//            tableView.rowHeight = UITableViewAutomaticDimension
+            //            let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            //
+            //            cell.backgroundColor = UIColor.groupTableViewBackground
+            //
+            //            let image = UIImage(named: "bubble_sent")
+            //            cell.imgPicture.image = image!
+            //                .resizableImage(withCapInsets:
+            //                                    UIEdgeInsetsMake(17, 21, 17, 21),
+            //                                resizingMode: .stretch)
+            //                .withRenderingMode(.alwaysTemplate)
+            //            cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
+            ////            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
+            //            cell.txtMessage.text = message.msg
+            //            cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
+            //            cell.imgProfile.image = UIImage(named: "blackuser")
+            //            cell.lblChatTime.text = message.chatTime
+            //            tableView.rowHeight = UITableViewAutomaticDimension
             
-
+            
             var cellSender = cellFor(message: messages, at: indexPath, in: tableView)
             return cellSender
-//            return cell
+            //            return cell
             
         }
         else{
             var cellReceiver = cellFor(message: messages, at: indexPath, in: tableView)
             return cellReceiver
-
-//            let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-//            cellw.backgroundColor = UIColor.groupTableViewBackground
-//
-//            let images = UIImage(named: "bubble_se")
-//            cellw.imgBackground.image = images!
-//                .resizableImage(withCapInsets:
-//                                    UIEdgeInsetsMake(17, 21, 17, 21),
-//                                resizingMode: .stretch)
-//                .withRenderingMode(.alwaysTemplate)
-//            cellw.txtMessage.text = message.msg
-//            cellw.txtMessage.textColor = UIColor.white
-//            cellw.lblChatReceiverTime.text = message.chatTime
-//            cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
-//            tableView.rowHeight = UITableViewAutomaticDimension
-//        return cellw
+            
+            //            let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+            //            cellw.backgroundColor = UIColor.groupTableViewBackground
+            //
+            //            let images = UIImage(named: "bubble_se")
+            //            cellw.imgBackground.image = images!
+            //                .resizableImage(withCapInsets:
+            //                                    UIEdgeInsetsMake(17, 21, 17, 21),
+            //                                resizingMode: .stretch)
+            //                .withRenderingMode(.alwaysTemplate)
+            //            cellw.txtMessage.text = message.msg
+            //            cellw.txtMessage.textColor = UIColor.white
+            //            cellw.lblChatReceiverTime.text = message.chatTime
+            //            cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
+            //            tableView.rowHeight = UITableViewAutomaticDimension
+            //        return cellw
         }
-//        return cellw
-
+        //        return cellw
+        
     }
     
     func cellFor(message: [WhizChatMessagesBoxChatList], at indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell{
         let objdta =  messages[indexPath.row]
-
+        
         let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
         //        cell.backgroundColor = UIColor.groupTableViewBackground
-        cell.backgroundColor = UIColor.groupTableViewBackground
+        cell.backgroundColor = UIColor.clear
+        //groupTableViewBackground
         
         let image = UIImage(named: "bubble_sent")
         cell.imgPicture.image = image!
@@ -570,8 +552,9 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         if objdta.isReply == "message-sender-box"{
             if objdta.messageType == "text"{
                 let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-
-                cell.backgroundColor = UIColor.groupTableViewBackground
+                
+                cell.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 
                 let image = UIImage(named: "bubble_sent")
                 cell.imgPicture.image = image!
@@ -580,7 +563,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                                     resizingMode: .stretch)
                     .withRenderingMode(.alwaysTemplate)
                 cell.imgPicture.image = cell.imgPicture.image?.withRenderingMode(.alwaysTemplate)
-        //            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
+                //            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
                 cell.txtMessage.text = objdta.msg
                 cell.imgProfile.isHidden = true
                 cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
@@ -588,11 +571,12 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = UITableViewAutomaticDimension
                 return cell
-
+                
             }
             else if objdta.messageType == "image"{
                 let ChatImage = tableView.dequeueReusableCell(withIdentifier: "ChatImages", for: indexPath) as! ChatImages
-                ChatImage.backgroundColor = UIColor.groupTableViewBackground
+                ChatImage.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 //groupTableViewBackground
                 ChatImage.chatImgs = objdta.chatImages
                 ChatImage.containerImageViewAttachment.layer.borderColor = UIColor.white.cgColor
@@ -601,7 +585,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatImage.lblChatTime.text = objdta.chatTime
                 ChatImage.imgProfileChatImages.image = UIImage(named: "blackuser")
                 ChatImage.imgProfileChatImages.isHidden = true
-
+                
                 tableView.rowHeight = 220
                 //        if let imgUrl = URL(string: objdta.) {
                 //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
@@ -612,13 +596,14 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 
                 return ChatImage
-
+                
             }
             else if objdta.messageType == "file"{
                 let ChatFile =  tableView.dequeueReusableCell(withIdentifier: "ChatFiles", for: indexPath) as! ChatFiles
-
-
-                ChatFile.backgroundColor = UIColor.groupTableViewBackground
+                
+                
+                ChatFile.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
@@ -634,40 +619,42 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     for files in fileUrls!{
                         /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
                         self.storeAndShare(withURLString: files)
-    
+                        
                     }
-    
+                    
                 }
                 ChatFile.imgProfileFiles.isHidden = true
                 ChatFile.imgProfileFiles.image = UIImage(named: "blackuser")
-
-    //            if let imgUrl = URL(string: objdta.img) {
-    //                ChatFile.imgProfileFiles?.sd_setShowActivityIndicatorView(true)
-    //                ChatFile.imgProfileFiles?.sd_setIndicatorStyle(.gray)
-    //                ChatFile.imgProfileFiles?.sd_setImage(with: imgUrl, completed: nil)
-    //            }
+                
+                //            if let imgUrl = URL(string: objdta.img) {
+                //                ChatFile.imgProfileFiles?.sd_setShowActivityIndicatorView(true)
+                //                ChatFile.imgProfileFiles?.sd_setIndicatorStyle(.gray)
+                //                ChatFile.imgProfileFiles?.sd_setImage(with: imgUrl, completed: nil)
+                //            }
                 ChatFile.lblChatTime.isHidden = false
                 ChatFile.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = UITableViewAutomaticDimension
-
+                
                 
                 return ChatFile
             }
             else if objdta.messageType == "map"{
                 let cellMap: WhizChatMap = tableView.dequeueReusableCell(withIdentifier: "WhizChatMap", for: indexPath) as! WhizChatMap
-                cellMap.backgroundColor = UIColor.groupTableViewBackground
-//                if objdta.latitude != nil & objdta.longitude != nil {
-                    cellMap.latitude = String(objdta.latitude)
-                    cellMap.longitude = String(objdta.longitude)
+                cellMap.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
+                //                if objdta.latitude != nil & objdta.longitude != nil {
+                cellMap.latitude = String(objdta.latitude)
+                cellMap.longitude = String(objdta.longitude)
                 cellMap.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = UITableViewAutomaticDimension
-//                }
+                //                }
                 return cellMap
             }
         }else{
             if objdta.messageType == "text"{
                 let cellw: ReceiverCell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-                cellw.backgroundColor = UIColor.groupTableViewBackground
+                cellw.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 
                 let images = UIImage(named: "bubble_se")
                 cellw.imgBackground.image = images!
@@ -687,26 +674,27 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else if objdta.messageType == "image"{
                 let ChatImageReceiver = tableView.dequeueReusableCell(withIdentifier: "ChatImagesReceiver", for: indexPath) as! ChatImagesReceiver
-
-
-                ChatImageReceiver.backgroundColor = UIColor.groupTableViewBackground
+                
+                
+                ChatImageReceiver.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 //groupTableViewBackground
                 ChatImageReceiver.chatImgs = objdta.chatImages
                 ChatImageReceiver.collageViewReceiver.reload()
-//                ChatImageReceiver.containerImgReceiver.layer.borderColor = UIColor.systemBlue.cgColor
+                //                ChatImageReceiver.containerImgReceiver.layer.borderColor = UIColor.systemBlue.cgColor
                 ChatImageReceiver.containerImgReceiver.layer.borderColor = Constants.hexStringToUIColor(hex: "#91b0ff").cgColor
-
+                
                 ChatImageReceiver.lblChatTime.isHidden = false
                 ChatImageReceiver.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = 220
                 ChatImageReceiver.imgProfileUserReceiver.isHidden = true
-//                ChatImageReceiver.imgProfileUserReceiver.image = UIImage(named: "User")
-
-//                if let imgUrl = URL(string: objdta.img) {
-//                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
-//                    ChatImageReceiver.imgProfileUserReceiver?.sd_setIndicatorStyle(.gray)
-//                    ChatImageReceiver.imgProfileUserReceiver?.sd_setImage(with: imgUrl, completed: nil)
-//                }
+                //                ChatImageReceiver.imgProfileUserReceiver.image = UIImage(named: "User")
+                
+                //                if let imgUrl = URL(string: objdta.img) {
+                //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
+                //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setIndicatorStyle(.gray)
+                //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setImage(with: imgUrl, completed: nil)
+                //                }
                 
                 
                 return ChatImageReceiver
@@ -714,15 +702,16 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else if objdta.messageType == "file"{
                 let ChatFileReceiver =  tableView.dequeueReusableCell(withIdentifier: "ChatFilesReceiver", for: indexPath) as! ChatFilesReceiver
-//                ChatFileReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
-              
-                ChatFileReceiver.backgroundColor = UIColor.groupTableViewBackground
+                //                ChatFileReceiver.backgroundView = UIImageView(image: UIImage(named: "background.jpg")!)
+                
+                ChatFileReceiver.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 ChatFileReceiver.lblFIleTitleReceiver.textColor = UIColor.white
                 ChatFileReceiver.imgDocsIcon.image = ChatFileReceiver.imgDocsIcon.image?.withRenderingMode(.alwaysTemplate)
                 ChatFileReceiver.imgDocsIcon.tintColor = .white
                 ChatFileReceiver.containerFilesReceiver.layer.borderColor = Constants.hexStringToUIColor(hex: "#91b0ff").cgColor
                 ChatFileReceiver.containerFilesReceiver.backgroundColor = Constants.hexStringToUIColor(hex: "#91b0ff")
-
+                
                 //groupTableViewBackground
                 if let theFileName = objdta.chatFiles{
                     for item in theFileName{
@@ -732,36 +721,37 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
                     ChatFileReceiver.lblFIleTitleReceiver.text =  fileNameLabel
                 }
-//
-//
+                //
+                //
                 ChatFileReceiver.btnDownloadDocsAction = { () in
                     let fileUrls = objdta.chatFiles
                     for files in fileUrls!{
                         /// Passing the remote URL of the file, to be stored and then opted with mutliple actions for the user to perform
                         self.storeAndShare(withURLString: files)
-
+                        
                     }
-
+                    
                 }
                 ChatFileReceiver.imgProfileReceiver.isHidden = true
-//                ChatFileReceiver.imgProfileReceiver.image = UIImage(named: "User")
-
-//                if let imgUrl = URL(string: objdta.img) {
-//                    ChatFileReceiver.imgProfileReceiver?.sd_setShowActivityIndicatorView(true)
-//                    ChatFileReceiver.imgProfileReceiver?.sd_setIndicatorStyle(.gray)
-//                    ChatFileReceiver.imgProfileReceiver?.sd_setImage(with: imgUrl, completed: nil)
-//                }
+                //                ChatFileReceiver.imgProfileReceiver.image = UIImage(named: "User")
+                
+                //                if let imgUrl = URL(string: objdta.img) {
+                //                    ChatFileReceiver.imgProfileReceiver?.sd_setShowActivityIndicatorView(true)
+                //                    ChatFileReceiver.imgProfileReceiver?.sd_setIndicatorStyle(.gray)
+                //                    ChatFileReceiver.imgProfileReceiver?.sd_setImage(with: imgUrl, completed: nil)
+                //                }
                 
                 ChatFileReceiver.lblChatTime.isHidden = false
                 ChatFileReceiver.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = UITableViewAutomaticDimension
-
+                
                 
                 return ChatFileReceiver
             }
             else if objdta.messageType == "map"{
                 let cellMap: WhizChatMapReceiver = tableView.dequeueReusableCell(withIdentifier: "WhizChatMapReceiver", for: indexPath) as! WhizChatMapReceiver
-                cellMap.backgroundColor = UIColor.groupTableViewBackground
+                cellMap.backgroundColor = UIColor.clear
+                //UIColor.groupTableViewBackground
                 cellMap.mainContainer.backgroundColor = Constants.hexStringToUIColor(hex: "#91b0ff")
                 cellMap.latitude = String(objdta.latitude)
                 cellMap.longitude = String(objdta.longitude)
@@ -772,14 +762,14 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             
             
         }
-
+        
         return cell
     }
-
-   
+    
+    
     //MARK:-API CALLS
     
-   
+    
     
     func getChatMesages(param: NSDictionary) {
         UserHandler.WhizChatChatMessageBox(parameter: param, success: { (successResponse) in
@@ -811,18 +801,18 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 UserDefaults.standard.set(self.senderId, forKey: "senderId")
                 self.socketManager.joinRoom(room: self.roomId, sender: self.senderId, receiver: self.receiverId)
-
+                
                 self.tableView.reloadData()
-//                self.scrollToBottom()
+                //                self.scrollToBottom()
             }
             else {
-//                let alert = Constants.showBasicAlert(message: successResponse.message)
-//                self.presentVC(alert)
+                //                let alert = Constants.showBasicAlert(message: successResponse.message)
+                //                self.presentVC(alert)
             }
         }) { (error) in
             debugPrint("+++++++\(error.message)+++++++")
-//            let alert = Constants.showBasicAlert(message: error.message)
-//            self.presentVC(alert)
+            //            let alert = Constants.showBasicAlert(message: error.message)
+            //            self.presentVC(alert)
         }
     }
     

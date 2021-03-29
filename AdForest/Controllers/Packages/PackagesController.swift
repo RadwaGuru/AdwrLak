@@ -167,13 +167,9 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
-                    
-                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
-                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
-                    
+                    self.showAd()
                 }
+
             }
         }
     }
@@ -515,8 +511,23 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
                 if product.needsFinishTransaction {
                     SwiftyStoreKit.finishTransaction(product.transaction)
                 }
-               // self.showAlert(alert: self.alertForPurchasedResult(result: result))
+//                self.showAlert(alert: self.alertForPurchasedResult(result: result))
             }
+            if case .error(let error) = result {
+                switch error.code {
+                case .unknown:print("Unknown error. Please contact support")
+                case .clientInvalid: print("Not allowed to make the payment")
+                case .paymentCancelled: break
+                case .paymentInvalid: print("The purchase identifier was invalid")
+                case .paymentNotAllowed: print("The device is not allowed to make the payment")
+                case .storeProductNotAvailable: print("The product is not available in the current storefront")
+                case .cloudServicePermissionDenied: print("Access to cloud service information is not allowed")
+                case .cloudServiceNetworkConnectionFailed: print("Could not connect to the network")
+                case .cloudServiceRevoked: print("User has revoked permission to use this cloud service")
+                default: print((error as NSError).localizedDescription)
+                }
+            }
+           
         })
     }
 

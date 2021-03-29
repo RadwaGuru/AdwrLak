@@ -116,13 +116,16 @@ class BlogController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
                 if isShowInterstital {
-                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-                    SwiftyAd.shared.showInterstitial(from: self)
+                    self.showAd()
                 }
+
             }
         }
     }
-    
+    @objc func showAd(){
+        currentVc = self
+        admobDelegate.showAd()
+    }
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -263,7 +266,7 @@ class BlogController: UIViewController, UITableViewDelegate, UITableViewDataSour
         UserHandler.blogData(success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-//                self.title = successResponse.extra.pageTitle
+                self.title = successResponse.extra.pageTitle
                 self.currentPage = successResponse.data.pagination.currentPage
                 self.maximumPage = successResponse.data.pagination.maxNumPages
                 self.dataArray = successResponse.data.post

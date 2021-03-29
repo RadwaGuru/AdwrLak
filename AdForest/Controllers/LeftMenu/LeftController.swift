@@ -44,7 +44,7 @@ enum HideGuestPackage: Int {
 enum OtherGuestMenues: Int {
     case blog = 1
     case settings
-    //    case location
+    case location
     //    case Wpml
 }
 enum OtherMenues: Int {
@@ -468,6 +468,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settingsView.delegate = self
         self.viewSettings = UINavigationController(rootViewController: settingsView)
         
+        let topLocation = storyboard?.instantiateViewController(withIdentifier: SetLocationController.className) as! SetLocationController
+        self.viewToplocation = UINavigationController(rootViewController: topLocation)
     }
     
     func initializeOthersettingLangViewa() {
@@ -514,6 +516,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slideMenuController()?.changeMainViewController(self.viewBlog, close: true)
         case .settings:
             self.slideMenuController()?.changeMainViewController(self.viewSettings, close: true)
+        case .location:
+            self.slideMenuController()?.changeMainViewController(self.viewToplocation, close: true)
         }
     }
     
@@ -768,28 +772,22 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(menu)
                     //                    self.changeGuestMenu(menu)
                 }
-                debugPrint(UserHandler.sharedInstance.otherKeysArray)
-                for item in UserHandler.sharedInstance.otherKeysArray{
-                    if item == "top_location_text"{
-                        if toplocation == true{
-                            return 40
-                        }else{
-                            return 0
-                        }
-                    }else{
-                        print("ignore")
-                    }
-                }
-                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row + 1]
+//                debugPrint(UserHandler.sharedInstance.otherKeysArray)
+//                for item in UserHandler.sharedInstance.otherKeysArray{
+//                    if item == "top_location_text"{
+//                        if toplocation == true{
+//                            return 40
+//                        }else{
+//                            return 0
+//                        }
+//                    }else{
+//                        print("ignore")
+//                    }
+//                }
+                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
                 switch img.lowercased() {
                 case "blog":
                     if blog == true{
-                        return 40
-                    }else{
-                        return 0
-                    }
-                case "top_location_text":
-                    if toplocation == true{
                         return 40
                     }else{
                         return 0
@@ -803,7 +801,17 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                     }
                 case "app_settings":
-                    return 40
+                    if settings == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
+                case "top_location_text":
+                    if toplocation == true{
+                        return 40
+                    }else{
+                        return 0
+                    }
                 default:
                     return 40
                 }

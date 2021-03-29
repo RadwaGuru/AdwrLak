@@ -229,13 +229,9 @@ class InactiveAdsController: UIViewController, UIScrollViewDelegate, UICollectio
                     }
                 }
                 if isShowInterstital {
-//                    SwiftyAd.shared.setup(withBannerID: "", interstitialID: (objData?.interstitalId)!, rewardedVideoID: "")
-//                    SwiftyAd.shared.showInterstitial(from: self)
-                    
-                    self.perform(#selector(self.showAd), with: nil, afterDelay: Double(objData!.timeInitial)!)
-                    self.perform(#selector(self.showAd2), with: nil, afterDelay: Double(objData!.time)!)
-                    
+                    self.showAd()
                 }
+
             }
         }
     }

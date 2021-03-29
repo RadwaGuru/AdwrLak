@@ -936,8 +936,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 
                 }
             } else {
-                let alert = Constants.showBasicAlert(message: successResponse.message)
+                let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
+                    let confirmationVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+                    confirmationVC.isFromVerification = true
+                    confirmationVC.user_id = successResponse.data.id
+                    self.navigationController?.pushViewController(confirmationVC, animated: true)
+                })
                 self.presentVC(alert)
+//                let alert = Constants.showBasicAlert(message: successResponse.message)
+//                self.presentVC(alert)
             }
         }) { (error) in
             let alert = Constants.showBasicAlert(message: error.message)

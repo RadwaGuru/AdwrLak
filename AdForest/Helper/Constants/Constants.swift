@@ -16,6 +16,7 @@ class Constants {
 
         static let ipAddress =  "https://adforest-testapp.scriptsbundle.com/"//Enter your domain name here
 //        static let ipAddress =  "https://www.dev.pflanzenkreisel.de/"//Enter your domain name here
+//        static let ipAddress =  "https://www.hyperlinkconnect.com/"//Enter your domain name here
 
         static let baseUrl =  ipAddress + "wp-json/adforest/v1/"
         
@@ -129,6 +130,11 @@ class Constants {
     }
 
     struct customCodes {
+        //Hyper link
+//        static let purchaseCode = "4b33c39c-decc-415a-9a7e-f61b52fc7738"
+//        static let securityCode = "0673"
+        
+//        plantone
 //        static let purchaseCode = "9a4c23d6-55d9-4799-9e91-0d899fd5f503"
 //        static let securityCode = "2021"
 

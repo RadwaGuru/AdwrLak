@@ -199,7 +199,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
            
     }
     
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -728,7 +728,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             mapItem.name = "Place Name"
             mapItem.openInMaps(launchOptions: options)
         }
-    
+  
     //MARK:- IBActions
     
     @IBAction func actionPopup(_ sender: Any) {

