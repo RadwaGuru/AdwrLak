@@ -84,6 +84,10 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
         let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtAddress.textAlignment = .right
+        }
+
     }
     
     
@@ -113,11 +117,13 @@ class LocationSearch: UIViewController , RangeSeekSliderDelegate, NVActivityIndi
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         self.dismissVC(completion: nil)
+        debugPrint("Places Error::\(error.localizedDescription)")
     }
     
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         self.dismissVC(completion: nil)
     }
+    
     
     //MARK: - Custom
     func showLoader() {

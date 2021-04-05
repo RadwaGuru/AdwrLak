@@ -49,9 +49,10 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         didSet {
             txtMessage.layer.borderWidth = 0.5
-            txtMessage.layer.cornerRadius = 20
-            txtMessage.clipsToBounds  = true
-            txtMessage.layer.borderColor = UIColor.lightGray.cgColor
+//            txtMessage.layer.cornerRadius = 20
+//            txtMessage.clipsToBounds  = true
+            txtMessage.layer.borderColor = Constants.hexStringToUIColor(hex: "#c7c7c7").cgColor
+                //UIColor.lightGray.cgColor
             txtMessage.delegate = self
             
         }
@@ -107,6 +108,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
             containerViewBottom.roundCorners()
         }
     }
+    
+    @IBOutlet weak var seperatorWhite: UIView!
     
     //MARK:- Properties
     var goON = false
@@ -566,6 +569,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 //            cell.imgPicture.tintColor = UIColor(red: 216/255, green: 238/255, blue: 160/255, alpha: 1)   //(hex:"D4FB79")
                 cell.txtMessage.text = objdta.msg
                 cell.imgProfile.isHidden = true
+                cell.imgPicture.leftAnchor.constraint(equalTo: cell.imgProfile.rightAnchor,constant: -20).isActive = true
+                cell.txtMessage.leftAnchor.constraint(equalTo: cell.imgProfile.rightAnchor,constant: -20).isActive = true
                 cell.bgImageHeightConstraint.constant += cell.heightConstraint.constant
                 cell.imgProfile.image = UIImage(named: "blackuser")
                 cell.lblChatTime.text = objdta.chatTime
@@ -585,7 +590,10 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatImage.lblChatTime.text = objdta.chatTime
                 ChatImage.imgProfileChatImages.image = UIImage(named: "blackuser")
                 ChatImage.imgProfileChatImages.isHidden = true
-                
+
+                ChatImage.containerImageViewAttachment.leftAnchor.constraint(equalTo: ChatImage.imgProfileChatImages.rightAnchor,constant: -20).isActive = true
+                ChatImage.lblChatTime.leftAnchor.constraint(equalTo: ChatImage.imgProfileChatImages.rightAnchor,constant: -20).isActive = true
+
                 tableView.rowHeight = 220
                 //        if let imgUrl = URL(string: objdta.) {
                 //                    ChatImageReceiver.imgProfileUserReceiver?.sd_setShowActivityIndicatorView(true)
@@ -624,6 +632,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 }
                 ChatFile.imgProfileFiles.isHidden = true
+                ChatFile.containerFiles.leftAnchor.constraint(equalTo: ChatFile.imgProfileFiles.rightAnchor,constant: -20).isActive = true
+
                 ChatFile.imgProfileFiles.image = UIImage(named: "blackuser")
                 
                 //            if let imgUrl = URL(string: objdta.img) {
@@ -646,6 +656,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 cellMap.latitude = String(objdta.latitude)
                 cellMap.longitude = String(objdta.longitude)
                 cellMap.lblChatTime.text = objdta.chatTime
+//                cellMap.mainContainer.leftAnchor.constraint(equalTo: cell.contentView.rightAnchor,constant: -20).isActive = true
+
                 tableView.rowHeight = UITableViewAutomaticDimension
                 //                }
                 return cellMap
@@ -667,6 +679,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 cellw.imgBackground.tintColor = Constants.hexStringToUIColor(hex: "#91b0ff")
                 cellw.txtMessage.textColor = UIColor.white
                 cellw.imgIcon.isHidden = true
+                cellw.imgBackground.rightAnchor.constraint(equalTo: cellw.imgIcon.rightAnchor,constant: -20).isActive = true
+
                 cellw.lblChatReceiverTime.text = objdta.chatTime
                 cellw.bgImageHeightConstraint.constant += cellw.heightConstraint.constant
                 tableView.rowHeight = UITableViewAutomaticDimension
@@ -685,6 +699,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 ChatImageReceiver.containerImgReceiver.layer.borderColor = Constants.hexStringToUIColor(hex: "#91b0ff").cgColor
                 
                 ChatImageReceiver.lblChatTime.isHidden = false
+//                ChatImageReceiver.containerImgReceiver.rightAnchor.constraint(equalTo: ChatImageReceiver.imgProfileUserReceiver.rightAnchor,constant: -40).isActive = true
+
                 ChatImageReceiver.lblChatTime.text = objdta.chatTime
                 tableView.rowHeight = 220
                 ChatImageReceiver.imgProfileUserReceiver.isHidden = true
@@ -793,8 +809,8 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.uploadLocationHeading = successResponse.extra.uploadLocationHeading
                 self.islocationAllowed = successResponse.extra.isLcoationAllowed
                 if self.imageAllowed == "0" && self.fileAllowed == "0" && self.islocationAllowed == "0"{
-                    self.containerViewAttachments.isHidden = true
-                    self.txtMessage.rightAnchor.constraint(equalTo: self.containerViewSendMessage.leftAnchor).isActive = true
+                    self.containerViewSmilies.isHidden = true
+//                    self.txtMessage.rightAnchor.constraint(equalTo: self.containerViewBottom.leftAnchor).isActive = true
                 }
                 for item in self.messages {
                     self.messageId = item.chatMessageID
@@ -820,6 +836,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         UserHandler.WhizChatSendChatBoxMessage(parameter: param, success: { (successResponse) in
             if successResponse.success {
                 debugPrint(successResponse.data)
+                self.tableView.reloadData()
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

@@ -228,9 +228,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                     if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostCell {
                         var obj = AdPostField()
                         obj.fieldVal = cell.txtType.text
-                        obj.fieldTypeName = cell.fieldName
-                        obj.fieldType = "textfield"
-                        data.append(obj)
                         guard let txtTitle = cell.txtType.text else {return}
                         if cell.fieldName == "ad_title" {
                             if txtTitle == "" {
@@ -246,6 +243,10 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                                 self.adTitle = txtTitle
                             }
                         }
+                        obj.fieldTypeName = cell.fieldName
+                        obj.fieldType = "textfield"
+                        data.append(obj)
+                        
                     }
                 }
                 else if objData.fieldType == "select" {
@@ -307,7 +308,7 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         postVC.objArray = data
                         postVC.isfromEditAd = self.isFromEditAd
                         postVC.requireMessage = self.requireMessage
-
+                        
                     }
                     else {
                         postVC.objArray = data
@@ -315,88 +316,116 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         postVC.isfromEditAd = self.isFromEditAd
                         postVC.priceHide = self.priceHide
                         postVC.requireMessage = self.requireMessage
-
+                        
                     }
                     postVC.imageArray = self.imagesArray
                     postVC.imageIDArray = self.imageIDArray
                     postVC.isBid = self.isBidding
                     postVC.isImg = self.isImage
                     postVC.requireMessage = self.requireMessage
-
+                    
                     self.navigationController?.pushViewController(postVC, animated: true)
                 }
             }
             
             else {
+                if self.adTitle == ""  {
+                    let alert = Constants.showBasicAlert(message: self.requireMessage)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else {
+                    let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
+                    if AddsHandler.sharedInstance.isCategoeyTempelateOn {
+                        self.refreshArray = dataArray
+                        self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                        print(AddsHandler.sharedInstance.objAdPostData)
+                        postVC.fieldsArray = self.refreshArray
+                        
+                        postVC.objArray = data
+                        postVC.isfromEditAd = self.isFromEditAd
+                        postVC.requireMessage = self.requireMessage
+                        
+                    }
+                    else {
+                        postVC.objArray = data
+                        print(data)
+                        postVC.fieldsArray = self.dataArray
+                        postVC.isfromEditAd = self.isFromEditAd
+                        postVC.priceHide = self.priceHide
+                        postVC.requireMessage = self.requireMessage
+                        
+                    }
+                    postVC.imageArray = self.imagesArray
+                    postVC.imageIDArray = self.imageIDArray
+                    postVC.isBid = self.isBidding
+                    postVC.isImg = self.isImage
+                    postVC.requireMessage = self.requireMessage
+                    self.navigationController?.pushViewController(postVC, animated: true)
+                }
+            }
+            
+        }
+        else{
+//            if self.adTitle == "" {
+//                let alert = Constants.showBasicAlert(message: "chaloooooooo")
+//                self.present(alert, animated: true, completion: nil)
+//
+//            }
+//            else {
                 let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
                 if AddsHandler.sharedInstance.isCategoeyTempelateOn {
                     self.refreshArray = dataArray
                     self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
-                    print(AddsHandler.sharedInstance.objAdPostData)
                     postVC.fieldsArray = self.refreshArray
-                    
                     postVC.objArray = data
                     postVC.isfromEditAd = self.isFromEditAd
                     postVC.requireMessage = self.requireMessage
-
+                    
                 }
                 else {
                     postVC.objArray = data
                     print(data)
                     postVC.fieldsArray = self.dataArray
                     postVC.isfromEditAd = self.isFromEditAd
+                    print(self.priceHide)
                     postVC.priceHide = self.priceHide
                     postVC.requireMessage = self.requireMessage
-
+                    
+                    
                 }
                 postVC.imageArray = self.imagesArray
                 postVC.imageIDArray = self.imageIDArray
                 postVC.isBid = self.isBidding
                 postVC.isImg = self.isImage
                 postVC.requireMessage = self.requireMessage
+                
                 self.navigationController?.pushViewController(postVC, animated: true)
             }
             
-        }
-        else{
-            //            if self.adTitle == "" {
-            //
-            //            }
-            //            else {
-            let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
-            if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                self.refreshArray = dataArray
-                self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
-                postVC.fieldsArray = self.refreshArray
-                postVC.objArray = data
-                postVC.isfromEditAd = self.isFromEditAd
-                postVC.requireMessage = self.requireMessage
-
-            }
-            else {
-                postVC.objArray = data
-                print(data)
-                postVC.fieldsArray = self.dataArray
-                postVC.isfromEditAd = self.isFromEditAd
-                print(self.priceHide)
-                postVC.priceHide = self.priceHide
-                postVC.requireMessage = self.requireMessage
-
-                
-            }
-            postVC.imageArray = self.imagesArray
-            postVC.imageIDArray = self.imageIDArray
-            postVC.isBid = self.isBidding
-            postVC.isImg = self.isImage
-            postVC.requireMessage = self.requireMessage
-
-            self.navigationController?.pushViewController(postVC, animated: true)
-        }
-        
-        //
-        
-        //        }
+            
+//        }
     }
+    func showToastAdPost(message : String) {
+
+          // add label
+            let toastLabel = UILabel(frame: CGRect(x: 30, y: self.view.frame.size.height-150, width: 330, height: 35))
+            toastLabel.text = message
+            toastLabel.alpha = 1.0
+            toastLabel.layer.cornerRadius = 10;
+            toastLabel.clipsToBounds  =  true
+
+            //add button
+            let button = UIButton.init(type: .custom)
+            button.frame = CGRect.init(x: toastLabel.frame.width - 50, y: toastLabel.frame.origin.y + 20, width: 40, height: 40)
+            self.view.addSubview(toastLabel)
+            self.view.addSubview(button)
+            UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }, completion: {(isCompleted) in
+                toastLabel.removeFromSuperview()
+            })
+        }
+
     //MARK:-ADMOB
     func adMob() {
         if UserHandler.sharedInstance.objAdMob != nil {

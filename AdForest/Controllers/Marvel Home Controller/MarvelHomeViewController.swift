@@ -132,7 +132,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.addLeftBarButtonWithImage()
         self.adForest_homeData()
         self.adForest_sendFCMToken()
-
+        self.subscribeToTopicMessage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -158,7 +158,14 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                   tableView.reloadData()
         self.refreshControl.endRefreshing()
     }
-    
+    //MARK:- Topic Message
+    func subscribeToTopicMessage() {
+        if defaults.bool(forKey: "isLogin") {
+            Messaging.messaging().shouldEstablishDirectChannel = true
+            Messaging.messaging().subscribe(toTopic: "global")
+            
+        }
+    }
     //MARK:- go to category detail
     func goToCategoryDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController

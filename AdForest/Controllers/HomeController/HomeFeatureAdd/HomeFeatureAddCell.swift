@@ -47,7 +47,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        //        self.startTimer()
+         self.startTimer()
         self.layoutLatest()
         self.layoutHorizontalSingleAd()
         
@@ -55,8 +55,19 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     
     //MARK:- Custom
     func startTimer() {
-        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
+        let time: String = UserDefaults.standard.string(forKey: "featuredTime")!
+        if time != ""{
+            let dur = time
+            var msToSeconds: Double { Double(dur)! / 1000 }
+            debugPrint(msToSeconds)
+            //0.01
+            Timer.scheduledTimer(timeInterval: TimeInterval(msToSeconds), target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
+        }
     }
+
+//    func startTimer() {
+//        Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
+//    }
     
     @objc func scrollToNextCell() {
         let cellSize = CGSize(width: frame.width, height: frame.height)

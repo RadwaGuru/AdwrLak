@@ -128,7 +128,7 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     var whizChatPostId: String!
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
-    var whizChatChatId: String!
+    var whizChatChatId = "0"
 
     
     

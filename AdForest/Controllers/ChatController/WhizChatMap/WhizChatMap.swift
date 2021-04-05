@@ -32,6 +32,7 @@ class WhizChatMap: UITableViewCell, MKMapViewDelegate, CLLocationManagerDelegate
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         // Initialization code
         if latitude != "" && longitude != "" {
             initialLocation = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)

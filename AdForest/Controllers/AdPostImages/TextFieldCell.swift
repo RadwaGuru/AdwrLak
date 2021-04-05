@@ -46,6 +46,9 @@ class TextFieldCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtType.textAlignment = .right
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -29,8 +29,9 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
             APIKey = WhizChtApiKey
         }
         print("----establishConnection")
+        //"type":"gtChatPro"
         //"key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"
-        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : APIKey ,"website":Constants.URL.baseUrl,"type":"gtChatPro"
+        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : APIKey ,"website":Constants.URL.baseUrl
         ])])
         socket = manager?.defaultSocket
         manager?.forceNew = true

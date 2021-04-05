@@ -68,6 +68,12 @@ class FeedbackController: UIViewController, NVActivityIndicatorViewable, UITextV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.populateData()
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtEmail.textAlignment = .right
+            txtSubject.textAlignment = .right
+            txtDescription.textAlignment = .right
+            
+        }
     }
     
     //MARK:- Custom

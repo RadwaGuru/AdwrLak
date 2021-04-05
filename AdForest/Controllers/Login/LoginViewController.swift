@@ -169,7 +169,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         btnApple.layer.cornerRadius = 10
         btnApple.layer.borderWidth = 1
         btnApple.layer.borderColor = UIColor.black.cgColor
-        
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            btnApple.imageEdgeInsets = UIEdgeInsets(top: 10, left:30, bottom: 10, right: 10)
+        }
         
         if #available(iOS 13, *) {
             //         startSignInWithAppleFlow()
@@ -461,6 +463,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 self.buttonGoogleLogin.isHidden = false
                 self.btnApple.isHidden = false
                 self.buttonLinkedIn.isHidden = true
+                self.buttonGoogleLogin.centerXAnchor.constraint(equalTo: containerViewSocialButton.centerXAnchor).isActive = true
                 buttonGoogleLogin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
                 btnApple.topAnchor.constraint(equalTo: self.buttonGoogleLogin.bottomAnchor, constant: 8).isActive = true
             }

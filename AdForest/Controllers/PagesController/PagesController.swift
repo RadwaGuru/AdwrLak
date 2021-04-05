@@ -112,7 +112,9 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
                 
                 if let htmlString = successResponse.data.pageContent {
                     self.title = successResponse.data.pageTitle
-                    self.wkWebView.loadHTMLString(htmlString, baseURL: nil)
+                    let headerString = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head><body>"
+                    let ht = "</body></html>"
+                    self.wkWebView.loadHTMLString(headerString + htmlString + ht, baseURL: nil)
                     
                 }
             }
@@ -214,7 +216,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
     }
     
     @objc func actionHome() {
-
+        
         if homeStyle == "home1"{
             self.appDelegate.moveToHome()
             

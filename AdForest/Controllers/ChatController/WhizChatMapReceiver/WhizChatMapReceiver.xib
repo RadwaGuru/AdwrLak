@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSR-3p-X7a">
-                        <rect key="frame" x="130" y="9" width="229" height="224"/>
+                        <rect key="frame" x="150" y="9" width="229" height="224"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="t8r-Wt-B0o">
                                 <rect key="frame" x="7" y="7" width="215" height="210"/>
@@ -44,7 +44,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOT-iN-EER">
-                        <rect key="frame" x="143" y="235" width="202" height="22"/>
+                        <rect key="frame" x="163" y="241" width="202" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="CRz-ZY-3aJ"/>
                         </constraints>
@@ -54,12 +54,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="nOT-iN-EER" firstAttribute="leading" secondItem="cEq-17-I5B" secondAttribute="leadingMargin" constant="123" id="5ni-1s-QCD"/>
-                    <constraint firstItem="nOT-iN-EER" firstAttribute="trailing" secondItem="cEq-17-I5B" secondAttribute="trailingMargin" constant="-49" id="BTa-gM-nUn"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="nOT-iN-EER" secondAttribute="bottom" constant="7" id="EEq-Xt-Bfu"/>
-                    <constraint firstAttribute="trailing" secondItem="zSR-3p-X7a" secondAttribute="trailing" constant="55" id="ZNt-Zk-3xS"/>
+                    <constraint firstItem="nOT-iN-EER" firstAttribute="leading" secondItem="cEq-17-I5B" secondAttribute="leadingMargin" constant="143" id="5ni-1s-QCD"/>
+                    <constraint firstItem="nOT-iN-EER" firstAttribute="trailing" secondItem="cEq-17-I5B" secondAttribute="trailingMargin" constant="-29" id="BTa-gM-nUn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="nOT-iN-EER" secondAttribute="bottom" constant="1" id="EEq-Xt-Bfu"/>
+                    <constraint firstAttribute="trailing" secondItem="zSR-3p-X7a" secondAttribute="trailing" constant="35" id="ZNt-Zk-3xS"/>
                     <constraint firstItem="zSR-3p-X7a" firstAttribute="top" secondItem="cEq-17-I5B" secondAttribute="top" constant="9" id="u7W-v7-ovY"/>
-                    <constraint firstItem="nOT-iN-EER" firstAttribute="top" secondItem="zSR-3p-X7a" secondAttribute="bottom" constant="2" id="uEK-cA-wMe"/>
+                    <constraint firstItem="nOT-iN-EER" firstAttribute="top" secondItem="zSR-3p-X7a" secondAttribute="bottom" constant="8" id="uEK-cA-wMe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

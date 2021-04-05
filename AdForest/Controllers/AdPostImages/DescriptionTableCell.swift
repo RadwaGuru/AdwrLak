@@ -47,6 +47,11 @@ class DescriptionTableCell: UITableViewCell, UITextViewDelegate {
         super.awakeFromNib()
         selectionStyle = .none
         txtDescription.delegate = self
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            txtDescription.textAlignment = .right
+            lblDescription.textAlignment = .right
+
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

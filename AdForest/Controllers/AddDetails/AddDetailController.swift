@@ -124,7 +124,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var whizChatPostId: String!
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
-    var whizChatChatId: String!
+    var whizChatChatId = ""
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +132,6 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             self.showBackButton()
         }else{
             self.addBackButton()
-
         }
 //        self.showBackButton()
         self.hideKeyboard()

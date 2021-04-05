@@ -173,6 +173,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         setUpSignInAppleButton()
         btnCheckBoxSubscriber.isHidden = true
         btnTextSubscriber.isHidden = true
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            btnApple.imageEdgeInsets = UIEdgeInsets(top: 10, left:30, bottom: 10, right: 10)
+
+        }
         if #available(iOS 13.0, *) {
             //            self.checkStatusOfAppleSignIn()
         } else {
@@ -589,17 +593,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
+    //Fixed position of items in CollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        print(width)
-        return CGSize(width: width/3, height: 120)
-        
+        let padding: CGFloat = 0
+        let collectionViewSize = collectionView.frame.size.width - padding
+        return CGSize(width: collectionViewSize/3, height:120)
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    //        return UIEdgeInsets.zero
-    //
-    //    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -608,6 +607,35 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let totalCellWidth = 56 * arraySocialLogin.count
+        let totalSpacingWidth = 5 * (arraySocialLogin.count - 1)
+        let leftInset = (collectionView.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 3
+        let rightInset = leftInset
+        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+    }
+    
+    //OLD STeps
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = collectionView.frame.width
+//        print(width)
+//        return CGSize(width: width/3, height: 120)
+//
+//    }
+//
+//    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//    //        return UIEdgeInsets.zero
+//    //
+//    //    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
     
     //MARK: -IBActions
     //_ sender: Any

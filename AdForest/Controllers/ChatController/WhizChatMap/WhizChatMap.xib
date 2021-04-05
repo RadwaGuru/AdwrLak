@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Enl-St-SjS">
-                        <rect key="frame" x="64" y="4" width="214" height="234"/>
+                        <rect key="frame" x="25" y="4" width="214" height="234"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-RF-op3">
                                 <rect key="frame" x="7" y="7" width="200" height="220"/>
@@ -45,7 +45,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi1-cy-jyf">
-                        <rect key="frame" x="64" y="240" width="202" height="16"/>
+                        <rect key="frame" x="25" y="240" width="202" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" systemColor="systemGrayColor"/>
                         <nil key="highlightedColor"/>
@@ -53,12 +53,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="fi1-cy-jyf" firstAttribute="top" secondItem="Enl-St-SjS" secondAttribute="bottom" constant="2" id="2jF-6G-DfD"/>
-                    <constraint firstItem="fi1-cy-jyf" firstAttribute="leading" secondItem="BJM-tX-1xh" secondAttribute="leading" constant="64" id="3BQ-Kn-13P"/>
+                    <constraint firstItem="fi1-cy-jyf" firstAttribute="leading" secondItem="BJM-tX-1xh" secondAttribute="leading" constant="25" id="3BQ-Kn-13P"/>
                     <constraint firstItem="fi1-cy-jyf" firstAttribute="top" secondItem="Enl-St-SjS" secondAttribute="bottom" constant="2" id="AxS-8s-TXh"/>
-                    <constraint firstAttribute="trailing" secondItem="fi1-cy-jyf" secondAttribute="trailing" constant="151" id="BOI-di-dBR"/>
-                    <constraint firstItem="Enl-St-SjS" firstAttribute="leading" secondItem="BJM-tX-1xh" secondAttribute="leading" constant="64" id="H5D-ii-Jsv"/>
+                    <constraint firstAttribute="trailing" secondItem="fi1-cy-jyf" secondAttribute="trailing" constant="190" id="BOI-di-dBR"/>
+                    <constraint firstItem="Enl-St-SjS" firstAttribute="leading" secondItem="BJM-tX-1xh" secondAttribute="leading" constant="25" id="H5D-ii-Jsv"/>
                     <constraint firstAttribute="bottom" secondItem="fi1-cy-jyf" secondAttribute="bottom" constant="10" id="IMq-m8-1Cc"/>
-                    <constraint firstAttribute="trailing" secondItem="Enl-St-SjS" secondAttribute="trailing" constant="139" id="TMT-S3-3GX"/>
+                    <constraint firstAttribute="trailing" secondItem="Enl-St-SjS" secondAttribute="trailing" constant="178" id="TMT-S3-3GX"/>
                     <constraint firstItem="Enl-St-SjS" firstAttribute="top" secondItem="BJM-tX-1xh" secondAttribute="top" constant="4" id="gbx-iJ-x2R"/>
                 </constraints>
             </tableViewCellContentView>

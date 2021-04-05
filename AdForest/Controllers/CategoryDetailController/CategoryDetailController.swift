@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 class CategoryDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, UISearchResultsUpdating, UISearchBarDelegate {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -21,7 +21,7 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
             if newHome == false{
                 tableView.register(UINib(nibName: "CategoryDetailCell", bundle: nil), forCellReuseIdentifier: "CategoryDetailCell")
             }else{
-            tableView.register(UINib(nibName: "MarvelCategoryDetailCell", bundle: nil), forCellReuseIdentifier: "MarvelCategoryDetailCell")
+                tableView.register(UINib(nibName: "MarvelCategoryDetailCell", bundle: nil), forCellReuseIdentifier: "MarvelCategoryDetailCell")
             }
         }
     }
@@ -41,19 +41,19 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         self.showBackButton()
         self.configureSearchController()
-       // self.setupSearchBar()
+        // self.setupSearchBar()
         
         if objDataChild == true {
             let param: [String: Any] = ["term_name":"ad_cats", "term_id":termId, "page_number":1]
             print(param)
             self.adForest_locationDetails(parameter: param as NSDictionary)
         }else{
-        let param: [String: Any] = ["term_name":"ad_cats", "term_id": "", "page_number":1]
-        print(param)
-        self.adForest_locationDetails(parameter: param as NSDictionary)
+            let param: [String: Any] = ["term_name":"ad_cats", "term_id": "", "page_number":1]
+            print(param)
+            self.adForest_locationDetails(parameter: param as NSDictionary)
         }
     }
-
+    
     //MARK: - Custom
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
@@ -71,10 +71,10 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//       searchBar.setValue("Done", forKey: "_cancelButtonText")
-//        IOS 13 fixed search bar issue
+        //       searchBar.setValue("Done", forKey: "_cancelButtonText")
+        //        IOS 13 fixed search bar issue
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Done"
-
+        
         shouldShowSearchResults = true
         tableView.reloadData()
     }
@@ -122,69 +122,69 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if newHome == false {
-        let cell: CategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "CategoryDetailCell", for: indexPath) as! CategoryDetailCell
-         cell.accessoryType = .disclosureIndicator
-        
-        if shouldShowSearchResults {
-            if let name = filteredArray[indexPath.row].name {
-                cell.lblName.text = name
+            let cell: CategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "CategoryDetailCell", for: indexPath) as! CategoryDetailCell
+            cell.accessoryType = .disclosureIndicator
+            
+            if shouldShowSearchResults {
+                if let name = filteredArray[indexPath.row].name {
+                    cell.lblName.text = name
+                }
+            } else {
+                if let name = dataArray[indexPath.row].name {
+                    cell.lblName.text = name
+                }
             }
-        } else {
-            if let name = dataArray[indexPath.row].name {
-                cell.lblName.text = name
-            }
-        }
             return cell
-
+            
         }
         else{
-        let cell: MarvelCategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "MarvelCategoryDetailCell", for: indexPath) as! MarvelCategoryDetailCell
-         
-//            cell.accessoryType = .disclosureIndicator
-           
-           if shouldShowSearchResults {
-               if let name = filteredArray[indexPath.row].name {
-                   cell.lblCat.text = name
-              
-               }
-            let objData = filteredArray[indexPath.row]
-
-            if let imgUrl = URL(string: objData.termImg) {
+            let cell: MarvelCategoryDetailCell = tableView.dequeueReusableCell(withIdentifier: "MarvelCategoryDetailCell", for: indexPath) as! MarvelCategoryDetailCell
+            
+            //            cell.accessoryType = .disclosureIndicator
+            cell.lblCatCount.isHidden = true
+            if shouldShowSearchResults {
+                if let name = filteredArray[indexPath.row].name {
+                    cell.lblCat.text = name
+                    
+                }
+                let objData = filteredArray[indexPath.row]
+                
+                if let imgUrl = URL(string: objData.termImg) {
                     cell.imgCat.sd_setShowActivityIndicatorView(true)
                     cell.imgCat.sd_setIndicatorStyle(.gray)
                     cell.imgCat.sd_setImage(with: imgUrl, completed: nil)
+                    
+                }
                 
-            }
-
-            if let count = objData.catCount {
-                cell.lblCatCount.text = String(count)
-            }
-
-            
-
-           } else {
-               if let name = dataArray[indexPath.row].name {
-                   cell.lblCat.text = name
-               }
-                        
-            let objData = dataArray[indexPath.row]
-            if let count = objData.catCount {
-                cell.lblCatCount.text = String(count)
-            }
-
-            print(objData.count)
-            
-            if let imgUrl = URL(string: objData.termImg) {
+                if let count = objData.catCount {
+                    cell.lblCatCount.text = String(count)
+                }
+                
+                
+                
+            } else {
+                if let name = dataArray[indexPath.row].name {
+                    cell.lblCat.text = name
+                }
+                
+                let objData = dataArray[indexPath.row]
+                if let count = objData.catCount {
+                    cell.lblCatCount.text = String(count)
+                }
+                
+                print(objData.count)
+                
+                if let imgUrl = URL(string: objData.termImg) {
                     cell.imgCat.sd_setShowActivityIndicatorView(true)
                     cell.imgCat.sd_setIndicatorStyle(.gray)
                     cell.imgCat.sd_setImage(with: imgUrl, completed: nil)
+                    
+                }
                 
             }
-            
-           }
             
             return cell
-
+            
         }
     }
     
