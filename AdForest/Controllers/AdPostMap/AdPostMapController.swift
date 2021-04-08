@@ -224,11 +224,11 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                             filter.type = .region
                         }else{
 
-                            filter.type = .city
+                            filter.type = .address
                             
                         }
                     }
-                    
+                    searchVC.autocompleteFilter = filter
 
                     searchVC.modalPresentationStyle = .fullScreen
                     self.presentVC(searchVC)

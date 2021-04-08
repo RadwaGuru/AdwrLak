@@ -22,7 +22,11 @@ struct ProfileDetailsTexts {
     var selectImage : String!
     var selectPic : ProfileDetailsSelectPic!
     var sendSmsDialog : ProfileDetailsSendSmsDialogue!
-    
+    var codeSentTo: String!
+    var codeNotReceived:String!
+    var resendCode: String!
+    var verifyNumber:String!
+    var SmsGateway:String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -48,6 +52,12 @@ struct ProfileDetailsTexts {
         if let sendSmsDialogData = dictionary["send_sms_dialog"] as? [String:Any]{
             sendSmsDialog = ProfileDetailsSendSmsDialogue(fromDictionary: sendSmsDialogData)
         }
+        codeSentTo = dictionary["code_sent"] as? String
+        codeNotReceived = dictionary["not_received"] as? String
+        resendCode = dictionary["try_again"] as? String
+        verifyNumber = dictionary["verify_number"] as? String
+        SmsGateway = dictionary["sms_gateway"] as? String
+        
     }
     
     /**

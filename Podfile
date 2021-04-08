@@ -122,5 +122,9 @@ pod 'CollageView', '~> 1.0.4'
     pod 'MaterialProgressBar'
     #SLiderImages
 pod "ZoomableImageSlider"
+  #carousel
+#pod "CLabsImageSlider", '~> 0.1.2'
+#pod 'ZCycleView'
+
 
 end

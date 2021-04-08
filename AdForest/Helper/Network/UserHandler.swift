@@ -284,6 +284,18 @@ class UserHandler {
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
+    //MARK:- Verify Code
+    class func verifyFireBaseCode(param: NSDictionary , success: @escaping(PhoneVerificationRoot)-> Void, failure: @escaping(NetworkError)-> Void)  {
+        let url = Constants.URL.baseUrl+Constants.URL.verifyFirebasePhoneNo
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: param as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let objCode = PhoneVerificationRoot(fromDictionary: dictionary)
+            success(objCode)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
     
     //MARK:- Blog Data
     class func blogData(success: @escaping(BlogRoot)-> Void, failure: @escaping(NetworkError)-> Void) {

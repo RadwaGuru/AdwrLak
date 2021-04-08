@@ -16,10 +16,10 @@ import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
 import IQKeyboardManagerSwift
-
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate{
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate,OpenBannerCarouselDelegate, BannerCategoryDetailDelegate{
+    
     
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -46,7 +46,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let keyboardManager = IQKeyboardManager.sharedManager()
     
     //MARK:- Properties
-    
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -103,7 +103,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-    
+    let urlImages =  ["https://picsum.photos/id/1/200/300","https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ","https://i.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68","https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE","https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g","https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w","https://i.picsum.photos/id/1002/4312/2868.jpg?hmac=5LlLE-NY9oMnmIQp7ms6IfdvSUQOzP_O3DPMWmyNxwo","https://i.picsum.photos/id/1003/1181/1772.jpg?hmac=oN9fHMXiqe9Zq2RM6XT-RVZkojgPnECWwyEF1RvvTZk","https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY","https://i.picsum.photos/id/1005/5760/3840.jpg?hmac=2acSJCOwz9q_dKtDZdSB-OIK1HUcwBeXco_RMMTUgfY","https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g","https://i.picsum.photos/id/1008/5616/3744.jpg?hmac=906z84ml4jhqPMsm4ObF9aZhCRC-t2S_Sy0RLvYWZwY","https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk"]
   
    
 
@@ -128,6 +128,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        inters.load(request)
 
 //        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        
+        tableView.register(UINib(nibName: "CarouselHomeCell", bundle: nil), forCellReuseIdentifier: "CarouselHomeCell")
+
 
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
@@ -154,6 +157,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //self.adForest_homeData()
         
     }
+    
     
     @objc func refreshTableView() {
         self.adForest_homeData()
@@ -193,7 +197,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
-    
+    //MARK:- Go to CarouselPage
+    func openCarousel(url: String) {
+        let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
+        contactWithAdmin.pageTitle = url
+        contactWithAdmin.pageUrl = "https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
+            //url
+        self.navigationController?.pushViewController(contactWithAdmin, animated: true)
+    }
+
     //MARK:- go to category detail
     func goToCategoryDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
@@ -543,6 +555,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return cell
             case "blogNews":
                 if self.isShowBlog {
+                   
                     let cell: HomeBlogCell = tableView.dequeueReusableCell(withIdentifier: "HomeBlogCell", for: indexPath) as! HomeBlogCell
                     let objData = blogObj
                     if let name = objData?.text {
@@ -557,9 +570,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.dataArray = (objData?.blogs)!
                     cell.delegate = self
                     cell.collectionView.reloadData()
-                    
+
                     return cell
                 }
+            case "crousel":
+//                let cell: CarouselHomeCell = tableView.dequeueReusableCell(withIdentifier: "CarouselHomeCell", for: indexPath) as! CarouselHomeCell
+//                cell.zCycleView.delegate = self
+//
+//                cell.setupView()
+//                return cell
+                let cell: BannerCarouselCell = tableView.dequeueReusableCell(withIdentifier: "BannerCarouselCell", for: indexPath) as! BannerCarouselCell
+                cell.delegate = self
+                return cell
+                
             case "cat_icons":
                 let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                 let data = AddsHandler.sharedInstance.objHomeData
@@ -1102,7 +1125,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 } else {
                     height = 0
                 }
-            } else if position == "featured_ads" {
+            } else if position == "crousel"{
+                height = 188
+            }
+            else if position == "featured_ads" {
                 if self.isShowFeature {
                     if featuredArray.isEmpty {
                         height = 0

@@ -8,16 +8,16 @@
 
 import UIKit
 import WebKit
-
-class ContactWithAdminViewController: UIViewController {
-
+import MaterialProgressBar
+class ContactWithAdminViewController: UIViewController,WKNavigationDelegate {
+    
     @IBOutlet weak var wkWebView: WKWebView!
     
     
     
     //MARK:-Properties
     
-
+    
     var  pageUrl = ""
     var  pageTitle = ""
     
@@ -29,33 +29,42 @@ class ContactWithAdminViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = pageTitle
+        showProgressBar()
+        
         let yourBackImage = UIImage(named: "backbutton")
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         navigationItem.leftItemsSupplementBackButton = true
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         self.navigationController?.navigationBar.tintColor = UIColor.white
-
-
+        
+        
         let url = URL(string: pageUrl)
         var request = URLRequest(url: url!)
         request.setValue("body", forHTTPHeaderField: "Adforest-Shop-Request")
         if UserDefaults.standard.bool(forKey: "isSocial") {
             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
         }
+        //        request.cachePolicy = .useProtocolCachePolicy
+        self.wkWebView.navigationDelegate = self
+        
         self.wkWebView.load(request)
     }
     
-
+    
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("finish loading video")
+        self.hideProgressBar()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
-
 }
 

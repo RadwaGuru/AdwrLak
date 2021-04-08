@@ -35,6 +35,8 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     }
     
     //MARK:- Properties
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
+
     var dataArray = [ProfileDetailsData]()
     var socialArray = [ProfileDetailsAccountType]()
     let defaults = UserDefaults.standard
@@ -56,6 +58,11 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     var barButtonItems = [UIBarButtonItem]()
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     
+    var codeSentTo = ""
+    var codeNotReceived = ""
+    var resendCode = ""
+    var verifyNumber = ""
+    var SmsGateway = ""
     
     
     //MARK:- View Life Cycle
@@ -116,6 +123,18 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         verifyVC.dataToShow = UserHandler.sharedInstance.objProfileDetails
         self.presentVC(verifyVC)
     }
+    func verifyNumberFireBaseVC() {
+        let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
+        verifyVC.modalPresentationStyle = .custom
+        verifyVC.codeSentTo = codeSentTo
+        verifyVC.codeNotReceived = codeNotReceived
+        verifyVC.resendCode = resendCode
+        verifyVC.verifyNumber = verifyNumber
+        self.navigationController?.pushViewController(verifyVC, animated: true)
+
+
+    }
+    
     
     func adMob() {
         if UserHandler.sharedInstance.objAdMob != nil {
@@ -341,7 +360,11 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                     cell.clickNumberVerified = { () in
                         let alert = UIAlertController(title: detailsData?.extraText.sendSmsDialog.title, message: detailsData?.extraText.sendSmsDialog.text, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: detailsData?.extraText.sendSmsDialog.btnSend, style: .default, handler: { (okAcion) in
-                            self.adForest_phoneNumberVerify()
+                            if self.SmsGateway == "twilio" {
+                                self.adForest_phoneNumberVerify()
+                            }else{
+                                self.verifyNumberFireBaseVC()
+                            }
                         })
                         let cancelAction = UIAlertAction(title: detailsData?.extraText.sendSmsDialog.btnCancel, style: .default, handler: nil)
                         alert.addAction(cancelAction)
@@ -601,6 +624,11 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                 let tabController = self.parent as? UITabBarController
                 tabController?.navigationItem.title = successResponse.extraText.profileTitle
                 self.title = successResponse.extraText.profileTitle
+                self.codeSentTo = successResponse.extraText.codeSentTo
+                self.codeNotReceived = successResponse.extraText.codeNotReceived
+                self.resendCode = successResponse.extraText.resendCode
+                self.verifyNumber = successResponse.extraText.verifyNumber
+                self.SmsGateway = successResponse.extraText.SmsGateway
                 UserHandler.sharedInstance.objProfileDetails = successResponse
                 self.tableView.reloadData()
             } else {

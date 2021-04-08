@@ -79,6 +79,20 @@ class SearchAutoCompleteTextField: UITableViewCell, UITextFieldDelegate, GMSMapV
         else{
             let searchVC = GMSAutocompleteViewController()
             searchVC.delegate = self
+            // Specify a filter.
+            let filter = GMSAutocompleteFilter()
+            if let addressFilter = UserDefaults.standard.string(forKey: "locType"){
+                print(addressFilter)
+                if addressFilter == "regions" {
+
+                    filter.type = .region
+                }else{
+
+                    filter.type = .address
+                    
+                }
+            }
+            searchVC.autocompleteFilter = filter
             self.window?.rootViewController?.present(searchVC, animated: true, completion: nil)
         }
     }

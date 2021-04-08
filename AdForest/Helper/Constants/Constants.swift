@@ -29,6 +29,8 @@ class Constants {
         static let profileGet = "profile"
         static let userProfileRating = "profile/ratting"
         static let verifyPhone = "profile/phone_number"
+        static let verifyFirebasePhoneNo = "verifyfb_user_number"
+
         static let verifyCode = "profile/phone_number/verify"
         static let changePassword = "profile/reset_pass"
         static let imageUpdate = "profile/image"

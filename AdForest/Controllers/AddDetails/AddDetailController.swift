@@ -1651,7 +1651,16 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func actionHome() {
-        appDelegate.moveToHome()
+        if homeStyles == "home1"{
+            self.appDelegate.moveToHome()
+            
+        }else if homeStyles == "home2"{
+            self.appDelegate.moveToMultiHome()
+        }
+        else if homeStyles == "home3"{
+            self.appDelegate.moveToMarvelHome()
+        }
+        
     }
     
     @objc func onClicklocationButton() {
