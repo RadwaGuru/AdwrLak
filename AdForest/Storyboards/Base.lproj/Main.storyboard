@@ -14390,8 +14390,126 @@
                                 <rect key="frame" x="0.0" y="55" width="320" height="1660"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BannerCarouselCell" rowHeight="294" id="HJl-gY-Grg" customClass="BannerCarouselCell" customModule="AdForest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="294"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HJl-gY-Grg" id="qrn-6p-k4N">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUV-tH-Lof">
+                                                    <rect key="frame" x="8" y="8" width="304" height="278"/>
+                                                    <subviews>
+                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MNc-do-TVa">
+                                                            <rect key="frame" x="0.0" y="8" width="304" height="262"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="K4L-1p-G5V">
+                                                                <size key="itemSize" width="300" height="160"/>
+                                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            </collectionViewFlowLayout>
+                                                            <cells>
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="BannerCarouselCollectionViewCell" id="INp-Y9-4IB" customClass="BannerCarouselCollectionViewCell" customModule="AdForest" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="51" width="300" height="160"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="7QZ-wQ-Peq">
+                                                                                <rect key="frame" x="2" y="2" width="296" height="156"/>
+                                                                                <subviews>
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ban" translatesAutoresizingMaskIntoConstraints="NO" id="7jW-jh-eyd">
+                                                                                        <rect key="frame" x="1" y="0.0" width="294" height="156"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="height" constant="156" id="j1R-OS-0xv"/>
+                                                                                            <constraint firstAttribute="width" constant="294" id="scz-iY-oPp"/>
+                                                                                        </constraints>
+                                                                                    </imageView>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcg-BL-x8N">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="296" height="156"/>
+                                                                                        <connections>
+                                                                                            <action selector="ActionBannerImage:" destination="INp-Y9-4IB" eventType="touchUpInside" id="92N-Ca-ptu"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="296" id="CVO-O3-Ub8"/>
+                                                                                    <constraint firstItem="7jW-jh-eyd" firstAttribute="leading" secondItem="7QZ-wQ-Peq" secondAttribute="leading" constant="1" id="JDb-PB-nUO"/>
+                                                                                    <constraint firstItem="7jW-jh-eyd" firstAttribute="top" secondItem="7QZ-wQ-Peq" secondAttribute="top" id="LmK-eJ-srg"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="Rcg-BL-x8N" secondAttribute="trailing" id="Xhh-OT-esG"/>
+                                                                                    <constraint firstItem="7jW-jh-eyd" firstAttribute="width" secondItem="7QZ-wQ-Peq" secondAttribute="width" multiplier="0.993243" id="aPq-VI-0W2"/>
+                                                                                    <constraint firstAttribute="height" constant="106" id="bZB-6d-XJd"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="7jW-jh-eyd" secondAttribute="bottom" id="caz-as-bLn"/>
+                                                                                    <constraint firstItem="Rcg-BL-x8N" firstAttribute="top" secondItem="7QZ-wQ-Peq" secondAttribute="top" id="f9K-Qm-c7M"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="Rcg-BL-x8N" secondAttribute="bottom" id="oNr-nN-BUq"/>
+                                                                                    <constraint firstItem="Rcg-BL-x8N" firstAttribute="leading" secondItem="7QZ-wQ-Peq" secondAttribute="leading" id="tsi-1f-uhL"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                    </view>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="7QZ-wQ-Peq" firstAttribute="top" secondItem="INp-Y9-4IB" secondAttribute="top" constant="2" id="8S1-aC-f1Q"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="7QZ-wQ-Peq" secondAttribute="bottom" constant="2" id="JYZ-GL-zoK"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="7QZ-wQ-Peq" secondAttribute="trailing" constant="2" id="k6f-39-Isu"/>
+                                                                        <constraint firstItem="7QZ-wQ-Peq" firstAttribute="leading" secondItem="INp-Y9-4IB" secondAttribute="leading" constant="2" id="yms-SY-R6Q"/>
+                                                                    </constraints>
+                                                                    <size key="customSize" width="300" height="160"/>
+                                                                    <connections>
+                                                                        <outlet property="btnBannerClick" destination="Rcg-BL-x8N" id="foW-gT-MkK"/>
+                                                                        <outlet property="containerView" destination="7QZ-wQ-Peq" id="ClP-6X-eTJ"/>
+                                                                        <outlet property="imgViewCarousel" destination="7jW-jh-eyd" id="cfn-H8-dCs"/>
+                                                                    </connections>
+                                                                </collectionViewCell>
+                                                            </cells>
+                                                        </collectionView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqn-j0-lWs">
+                                                            <rect key="frame" x="8" y="0.0" width="288" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="erf-0u-fNE"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="XnF-3V-dWR">
+                                                            <rect key="frame" x="91" y="242" width="122" height="28"/>
+                                                        </pageControl>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.90948778389999996" green="0.80917364359999999" blue="0.30383241179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="MNc-do-TVa" firstAttribute="top" secondItem="pUV-tH-Lof" secondAttribute="top" constant="8" id="8Yr-RF-qTX"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XnF-3V-dWR" secondAttribute="trailing" constant="91" id="HdU-6T-xmt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="jqn-j0-lWs" secondAttribute="trailing" constant="8" id="WAm-oT-bcI"/>
+                                                        <constraint firstItem="jqn-j0-lWs" firstAttribute="leading" secondItem="pUV-tH-Lof" secondAttribute="leading" constant="8" id="Y4g-mv-Ufn"/>
+                                                        <constraint firstItem="XnF-3V-dWR" firstAttribute="bottom" secondItem="MNc-do-TVa" secondAttribute="bottom" id="bbS-ec-xyQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MNc-do-TVa" secondAttribute="trailing" id="cTr-LN-YA6"/>
+                                                        <constraint firstItem="MNc-do-TVa" firstAttribute="leading" secondItem="pUV-tH-Lof" secondAttribute="leading" id="cUx-Zn-qmW"/>
+                                                        <constraint firstItem="jqn-j0-lWs" firstAttribute="top" secondItem="pUV-tH-Lof" secondAttribute="top" id="hny-Zy-bt6"/>
+                                                        <constraint firstItem="XnF-3V-dWR" firstAttribute="leading" secondItem="pUV-tH-Lof" secondAttribute="leading" constant="91" id="pT8-3P-xza"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MNc-do-TVa" secondAttribute="bottom" constant="8" id="yuY-FQ-d9e"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pUV-tH-Lof" firstAttribute="leading" secondItem="qrn-6p-k4N" secondAttribute="leading" constant="8" id="3VH-fC-Xee"/>
+                                                <constraint firstAttribute="bottom" secondItem="pUV-tH-Lof" secondAttribute="bottom" constant="8" id="Chb-vK-RF5"/>
+                                                <constraint firstAttribute="trailing" secondItem="pUV-tH-Lof" secondAttribute="trailing" constant="8" id="M8I-JQ-bz5"/>
+                                                <constraint firstItem="pUV-tH-Lof" firstAttribute="top" secondItem="qrn-6p-k4N" secondAttribute="top" constant="8" id="fIe-7d-Opc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="MNc-do-TVa" id="vBJ-MT-ueQ"/>
+                                            <outlet property="lblHeading" destination="jqn-j0-lWs" id="5BN-ey-bn9"/>
+                                            <outlet property="mainContainer" destination="pUV-tH-Lof" id="Y51-DK-nz3"/>
+                                            <outlet property="pageControl" destination="XnF-3V-dWR" id="cnY-xI-7ho"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="CLw-SI-AJK" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="335"/>
+                                        <rect key="frame" x="0.0" y="322" width="320" height="335"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CLw-SI-AJK" id="UWo-89-nsS">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
@@ -14568,7 +14686,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelCategoryTableViewCell" rowHeight="184" id="UjL-5j-pMi" customClass="MarvelCategoryTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="363" width="320" height="184"/>
+                                        <rect key="frame" x="0.0" y="657" width="320" height="184"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UjL-5j-pMi" id="xct-tr-Ecw">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
@@ -14695,7 +14813,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddsTableCell" rowHeight="294" id="iXe-UZ-4as" customClass="AddsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="547" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="841" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iXe-UZ-4as" id="l30-W4-8P4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -14878,7 +14996,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureAddCell" rowHeight="294" id="8DC-pi-SV7" customClass="MarvelHomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="841" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1135" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8DC-pi-SV7" id="3lb-hm-l0F">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15074,7 +15192,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAdsTableViewCell" rowHeight="294" id="5az-SX-ZyQ" customClass="MarvelAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1135" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1429" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5az-SX-ZyQ" id="wMU-8k-8Wo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15277,7 +15395,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestAddTableCell" rowHeight="294" id="YqA-xE-hgL" customClass="MarvelHomeLatestAddTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1429" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1723" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YqA-xE-hgL" id="CGf-ae-f0z">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15495,7 +15613,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestVerticalDefaultTableViewCell" rowHeight="294" id="Tnv-H5-jKL" customClass="MarvelHomeLatestVerticalDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1723" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2017" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tnv-H5-jKL" id="ji8-Kk-M7F">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15697,7 +15815,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelVerticalSLiderAdsTableViewCell" rowHeight="294" id="hkZ-6l-Xzr" customClass="MarvelVerticalSLiderAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2017" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2311" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hkZ-6l-Xzr" id="qnM-4N-reV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15899,7 +16017,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelFeatureVerticalTableViewCell" rowHeight="294" id="mtA-8f-4yV" customClass="MarvelFeatureVerticalTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2311" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2605" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mtA-8f-4yV" id="mcL-Tp-KC1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16103,7 +16221,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LatestAddsCell" rowHeight="294" id="Sxk-3l-5hB" customClass="LatestAddsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2605" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2899" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sxk-3l-5hB" id="zBg-Up-X7N">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16285,7 +16403,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureDefaultTableViewCell" rowHeight="294" id="1xQ-IG-RxH" customClass="MarvelHomeFeatureDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2899" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3193" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1xQ-IG-RxH" id="z66-fG-KvM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16466,7 +16584,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeBlogCell" rowHeight="294" id="dpS-RY-sN8" customClass="HomeBlogCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3193" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3487" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dpS-RY-sN8" id="ATo-Qx-wef">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16645,7 +16763,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MarvelHomeLocationTableViewCell" rowHeight="294" id="Hve-ng-4dr" customClass="MarvelHomeLocationTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3487" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3781" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hve-ng-4dr" id="2DE-Kl-wUs">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -17442,8 +17560,126 @@
                                 <rect key="frame" x="0.0" y="62" width="320" height="1693"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BannerCarouselCell" rowHeight="294" id="fkd-n5-2fV" customClass="BannerCarouselCell" customModule="AdForest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="294"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fkd-n5-2fV" id="udU-jO-fQC">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvy-Vs-5PY">
+                                                    <rect key="frame" x="8" y="8" width="304" height="278"/>
+                                                    <subviews>
+                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YWP-a1-dd8">
+                                                            <rect key="frame" x="0.0" y="8" width="304" height="262"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qcy-e0-QJP">
+                                                                <size key="itemSize" width="300" height="160"/>
+                                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            </collectionViewFlowLayout>
+                                                            <cells>
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="BannerCarouselCollectionViewCell" id="v5w-AB-E1Y" customClass="BannerCarouselCollectionViewCell" customModule="AdForest" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="51" width="300" height="160"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-t4-ggL">
+                                                                                <rect key="frame" x="2" y="2" width="296" height="156"/>
+                                                                                <subviews>
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ban" translatesAutoresizingMaskIntoConstraints="NO" id="0Pb-67-fKQ">
+                                                                                        <rect key="frame" x="1" y="0.0" width="294" height="156"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="height" constant="156" id="nuS-v4-K8d"/>
+                                                                                            <constraint firstAttribute="width" constant="294" id="puI-Bg-ITz"/>
+                                                                                        </constraints>
+                                                                                    </imageView>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6V-Ai-zAR">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="296" height="156"/>
+                                                                                        <connections>
+                                                                                            <action selector="ActionBannerImage:" destination="v5w-AB-E1Y" eventType="touchUpInside" id="NvL-4h-BBq"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="bottom" secondItem="0Pb-67-fKQ" secondAttribute="bottom" id="GUb-gr-GC3"/>
+                                                                                    <constraint firstItem="0Pb-67-fKQ" firstAttribute="width" secondItem="xW8-t4-ggL" secondAttribute="width" multiplier="0.993243" id="Qyn-9G-ErQ"/>
+                                                                                    <constraint firstItem="0Pb-67-fKQ" firstAttribute="leading" secondItem="xW8-t4-ggL" secondAttribute="leading" constant="1" id="Sc9-rx-OuE"/>
+                                                                                    <constraint firstAttribute="height" constant="106" id="aid-Wk-BYg"/>
+                                                                                    <constraint firstItem="K6V-Ai-zAR" firstAttribute="leading" secondItem="xW8-t4-ggL" secondAttribute="leading" id="h8p-Xd-4Ra"/>
+                                                                                    <constraint firstItem="K6V-Ai-zAR" firstAttribute="top" secondItem="xW8-t4-ggL" secondAttribute="top" id="j8L-n8-yTc"/>
+                                                                                    <constraint firstItem="0Pb-67-fKQ" firstAttribute="top" secondItem="xW8-t4-ggL" secondAttribute="top" id="rT4-JQ-yKf"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="K6V-Ai-zAR" secondAttribute="trailing" id="yQt-wO-3ba"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="K6V-Ai-zAR" secondAttribute="bottom" id="zjs-vB-f57"/>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="296" id="zr7-BE-G4p"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                    </view>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="xW8-t4-ggL" firstAttribute="top" secondItem="v5w-AB-E1Y" secondAttribute="top" constant="2" id="Jif-px-Ss8"/>
+                                                                        <constraint firstItem="xW8-t4-ggL" firstAttribute="leading" secondItem="v5w-AB-E1Y" secondAttribute="leading" constant="2" id="dq2-8F-bBP"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="xW8-t4-ggL" secondAttribute="trailing" constant="2" id="yar-97-qbu"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="xW8-t4-ggL" secondAttribute="bottom" constant="2" id="zVd-F9-yxc"/>
+                                                                    </constraints>
+                                                                    <size key="customSize" width="300" height="160"/>
+                                                                    <connections>
+                                                                        <outlet property="btnBannerClick" destination="K6V-Ai-zAR" id="hhy-Lj-ksO"/>
+                                                                        <outlet property="containerView" destination="xW8-t4-ggL" id="NaW-HL-lNv"/>
+                                                                        <outlet property="imgViewCarousel" destination="0Pb-67-fKQ" id="K2K-ee-hu7"/>
+                                                                    </connections>
+                                                                </collectionViewCell>
+                                                            </cells>
+                                                        </collectionView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KeI-db-Ja9">
+                                                            <rect key="frame" x="8" y="0.0" width="288" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="laa-X9-hLs"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="nRC-JK-d1E">
+                                                            <rect key="frame" x="91" y="242" width="122" height="28"/>
+                                                        </pageControl>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.90948778389999996" green="0.80917364359999999" blue="0.30383241179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="YWP-a1-dd8" firstAttribute="top" secondItem="bvy-Vs-5PY" secondAttribute="top" constant="8" id="KaP-mr-6ny"/>
+                                                        <constraint firstItem="KeI-db-Ja9" firstAttribute="top" secondItem="bvy-Vs-5PY" secondAttribute="top" id="Ngw-WW-9i9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nRC-JK-d1E" secondAttribute="trailing" constant="91" id="RIE-JA-8OJ"/>
+                                                        <constraint firstItem="nRC-JK-d1E" firstAttribute="leading" secondItem="bvy-Vs-5PY" secondAttribute="leading" constant="91" id="VOO-32-VGE"/>
+                                                        <constraint firstAttribute="bottom" secondItem="YWP-a1-dd8" secondAttribute="bottom" constant="8" id="YNb-Oc-zc3"/>
+                                                        <constraint firstItem="YWP-a1-dd8" firstAttribute="leading" secondItem="bvy-Vs-5PY" secondAttribute="leading" id="aWC-16-h4s"/>
+                                                        <constraint firstAttribute="trailing" secondItem="YWP-a1-dd8" secondAttribute="trailing" id="dF1-R0-oT1"/>
+                                                        <constraint firstItem="nRC-JK-d1E" firstAttribute="bottom" secondItem="YWP-a1-dd8" secondAttribute="bottom" id="tnf-AH-WaN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="KeI-db-Ja9" secondAttribute="trailing" constant="8" id="v8z-t3-24Z"/>
+                                                        <constraint firstItem="KeI-db-Ja9" firstAttribute="leading" secondItem="bvy-Vs-5PY" secondAttribute="leading" constant="8" id="vwg-3g-VKh"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bvy-Vs-5PY" firstAttribute="leading" secondItem="udU-jO-fQC" secondAttribute="leading" constant="8" id="Cfk-rJ-vfh"/>
+                                                <constraint firstAttribute="trailing" secondItem="bvy-Vs-5PY" secondAttribute="trailing" constant="8" id="YXH-N1-JCO"/>
+                                                <constraint firstItem="bvy-Vs-5PY" firstAttribute="top" secondItem="udU-jO-fQC" secondAttribute="top" constant="8" id="fLF-6l-ZPg"/>
+                                                <constraint firstAttribute="bottom" secondItem="bvy-Vs-5PY" secondAttribute="bottom" constant="8" id="vNs-b4-Fyy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="YWP-a1-dd8" id="Mhc-Hm-v9b"/>
+                                            <outlet property="lblHeading" destination="KeI-db-Ja9" id="VWz-bp-kys"/>
+                                            <outlet property="mainContainer" destination="bvy-Vs-5PY" id="BFJ-D9-Ve7"/>
+                                            <outlet property="pageControl" destination="nRC-JK-d1E" id="34O-bQ-PkH"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="tsZ-Jg-FUE" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="335"/>
+                                        <rect key="frame" x="0.0" y="322" width="320" height="335"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tsZ-Jg-FUE" id="cKS-HN-pHn">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
@@ -17620,7 +17856,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiCategoriesTableViewCell" rowHeight="223" id="O1m-fy-zk9" customClass="MultiCategoriesTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="363" width="320" height="223"/>
+                                        <rect key="frame" x="0.0" y="657" width="320" height="223"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O1m-fy-zk9" id="LLd-em-XVo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="223"/>
@@ -17782,7 +18018,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddsTableCell" rowHeight="294" id="ZhW-Ug-nQr" customClass="AddsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="586" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="880" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZhW-Ug-nQr" id="Xjl-2s-jt8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -17965,7 +18201,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureAddCell" rowHeight="294" id="0Sc-tl-sD2" customClass="MarvelHomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="880" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1174" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Sc-tl-sD2" id="Vid-kI-8qt">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18161,7 +18397,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAdsTableViewCell" rowHeight="294" id="eyA-0u-R0P" customClass="MarvelAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1174" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1468" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eyA-0u-R0P" id="acF-ed-UbQ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18364,7 +18600,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestAddTableCell" rowHeight="294" id="dym-cP-8bo" customClass="MarvelHomeLatestAddTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1468" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1762" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dym-cP-8bo" id="SQF-y1-OJK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18582,7 +18818,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestVerticalDefaultTableViewCell" rowHeight="294" id="ryx-2T-wpJ" customClass="MarvelHomeLatestVerticalDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1762" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2056" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ryx-2T-wpJ" id="38D-wL-QYh">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18784,7 +19020,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelVerticalSLiderAdsTableViewCell" rowHeight="294" id="ZjT-Kf-wzA" customClass="MarvelVerticalSLiderAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2056" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2350" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZjT-Kf-wzA" id="RDe-Lj-6Kl">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18986,7 +19222,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelFeatureVerticalTableViewCell" rowHeight="294" id="14A-Xo-TVH" customClass="MarvelFeatureVerticalTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2350" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2644" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="14A-Xo-TVH" id="RW0-2R-r5f">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19190,7 +19426,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiHomeFeatureAddTableViewCell" rowHeight="294" id="cIN-Zs-kmn" customClass="MultiHomeFeatureAddTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2644" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2938" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cIN-Zs-kmn" id="3f5-bK-n5Z">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19401,7 +19637,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiLatestAdTableViewCell" rowHeight="294" id="g92-He-kJ7" customClass="MultiLatestAdTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2938" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3232" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g92-He-kJ7" id="GPc-gX-qhf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19619,7 +19855,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiAdsTableViewCell" rowHeight="294" id="l78-dT-Fcx" customClass="MultiAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3232" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3526" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l78-dT-Fcx" id="DjQ-Uf-Aw6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19837,7 +20073,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeBlogCell" rowHeight="294" id="6b1-ke-LPb" customClass="HomeBlogCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3526" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3820" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6b1-ke-LPb" id="i4T-aO-VyL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -20016,7 +20252,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MarvelHomeLocationTableViewCell" rowHeight="294" id="GQM-1t-cph" customClass="MarvelHomeLocationTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3820" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="4114" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GQM-1t-cph" id="Qkp-AW-5Xk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>

@@ -27,6 +27,8 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
     func establishConnection() {
         if let WhizChtApiKey = self.defaults.string(forKey: "WhizChatAPiKey") {
             APIKey = WhizChtApiKey
+            print("=============-WhizChtApiKey::\(APIKey)===========")
+
         }
         print("----establishConnection")
         //"type":"gtChatPro"

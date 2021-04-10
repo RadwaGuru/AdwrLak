@@ -57,6 +57,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
         super.viewDidLoad()
         
         self.title = self.verifyNumber
+        self.lblPhonenumber.text = ("\(codeSentTo)\(phoneNumber)")
         self.lblnotRcv.text = codeNotReceived
         self.btnResendCode.setTitle(self.resendCode, for: .normal)
         self.btnSubmit.setTitle(self.verifyNumber, for: .normal)
@@ -116,7 +117,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
     
     func requestOTP(){
         Auth.auth().languageCode = "en"
-        phoneNumber = "+923316789159"
+//        phoneNumber = "+923316789159"
         //        let phoneNumber = "+16505554567"
         
         //"+923137633303"
@@ -199,7 +200,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
                 hud.position = .bottomCenter
                 hud.show(in: self.view)
                 hud.dismiss(afterDelay: 2.0)
-//                self.perform(#selector(self.disMiss), with: nil, afterDelay: 2)
+                self.perform(#selector(self.disMiss), with: nil, afterDelay: 2)
                 UserDefaults.standard.set(true, forKey: "can")
             }
             else {
@@ -211,6 +212,9 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
             let alert = Constants.showBasicAlert(message: error.message)
             self.presentVC(alert)
         }
+    }
+    @objc func disMiss(){
+        self.dismissVC(completion: nil)
     }
  
 }

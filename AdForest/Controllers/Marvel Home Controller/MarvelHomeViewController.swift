@@ -14,7 +14,7 @@ import UserNotifications
 import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
-class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate {
+class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate, BannerCategoryDetailDelegate, OpenBannerCarouselDelegate {
     
     
     
@@ -67,7 +67,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
 //    
-    
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
     var defaults = UserDefaults.standard
     var dataArray = [HomeSlider]()
     var categoryArray = [CatIcon]()
@@ -200,6 +200,15 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             
         }
     }
+    //MARK:- Go to CarouselPage
+    func openCarousel(url: String) {
+        let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
+        contactWithAdmin.pageTitle = url
+        contactWithAdmin.pageUrl = "https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
+            //url
+        self.navigationController?.pushViewController(contactWithAdmin, animated: true)
+    }
+
     //MARK:- Go to Location detail
     func goToCLocationDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
@@ -342,6 +351,9 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 } else {
                     height = 0
                 }
+            }
+            else if position == "crousel"{
+                height = 188
             }
             else if position == "featured_ads" {
                 if self.isShowFeature {
@@ -627,6 +639,14 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                     
                 }
                 return cell
+            case "crousel":
+                let cell: BannerCarouselCell = tableView.dequeueReusableCell(withIdentifier: "BannerCarouselCell", for: indexPath) as! BannerCarouselCell
+                cell.delegate = self
+                cell.mainContainer.backgroundColor = UIColor.groupTableViewBackground
+                cell.contentView.backgroundColor = UIColor.groupTableViewBackground
+                cell.collectionView.backgroundColor = UIColor.groupTableViewBackground
+                return cell
+                
             case "blogNews":
                 if self.isShowBlog {
                     let cell: HomeBlogCell = tableView.dequeueReusableCell(withIdentifier: "HomeBlogCell", for: indexPath) as! HomeBlogCell

@@ -63,7 +63,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
     var resendCode = ""
     var verifyNumber = ""
     var SmsGateway = ""
-    
+    var phoneNumber = ""
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -130,6 +130,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
         verifyVC.codeNotReceived = codeNotReceived
         verifyVC.resendCode = resendCode
         verifyVC.verifyNumber = verifyNumber
+        verifyVC.phoneNumber = phoneNumber
         self.navigationController?.pushViewController(verifyVC, animated: true)
 
 
@@ -338,6 +339,7 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
             }
             if let phoneNumberValue = objData.phone.value {
                 cell.lblPhoneValue.text = phoneNumberValue
+                self.phoneNumber = phoneNumberValue
             }
             if let buttonVerificationTitle = detailsData?.extraText.isNumberVerifiedText {
                 var attributedString = NSMutableAttributedString(string: "")

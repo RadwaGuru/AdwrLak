@@ -10,11 +10,12 @@ import UIKit
 
 class BannerCarouselCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var containerView: UIView!{
-        didSet{
-            containerView.addShadowToView()
-        }
-    }
+    @IBOutlet weak var containerView: UIView!
+//    {
+//        didSet{
+//            containerView.addShadowToView()
+//        }
+//    }
     @IBOutlet weak var imgViewCarousel: UIImageView!{
         didSet{
             imgViewCarousel.roundCorners()

@@ -201,7 +201,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func openCarousel(url: String) {
         let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
         contactWithAdmin.pageTitle = url
-        contactWithAdmin.pageUrl = "https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
+        contactWithAdmin.pageUrl = url 
+            //"https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
             //url
         self.navigationController?.pushViewController(contactWithAdmin, animated: true)
     }
@@ -574,13 +575,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     return cell
                 }
             case "crousel":
-//                let cell: CarouselHomeCell = tableView.dequeueReusableCell(withIdentifier: "CarouselHomeCell", for: indexPath) as! CarouselHomeCell
-//                cell.zCycleView.delegate = self
-//
-//                cell.setupView()
-//                return cell
                 let cell: BannerCarouselCell = tableView.dequeueReusableCell(withIdentifier: "BannerCarouselCell", for: indexPath) as! BannerCarouselCell
                 cell.delegate = self
+                cell.listDelegate = self
                 return cell
                 
             case "cat_icons":

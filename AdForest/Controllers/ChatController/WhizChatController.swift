@@ -400,18 +400,18 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         titleLabel.text = title
         titleLabel.sizeToFit()
         // Create the image view
-        //        let image = UIImageView()
-        //        image.image = UIImage(named: "blackuser")
-        //        image.layer.borderWidth = 0.5
-        //        image.layer.masksToBounds = false
-        //        image.layer.borderColor = UIColor.lightGray.cgColor
-        //        image.layer.cornerRadius = image.frame.size.width / 2
-        //        image.clipsToBounds = true
-        //        // To maintain the image's aspect ratio:
-        //        let imageAspect = image.image!.size.width/image.image!.size.height
-        //        // Setting the image frame so that it's immediately before the text:
-        //        image.frame = CGRect(x: titleLabel.frame.origin.x, y: titleLabel.frame.origin.y, width: titleLabel.frame.size.height*imageAspect, height: titleLabel.frame.size.height)
-        //        image.contentMode = UIViewContentMode.scaleAspectFit
+//        let image = UIImageView()
+//        image.image = UIImage(named: "blackuser")
+//        image.layer.borderWidth = 0.5
+//        image.layer.masksToBounds = true
+//        image.layer.borderColor = UIColor.lightGray.cgColor
+//        image.layer.cornerRadius = image.frame.size.width / 2
+//        image.clipsToBounds = true
+//        // To maintain the image's aspect ratio:
+//        let imageAspect = image.image!.size.width/image.image!.size.height
+//        // Setting the image frame so that it's immediately before the text:
+//        image.frame = CGRect(x: titleLabel.frame.origin.x - 25, y: titleLabel.frame.origin.y, width: titleLabel.frame.size.height*imageAspect, height: titleLabel.frame.size.height)
+//        image.contentMode = UIViewContentMode.scaleAspectFit
         let subtitleLabel = UILabel(frame: CGRect(x: 0, y: 18, width: 0, height: 0))
         subtitleLabel.backgroundColor = UIColor.clear
         subtitleLabel.textColor = UIColor.white
@@ -422,7 +422,7 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: max(titleLabel.frame.size.width, subtitleLabel.frame.size.width), height: 30))
         titleView.addSubview(titleLabel)
         titleView.addSubview(subtitleLabel)
-        //        titleView.addSubview(image)
+//        titleView.addSubview(image)
         let widthDiff = subtitleLabel.frame.size.width - titleLabel.frame.size.width
         
         if widthDiff < 0 {
@@ -463,6 +463,43 @@ class WhizChatController: UIViewController, UITableViewDataSource, UITableViewDe
         return messages.count
     }
     
+    //MARK:- Delete Table View ROWS
+//     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == UITableViewCell.EditingStyle.delete {
+//            messages.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//            let paramet : [String: Any] = ["chat_id": ChatId]
+//            getChatMesages(param: paramet as NSDictionary)
+//            tableView.reloadData()
+//        }
+//    }
+//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//                 print("Update action ...")
+//            let alert = Constants.showBasicAlert(message: "Save it")
+//            self.presentVC(alert)
+//                 success(true)
+//             })
+////             modifyAction.image = UIImage(named: "heart")
+//             modifyAction.backgroundColor = .green
+//
+//             return UISwipeActionsConfiguration(actions: [modifyAction])
+//
+//    }
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let closeAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//                     print("OK, marked as Closed")
+//            let alert = Constants.showBasicAlert(message: "Chutti kar ")
+//            self.presentVC(alert)
+//
+//                     success(true)
+//                 })
+////                 closeAction.image = UIImage(named: "heart")
+//                 closeAction.backgroundColor = .red
+//
+//                 return UISwipeActionsConfiguration(actions: [closeAction])
+//
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         //        let cell: SenderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell

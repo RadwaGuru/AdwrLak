@@ -291,7 +291,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .top)
                     } else {
-                        self.containerViewbutton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 120).isActive = true
+                        self.containerViewbutton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100).isActive = true
                         SwiftyAd.shared.showBanner(from: self, at: .bottom)
                     }
                 }

