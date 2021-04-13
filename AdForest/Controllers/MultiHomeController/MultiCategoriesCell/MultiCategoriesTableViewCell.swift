@@ -102,6 +102,8 @@ class MultiCategoriesTableViewCell: UITableViewCell,UICollectionViewDelegate, UI
             cell.imgCat.sd_setIndicatorStyle(.gray)
             cell.imgCat.sd_setImage(with: imgUrl, completed: nil)
         }
+        cell.containerView.backgroundColor = UIColor.groupTableViewBackground
+        
         cell.btnFullAction = { () in
             if objData.hasSub == true {
                 self.delegate?.goToSubCategoryDetail(id: objData.catId, hasChild: objData.hasSub)

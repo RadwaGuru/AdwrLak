@@ -12,7 +12,7 @@ import WebKit
 import NVActivityIndicatorView
 import WebKit
 import IQKeyboardManagerSwift
-
+import MaterialProgressBar
 class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearchDelegate,UIGestureRecognizerDelegate,UISearchBarDelegate,WKUIDelegate,WKNavigationDelegate {
     
     //MARK:- Outlets
@@ -56,6 +56,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = pagetItle
+        self.showProgressBar()
         self.addBackButtonToNavigationBar()
         self.googleAnalytics(controllerName: "Pages Controller")
         if type == "simple" {
@@ -80,11 +81,20 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
             if UserDefaults.standard.bool(forKey: "isSocial") {
                 request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
             }
+            request.cachePolicy = .returnCacheDataElseLoad
+            self.wkWebView.navigationDelegate = self
             self.wkWebView.load(request)
         }
         
         navigationButtons()
     }
+    //MARK:- Wk Delegate
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("finish loading")
+        self.hideProgressBar()
+
+    }
+
     
     //MARK:- Custom
     
@@ -114,6 +124,7 @@ class PagesController: UIViewController, NVActivityIndicatorViewable,NearBySearc
                     self.title = successResponse.data.pageTitle
                     let headerString = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head><body>"
                     let ht = "</body></html>"
+                    
                     self.wkWebView.loadHTMLString(headerString + htmlString + ht, baseURL: nil)
                     
                 }

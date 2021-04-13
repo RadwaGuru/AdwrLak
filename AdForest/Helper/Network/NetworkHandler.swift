@@ -250,7 +250,8 @@ class NetworkHandler {
                }
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
-        
+        manager.session.configuration.requestCachePolicy = .returnCacheDataElseLoad
+
        var headers: HTTPHeaders
 
        
@@ -327,7 +328,7 @@ class NetworkHandler {
         print(headers)
         
         manager.request(url, method: .get, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) -> Void in
-      
+       
             debugPrint(response)
             print(response)
             switch response.result{
@@ -358,7 +359,6 @@ class NetworkHandler {
         
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = Constants.NetworkError.timeOutInterval
-        
         var headers: HTTPHeaders
         
         if UserDefaults.standard.bool(forKey: "isGuest") {

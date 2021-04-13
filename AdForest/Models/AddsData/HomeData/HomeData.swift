@@ -40,7 +40,7 @@ struct HomeData {
     var appTopLocation : Bool!
     var appTopLocationList : [HomeAppTopLocation]!
     var ad_post : HomeAdpost!
-    
+    var bannerCarousel: BannerCarouselRoot!
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -120,6 +120,10 @@ struct HomeData {
         if let ad_pos = dictionary["ad_post"] as? [String:Any]{
             ad_post = HomeAdpost(fromDictionary: ad_pos)
         }
+        if let Carousel = dictionary["crousel"] as? [String:Any]{
+            bannerCarousel = BannerCarouselRoot(fromDictionary: Carousel)
+        }
+
         
     }
     

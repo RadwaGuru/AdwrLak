@@ -201,14 +201,12 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK:- Go to CarouselPage
-    func openCarousel(url: String) {
+    func openCarousel(url: String, title: String) {
         let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
-        contactWithAdmin.pageTitle = url
-        contactWithAdmin.pageUrl = "https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
-            //url
+        contactWithAdmin.pageTitle = title
+        contactWithAdmin.pageUrl = url
         self.navigationController?.pushViewController(contactWithAdmin, animated: true)
     }
-
     //MARK:- Go to Location detail
     func goToCLocationDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
@@ -391,11 +389,13 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         else {
             if featurePosition == "1" {
                 if section == 0 {
-                    let objData = searchSectionArray[indexPath.row]
-                    if objData.isShow {
-                        height = 250
-                    } else {
-                        height = 0
+                    if searchSectionArray.count != 0 {
+                        let objData = searchSectionArray[indexPath.row]
+                        if objData.isShow {
+                            height = 250
+                        } else {
+                            height = 0
+                        }
                     }
                 }
                 else if section == 1 {
@@ -1093,19 +1093,21 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             if featurePosition == "1" {
                 if section == 0 {
                     let cell: MarvelSearchSectionTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelSearchSectionTableViewCell", for: indexPath) as! MarvelSearchSectionTableViewCell
-                    let objData = searchSectionArray[indexPath.row]
-                    if objData.isShow {
-                        if let title = objData.mainTitle {
-                            cell.lblHeading.text = title
+                    if searchSectionArray.count != 0{
+                        let objData = searchSectionArray[indexPath.row]
+                        if objData.isShow {
+                            if let title = objData.mainTitle {
+                                cell.lblHeading.text = title
+                            }
+                            if let subTitle = objData.subTitle {
+                                cell.lblSubHeading.text = subTitle
+                            }
+                            if let placeHolder = objData.placeholder {
+                                cell.txtFieldSearch.placeholder = placeHolder
+                            }
                         }
-                        if let subTitle = objData.subTitle {
-                            cell.lblSubHeading.text = subTitle
-                        }
-                        if let placeHolder = objData.placeholder {
-                            cell.txtFieldSearch.placeholder = placeHolder
-                        }
+                        return cell
                     }
-                    return cell
                 }
                 else if section == 1 {
                     if isShowFeature {

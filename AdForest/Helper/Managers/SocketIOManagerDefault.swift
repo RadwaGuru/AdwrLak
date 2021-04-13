@@ -16,6 +16,7 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
     private var socket: SocketIOClient!
     var userId = "0"
     var APIKey = ""
+    var whizzChatUrl = ""
     var defaults = UserDefaults.standard
     //MARK: - Initializers
     
@@ -30,10 +31,18 @@ class SocketIOManagerDefault: NSObject, SocketIOManager {
             print("=============-WhizChtApiKey::\(APIKey)===========")
 
         }
+        if let WhizzUrl = self.defaults.string(forKey: "PusherUrl") {
+            whizzChatUrl = WhizzUrl
+            print("=============-WhizChturl::\(whizzChatUrl)===========")
+
+        }
+        
         print("----establishConnection")
+        //"https://socket.agilepusher.com"
         //"type":"gtChatPro"
         //"key_147wCAlzJQW8GWqkjXocIHlCoVbUYEe8B"
-        manager = SocketManager(socketURL: URL(string: "https://socket.agilepusher.com:3000")!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : APIKey ,"website":Constants.URL.baseUrl
+        manager = SocketManager(socketURL: URL(string: whizzChatUrl)!,config: [.log(false),.compress,.forcePolling(true),.forceWebsockets(true),.connectParams(["apiKey" : APIKey ,"website":Constants.URL.baseUrl
+
         ])])
         socket = manager?.defaultSocket
         manager?.forceNew = true

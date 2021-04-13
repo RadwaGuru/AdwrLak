@@ -9,7 +9,7 @@
 import Foundation
 
 struct SettingsData {
-  
+    
     var adsPositionSorter : Bool!
     var alertDialog : SettingsAlertDialog!
     var appRating : SettingsAppRating!
@@ -53,6 +53,7 @@ struct SettingsData {
     var WhizChatAPiKey: String!
     var WhizChatEmptyMessage: String!
     var WhizChatStartTyping: String!
+    var PusherUrl: String!
     var is_Top_Location: Bool!
     var wpml_menu_text: String!
     var langData : [LangData]!
@@ -76,7 +77,7 @@ struct SettingsData {
     var placesSearchType: Bool!
     var adDetailStyle: String!
     var appTopLocation : [HomeAppTopLocation]!
-
+    
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -136,7 +137,7 @@ struct SettingsData {
         if let footerMenuD = dictionary["footer_menu"] as? [String:Any]{
             footerMenu = FooterMenuData(fromDictionary: footerMenuD)
         }
-
+        
         allowBlock = dictionary["allow_block"] as? Bool
         if let featuredScrollData = dictionary["featured_scroll"] as? [String:Any]{
             featuredScroll = SettingsFeaturedScroll(fromDictionary: featuredScrollData)
@@ -194,7 +195,7 @@ struct SettingsData {
         WhizChatAPiKey = dictionary["whizchat_api_key"] as? String
         WhizChatEmptyMessage = dictionary["whizchat_empty_message"] as? String
         WhizChatStartTyping = dictionary["whizchat_typing"] as? String
-
+        PusherUrl = dictionary["pusher_url"] as? String
         
     }
     

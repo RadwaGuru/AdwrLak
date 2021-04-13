@@ -26,7 +26,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
     @IBOutlet weak var btnSubmit: UIButton!{
         didSet{
             if let bgColor = defaults.string(forKey: "mainColor") {
-                btnSubmit.layer.cornerRadius = 20
+//                btnSubmit.layer.cornerRadius = 20
                 btnSubmit.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
             }
         }
@@ -51,16 +51,18 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
     var codeNotReceived = ""
     var resendCode = ""
     var verifyNumber = ""
+    var count = 60  // 60sec if you want
+    var resendTimer = Timer()
     var otpStackView = OTPStackView()
     var defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = self.verifyNumber
+       
         self.lblPhonenumber.text = ("\(codeSentTo)\(phoneNumber)")
         self.lblnotRcv.text = codeNotReceived
-        self.btnResendCode.setTitle(self.resendCode, for: .normal)
         self.btnSubmit.setTitle(self.verifyNumber, for: .normal)
+        self.lblnotRcv.isHidden = true
         let yourBackImage = UIImage(named: "backbutton")
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
@@ -78,9 +80,27 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
         otpStackView.inactiveFieldBorderColor = Constants.hexStringToUIColor(hex: bgColor!)
         otpStackView.setAllFieldColor(color: Constants.hexStringToUIColor(hex: bgColor!))
         self.requestOTP()
+        resendTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+
         // Do any additional setup after loading the view.
     }
     
+    @objc func update() {
+        if(count > 0) {
+            count = count - 1
+            print(count)
+            btnResendCode.setTitle("00:\(count)", for: .normal)
+            btnResendCode.isUserInteractionEnabled = false
+        }
+        else {
+            resendTimer.invalidate()
+            btnResendCode.isUserInteractionEnabled = true
+            lblnotRcv.isHidden = false
+            self.btnResendCode.setTitle(self.resendCode, for: .normal)
+
+            // if you want to reset the time make count = 60 and resendTime.fire()
+        }
+    }
     
     @IBAction func ActionRequestOTPAgain(_ sender: Any) {
         self.requestOTP()

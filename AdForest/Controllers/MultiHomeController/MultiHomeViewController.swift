@@ -195,14 +195,12 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
     }
     //MARK:- Go to CarouselPage
-    func openCarousel(url: String) {
+    func openCarousel(url: String, title: String) {
         let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
-        contactWithAdmin.pageTitle = url
-        contactWithAdmin.pageUrl = "https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
-            //url
+        contactWithAdmin.pageTitle = title
+        contactWithAdmin.pageUrl = url
         self.navigationController?.pushViewController(contactWithAdmin, animated: true)
     }
-
     //MARK:- Go to Location detail
     func goToCLocationDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
@@ -494,11 +492,13 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         else {
             if featurePosition == "1" {
                 if section == 0 {
-                    let objData = searchSectionArray[indexPath.row]
-                    if objData.isShow {
-                        height = 250
-                    } else {
-                        height = 0
+                    if searchSectionArray.count != 0 {
+                        let objData = searchSectionArray[indexPath.row]
+                        if objData.isShow {
+                            height = 150
+                        } else {
+                            height = 0
+                        }
                     }
                 }
                 else if section == 1 {
@@ -1228,20 +1228,39 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         else {
             if featurePosition == "1" {
                 if section == 0 {
-                    let cell: MarvelSearchSectionTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelSearchSectionTableViewCell", for: indexPath) as! MarvelSearchSectionTableViewCell
-                    let objData = searchSectionArray[indexPath.row]
-                    if objData.isShow {
-                        if let title = objData.mainTitle {
-                            cell.lblHeading.text = title
+                    let cell: MultiSearchSectionCell = tableView.dequeueReusableCell(withIdentifier: "MultiSearchSectionCell", for: indexPath) as! MultiSearchSectionCell
+                    if searchSectionArray.count != 0 {
+                        let objData = searchSectionArray[indexPath.row]
+                        
+                        if objData.isShow {
+                            
+                            if let title = objData.mainTitle {
+                                cell.lblHeading.text = title
+                            }
+                            if let subTitle = objData.subTitle {
+                                cell.lblSubHeading.text = subTitle
+                            }
+                            if let placeHolder = objData.placeholder {
+                                cell.lblSearchKeywords.placeholder = placeHolder
+                            }
+                            
+                            if UserDefaults.standard.bool(forKey: "isRtl") {
+                                cell.lblHeading.textAlignment = .right
+                                cell.lblSubHeading.textAlignment = .right
+                            } else {
+                                cell.lblHeading.textAlignment = .left
+                                cell.lblSubHeading.textAlignment = .left
+                            }
+                            cell.dataCatLoc = self.catLocationsArray
+                            cell.mainContainer.backgroundColor = UIColor.groupTableViewBackground
+                            cell.containerView.backgroundColor = UIColor.groupTableViewBackground
+                            
+                            
                         }
-                        if let subTitle = objData.subTitle {
-                            cell.lblSubHeading.text = subTitle
-                        }
-                        if let placeHolder = objData.placeholder {
-                            cell.txtFieldSearch.placeholder = placeHolder
-                        }
+                        return cell
+                        
                     }
-                    return cell
+                    
                 }
                 else if section == 1 {
                     if isShowFeature {
@@ -1259,21 +1278,41 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                     }
                 }
                 else if section == 2 {
-                    let cell: MarvelCategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelCategoryTableViewCell", for: indexPath) as! MarvelCategoryTableViewCell
+                    let cell: MultiCategoriesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MultiCategoriesTableViewCell", for: indexPath) as! MultiCategoriesTableViewCell
                     let data = AddsHandler.sharedInstance.objHomeData
-                    if let viewAllText = data?.catIconsColumnBtn.text {
-                        cell.btnViewAllCats.setTitle(viewAllText, for: .normal)
+                    if self.isShowCategoryButton == true {
+                        cell.btnViewAllCats.isHidden = false
+                        if let viewAllText = data?.catIconsColumnBtn.text {
+                            cell.btnViewAllCats.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.lblCatsSectionHeading.text = catSectionTitle
+                        cell.btnViewAll = { () in
+                            let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
+                            self.navigationController?.pushViewController(categoryDetailVC, animated: true)
+                        }
+                    } else {
+                        cell.btnViewAllCats.isHidden = true
                     }
-                    
-                    cell.btnViewAll = { () in
-                        let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
-                        self.navigationController?.pushViewController(categoryDetailVC, animated: true)
-                    }
-                    //                    cell.numberOfColums = self.numberOfColumns
+                    cell.containerView.backgroundColor = UIColor.groupTableViewBackground
                     cell.categoryArray  = self.categoryArray
                     cell.delegate = self
                     cell.collectionView.reloadData()
                     return cell
+//                    let cell: MarvelCategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelCategoryTableViewCell", for: indexPath) as! MarvelCategoryTableViewCell
+//                    let data = AddsHandler.sharedInstance.objHomeData
+//                    if let viewAllText = data?.catIconsColumnBtn.text {
+//                        cell.btnViewAllCats.setTitle(viewAllText, for: .normal)
+//                    }
+//
+//                    cell.btnViewAll = { () in
+//                        let categoryDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryDetailController") as! CategoryDetailController
+//                        self.navigationController?.pushViewController(categoryDetailVC, animated: true)
+//                    }
+//                    //                    cell.numberOfColums = self.numberOfColumns
+//                    cell.categoryArray  = self.categoryArray
+//                    cell.delegate = self
+//                    cell.collectionView.reloadData()
+//                    return cell
                 }
                 else if section == 3 {
                     let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell

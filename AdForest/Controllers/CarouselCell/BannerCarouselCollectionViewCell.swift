@@ -31,6 +31,5 @@ class BannerCarouselCollectionViewCell: UICollectionViewCell {
     
     @IBAction func ActionBannerImage(_ sender: Any) {
         self.btnFullAction?()
-        print("chal ra hu")
     }
 }

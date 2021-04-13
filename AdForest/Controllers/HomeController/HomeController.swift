@@ -18,8 +18,8 @@ import GoogleMobileAds
 import IQKeyboardManagerSwift
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate,OpenBannerCarouselDelegate, BannerCategoryDetailDelegate{
-    
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate,OpenBannerCarouselDelegate, BannerCategoryDetailDelegate,OpenPublicProfileDelegate{
+   
     
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -66,7 +66,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var catLocationsArray = [CatLocation]()
     var nearByAddsArray = [HomeAdd]()
     var searchSectionArray = [HomeSearchSection]()
-    
+    var carouselDataArray = [BannerCarouselData]()
+
     var isAdPositionSort = false
     var isShowLatest = false
     var isShowBlog = false
@@ -74,7 +75,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isShowFeature = false
     var isShowLocationButton = false
     var isShowCategoryButton = false
-    
+    var isAutoScroll: Bool!
+    var AutoScrollSpeeed = ""
+
     var featurePosition = ""
     var animalSectionTitle = ""
     var isNavSearchBarShowing = false
@@ -103,7 +106,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-    let urlImages =  ["https://picsum.photos/id/1/200/300","https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ","https://i.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68","https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE","https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g","https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w","https://i.picsum.photos/id/1002/4312/2868.jpg?hmac=5LlLE-NY9oMnmIQp7ms6IfdvSUQOzP_O3DPMWmyNxwo","https://i.picsum.photos/id/1003/1181/1772.jpg?hmac=oN9fHMXiqe9Zq2RM6XT-RVZkojgPnECWwyEF1RvvTZk","https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY","https://i.picsum.photos/id/1005/5760/3840.jpg?hmac=2acSJCOwz9q_dKtDZdSB-OIK1HUcwBeXco_RMMTUgfY","https://i.picsum.photos/id/1006/3000/2000.jpg?hmac=x83pQQ7LW1UTo8HxBcIWuRIVeN_uCg0cG6keXvNvM8g","https://i.picsum.photos/id/1008/5616/3744.jpg?hmac=906z84ml4jhqPMsm4ObF9aZhCRC-t2S_Sy0RLvYWZwY","https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk"]
   
    
 
@@ -197,11 +199,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
     }
+    //MARK:- OpenPublicProfile
+    func publicProdile(id: String) {
+        let publicProfileVC = self.storyboard?.instantiateViewController(withIdentifier: UserPublicProfile.className) as! UserPublicProfile
+        publicProfileVC.userID = id
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
+    }
+    
+    
+  
     //MARK:- Go to CarouselPage
-    func openCarousel(url: String) {
+    func openCarousel(url: String, title: String) {
         let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
-        contactWithAdmin.pageTitle = url
-        contactWithAdmin.pageUrl = url 
+        contactWithAdmin.pageTitle = title
+        contactWithAdmin.pageUrl = url
+            //url
             //"https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
             //url
         self.navigationController?.pushViewController(contactWithAdmin, animated: true)
@@ -576,8 +588,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             case "crousel":
                 let cell: BannerCarouselCell = tableView.dequeueReusableCell(withIdentifier: "BannerCarouselCell", for: indexPath) as! BannerCarouselCell
+                cell.dataArray = self.carouselDataArray
+                cell.isAutoScroll  = self.isAutoScroll
+                cell.AutoScrollSpeeed = self.AutoScrollSpeeed
+                if isAutoScroll == true {
+                    cell.startTimer()
+                }
                 cell.delegate = self
                 cell.listDelegate = self
+                cell.PublicProfileDelegate = self
                 return cell
                 
             case "cat_icons":
@@ -1123,6 +1142,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     height = 0
                 }
             } else if position == "crousel"{
+//                height = 0
                 height = 188
             }
             else if position == "featured_ads" {
@@ -1494,6 +1514,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 AddsHandler.sharedInstance.objHomeData = successResponse.data
                 AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
                 AddsHandler.sharedInstance.topLocationArray = successResponse.data.appTopLocationList
+                self.carouselDataArray  = successResponse.data.bannerCarousel.BannerSliders
+                self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll
+                self.AutoScrollSpeeed = successResponse.data.bannerCarousel.AutoScrollSpeed
+                debugPrint("CarosueL Data ::\(self.carouselDataArray)")
+
+                
                 // Set Up AdMob Banner & Intersitial ID's
                 UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
                 var isShowAd = false

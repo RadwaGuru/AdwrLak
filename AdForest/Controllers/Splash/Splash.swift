@@ -199,6 +199,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.WhizChatAPiKey, forKey: "WhizChatAPiKey")
                 self.defaults.set(successResponse.data.WhizChatEmptyMessage, forKey: "WhizChatEmptyMessage")
                 self.defaults.set(successResponse.data.WhizChatStartTyping, forKey: "WhizChatStartTyping")
+                self.defaults.set(successResponse.data.PusherUrl, forKey: "PusherUrl")
+
 
                 AddsHandler.sharedInstance.topLocationArray  = successResponse.data.appTopLocation
                 self.defaults.synchronize()

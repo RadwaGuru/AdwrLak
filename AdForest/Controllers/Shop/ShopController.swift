@@ -9,6 +9,8 @@
 import UIKit
 import DropDown
 import WebKit
+import MaterialProgressBar
+
 class ShopController: UIViewController,WKUIDelegate,WKNavigationDelegate  {
 
     //MARK:- Outlets
@@ -56,6 +58,7 @@ class ShopController: UIViewController,WKUIDelegate,WKNavigationDelegate  {
         if let shopTitle = defaults.string(forKey: "shopTitle") {
             self.title = shopTitle
         }
+        showProgressBar()
         self.populateShopData()
         self.addBackButtonToNavigationBar()
         self.googleAnalytics(controllerName: "ShopController")
@@ -79,11 +82,25 @@ class ShopController: UIViewController,WKUIDelegate,WKNavigationDelegate  {
                         if UserDefaults.standard.bool(forKey: "isSocial") {
                             request.setValue("social", forHTTPHeaderField: "AdForest-Login-Type")
                         }
+                request.cachePolicy = .returnCacheDataElseLoad
+                self.wkWebView.navigationDelegate = self
+
                         self.wkWebView.load(request)
               }
             //navigationButtons()
         
         
+    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("finish loading")
+//
+//        self.wkWebView.evaluateJavaScript("document.getElementsByClassName(\'sb-light-header\').style.display='none';") { (result, error) in
+//            if error == nil {
+////                // header is hide now
+//            }
+//        }
+        self.hideProgressBar()
+
     }
     //Adpost Btn Action/
     @IBAction func actionAdPost(_ sender: UIButton) {
