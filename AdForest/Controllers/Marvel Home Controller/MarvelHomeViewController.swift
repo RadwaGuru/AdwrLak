@@ -14,7 +14,7 @@ import UserNotifications
 import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
-class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate, BannerCategoryDetailDelegate, OpenBannerCarouselDelegate {
+class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate, BannerCategoryDetailDelegate, OpenBannerCarouselDelegate, OpenPublicProfileDelegate {
     
     
     
@@ -77,7 +77,8 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
     var catLocationsArray = [CatLocation]()
     var nearByAddsArray = [HomeAdd]()
     var searchSectionArray = [HomeSearchSection]()
-    
+    var carouselDataArray = [BannerCarouselData]()
+
     var isAdPositionSort = false
     var isShowLatest = false
     var isShowBlog = false
@@ -85,7 +86,9 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
     var isShowFeature = false
     var isShowLocationButton = false
     var isShowCategoryButton = false
-    
+    var isAutoScroll: Bool!
+
+    var AutoScrollSpeeed = ""
     var featurePosition = ""
     var animalSectionTitle = ""
     var isNavSearchBarShowing = false
@@ -111,7 +114,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
     var nearByColHeight: Double = 0
-
+    var locationHeight: Double = 0
 
     var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
     var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
@@ -199,6 +202,12 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             self.navigationController?.pushViewController(addDetailVC, animated: true)
             
         }
+    }
+    //MARK:- OpenPublicProfile
+    func publicProdile(id: String) {
+        let publicProfileVC = self.storyboard?.instantiateViewController(withIdentifier: UserPublicProfile.className) as! UserPublicProfile
+        publicProfileVC.userID = id
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
     }
     //MARK:- Go to CarouselPage
     func openCarousel(url: String, title: String) {
@@ -316,9 +325,10 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                     height = 0
                 } else {
                     if self.isShowLocationButton {
-                        height = 250
+                        height = CGFloat(locationHeight) + 90
+                            //250
                     } else {
-                        height = 225
+                        height = CGFloat(locationHeight) + 90
                     }
                 }
             } else if position == "nearby" {
@@ -641,10 +651,19 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 return cell
             case "crousel":
                 let cell: BannerCarouselCell = tableView.dequeueReusableCell(withIdentifier: "BannerCarouselCell", for: indexPath) as! BannerCarouselCell
+                cell.dataArray = self.carouselDataArray
+                cell.isAutoScroll  = self.isAutoScroll
+                cell.AutoScrollSpeeed = self.AutoScrollSpeeed
+                if isAutoScroll == true {
+                    cell.startTimer()
+                }
                 cell.delegate = self
+                cell.listDelegate = self
+                cell.PublicProfileDelegate = self
                 cell.mainContainer.backgroundColor = UIColor.groupTableViewBackground
                 cell.contentView.backgroundColor = UIColor.groupTableViewBackground
                 cell.collectionView.backgroundColor = UIColor.groupTableViewBackground
+
                 return cell
                 
             case "blogNews":
@@ -875,6 +894,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                     cell.lblTitle.text = catLocationTitle
                     cell.dataArray = catLocationsArray
                     cell.delegate = self
+                    locationHeight = Double(cell.collectionView.contentSize.height)
                     cell.collectionView.reloadData()
                     return cell
                 }else if locationSectionStyle == "style2" {
@@ -1406,6 +1426,11 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 AddsHandler.sharedInstance.objHomeData = successResponse.data
                 AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
                 AddsHandler.sharedInstance.topLocationArray = successResponse.data.appTopLocationList
+                self.carouselDataArray  = successResponse.data.bannerCarousel.BannerSliders
+                self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll
+                self.AutoScrollSpeeed = successResponse.data.bannerCarousel.AutoScrollSpeed
+                debugPrint("CarosueL Data ::\(self.carouselDataArray)")
+
                 // Set Up AdMob Banner & Intersitial ID's
                 UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
                 var isShowAd = false

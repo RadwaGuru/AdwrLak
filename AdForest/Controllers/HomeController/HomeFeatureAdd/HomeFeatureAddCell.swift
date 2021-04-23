@@ -41,6 +41,7 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     var fromMarvelDefault = false
     var latestVertical: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
+    var counter = 0
 
 
     //MARK:- View Life Cycle
@@ -70,9 +71,22 @@ class HomeFeatureAddCell: UITableViewCell, UICollectionViewDelegate, UICollectio
 //    }
     
     @objc func scrollToNextCell() {
-        let cellSize = CGSize(width: frame.width, height: frame.height)
-        let contentOffset = collectionView.contentOffset
-        collectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
+        
+        if counter < dataArray.count{
+            let index = IndexPath.init(item: counter, section: 0)
+            self.collectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            counter += 1
+        }else{
+            counter = 0
+            let index  = IndexPath.init(item: counter, section: 0)
+            self.collectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            counter = 1
+        }
+        
+        
+//        let cellSize = CGSize(width: frame.width, height: frame.height)
+//        let contentOffset = collectionView.contentOffset
+//        collectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
     }
     
     //MARK:- Collection View Delegate Methods

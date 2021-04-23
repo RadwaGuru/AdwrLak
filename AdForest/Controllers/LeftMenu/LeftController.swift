@@ -764,8 +764,21 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let wpml = UserDefaults.standard.bool(forKey: "isWpOn")
         let blog = UserDefaults.standard.bool(forKey: "isBlogOn")
         let settings = UserDefaults.standard.bool(forKey: "isSettingsOn")
+
+        //MARK:-Hide Advanced Search option from side menu
         
-        
+//        let objData =  UserHandler.sharedInstance.menuValuesArray[indexPath.row]
+//        let img = UserHandler.sharedInstance.menuKeysArray[indexPath.row]
+//        if indexPath.section == 0 {
+//            switch img.lowercased() {
+//            case   "search":
+//                return 0
+//            default:
+//                return 40
+//            }
+//        }
+        //MARK:-Hide Guest menu option from side menu
+
         if indexPath.section == 2{
             if defaults.bool(forKey: "isLogin") == false {
                 if let menu = OtherGuestMenues(rawValue: indexPath.row) {
@@ -843,7 +856,6 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }else{
                         return 0
                     }
-                    
                 default:
                     return 40
                 }

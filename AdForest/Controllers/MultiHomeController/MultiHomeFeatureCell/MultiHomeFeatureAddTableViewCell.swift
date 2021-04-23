@@ -56,6 +56,7 @@ class MultiHomeFeatureAddTableViewCell: UITableViewCell,UICollectionViewDelegate
     }
     
     @objc func scrollToNextCell() {
+
         let cellSize = CGSize(width: frame.width, height: frame.height)
         let contentOffset = collectionView.contentOffset
         collectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)

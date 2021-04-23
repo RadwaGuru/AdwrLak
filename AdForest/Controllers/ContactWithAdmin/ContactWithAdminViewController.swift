@@ -63,14 +63,10 @@ class ContactWithAdminViewController: UIViewController,WKNavigationDelegate {
             }
           
             request.cachePolicy = .returnCacheDataElseLoad
-
+        
             self.wkWebView.navigationDelegate = self
             self.wkWebView.load(request)
         }
-        //        request.cachePolicy = .useProtocolCachePolicy
-//        self.wkWebView.navigationDelegate = self
-        
-//        self.wkWebView.load(request)
     }
     
     

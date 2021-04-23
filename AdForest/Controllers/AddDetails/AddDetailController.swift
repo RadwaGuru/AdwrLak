@@ -75,7 +75,17 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             imgCall.tintColor = .white
         }
     }
+    @IBOutlet weak var btnWhatsApp: UIButton!{
+        didSet{
+            btnWhatsApp.circularButton()
+        }
+    }
     
+    @IBOutlet weak var imgWhatsApp: UIImageView!{
+        didSet{
+            imgWhatsApp.circularView()
+        }
+    }
     //MARK:- Properties
     let defaults = UserDefaults.standard
     var ad_id = 0
@@ -118,6 +128,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var isShowContactSeller : Bool!
     var interstitial: GADInterstitial!
     var fromAdDetail = false
+    var fromAdPost = false
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
     var isWhizChatActive: Bool!
     var whizData: WhizChatInitData!
@@ -125,12 +136,14 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var whizChatRoomID: String!
     var whizChatCommunicationId: String!
     var whizChatChatId = ""
+    var whatsAppNum = ""
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if fromAdDetail == true{
             self.showBackButton()
-        }else{
+        }
+        else{
             self.addBackButton()
         }
 //        self.showBackButton()
@@ -157,6 +170,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             print(parameter)
             self.adForest_addDetail(param: parameter as NSDictionary)
         }
+        Timer.scheduledTimer(timeInterval:2.0, target: self, selector: #selector(bounceButton), userInfo: nil, repeats: true)
         
         navigationButtons()
     }
@@ -167,6 +181,75 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
         //self.adForest_homeData()
         
     }
+    
+    //MARK:- OpenWhatsApp
+    @IBAction func ActionWhatsApp(_ sender: Any) {
+        openWhatsApp(number: whatsAppNum)
+    }
+    //MARK:- Bounce Buttons
+  @objc func bounceButton(){
+
+    
+    
+    imgWhatsApp.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 6.0,
+                       options: .allowUserInteraction,
+                       animations: { [weak self] in
+                        self?.imgWhatsApp.transform = .identity
+                       },
+                       completion: nil)
+//    let newButtonWidth: CGFloat = 60
+//    UIView.animate(withDuration: 1.0, //1
+//        delay: 0.0, //2
+//        usingSpringWithDamping: 0.3, //3
+//        initialSpringVelocity: 1, //4
+//        options: UIView.AnimationOptions.curveEaseInOut, //5
+//        animations: ({ //6
+//            self.imgWhatsApp.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth)
+//            self.imgWhatsApp.center = self.view.center
+//    }), completion: nil)
+//
+//    let anim=CABasicAnimation(keyPath: "transform.rotation")
+//    anim.toValue=NSNumber(value: -M_PI/16)
+//    anim.fromValue=NSNumber(value: M_PI/16)
+//    anim.duration=0.1
+//    anim.repeatCount=1.5
+//    anim.autoreverses=true
+//    imgWhatsApp.layer.add(anim, forKey: "iconShake")
+
+    
+    
+    
+    }
+    
+
+    // MARK:- Open WhatsApp
+
+    func openWhatsApp(number : String){
+        var fullMob = number
+        fullMob = fullMob.replacingOccurrences(of: " ", with: "")
+        fullMob = fullMob.replacingOccurrences(of: "+", with: "")
+        fullMob = fullMob.replacingOccurrences(of: "-", with: "")
+        let urlWhats = "whatsapp://send?phone=\(fullMob)"
+        
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
+                    UIApplication.shared.open(whatsappURL as URL, options: [:], completionHandler: { (Bool) in
+                    })
+                } else {
+                    let alert = Constants.showBasicAlert(message: "No Whatsapp found")
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
+  
+    
     // MARK:- Go toHOmepage from addetail
     func addBackButton() {
         self.hideBackButton()
@@ -184,15 +267,29 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     @objc override func onBackButtonClciked() {
         if homeStyles == "home1"{
-            navigationController?.popViewController(animated: true)
+            if fromAdPost == false{
+                navigationController?.popViewController(animated: true)
+            }else{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeController") as! HomeController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+                
+            }
         }
         else if homeStyles == "home2"{
-            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MultiHomeViewController") as! MultiHomeViewController
-            self.navigationController?.pushViewController(tabBarVC, animated: true)
+            if fromAdPost == false{
+                navigationController?.popViewController(animated: true)
+            }else{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MultiHomeViewController") as! MultiHomeViewController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+            }
         }
         else if homeStyles == "home3"{
-            let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "SOTabBarViewController") as! SOTabBarViewController
-            self.navigationController?.pushViewController(tabBarVC, animated: true)
+            if fromAdPost == false{
+                navigationController?.popViewController(animated: true)
+            }else{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "SOTabBarViewController") as! SOTabBarViewController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+            }
         }
     }
     //MARK: - Custom
@@ -1376,6 +1473,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             self.stopAnimating()
             if successResponse.success {
                 self.title = successResponse.data.pageTitle
+                self.whatsAppNum = successResponse.data.adDetail.phone
                 AddsHandler.sharedInstance.descTitle = successResponse.data.staticText.descriptionTitle
                 AddsHandler.sharedInstance.htmlText = successResponse.data.adDetail.adDesc
                 self.similarAdsTitle = successResponse.data.staticText.relatedPostsTitle

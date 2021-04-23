@@ -102,6 +102,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var latColHeight: Double = 0
     var fetColHeight: Double = 0
     var SliderColHeight: Double = 0
+    var locationHeight: Double = 0
     var showVertical:Bool = false
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
@@ -742,6 +743,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.lblTitle.text = catLocationTitle
                 cell.dataArray = catLocationsArray
                 cell.delegate = self
+                locationHeight = Double(cell.collectionView.contentSize.height)
                 cell.collectionView.reloadData()
                 return cell
             case "sliders":
@@ -1101,11 +1103,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else if position == "cat_locations"  {
                 if categoryArray.isEmpty {
                     height = 0
-                } else {
+                } else{
                     if self.isShowLocationButton {
-                        height = 250
+                        height = CGFloat(locationHeight) + 90
+                        //250
                     } else {
-                        height = 225
+                        height = CGFloat(locationHeight) + 90
                     }
                 }
             } else if position == "nearby" {

@@ -221,7 +221,8 @@ class CategoryDetailController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataArray.count - 1 && currentPage < maximumPage {
             currentPage = currentPage + 1
-            let param: [String: Any] = ["term_name":"ad_cats", "term_id": termId, "page_number": currentPage]
+            //"term_name":"ad_cats", "term_id": termId,
+            let param: [String: Any] = ["page_number": currentPage]
             self.adForest_loadMoreData(parameter: param as NSDictionary)
         }
     }

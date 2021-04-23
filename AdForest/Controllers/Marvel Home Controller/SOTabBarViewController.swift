@@ -40,13 +40,8 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
             UITabBar.appearance().tintColor = Constants.hexStringToUIColor(hex: bgColor)
             tabBar.unselectedItemTintColor = .lightGray
         }
-       
-        
-        
-        
     }
         func removeTabbarItemsText() {
-       
         if let items = tabBarController?.tabBar.items {
            for item in items {
               item.title = ""
@@ -66,9 +61,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         HomeButton.setBackgroundImage(ho, for: .normal)
         HomeButton.tintColor = UIColor.white
         HomeButton.setImage(ho, for: .normal)
-        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //            HomeButton.isHidden = true
-        //        }
         if #available(iOS 11, *) {
             searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
             searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -79,7 +71,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         let homeItem = UIBarButtonItem(customView: HomeButton)
         if defaults.bool(forKey: "showHome") {
             barButtonItems.append(homeItem)
-            //self.barButtonItems.append(homeItem)
         }
         
         //Location Search
@@ -105,9 +96,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         }
         //Search Button
         let searchButton = UIButton(type: .custom)
-        //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //           searchButton.isHidden = true
-        //       }
         if defaults.bool(forKey: "advanceSearch") == true{
             let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
             searchButton.setBackgroundImage(con, for: .normal)
@@ -130,7 +118,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         let searchItem = UIBarButtonItem(customView: searchButton)
         if defaults.bool(forKey: "showSearch") {
             barButtonItems.append(searchItem)
-            //self.barButtonItems.append(searchItem)
         }
         
         self.navigationItem.rightBarButtonItems = barButtonItems
@@ -170,9 +157,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
             let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
             self.pushVC(proVc, completion: nil)
         }else{
-            
-            //setupNavigationBar(title: "okk...")
-            
             keyboardManager.enable = true
             if isNavSearchBarShowing {
                 navigationItem.titleView = nil
@@ -225,7 +209,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //self.searchBarNavigation.endEditing(true)
         searchBar.endEditing(true)
         self.view.endEditing(true)
     }
@@ -288,8 +271,6 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         let button = UIButton(type: .custom)
         let toMakeButtonUp = 40
         button.frame = CGRect(x: 0.0, y: 0.0, width: 64, height: 64)
-//        button.setBackgroundImage("blackplus", for: .normal)
-//        button.setBackgroundImage("blackplus", for: .highlighted)
           button.backgroundColor = .orange
           button.layer.cornerRadius = 32
 
@@ -302,17 +283,7 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
             button.center = center
         }
         button.addTarget(self, action: #selector(menuButtonAction), for:.touchUpInside)
-        view.addSubview(button)
-//        button.setTitle(footerAdpostS, for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.setTitleColor(.yellow, for: .highlighted)
-//
-//        button.backgroundColor = .orange
-//        button.layer.cornerRadius = 32
-//        button.layer.borderWidth = 4
-//        button.layer.borderColor = UIColor.yellow.cgColor
-//        self.view.insertSubview(button, aboveSubview: self.tabBar)
-        
+        view.addSubview(button)        
     }
    
     // Menu Button Touch Action

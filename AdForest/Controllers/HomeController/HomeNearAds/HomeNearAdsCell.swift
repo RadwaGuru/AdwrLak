@@ -37,6 +37,8 @@ class HomeNearAdsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.showsHorizontalScrollIndicator = false
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.isScrollEnabled = false
         }
     }
     
@@ -89,7 +91,9 @@ class HomeNearAdsCell: UITableViewCell, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize(width: 170, height: 140)
+//         return CGSize(width: 170, height: 140)
+        return CGSize(width:collectionView.frame.width/2 , height:140)
+
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

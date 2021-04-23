@@ -967,6 +967,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                         addDetailVC.ad_id = successResponse.data.adId
                         self.fromAdDetail = true                        
                         addDetailVC.fromAdDetail = self.fromAdDetail
+                        addDetailVC.fromAdPost = true
                         self.navigationController?.pushViewController(addDetailVC, animated: true)
 
                     }
@@ -975,6 +976,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                         marvelAddDetailVC.ad_id = successResponse.data.adId
                         self.fromAdDetail = true
                         marvelAddDetailVC.fromAdDetail = self.fromAdDetail
+                        marvelAddDetailVC.fromAdPost = true
                         self.navigationController?.pushViewController(marvelAddDetailVC, animated: true)
 
                     }

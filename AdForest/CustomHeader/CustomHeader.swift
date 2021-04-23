@@ -19,11 +19,8 @@ class CustomHeader: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var lblTotalAds: UILabel!
-    @IBOutlet weak var oltOrder: UIButton!{
-        didSet {
-            oltOrder.contentHorizontalAlignment = .right
-        }
-    }
+    @IBOutlet weak var oltOrder: UIButton!
+    
     @IBOutlet weak var imgIcon: UIImageView!
     
     //MARK:- Properties
@@ -44,6 +41,15 @@ class CustomHeader: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            oltOrder.contentHorizontalAlignment = .left
+            imgIcon.isHidden = true
+        }
+        else{
+            oltOrder.contentHorizontalAlignment = .right
+            
+        }
+        
     }
     
     //MARK:- Custom

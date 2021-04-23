@@ -274,7 +274,9 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
             if isFromAdvanceSearch == true {
                 param.merge(with: addInfoDict)
             }
-            
+            if isFromNearBySearch == true{
+                param = ["page_number": currentPage,"nearby_latitude": latitude, "nearby_longitude": longitude, "nearby_distance": nearByDistance]
+            }
             print(param)
             self.adForest_loadMoreData(param: param as NSDictionary)
         }

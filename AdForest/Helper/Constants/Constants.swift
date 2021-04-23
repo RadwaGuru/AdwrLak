@@ -155,9 +155,10 @@ class Constants {
     
     
     struct googlePlacesAPIKey {
-        
-        static let placesKey = "AIzaSyCRGeqF7V7MRta6UTo43Ty0YYsjVcCv58E"
+        static let placesKey = "AIzaSyDkRxdKz94m2oJeglivzaknm2sgoD7Di6c"
 
+//        static let placesKey = "AIzaSyCRGeqF7V7MRta6UTo43Ty0YYsjVcCv58E"
+        
         
     }
     struct MapboxAccessToken {
