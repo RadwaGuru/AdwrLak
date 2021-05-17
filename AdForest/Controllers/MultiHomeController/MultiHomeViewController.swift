@@ -1624,6 +1624,8 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                     }
                     if isShowBanner {
                         SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
+                        SwiftyAd.shared.bannerViewAdUnitID = (successResponse.settings.ads.bannerId)!
+
                         print(successResponse.settings.ads.bannerId)
 
                         self.tableView.translatesAutoresizingMaskIntoConstraints = false

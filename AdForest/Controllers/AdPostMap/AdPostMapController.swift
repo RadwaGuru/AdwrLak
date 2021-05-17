@@ -156,8 +156,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     var mapBoxPlace = ""
     var fromAdDetail = false;
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-
-    
+    var isAddressFieldRequired = false
+    var parameter: [String: Any]!
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -372,6 +372,13 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             guard let isShowCountry = objData?.data.profile.adCountryShow else {
                 return
             }
+            guard let isLocationReq = objData?.data.profile.location.isRequired else {
+                return
+            }
+            isAddressFieldRequired = isLocationReq
+            print(isAddressFieldRequired)
+
+
             if isShowCountry {
                 for values in (objData?.data.profile.adCountry.values)! {
                     var i = 1
@@ -848,30 +855,50 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         if isSimpleAddress == false{
             address = txtAddress.text!
         }
-        
-        if address == "" {
+        //address == ""  &&
+        if isAddressFieldRequired == true {
             self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
         }else if isTermCond == false{
             self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
         }
         else {
-            var parameter: [String: Any] = [
-                "images_array": imageIdArray,
-                "ad_phone": self.txtNumber.text!, //phone_number,
-                "ad_location": address,
-                "location_lat": latitude,
-                "location_long": longitude,
-                "ad_country": selectedID,   //selectedCountry,
-                "ad_featured_ad": isFeature,
-                "ad_id": AddsHandler.sharedInstance.adPostAdId,
-                "ad_bump_ad": isBump,
-                "name": self.txtName.text!
-            ]
-            
-            if isfromEditAd {
-            parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
+            if address == "" {
+                 parameter = [
+                    "images_array": imageIdArray,
+                    "ad_phone": self.txtNumber.text!, //phone_number,
+                    "ad_location": selectedID,
+                    "location_lat": latitude,
+                    "location_long": longitude,
+                    "ad_country": selectedID,   //selectedCountry,
+                    "ad_featured_ad": isFeature,
+                    "ad_id": AddsHandler.sharedInstance.adPostAdId,
+                    "ad_bump_ad": isBump,
+                    "name": self.txtName.text!
+                ]
+                if isfromEditAd {
+                parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
+                }
+                print(parameter)
+            }else{
+                 parameter = [
+                    "images_array": imageIdArray,
+                    "ad_phone": self.txtNumber.text!, //phone_number,
+                    "ad_location": address,
+                    "location_lat": latitude,
+                    "location_long": longitude,
+                    "ad_country": selectedID,   //selectedCountry,
+                    "ad_featured_ad": isFeature,
+                    "ad_id": AddsHandler.sharedInstance.adPostAdId,
+                    "ad_bump_ad": isBump,
+                    "name": self.txtName.text!
+                ]
+                
+                if isfromEditAd {
+                parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
+                }
+                print(parameter)
             }
-            print(parameter)
+            
             let dataArray = objArray
             print(objArray)
             for (_, value) in dataArray.enumerated() {

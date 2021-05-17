@@ -38,7 +38,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var featuredLoop = ""
     var home = "homeMulti"
     var topLocArr : [HomeAppTopLocation]!
-    
+    var settingExtrasData: SettingsExtra!
     //MARK:- Properties
     
     override func viewDidLoad() {
@@ -200,6 +200,17 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.WhizChatEmptyMessage, forKey: "WhizChatEmptyMessage")
                 self.defaults.set(successResponse.data.WhizChatStartTyping, forKey: "WhizChatStartTyping")
                 self.defaults.set(successResponse.data.PusherUrl, forKey: "PusherUrl")
+//                self.settingExtrasData  = successResponse.data.extraTexts
+//                print(self.settingExtrasData.codeSentTo)
+                self.defaults.set(successResponse.data.extraTexts.codeSentTo, forKey: "codeSentTo")
+                self.defaults.set(successResponse.data.extraTexts.notReceived, forKey: "notReceived")
+                self.defaults.set(successResponse.data.extraTexts.tryAgain, forKey: "tryAgain")
+                self.defaults.set(successResponse.data.extraTexts.verifyNumber, forKey: "verifyNumber")
+                self.defaults.set(successResponse.data.extraTexts.phonePlaceholder, forKey: "phonePlaceholder")
+                self.defaults.set(successResponse.data.extraTexts.usernamePlaceHolder, forKey: "usernamePlaceHolder")
+
+                
+                
 
 
                 AddsHandler.sharedInstance.topLocationArray  = successResponse.data.appTopLocation

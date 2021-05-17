@@ -99,7 +99,7 @@ final class SwiftyAd: NSObject {
      var rewardedVideoAd: GADRewardBasedVideoAd?
     
     /// Test Ad Unit IDs. Will get set to real ID in setup method
-     var bannerViewAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+     var bannerViewAdUnitID = ""
 //    var bannerViewAdUnitID = "ca-app-pub-3543987221312116/1794244190"
     
      var interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"

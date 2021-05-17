@@ -51,6 +51,7 @@ class NetworkHandler {
                 let emailPass = "\(email):\(password)"
                 let encodedString = emailPass.data(using: String.Encoding.utf8)!
                 let base64String = encodedString.base64EncodedString(options: [])
+                print(base64String)
                 headers = [
                     "Accept": "application/json",
                     "Authorization" : "Basic \(base64String)",

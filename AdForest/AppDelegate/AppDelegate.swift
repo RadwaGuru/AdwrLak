@@ -23,6 +23,8 @@ import GoogleMobileAds
 //import LinkedinSwift
 import GoogleSignIn
 import SocketIO
+import AppTrackingTransparency
+import AdSupport
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
@@ -52,7 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         interstitial.load(request)
         return interstitial
     }
-    
+    func requestIDFA() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                // Tracking authorization completed. Start loading ads here.
+                // loadAd()
+                GADMobileAds.sharedInstance().start(completionHandler: nil)
+
+            })
+        } else {
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
+
+            // Fallback on earlier versions
+        }
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         keyboardManager.enable = true
@@ -79,7 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
          GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        self.requestIDFA()
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
 
 
 

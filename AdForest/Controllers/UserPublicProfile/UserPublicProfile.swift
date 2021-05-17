@@ -115,6 +115,7 @@ class UserPublicProfile: UIViewController, UICollectionViewDelegate, UICollectio
                 }
                 if isShowBanner {
                     SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
+                    SwiftyAd.shared.bannerViewAdUnitID = (objData?.bannerId)!
 
                     if objData?.position == "top" {
                         self.containerViewProfile.translatesAutoresizingMaskIntoConstraints = false

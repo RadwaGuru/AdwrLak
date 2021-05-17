@@ -132,6 +132,22 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
     @IBOutlet weak var containerViewSocialButton: UIView!
     
+    @IBOutlet weak var BtnRegisterOTP: UIButton!{
+        didSet{
+            let bgColor = defaults.string(forKey: "mainColor")
+            self.BtnRegisterOTP.layer.borderColor = Constants.hexStringToUIColor(hex: bgColor!).cgColor
+            self.BtnRegisterOTP.setTitleColor(Constants.hexStringToUIColor(hex: bgColor!), for: .normal)
+            BtnRegisterOTP.setTitle("Otp Eeeee", for: .normal)
+            BtnRegisterOTP.roundCorners()
+            BtnRegisterOTP.layer.borderWidth = 1
+            
+        }
+    }
+    
+    @IBOutlet weak var nameSeperator: UIView!
+    @IBOutlet weak var emailSeperator: UIView!
+    @IBOutlet weak var phoneSeperator: UIView!
+    @IBOutlet weak var pwdSeperator: UIView!
     //MARK:- Properties
     var isAgreeSubscriber = false
     var isAgreeTerms = false
@@ -155,6 +171,13 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     var arraySocialLogin = [String]()
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
     var checkBoxselectedBtn = false
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
+    var otpHaBHai = true
+    var codeSentToText: String = UserDefaults.standard.string(forKey: "codeSentTo")!
+    var notReceived: String = UserDefaults.standard.string(forKey: "notReceived")!
+    var tryAgain: String = UserDefaults.standard.string(forKey: "tryAgain")!
+    var verifyNumberText: String = UserDefaults.standard.string(forKey: "verifyNumber")!
+
     //MARK:- Application Life Cycle
     
     override func viewDidLoad() {
@@ -166,6 +189,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         self.adForest_registerData()
         txtFieldsWithRtl()
         btnApple.isHidden = true
+        BtnRegisterOTP.isHidden = true
+        //        lblOr.isHidden = true
+        //        lblOr.topAnchor.constraint(equalTo: self.BtnRegisterOTP.bottomAnchor,constant: 8).isActive = true
         //        btnLinkedin.isHidden = true
         btnApple.layer.cornerRadius = 10
         btnApple.layer.borderWidth = 1
@@ -173,9 +199,23 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         setUpSignInAppleButton()
         btnCheckBoxSubscriber.isHidden = true
         btnTextSubscriber.isHidden = true
+        lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
+
+//        if otpHaBHai == true{
+//            txtPassword.isHidden = true
+//            imgPassword.isHidden = true
+//            imgPhone.isHidden = true
+//            txtPhone.isHidden = true
+//
+//            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//
+//
+//        }
         if UserDefaults.standard.bool(forKey: "isRtl") {
             btnApple.imageEdgeInsets = UIEdgeInsets(top: 10, left:30, bottom: 10, right: 10)
-
+            
         }
         if #available(iOS 13.0, *) {
             //            self.checkStatusOfAppleSignIn()
@@ -239,6 +279,52 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if txtEmail.text?.isValidEmail == true {
+            txtPassword.isHidden = false
+            imgPassword.isHidden = false
+            phoneSeperator.isHidden = false
+            pwdSeperator.isHidden = false
+            imgPhone.isHidden = false
+            txtPhone.isHidden = false
+            
+            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
+            
+            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//            //, constant: -5
+            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//
+            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+
+        }
+        else if txtEmail.text?.isValidEmail == false {
+            txtPassword.isHidden = true
+            imgPassword.isHidden = true
+            imgPhone.isHidden = true
+            txtPhone.isHidden = true
+        
+            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//
+//
+//            imgPhone.isHidden = true
+//            txtPhone.isHidden = true
+//            txtPassword.isHidden = true
+//            imgPassword.isHidden = true
+//            pwdSeperator.isHidden = true
+//            phoneSeperator.isHidden = true
+//            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+            
+        }
+    }
+    
     //MARK: - Custom
     
     func txtFieldsWithRtl(){
@@ -280,7 +366,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 self.txtName.placeholder = nameText
             }
             if let emailText = objData?.emailPlaceholder {
-                self.txtEmail.placeholder = emailText
+                let phoneTxt = objData?.phonePlaceholder
+                self.txtEmail.placeholder = ("\(emailText)/\(phoneTxt)")
             }
             if let phoneText = objData?.phonePlaceholder {
                 self.txtPhone.placeholder = phoneText
@@ -379,7 +466,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 //                self.btnLinkedin.isHidden = true
                 self.btnApple.isHidden = false
                 //                btnFb.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-//                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
+                //                btnApple.topAnchor.constraint(equalTo: self.btnFb.bottomAnchor, constant: 8).isActive = true
                 
                 //                self.topConstraintBtnApple.constant -= 80
             }
@@ -401,7 +488,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 //                self.btnLinkedin.isHidden = false
                 
                 //                btnLinkedin.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-//                btnApple.topAnchor.constraint(equalTo: self.btnLinkedin.bottomAnchor, constant: 8).isActive = true
+                //                btnApple.topAnchor.constraint(equalTo: self.btnLinkedin.bottomAnchor, constant: 8).isActive = true
                 
                 
             }
@@ -438,7 +525,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 self.btnApple.isHidden = false
                 //                self.btnLinkedin.isHidden = true
                 //                buttonGoogle.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 8).isActive = true
-//                btnApple.topAnchor.constraint(equalTo: self.buttonGoogle.bottomAnchor, constant: 8).isActive = true
+                //                btnApple.topAnchor.constraint(equalTo: self.buttonGoogle.bottomAnchor, constant: 8).isActive = true
                 
             }
             
@@ -594,11 +681,40 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return 1
     }
     //Fixed position of items in CollectionView
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //        let padding: CGFloat = 0
+    //        let collectionViewSize = collectionView.frame.size.width - padding
+    //        return CGSize(width: collectionViewSize/3, height:120)
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    //        return 0
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    //        return 0
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        let totalCellWidth = 56 * arraySocialLogin.count
+    //        let totalSpacingWidth = 5 * (arraySocialLogin.count - 1)
+    //        let leftInset = (collectionView.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 3
+    //        let rightInset = leftInset
+    //        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+    //    }
+    
+    //OLD STeps
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 0
-        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: collectionViewSize/3, height:120)
+        let width = collectionView.frame.width
+        print(width)
+        return CGSize(width: width/3, height: 120)
+        
     }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsets.zero
+    //
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -608,37 +724,26 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let totalCellWidth = 56 * arraySocialLogin.count
-        let totalSpacingWidth = 5 * (arraySocialLogin.count - 1)
-        let leftInset = (collectionView.frame.size.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 3
-        let rightInset = leftInset
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-    }
-    
-    //OLD STeps
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = collectionView.frame.width
-//        print(width)
-//        return CGSize(width: width/3, height: 120)
-//
-//    }
-//
-//    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//    //        return UIEdgeInsets.zero
-//    //
-//    //    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    
     //MARK: -IBActions
     //_ sender: Any
+    
+    
+    
+    @IBAction func actionBtnOTPRegister(_ sender: Any) {
+        let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
+        verifyVC.modalPresentationStyle = .custom
+        
+        
+//                verifyVC.codeSentTo = codeSentTo
+//                verifyVC.codeNotReceived = codeNotReceived
+//                verifyVC.resendCode = resendCode
+//                verifyVC.verifyNumber = verifyNumber
+//                verifyVC.phoneNumber = phoneNumber
+        self.navigationController?.pushViewController(verifyVC, animated: true)
+        
+        self.showToast(message: "Otp CLicked bro")
+    }
+    
     @IBAction func actionLinkedinSubmit() {
         linkedInAuthVC()
     }
@@ -767,8 +872,51 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         guard let password = txtPassword.text else {
             return
         }
-        
-        if name == "" {
+//                if !(name == "" && phone == ""){
+//                    txtPassword.isHidden = false
+//                    imgPassword.isHidden = false
+//                    imgMsg.isHidden = false
+//                    txtEmail.isHidden = false
+//                    emailSeperator.isHidden = false
+//                    phoneSeperator.isHidden = false
+//        //            imgPhone.topAnchor.constraint(equalTo: self.imgPassword.bottomAnchor,constant: 8).isActive = true
+//        //            txtPhone.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor,constant: 8).isActive = true
+//
+//                    imgMsg.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor).isActive = true
+//                    txtEmail.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor).isActive = true
+//                    imgPassword.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//                    txtPassword.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//
+//                    buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor).isActive = true
+//        //            //, constant: -5
+//                    buttonCheckBox.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor).isActive = true
+//        //            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//                }
+        if txtEmail.text?.isValidPhone == true{
+            if checkBoxselectedBtn == true {
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "phone": email,
+                    subscriberPostValue: subscriberPostValue
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+//                defaults.set(password, forKey: "password")
+                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)            }
+            else{
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "phone": email,
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+//                defaults.set(password, forKey: "password")
+                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
+            }
+            
+            
+        }
+       else if name == "" {
             self.txtName.shake(6, withDelta: 10, speed: 0.06)
         }
         else if email == "" {
@@ -778,12 +926,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
         
-        else if phone == "" {
-            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else if !phone.isValidPhone {
-            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-        }
+//        else if phone == "" {
+//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+//        }
+//        else if !phone.isValidPhone {
+//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+//        }
         else if password == "" {
             self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
         }
@@ -986,6 +1134,33 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         }
     }
     
+    //MARK:- Already User Register
+    func adForest_AlreadyRegisterUser(param: NSDictionary) {
+        self.showLoader()
+        UserHandler.CheckAlreadyRegisterUser(parameter: param, success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
+                verifyVC.modalPresentationStyle = .custom
+                verifyVC.codeSentTo = self.codeSentToText
+                verifyVC.codeNotReceived = self.notReceived
+                verifyVC.resendCode = self.tryAgain
+                verifyVC.verifyNumber = self.verifyNumberText
+                verifyVC.isFrom = "Register"
+                verifyVC.userName = self.txtName.text!
+                verifyVC.phoneNumber = self.txtEmail.text!
+                self.navigationController?.pushViewController(verifyVC, animated: true)
+            }
+            else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+
     //MARK:- User Register
     func adForest_registerUser(param: NSDictionary) {
         self.showLoader()
@@ -1065,7 +1240,7 @@ extension RegisterViewController: ASAuthorizationControllerPresentationContextPr
         return self.view.window!
     }
     
-        func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
     {
         switch authorization.credential {
         

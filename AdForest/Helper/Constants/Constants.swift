@@ -24,6 +24,12 @@ class Constants {
         static let settings = "settings"
         static let logIn = "login"
         static let register = "register"
+        static let checkAlreadyRegister = "register_check_user"
+        static let RegisterOTPUser = "register_otp_user"
+    
+        static let CheckLoginUser = "login_check_user"
+        static let LoginOTPUser = "login_otp_user"
+
         static let forgotPassword = "forgot"
         static let userConfirmation = "login/confirm"
         static let profileGet = "profile"

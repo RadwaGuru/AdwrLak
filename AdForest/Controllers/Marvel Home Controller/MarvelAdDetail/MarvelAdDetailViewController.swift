@@ -140,7 +140,7 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     var fromAdDetail = false
     var fromAdPost = false
     var whatsAppNum = ""
-
+    var isPhoneNumberVerified = false
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1395,7 +1395,14 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     //MARK:- IBActions
     
     @IBAction func actionBtnWhatsApp(_ sender: Any) {
-        openWhatsApp(number: whatsAppNum)
+//        if isPhoneNumberVerified == true {
+            openWhatsApp(number: whatsAppNum)
+//        }
+//        else{
+//            let alert = Constants.showBasicAlert(message: "Phone number is not verified bhai ?")
+//            self.presentVC(alert)
+//        }
+        
     }
     @IBAction func actionSendMessage(_ sender: Any) {
         if defaults.bool(forKey: "isLogin") == false {
@@ -1446,8 +1453,10 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
         AddsHandler.addDetails(parameter: param, success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
+                debugPrint("Check now:\(successResponse.data)")
                 self.title = successResponse.data.pageTitle
                 self.whatsAppNum = successResponse.data.adDetail.phone
+//                self.isPhoneNumberVerified = successResponse.data.callNowPopup.isPhoneVerified
                 AddsHandler.sharedInstance.descTitle = successResponse.data.staticText.descriptionTitle
                 AddsHandler.sharedInstance.htmlText = successResponse.data.adDetail.adDesc
                 self.similarAdsTitle = successResponse.data.staticText.relatedPostsTitle

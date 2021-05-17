@@ -144,6 +144,8 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 if isShowBanner {
                     SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
+                    SwiftyAd.shared.bannerViewAdUnitID = (objData?.bannerId)!
+
                     self.tableView.translatesAutoresizingMaskIntoConstraints = false
                     if objData?.position == "top" {
                         SwiftyAd.shared.showBanner(from: self, at: .top)

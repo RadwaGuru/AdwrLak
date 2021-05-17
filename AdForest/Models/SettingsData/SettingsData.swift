@@ -37,10 +37,13 @@ struct SettingsData {
     var notLoginMsg : String!
     var registerBtnShow : SettingsRegisterbuttonShow!
     var search : SettingsSearch!
+
     var showNearby : Bool!
     
     var allowBlock : Bool!
     var featuredScroll : SettingsFeaturedScroll!
+    var extraTexts : SettingsExtra!
+
     var shopMenu : [SettingsShopMenu]!
     var appPageTestUrl: String!
     var wpml_logo: String!
@@ -77,7 +80,9 @@ struct SettingsData {
     var placesSearchType: Bool!
     var adDetailStyle: String!
     var appTopLocation : [HomeAppTopLocation]!
+  
     
+
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -142,7 +147,13 @@ struct SettingsData {
         if let featuredScrollData = dictionary["featured_scroll"] as? [String:Any]{
             featuredScroll = SettingsFeaturedScroll(fromDictionary: featuredScrollData)
         }
-        
+        if let extraData = dictionary["extra"] as? [String:Any]{
+            extraTexts = SettingsExtra(fromDictionary: extraData)
+        }
+//        if let SettingsExtraData = dictionary["extra_text"] as? [String:Any]{
+//            settingExtras = SettingsExtra(fromDictionary: SettingsExtraData)
+//        }
+
         shopMenu = [SettingsShopMenu]()
         if let shopMenuArray = dictionary["shop_menu"] as? [[String:Any]]{
             for dic in shopMenuArray{
@@ -196,6 +207,21 @@ struct SettingsData {
         WhizChatEmptyMessage = dictionary["whizchat_empty_message"] as? String
         WhizChatStartTyping = dictionary["whizchat_typing"] as? String
         PusherUrl = dictionary["pusher_url"] as? String
+       
+
+//        codeSentTo  = dictionary["code_sent"] as? String
+//        notReceived = dictionary["not_received"] as? String
+//        tryAgain = dictionary["try_again"] as? String
+//        verifyNumber = dictionary["verify_number"] as? String
+        
+        ////    "code_sent": "Verification code is sent to",
+        //            "not_received": "Didn,t receive a code?",
+        //            "try_again": "Try again",
+        //            "verify_number": "Verify number",
+        //            "sms_gateway": null,
+        //            "verify_success": "Verified successfully",
+        //            "is_number_verified": false,
+        //            "is_number_verified_text": "Not verified",
         
     }
     

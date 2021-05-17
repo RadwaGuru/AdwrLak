@@ -19,7 +19,7 @@ import IQKeyboardManagerSwift
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate,OpenBannerCarouselDelegate, BannerCategoryDetailDelegate,OpenPublicProfileDelegate{
-   
+    
     
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -67,7 +67,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var nearByAddsArray = [HomeAdd]()
     var searchSectionArray = [HomeSearchSection]()
     var carouselDataArray = [BannerCarouselData]()
-
+    
     var isAdPositionSort = false
     var isShowLatest = false
     var isShowBlog = false
@@ -77,7 +77,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isShowCategoryButton = false
     var isAutoScroll: Bool!
     var AutoScrollSpeeed = ""
-
+    
     var featurePosition = ""
     var animalSectionTitle = ""
     var isNavSearchBarShowing = false
@@ -107,34 +107,34 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-  
-   
-
+    
+    
+    
     // MARK: - De-Initialization
-
+    
     deinit {
         print("Deinit PlainViewController")
     }
-
-
+    
+    
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // self.navigationController?.isNavigationBarHidden = false
-//        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
-//        let request = GADRequest()
-//        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
-//        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
-//
-//        inters.load(request)
-
-//        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
+        //        let request = GADRequest()
+        //        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
+        //        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
+        //
+        //        inters.load(request)
+        
+        //        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         tableView.register(UINib(nibName: "CarouselHomeCell", bundle: nil), forCellReuseIdentifier: "CarouselHomeCell")
-
-
+        
+        
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
         self.adForest_sendFCMToken()
@@ -144,9 +144,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.addLeftBarButtonWithImage()
         self.navigationButtons()
         self.adForest_homeData()
-//        swiftyAds =  SwiftyAdsType
-//        self.swiftyAds = swiftyAds
-
+        //        swiftyAds =  SwiftyAdsType
+        //        self.swiftyAds = swiftyAds
+        
         
     }
     
@@ -208,18 +208,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-  
+    
     //MARK:- Go to CarouselPage
     func openCarousel(url: String, title: String) {
         let contactWithAdmin = self.storyboard2.instantiateViewController(withIdentifier: "ContactWithAdminViewController") as! ContactWithAdminViewController
         contactWithAdmin.pageTitle = title
         contactWithAdmin.pageUrl = url
-            //url
-            //"https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
-            //url
+        //url
+        //"https://adforest-testapp.scriptsbundle.com/asdfgh/final-test-ad-by-scriptsbundle/"
+        //url
         self.navigationController?.pushViewController(contactWithAdmin, animated: true)
     }
-
+    
     //MARK:- go to category detail
     func goToCategoryDetail(id: Int) {
         let categoryVC = self.storyboard?.instantiateViewController(withIdentifier: "CategoryController") as! CategoryController
@@ -569,7 +569,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return cell
             case "blogNews":
                 if self.isShowBlog {
-                   
+                    
                     let cell: HomeBlogCell = tableView.dequeueReusableCell(withIdentifier: "HomeBlogCell", for: indexPath) as! HomeBlogCell
                     let objData = blogObj
                     if let name = objData?.text {
@@ -584,7 +584,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.dataArray = (objData?.blogs)!
                     cell.delegate = self
                     cell.collectionView.reloadData()
-
+                    
                     return cell
                 }
             case "crousel":
@@ -656,8 +656,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if latestHorizontalSingleAd == "horizental" {
                             fetColHeight = Double(cell.collectionView.contentSize.height)
                         }
-                       
-
+                        
+                        
                         cell.collectionView.reloadData()
                         return cell
                     }
@@ -685,7 +685,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if latestHorizontalSingleAd == "horizental" {
                             latColHeight = Double(cell.collectionView.contentSize.height)
                         }
-
+                        
                         cell.collectionView.backgroundColor = UIColor.clear
                         cell.contentView.backgroundColor = UIColor.clear
                         cell.containerView.backgroundColor = UIColor.clear
@@ -693,7 +693,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                         
                         cell.reloadData()
-                            return cell
+                        return cell
                     }
                     else{
                         let cell: LatestAddsCell  = tableView.dequeueReusableCell(withIdentifier: "LatestAddsCell", for: indexPath) as! LatestAddsCell
@@ -720,9 +720,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                         cell.collectionView.reloadData()
                         return cell
-
+                        
                     }
-                   
+                    
                 }
             case "cat_locations":
                 let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
@@ -1145,7 +1145,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     height = 0
                 }
             } else if position == "crousel"{
-//                height = 0
+                //                height = 0
                 height = 188
             }
             else if position == "featured_ads" {
@@ -1423,7 +1423,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
     }
-   
+    
     
     //MARK:- API Call
     
@@ -1453,7 +1453,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //To Show Title After Search Bar Hidden
                 if successResponse.data.viewAll != nil {
                     self.viewAllText = successResponse.data.viewAll
-
+                    
                 }                
                 //Get value of show/hide buttons of location and categories
                 if successResponse.data.catIconsColumnBtn != nil {
@@ -1521,7 +1521,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll
                 self.AutoScrollSpeeed = successResponse.data.bannerCarousel.AutoScrollSpeed
                 debugPrint("CarosueL Data ::\(self.carouselDataArray)")
-
+                
                 
                 // Set Up AdMob Banner & Intersitial ID's
                 UserHandler.sharedInstance.objAdMob = successResponse.settings.ads
@@ -1542,21 +1542,23 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     if isShowBanner {
                         SwiftyAd.shared.setup(withBannerID: successResponse.settings.ads.bannerId, interstitialID: "", rewardedVideoID: "")
-//                        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-//                        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//                        self.rootViewController = self
-//                        self..load(GADRequest())
-
+                        SwiftyAd.shared.bannerViewAdUnitID = (successResponse.settings.ads.bannerId)!
+                        
+                        //                        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+                        //                        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+                        //                        self.rootViewController = self
+                        //                        self..load(GADRequest())
+                        
                         print(successResponse.settings.ads.bannerId)
                         
                         self.tableView.translatesAutoresizingMaskIntoConstraints = false
                         if successResponse.settings.ads.position == "top" {
                             self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .top)
-//                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//                            self.bannerView.rootViewController = self
-//                            self.bannerView.load(GADRequest())
+                            //                            print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+                            ////                            self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+                            //                            self.bannerView.rootViewController = self
+                            //                            self.bannerView.load(GADRequest())
                         } else {
                             self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 30).isActive = true
                             SwiftyAd.shared.showBanner(from: self, at: .bottom)
@@ -1607,7 +1609,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-  
+    
     
     @objc func nokri_showNavController1(){
         

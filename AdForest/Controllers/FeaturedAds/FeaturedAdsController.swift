@@ -201,7 +201,8 @@ class FeaturedAdsController: UIViewController, UIScrollViewDelegate, UICollectio
                 }
                 if isShowBanner {
                     SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
-                    
+                    SwiftyAd.shared.bannerViewAdUnitID = (objData?.bannerId)!
+
                     if objData?.position == "top" {
                         self.containerViewProfile.translatesAutoresizingMaskIntoConstraints = false
                         self.containerViewProfile.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true

@@ -91,7 +91,21 @@ class UserHandler {
             failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
         }
     }
-    
+    //MARK:- LoginOTPUser Post
+    class func LoginOTPUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.LoginOTPUser
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+            UserDefaults.standard.set(data, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            let objLogin = UserRegisterRoot(fromDictionary: dictionary)
+            success(objLogin)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
     //MARK:- Login Post
     class func loginUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.logIn
@@ -124,6 +138,52 @@ class UserHandler {
     //MARK:- Register Post
     class func registerUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
         let url = Constants.URL.baseUrl+Constants.URL.register
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+            UserDefaults.standard.set(data, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            let objRegister = UserRegisterRoot(fromDictionary: dictionary)
+            success(objRegister)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    //CheckLoginUser
+    //MARK:-  CheckLogin User Post
+    class func CheckLoginUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.CheckLoginUser
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+            UserDefaults.standard.set(data, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            let objRegister = UserRegisterRoot(fromDictionary: dictionary)
+            success(objRegister)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    //MARK:-  Register OTP User Post
+    class func RegisterOTPUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.RegisterOTPUser
+        print(url)
+        NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
+            let dictionary = successResponse as! [String: Any]
+            let data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+            UserDefaults.standard.set(data, forKey: "userData")
+            UserDefaults.standard.synchronize()
+            let objRegister = UserRegisterRoot(fromDictionary: dictionary)
+            success(objRegister)
+        }) { (error) in
+            failure(NetworkError(status: Constants.NetworkError.generic, message: error.message))
+        }
+    }
+    //MARK:-  CheckAlreadyRegisterUser Post
+    class func CheckAlreadyRegisterUser(parameter: NSDictionary, success: @escaping(UserRegisterRoot)-> Void, failure: @escaping(NetworkError)-> Void) {
+        let url = Constants.URL.baseUrl+Constants.URL.checkAlreadyRegister
         print(url)
         NetworkHandler.postRequest(url: url, parameters: parameter as? Parameters, success: { (successResponse) in
             let dictionary = successResponse as! [String: Any]

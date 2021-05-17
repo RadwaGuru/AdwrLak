@@ -445,6 +445,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                 }
                 if isShowBanner {
                     SwiftyAd.shared.setup(withBannerID: (objData?.bannerId)!, interstitialID: "", rewardedVideoID: "")
+                    SwiftyAd.shared.bannerViewAdUnitID = (objData?.bannerId)!
+
                     self.tableView.translatesAutoresizingMaskIntoConstraints = false
                     if objData?.position == "top" {
                         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true

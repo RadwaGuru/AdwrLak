@@ -134,8 +134,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     var linkedInAccessToken = ""
     var iconClick = true
     var homeStyle: String = UserDefaults.standard.string(forKey: "homeStyles")!
+    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
 
-    
+    var codeSentToText: String = UserDefaults.standard.string(forKey: "codeSentTo")!
+    var notReceived: String = UserDefaults.standard.string(forKey: "notReceived")!
+    var tryAgain: String = UserDefaults.standard.string(forKey: "tryAgain")!
+    var verifyNumberText: String = UserDefaults.standard.string(forKey: "verifyNumber")!
+    var plHolderPhoneNumber: String = UserDefaults.standard.string(forKey: "phonePlaceholder")!
+    var userNameplaceholder: String = UserDefaults.standard.string(forKey: "usernamePlaceHolder")!
+
+    var emailPlaceHolder = ""
+    var pwdPlaceHolder = ""
     // MARK: Application Life Cycle
     
     override func viewDidLoad() {
@@ -182,7 +191,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             // Fallback on earlier versions
 
         }
-        
+   
+
         
     }
     
@@ -315,7 +325,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
         }
         return true
     }
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if txtEmail.text?.isValidPhone == true {
+            txtPassword.placeholder = userNameplaceholder
+            txtPassword.isSecureTextEntry  = false
+            imgEmail.image = #imageLiteral(resourceName: "Phone")
+            imgPassword.image = #imageLiteral(resourceName: "profile")
+            txtEmail.placeholder = plHolderPhoneNumber
+            btnViewPassword.isHidden = true
+        
+        }else{
+            
+            txtPassword.placeholder = pwdPlaceHolder
+            txtPassword.isSecureTextEntry  = true
+            imgEmail.image = #imageLiteral(resourceName: "msg")
+            imgPassword.image = #imageLiteral(resourceName: "Password")
+            txtEmail.placeholder = emailPlaceHolder
+            btnViewPassword.isHidden = false
+
+        }
+        
+    }
+
     //MARK: - Custom
     
     func txtFieldsWithRtl(){
@@ -362,9 +393,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
             
             if let emailPlaceHolder = objData?.emailPlaceholder {
+                self.emailPlaceHolder = emailPlaceHolder
                 self.txtEmail.placeholder = emailPlaceHolder
             }
             if let passwordPlaceHolder = objData?.passwordPlaceholder {
+                self.pwdPlaceHolder = passwordPlaceHolder
                 self.txtPassword.placeholder = passwordPlaceHolder
             }
             if let forgotText = objData?.forgotText {
@@ -384,7 +417,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             }
             let  settingObject = NSKeyedUnarchiver.unarchiveObject(with: settings as! Data) as! [String : Any]
             let objSettings = SettingsRoot(fromDictionary: settingObject)
-            
             
             var isShowGuestButton = false
             if let isShowGuest = objSettings.data.isAppOpen {
@@ -689,31 +721,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
     
     func adForest_logIn() {
-        guard let email = txtEmail.text else {
-            return
-        }
-        guard let password = txtPassword.text else {
-            return
-        }
-        if email == "" {
-            self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else if !email.isValidEmail {
-            self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else if password == "" {
-            self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else {
+        if txtEmail.text?.isValidPhone == true
+        {
             let param : [String : Any] = [
-                "email" : email,
-                "password": password
+                "name" : self.txtPassword.text!,
+                "phone": self.txtEmail.text!
             ]
             print(param)
-            self.defaults.set(email, forKey: "email")
-            self.defaults.set(password, forKey: "password")
-            self.adForest_loginUser(parameters: param as NSDictionary)
+            adForest_CheckloginUser(parameters: param as NSDictionary)
+
         }
+        else{
+            guard let email = txtEmail.text else {
+                return
+            }
+            guard let password = txtPassword.text else {
+                return
+            }
+            if email == "" {
+                self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
+            }
+            else if !email.isValidEmail {
+                self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
+            }
+            else if password == "" {
+                self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
+            }
+            else {
+                let param : [String : Any] = [
+                    "email" : email,
+                    "password": password
+                ]
+                print(param)
+                self.defaults.set(email, forKey: "email")
+                self.defaults.set(password, forKey: "password")
+                self.adForest_loginUser(parameters: param as NSDictionary)
+            }
+        }
+
     }
     
     
@@ -908,7 +953,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             self.presentVC(alert)
         }
     }
-    
+    //CheckLoginUser
+    func adForest_CheckloginUser(parameters: NSDictionary) {
+        self.showLoader()
+        UserHandler.CheckLoginUser(parameter: parameters , success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
+                verifyVC.modalPresentationStyle = .custom
+
+                verifyVC.codeSentTo = self.codeSentToText
+                verifyVC.codeNotReceived = self.notReceived
+                verifyVC.resendCode = self.tryAgain
+                verifyVC.verifyNumber = self.verifyNumberText
+                verifyVC.isFrom = "Login"
+                verifyVC.userName = self.txtPassword.text!
+                verifyVC.phoneNumber = self.txtEmail.text!
+                verifyVC.isVerifyOn = self.isVerifyOn
+                self.navigationController?.pushViewController(verifyVC, animated: true)
+                
+            } else {
+                
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
+
     // Login User
     func adForest_loginUser(parameters: NSDictionary) {
         self.showLoader()
@@ -919,7 +993,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                     let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
                         let confirmationVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
                         confirmationVC.isFromVerification = true
-                        confirmationVC.user_id = successResponse.data.id
+                        if successResponse.data != nil {
+                            confirmationVC.user_id = successResponse.data.id
+                        }
                         self.navigationController?.pushViewController(confirmationVC, animated: true)
                     })
                     self.presentVC(alert)
@@ -939,15 +1015,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 
                 }
             } else {
-                let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
-                    let confirmationVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
-                    confirmationVC.isFromVerification = true
-                    confirmationVC.user_id = successResponse.data.id
-                    self.navigationController?.pushViewController(confirmationVC, animated: true)
-                })
-                self.presentVC(alert)
-//                let alert = Constants.showBasicAlert(message: successResponse.message)
+//                let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
+//                    let confirmationVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+//                    confirmationVC.isFromVerification = true
+//                    if successResponse.data != nil {
+//                        confirmationVC.user_id = successResponse.data.id
+//                    }
+//                    self.navigationController?.pushViewController(confirmationVC, animated: true)
+//                })
 //                self.presentVC(alert)
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.presentVC(alert)
             }
         }) { (error) in
             let alert = Constants.showBasicAlert(message: error.message)

