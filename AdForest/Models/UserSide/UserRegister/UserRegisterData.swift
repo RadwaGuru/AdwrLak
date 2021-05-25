@@ -15,7 +15,7 @@ struct UserRegisterData {
     var phone : String!
     var profileImg : String!
     var userEmail : String!
-    
+    var userName: String!
     var isAccountConfirm : Bool!
     
     /**
@@ -28,6 +28,7 @@ struct UserRegisterData {
         profileImg = dictionary["profile_img"] as? String
         userEmail = dictionary["user_email"] as? String
         isAccountConfirm = dictionary["is_account_confirm"] as? Bool
+        userName = dictionary["user_login"] as? String
 
     }
     

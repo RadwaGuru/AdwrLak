@@ -864,7 +864,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     cell.title = title
                 }
                 cell.fieldName = objData.fieldTypeName
-                cell.dataArray = objData.values
+                if objData.values != nil {
+                    cell.dataArray = objData.values
+                }
                 cell.index = indexPath.row
                 cell.delegate = self as! ColorRadioDelegateAdpost
 //                cell.collectionView.reloadData()

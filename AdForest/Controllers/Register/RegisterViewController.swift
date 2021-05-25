@@ -279,51 +279,53 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if txtEmail.text?.isValidEmail == true {
-            txtPassword.isHidden = false
-            imgPassword.isHidden = false
-            phoneSeperator.isHidden = false
-            pwdSeperator.isHidden = false
-            imgPhone.isHidden = false
-            txtPhone.isHidden = false
-            
-            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
-            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
-            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
-            
-            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
-//            //, constant: -5
-            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if txtEmail.text?.isValidEmail == true {
+//            txtPassword.isHidden = false
+//            imgPassword.isHidden = false
+//            phoneSeperator.isHidden = false
+//            pwdSeperator.isHidden = false
+//            imgPhone.isHidden = false
+//            txtPhone.isHidden = false
 //
-            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
-
-        }
-        else if txtEmail.text?.isValidEmail == false {
-            txtPassword.isHidden = true
-            imgPassword.isHidden = true
-            imgPhone.isHidden = true
-            txtPhone.isHidden = true
-        
-            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+//            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+//            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
 //
+//            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+////            //, constant: -5
+//            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+////
+//            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
 //
-//            imgPhone.isHidden = true
-//            txtPhone.isHidden = true
+//        }
+//        else if txtEmail.text?.isValidEmail == false {
 //            txtPassword.isHidden = true
 //            imgPassword.isHidden = true
-//            pwdSeperator.isHidden = true
-//            phoneSeperator.isHidden = true
+//            imgPhone.isHidden = true
+//            txtPhone.isHidden = true
+//            imgUser.isHidden = true
+//            txtName.isHidden = true
+//            nameSeperator.isHidden = true
 //            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
 //            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
 //            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
-            
-        }
-    }
+////
+////
+////            imgPhone.isHidden = true
+////            txtPhone.isHidden = true
+////            txtPassword.isHidden = true
+////            imgPassword.isHidden = true
+////            pwdSeperator.isHidden = true
+////            phoneSeperator.isHidden = true
+////            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+////            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+////            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//
+//        }
+//    }
     
     //MARK: - Custom
     
@@ -366,8 +368,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 self.txtName.placeholder = nameText
             }
             if let emailText = objData?.emailPlaceholder {
-                let phoneTxt = objData?.phonePlaceholder
-                self.txtEmail.placeholder = ("\(emailText)/\(phoneTxt)")
+                self.txtEmail.placeholder = emailText
             }
             if let phoneText = objData?.phonePlaceholder {
                 self.txtPhone.placeholder = phoneText
@@ -729,20 +730,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     
     
     
-    @IBAction func actionBtnOTPRegister(_ sender: Any) {
-        let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
-        verifyVC.modalPresentationStyle = .custom
-        
-        
-//                verifyVC.codeSentTo = codeSentTo
-//                verifyVC.codeNotReceived = codeNotReceived
-//                verifyVC.resendCode = resendCode
-//                verifyVC.verifyNumber = verifyNumber
-//                verifyVC.phoneNumber = phoneNumber
-        self.navigationController?.pushViewController(verifyVC, animated: true)
-        
-        self.showToast(message: "Otp CLicked bro")
-    }
+   
     
     @IBAction func actionLinkedinSubmit() {
         linkedInAuthVC()
@@ -872,51 +860,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         guard let password = txtPassword.text else {
             return
         }
-//                if !(name == "" && phone == ""){
-//                    txtPassword.isHidden = false
-//                    imgPassword.isHidden = false
-//                    imgMsg.isHidden = false
-//                    txtEmail.isHidden = false
-//                    emailSeperator.isHidden = false
-//                    phoneSeperator.isHidden = false
-//        //            imgPhone.topAnchor.constraint(equalTo: self.imgPassword.bottomAnchor,constant: 8).isActive = true
-//        //            txtPhone.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor,constant: 8).isActive = true
-//
-//                    imgMsg.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor).isActive = true
-//                    txtEmail.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor).isActive = true
-//                    imgPassword.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-//                    txtPassword.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-//
-//                    buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor).isActive = true
-//        //            //, constant: -5
-//                    buttonCheckBox.topAnchor.constraint(equalTo: self.txtPassword.bottomAnchor).isActive = true
-//        //            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
-//                }
-        if txtEmail.text?.isValidPhone == true{
-            if checkBoxselectedBtn == true {
-                let parameters : [String: Any] = [
-                    "name": name,
-                    "phone": email,
-                    subscriberPostValue: subscriberPostValue
-                ]
-                print(parameters)
-                defaults.set(email, forKey: "email")
-//                defaults.set(password, forKey: "password")
-                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)            }
-            else{
-                let parameters : [String: Any] = [
-                    "name": name,
-                    "phone": email,
-                ]
-                print(parameters)
-                defaults.set(email, forKey: "email")
-//                defaults.set(password, forKey: "password")
-                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
-            }
-            
-            
-        }
-       else if name == "" {
+      if name == "" {
             self.txtName.shake(6, withDelta: 10, speed: 0.06)
         }
         else if email == "" {
@@ -926,12 +870,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
         
-//        else if phone == "" {
-//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-//        }
-//        else if !phone.isValidPhone {
-//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-//        }
+        else if phone == "" {
+            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+        }
+        else if !phone.isValidPhone {
+            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+        }
         else if password == "" {
             self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
         }

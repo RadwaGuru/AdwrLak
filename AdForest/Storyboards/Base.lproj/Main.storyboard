@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NY6-7X-MJe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NY6-7X-MJe">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -260,7 +260,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TermsConditionCell" rowHeight="64" id="xHk-L2-zcy" customClass="TermsConditionCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="64"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="374" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xHk-L2-zcy" id="Abx-R1-CW0">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
@@ -335,7 +335,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BannerCarouselCell" rowHeight="294" id="JIv-0L-xor" customClass="BannerCarouselCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JIv-0L-xor" id="Tgq-cd-9R7">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -420,7 +420,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Ngf-a7-Zo0">
-                                                            <rect key="frame" x="91" y="242" width="122" height="28"/>
+                                                            <rect key="frame" x="91" y="243.66666666666666" width="122" height="26.333333333333343"/>
                                                         </pageControl>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.90948778389999996" green="0.80917364359999999" blue="0.30383241179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -453,7 +453,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureAddCell" rowHeight="294" id="0OU-SR-3qG" customClass="MarvelHomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="322" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="318.33333396911621" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0OU-SR-3qG" id="auf-SU-LqK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -662,7 +662,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAdsTableViewCell" rowHeight="294" id="dmo-jW-gUM" customClass="MarvelAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="616" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="612.33333396911621" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dmo-jW-gUM" id="cZV-ar-xfX">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -865,7 +865,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoriesTableCell" rowHeight="223" id="670-ac-V4e" customClass="CategoriesTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="910" width="320" height="223"/>
+                                        <rect key="frame" x="0.0" y="906.33333396911621" width="320" height="223"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="670-ac-V4e" id="Eyi-5Z-gDr">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="223"/>
@@ -1001,7 +1001,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddsTableCell" rowHeight="294" id="PK4-nV-QBg" customClass="AddsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1133" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1129.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PK4-nV-QBg" id="ozj-gc-pvP">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -1184,7 +1184,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeFeatureAddCell" rowHeight="294" id="fQ8-0t-u4N" customClass="HomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1427" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1423.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fQ8-0t-u4N" id="LHd-KY-Bgj">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -1361,7 +1361,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LatestAddsCell" rowHeight="294" id="h46-yo-PAY" customClass="LatestAddsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1721" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1717.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h46-yo-PAY" id="Hjs-Tq-eKz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -1543,7 +1543,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeBlogCell" rowHeight="294" id="eut-hf-pIz" customClass="HomeBlogCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2015" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2011.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eut-hf-pIz" id="aP3-qH-WQR">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -1712,7 +1712,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="rQB-0X-Ymc" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2309" width="320" height="335"/>
+                                        <rect key="frame" x="0.0" y="2305.3333339691162" width="320" height="335"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rQB-0X-Ymc" id="BRY-q4-dA8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
@@ -1967,7 +1967,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EditProfileCell" rowHeight="809" id="ac2-ZI-231" customClass="EditProfileCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="809"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="809"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ac2-ZI-231" id="u6O-8o-qby">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="809"/>
@@ -2932,7 +2932,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserProfileInformationCell" rowHeight="534" id="XS3-SR-OSm" customClass="UserProfileInformationCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="534"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="534"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XS3-SR-OSm" id="qjY-Sr-hs1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="534"/>
@@ -3563,7 +3563,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchDropDown" rowHeight="100" id="OLG-4k-Oxz" customClass="SearchDropDown" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="100"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OLG-4k-Oxz" id="X9R-Eh-H9v">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -3616,7 +3616,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchTextField" rowHeight="60" id="RnF-Mr-z8C" customClass="SearchTextField" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="124.33333396911621" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RnF-Mr-z8C" id="0m7-G7-64K">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -3664,7 +3664,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchTwoTextField" rowHeight="80" id="1rp-uy-zXp" customClass="SearchTwoTextField" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="188" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="184.33333396911621" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1rp-uy-zXp" id="o1Y-Qf-2Px">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -3729,7 +3729,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchAutoCompleteTextField" rowHeight="70" id="jfM-Ya-cxh" customClass="SearchAutoCompleteTextField" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="268" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="264.33333396911621" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jfM-Ya-cxh" id="hOb-wi-L7J">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -3766,7 +3766,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SeekBar" rowHeight="70" id="CBN-eD-p70" customClass="SeekBar" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="338" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="334.33333396911621" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CBN-eD-p70" id="Era-9x-LAE">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -3848,7 +3848,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RadioButtonCell" rowHeight="129" id="ap2-fv-nIp" customClass="RadioButtonCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="408" width="320" height="129"/>
+                                        <rect key="frame" x="0.0" y="404.33333396911621" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ap2-fv-nIp" id="YXI-4u-kIg">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
@@ -3862,7 +3862,7 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <prototypes>
                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RadioButtonTableViewCell" rowHeight="98" id="reS-hw-koV" customClass="RadioButtonTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="28" width="294" height="98"/>
+                                                                    <rect key="frame" x="0.0" y="24.333333969116211" width="294" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="reS-hw-koV" id="mR3-MK-2Wt">
                                                                         <rect key="frame" x="0.0" y="0.0" width="294" height="98"/>
@@ -3939,7 +3939,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckBoxButtonCell" rowHeight="129" id="CMC-g2-ern" customClass="CheckBoxButtonCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="537" width="320" height="129"/>
+                                        <rect key="frame" x="0.0" y="533.33333396911621" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CMC-g2-ern" id="d1T-j8-1lr">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
@@ -3992,7 +3992,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RadioColorTableViewCell" rowHeight="129" id="VHd-Jy-Kqh" customClass="RadioColorTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="666" width="320" height="129"/>
+                                        <rect key="frame" x="0.0" y="662.33333396911621" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VHd-Jy-Kqh" id="6f0-h7-dmH">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
@@ -4073,7 +4073,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RangeValuesTableViewCell" rowHeight="179" id="Whs-q5-1oW" customClass="RangeValuesTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="795" width="320" height="179"/>
+                                        <rect key="frame" x="0.0" y="791.33333396911621" width="320" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Whs-q5-1oW" id="FKX-C2-0FL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
@@ -4236,7 +4236,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCategoryDetailCell" rowHeight="55" id="s3c-F5-Lqi" customClass="SearchCategoryDetailCell" customModule="AdForest" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="290" height="55"/>
+                                                <rect key="frame" x="0.0" y="24.333333969116211" width="290" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s3c-F5-Lqi" id="HAS-5Z-SUQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="55"/>
@@ -4764,7 +4764,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PackagesCell" rowHeight="366" id="z7M-Py-Ful" customClass="PackagesCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="366"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="366"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z7M-Py-Ful" id="Ybz-fd-Zba">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="366"/>
@@ -6046,7 +6046,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdPostCell" rowHeight="85" id="bK7-EE-HeF" customClass="AdPostCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="85"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bK7-EE-HeF" id="MeO-om-hy3">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
@@ -6093,7 +6093,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdPostPopupCell" rowHeight="140" id="sW5-Vd-jFk" customClass="AdPostPopupCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="113" width="414" height="140"/>
+                                        <rect key="frame" x="0.0" y="109.33333396911621" width="414" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sW5-Vd-jFk" id="vmx-T5-ItR">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
@@ -7160,7 +7160,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddDetailCell" rowHeight="245" id="WWu-B0-59H" customClass="AddDetailCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="245"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="245"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WWu-B0-59H" id="Caa-bK-alE">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="245"/>
@@ -7315,7 +7315,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddDetailDescriptionCell" rowHeight="210" id="IQD-c7-SF5" customClass="AddDetailDescriptionCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="273" width="320" height="210"/>
+                                        <rect key="frame" x="0.0" y="269.33333396911621" width="320" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IQD-c7-SF5" id="eu7-St-TgT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
@@ -7514,7 +7514,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SimilarAdsTableCell" rowHeight="231" id="3s4-wm-Kv8" customClass="SimilarAdsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="483" width="320" height="231"/>
+                                        <rect key="frame" x="0.0" y="479.33333396911621" width="320" height="231"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3s4-wm-Kv8" id="Wq0-8Q-MJ5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="231"/>
@@ -7733,7 +7733,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="57" id="sIX-ND-ysB">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="57"/>
+                                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="57"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sIX-ND-ysB" id="qKM-1L-zbA">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
@@ -7964,7 +7964,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BidsCell" rowHeight="96" id="gQ6-ks-WFN" customClass="BidsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="96"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gQ6-ks-WFN" id="czp-8U-7nL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
@@ -8094,7 +8094,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostBidCell" rowHeight="300" id="7l2-0a-aNg" customClass="PostBidCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="124" width="414" height="300"/>
+                                        <rect key="frame" x="0.0" y="120.33333396911621" width="414" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7l2-0a-aNg" id="Y3z-Ij-4up">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
@@ -8260,7 +8260,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StatsCell" rowHeight="92" id="gJa-Vw-oiG" customClass="StatsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="92"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="92"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gJa-Vw-oiG" id="syK-RC-ubD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
@@ -8880,7 +8880,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LeftMenuCell" rowHeight="42" id="cSF-DE-8xF" customClass="LeftMenuCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="42"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cSF-DE-8xF" id="H06-nL-Int">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
@@ -9036,7 +9036,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryFeatureCell" rowHeight="247" id="YcS-Wp-o5A" customClass="CategoryFeatureCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="247"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="247"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YcS-Wp-o5A" id="zSP-mI-cn7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="247"/>
@@ -9180,7 +9180,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" rowHeight="112" id="V0S-nN-Xk5" customClass="CategoryCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="275" width="414" height="112"/>
+                                        <rect key="frame" x="0.0" y="271.33333396911621" width="414" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V0S-nN-Xk5" id="Dk3-lJ-oSm">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
@@ -9309,7 +9309,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BlockeduserCell" rowHeight="81" id="VsN-EC-t7w" customClass="BlockeduserCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="81"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VsN-EC-t7w" id="hhL-oz-A3j">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
@@ -9419,7 +9419,7 @@
                             <tableViewSection id="kzT-c4-iDk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="532" id="keB-fM-Ja5">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="532"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="532"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="keB-fM-Ja5" id="Ada-bP-Kn9">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="532"/>
@@ -9547,7 +9547,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="113" id="goO-Rl-vpZ">
-                                                            <rect key="frame" x="0.0" y="28" width="359" height="113"/>
+                                                            <rect key="frame" x="0.0" y="24.333333969116211" width="359" height="113"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="goO-Rl-vpZ" id="4Gw-nq-Obu">
                                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="113"/>
@@ -9649,7 +9649,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="STT-Ms-wHX">
-                                        <rect key="frame" x="0.0" y="560" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="556.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="STT-Ms-wHX" id="g83-Js-MdB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -9657,7 +9657,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jt7-Mm-CWp">
-                                        <rect key="frame" x="0.0" y="604" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="600.33333396911621" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jt7-Mm-CWp" id="vQ1-xn-wPD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -9691,7 +9691,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R46-L9-t1p">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="750"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n58-9i-Wkq">
@@ -9715,7 +9715,7 @@
                         <constraints>
                             <constraint firstItem="UUn-XZ-5gv" firstAttribute="trailing" secondItem="n58-9i-Wkq" secondAttribute="trailing" constant="20" id="ABb-ai-dPB"/>
                             <constraint firstItem="R46-L9-t1p" firstAttribute="top" secondItem="UUn-XZ-5gv" secondAttribute="top" id="HmD-qN-wZ2"/>
-                            <constraint firstItem="UUn-XZ-5gv" firstAttribute="bottom" secondItem="R46-L9-t1p" secondAttribute="bottom" id="P6R-Jp-gSB"/>
+                            <constraint firstItem="UUn-XZ-5gv" firstAttribute="bottom" secondItem="R46-L9-t1p" secondAttribute="bottom" constant="24" id="P6R-Jp-gSB"/>
                             <constraint firstAttribute="trailing" secondItem="R46-L9-t1p" secondAttribute="trailing" id="QIU-nU-t4E"/>
                             <constraint firstItem="UUn-XZ-5gv" firstAttribute="bottom" secondItem="n58-9i-Wkq" secondAttribute="bottom" constant="40" id="cf3-AV-qb6"/>
                             <constraint firstItem="R46-L9-t1p" firstAttribute="leading" secondItem="UUn-XZ-5gv" secondAttribute="leading" id="d1e-gY-iuz"/>
@@ -9728,7 +9728,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XfZ-sg-kf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3804.375" y="1104.9295774647887"/>
+            <point key="canvasLocation" x="3804.347826086957" y="1104.9107142857142"/>
         </scene>
         <!--Blog Controller-->
         <scene sceneID="cfd-jB-Jin">
@@ -10007,7 +10007,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SenderCell" rowHeight="45" id="h5x-Dx-y4o" customClass="SenderCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="45"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h5x-Dx-y4o" id="OSt-ps-Gcr">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -10062,7 +10062,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReceiverCell" rowHeight="45" id="BNH-YR-zVb" customClass="ReceiverCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="73" width="414" height="45"/>
+                                        <rect key="frame" x="0.0" y="69.333333969116211" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BNH-YR-zVb" id="jp2-ze-BPo">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -10380,7 +10380,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UploadImageCell" rowHeight="88" id="q06-1z-P0T" customClass="UploadImageCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="88"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q06-1z-P0T" id="vIZ-7L-Z5f">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
@@ -10476,7 +10476,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CollectionImageCell" rowHeight="127" id="agH-KJ-uyV" customClass="CollectionImageCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="320" height="127"/>
+                                        <rect key="frame" x="0.0" y="112.33333396911621" width="320" height="127"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="agH-KJ-uyV" id="skl-ZD-s1h">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
@@ -10610,7 +10610,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DescriptionTableCell" rowHeight="187" id="JhV-9g-VJL" customClass="DescriptionTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="243" width="320" height="187"/>
+                                        <rect key="frame" x="0.0" y="239.33333396911621" width="320" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JhV-9g-VJL" id="iyL-HI-4Ei">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="187"/>
@@ -10661,7 +10661,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BidOnOffCell" rowHeight="70" id="N6B-PW-RVE" customClass="BidOnOffCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="430" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="426.33333396911621" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N6B-PW-RVE" id="IYJ-by-ybu">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -10699,7 +10699,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TextFieldCell" rowHeight="70" id="SpN-8M-GQx" customClass="TextFieldCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="500" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="496.33333396911621" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SpN-8M-GQx" id="BOw-Dl-AOO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -10751,7 +10751,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DropDownCell" rowHeight="70" id="oZ3-Ss-7QU" customClass="DropDownCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="570" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="566.33333396911621" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oZ3-Ss-7QU" id="D9i-sd-2jE">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -10805,7 +10805,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckBoxCell" rowHeight="121" id="ePK-SB-Mbm" customClass="CheckBoxCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="640" width="320" height="121"/>
+                                        <rect key="frame" x="0.0" y="636.33333396911621" width="320" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ePK-SB-Mbm" id="IDf-73-dCL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="121"/>
@@ -10828,7 +10828,7 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <prototypes>
                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CehckCell" id="XLf-nl-Adq" customClass="CehckCell" customModule="AdForest" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="28" width="304" height="30.333333969116211"/>
+                                                                    <rect key="frame" x="0.0" y="24.333333969116211" width="304" height="30.333333969116211"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XLf-nl-Adq" id="bVx-dj-XwQ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="304" height="30.333333969116211"/>
@@ -10895,7 +10895,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RadioColorAdTableViewCell" rowHeight="129" id="GRS-QR-Jfz" customClass="RadioColorAdTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="761" width="320" height="129"/>
+                                        <rect key="frame" x="0.0" y="757.33333396911621" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GRS-QR-Jfz" id="pbJ-tu-1fw">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
@@ -10976,7 +10976,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NumericRangeTableViewCell" rowHeight="179" id="pNz-Ft-W8J" customClass="NumericRangeTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="890" width="320" height="179"/>
+                                        <rect key="frame" x="0.0" y="886.33333396911621" width="320" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pNz-Ft-W8J" id="Qij-Yz-i66">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
@@ -11028,7 +11028,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdpostRadioTableViewCell" rowHeight="129" id="laB-Bs-pvS" customClass="AdpostRadioTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1069" width="320" height="129"/>
+                                        <rect key="frame" x="0.0" y="1065.3333339691162" width="320" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="laB-Bs-pvS" id="Fpw-Jr-MS5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
@@ -11042,7 +11042,7 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <prototypes>
                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdpostradioInnerTableViewCell" rowHeight="98" id="aKf-Ss-JfA" customClass="AdpostradioInnerTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="28" width="294" height="98"/>
+                                                                    <rect key="frame" x="0.0" y="24.333333969116211" width="294" height="98"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aKf-Ss-JfA" id="jZd-tK-722">
                                                                         <rect key="frame" x="0.0" y="0.0" width="294" height="98"/>
@@ -11119,7 +11119,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CalenderSingleTableViewCell" rowHeight="78" id="RZ2-dj-LLM" customClass="CalenderSingleTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1198" width="320" height="78"/>
+                                        <rect key="frame" x="0.0" y="1194.3333339691162" width="320" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RZ2-dj-LLM" id="GJc-ao-x6x">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
@@ -11223,7 +11223,7 @@
                             <tableViewSection id="onv-NJ-cj3">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="821" id="ekM-5Q-0PI">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="821"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="821"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ekM-5Q-0PI" id="wqw-BU-tRZ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="821"/>
@@ -11636,6 +11636,7 @@
                     <connections>
                         <outlet property="btnCheckBoxTermCond" destination="Aj9-29-MSC" id="F5U-dM-FQo"/>
                         <outlet property="btnTermCondition" destination="Iwi-ox-Iu4" id="PDN-oH-qWL"/>
+                        <outlet property="containerTermsCondition" destination="dv9-2I-uUL" id="gDS-q0-j0y"/>
                         <outlet property="containerView" destination="bGq-yr-arE" id="2NA-YS-x6r"/>
                         <outlet property="containerViewAddress" destination="FIc-S0-Nov" id="fkw-Tv-DKv"/>
                         <outlet property="containerViewBumpUpAds" destination="f1Q-d7-vm8" id="iwS-RV-Y4L"/>
@@ -11730,7 +11731,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SellerCell" rowHeight="129" id="1ie-p9-xMz" customClass="SellerCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="129"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1ie-p9-xMz" id="IZq-90-fp6">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
@@ -12418,7 +12419,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BlockedUserChatTableViewCell" rowHeight="81" id="cbg-ij-Edo" customClass="BlockedUserChatTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="81"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cbg-ij-Edo" id="4sP-Ja-2mg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
@@ -12535,7 +12536,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PackagesMoreCatTableViewCell" rowHeight="55" id="CwY-L2-rGP" customClass="PackagesMoreCatTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="290" height="55"/>
+                                                <rect key="frame" x="0.0" y="24.333333969116211" width="290" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CwY-L2-rGP" id="IAS-ah-6k4">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="55"/>
@@ -13837,11 +13838,15 @@
                         <outlet property="buttonSubmit" destination="qOi-XB-2nz" id="zyF-eM-fxz"/>
                         <outlet property="containerViewImage" destination="QWF-XE-P5p" id="ueA-gn-SCn"/>
                         <outlet property="containerViewSocialButton" destination="Wph-4d-ump" id="abJ-bY-vbj"/>
+                        <outlet property="emailSeperator" destination="l5O-TL-9NO" id="84l-Zf-65F"/>
+                        <outlet property="emailView" destination="hiE-e8-s1M" id="GCk-qX-Q0S"/>
                         <outlet property="imgEmail" destination="Xar-Fe-zfu" id="XX3-nS-lYn"/>
                         <outlet property="imgPassword" destination="Pcf-5v-EQh" id="xWF-C7-Zmi"/>
                         <outlet property="imgTitle" destination="UPB-oZ-dPT" id="y8x-Jw-UHr"/>
                         <outlet property="lblOr" destination="1eH-EV-SxA" id="ktu-E2-ZkO"/>
                         <outlet property="lblWelcome" destination="p4K-ay-Q4S" id="Mc1-Xx-37e"/>
+                        <outlet property="pwdSeperator" destination="Czk-4z-aUA" id="vEg-zw-4n9"/>
+                        <outlet property="pwdView" destination="FtD-Mc-ezX" id="xhA-ya-U9n"/>
                         <outlet property="scrollView" destination="9w1-n1-06z" id="B7q-O3-usj"/>
                         <outlet property="socialLoginHeightConstraint" destination="JKm-mk-1fQ" id="K6T-Q4-ETM"/>
                         <outlet property="txtEmail" destination="Bmc-YO-1RL" id="ntK-JH-WEl"/>
@@ -14436,7 +14441,7 @@
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BannerCarouselCell" rowHeight="294" id="HJl-gY-Grg" customClass="BannerCarouselCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HJl-gY-Grg" id="qrn-6p-k4N">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -14521,7 +14526,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="XnF-3V-dWR">
-                                                            <rect key="frame" x="91" y="242" width="122" height="28"/>
+                                                            <rect key="frame" x="91" y="243.66666666666666" width="122" height="26.333333333333343"/>
                                                         </pageControl>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.90948778389999996" green="0.80917364359999999" blue="0.30383241179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -14554,7 +14559,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="CLw-SI-AJK" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="322" width="320" height="335"/>
+                                        <rect key="frame" x="0.0" y="318.33333396911621" width="320" height="335"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CLw-SI-AJK" id="UWo-89-nsS">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
@@ -14731,7 +14736,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelCategoryTableViewCell" rowHeight="184" id="UjL-5j-pMi" customClass="MarvelCategoryTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="657" width="320" height="184"/>
+                                        <rect key="frame" x="0.0" y="653.33333396911621" width="320" height="184"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UjL-5j-pMi" id="xct-tr-Ecw">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
@@ -14858,7 +14863,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddsTableCell" rowHeight="294" id="iXe-UZ-4as" customClass="AddsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="841" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="837.33333396911621" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iXe-UZ-4as" id="l30-W4-8P4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15041,7 +15046,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureAddCell" rowHeight="294" id="8DC-pi-SV7" customClass="MarvelHomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1135" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1131.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8DC-pi-SV7" id="3lb-hm-l0F">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15237,7 +15242,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAdsTableViewCell" rowHeight="294" id="5az-SX-ZyQ" customClass="MarvelAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1429" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1425.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5az-SX-ZyQ" id="wMU-8k-8Wo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15440,7 +15445,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestAddTableCell" rowHeight="294" id="YqA-xE-hgL" customClass="MarvelHomeLatestAddTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1723" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1719.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YqA-xE-hgL" id="CGf-ae-f0z">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15658,7 +15663,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestVerticalDefaultTableViewCell" rowHeight="294" id="Tnv-H5-jKL" customClass="MarvelHomeLatestVerticalDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2017" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2013.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tnv-H5-jKL" id="ji8-Kk-M7F">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -15860,7 +15865,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelVerticalSLiderAdsTableViewCell" rowHeight="294" id="hkZ-6l-Xzr" customClass="MarvelVerticalSLiderAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2311" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2307.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hkZ-6l-Xzr" id="qnM-4N-reV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16062,7 +16067,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelFeatureVerticalTableViewCell" rowHeight="294" id="mtA-8f-4yV" customClass="MarvelFeatureVerticalTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2605" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2601.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mtA-8f-4yV" id="mcL-Tp-KC1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16266,7 +16271,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LatestAddsCell" rowHeight="294" id="Sxk-3l-5hB" customClass="LatestAddsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2899" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2895.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sxk-3l-5hB" id="zBg-Up-X7N">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16448,7 +16453,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureDefaultTableViewCell" rowHeight="294" id="1xQ-IG-RxH" customClass="MarvelHomeFeatureDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3193" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3189.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1xQ-IG-RxH" id="z66-fG-KvM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16629,7 +16634,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeBlogCell" rowHeight="294" id="dpS-RY-sN8" customClass="HomeBlogCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3487" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3483.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dpS-RY-sN8" id="ATo-Qx-wef">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16808,7 +16813,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MarvelHomeLocationTableViewCell" rowHeight="294" id="Hve-ng-4dr" customClass="MarvelHomeLocationTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3781" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3777.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hve-ng-4dr" id="2DE-Kl-wUs">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -16979,7 +16984,7 @@
                                 <color key="separatorColor" systemColor="systemGray4Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAddDetailCell" rowHeight="245" id="hbX-1j-P7G" customClass="MarvelAddDetailCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="245"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="245"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hbX-1j-P7G" id="HR8-t4-GmV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="245"/>
@@ -17182,7 +17187,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddDetailDescriptionCell" rowHeight="210" id="vh7-0G-6Dj" customClass="AddDetailDescriptionCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="273" width="320" height="210"/>
+                                        <rect key="frame" x="0.0" y="269.33333396911621" width="320" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vh7-0G-6Dj" id="Hun-17-fu1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
@@ -17381,7 +17386,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SimilarAdsTableCell" rowHeight="231" id="2YA-pn-isb" customClass="SimilarAdsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="483" width="320" height="231"/>
+                                        <rect key="frame" x="0.0" y="479.33333396911621" width="320" height="231"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2YA-pn-isb" id="4Yq-sQ-QNB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="231"/>
@@ -17634,7 +17639,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BannerCarouselCell" rowHeight="294" id="fkd-n5-2fV" customClass="BannerCarouselCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fkd-n5-2fV" id="udU-jO-fQC">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -17719,7 +17724,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="nRC-JK-d1E">
-                                                            <rect key="frame" x="91" y="242" width="122" height="28"/>
+                                                            <rect key="frame" x="91" y="243.66666666666666" width="122" height="26.333333333333343"/>
                                                         </pageControl>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.90948778389999996" green="0.80917364359999999" blue="0.30383241179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -17752,7 +17757,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeNearAdsCell" rowHeight="335" id="tsZ-Jg-FUE" customClass="HomeNearAdsCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="322" width="320" height="335"/>
+                                        <rect key="frame" x="0.0" y="318.33333396911621" width="320" height="335"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tsZ-Jg-FUE" id="cKS-HN-pHn">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
@@ -17929,7 +17934,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiCategoriesTableViewCell" rowHeight="223" id="O1m-fy-zk9" customClass="MultiCategoriesTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="657" width="320" height="223"/>
+                                        <rect key="frame" x="0.0" y="653.33333396911621" width="320" height="223"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O1m-fy-zk9" id="LLd-em-XVo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="223"/>
@@ -18091,7 +18096,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddsTableCell" rowHeight="294" id="ZhW-Ug-nQr" customClass="AddsTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="880" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="876.33333396911621" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZhW-Ug-nQr" id="Xjl-2s-jt8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18274,7 +18279,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeFeatureAddCell" rowHeight="294" id="0Sc-tl-sD2" customClass="MarvelHomeFeatureAddCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1174" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1170.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Sc-tl-sD2" id="Vid-kI-8qt">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18470,7 +18475,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelAdsTableViewCell" rowHeight="294" id="eyA-0u-R0P" customClass="MarvelAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1468" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1464.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eyA-0u-R0P" id="acF-ed-UbQ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18673,7 +18678,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestAddTableCell" rowHeight="294" id="dym-cP-8bo" customClass="MarvelHomeLatestAddTableCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1762" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="1758.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dym-cP-8bo" id="SQF-y1-OJK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -18891,7 +18896,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelHomeLatestVerticalDefaultTableViewCell" rowHeight="294" id="ryx-2T-wpJ" customClass="MarvelHomeLatestVerticalDefaultTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2056" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2052.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ryx-2T-wpJ" id="38D-wL-QYh">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19093,7 +19098,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelVerticalSLiderAdsTableViewCell" rowHeight="294" id="ZjT-Kf-wzA" customClass="MarvelVerticalSLiderAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2350" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2346.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZjT-Kf-wzA" id="RDe-Lj-6Kl">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19295,7 +19300,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MarvelFeatureVerticalTableViewCell" rowHeight="294" id="14A-Xo-TVH" customClass="MarvelFeatureVerticalTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2644" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2640.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="14A-Xo-TVH" id="RW0-2R-r5f">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19499,7 +19504,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiHomeFeatureAddTableViewCell" rowHeight="294" id="cIN-Zs-kmn" customClass="MultiHomeFeatureAddTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2938" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="2934.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cIN-Zs-kmn" id="3f5-bK-n5Z">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19710,7 +19715,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiLatestAdTableViewCell" rowHeight="294" id="g92-He-kJ7" customClass="MultiLatestAdTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3232" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3228.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g92-He-kJ7" id="GPc-gX-qhf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -19928,7 +19933,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MultiAdsTableViewCell" rowHeight="294" id="l78-dT-Fcx" customClass="MultiAdsTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3526" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3522.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l78-dT-Fcx" id="DjQ-Uf-Aw6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -20146,7 +20151,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeBlogCell" rowHeight="294" id="6b1-ke-LPb" customClass="HomeBlogCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="3820" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="3816.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6b1-ke-LPb" id="i4T-aO-VyL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -20325,7 +20330,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MarvelHomeLocationTableViewCell" rowHeight="294" id="GQM-1t-cph" customClass="MarvelHomeLocationTableViewCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="4114" width="320" height="294"/>
+                                        <rect key="frame" x="0.0" y="4110.3333339691162" width="320" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GQM-1t-cph" id="Qkp-AW-5Xk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
@@ -20575,7 +20580,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SenderCell" rowHeight="64" id="rsG-Kr-Ujf" customClass="SenderCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rsG-Kr-Ujf" id="XgU-y4-q4s">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
@@ -20643,7 +20648,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReceiverCell" rowHeight="64" id="CvF-Cg-TVO" customClass="ReceiverCell" customModule="AdForest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="88.333333969116211" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CvF-Cg-TVO" id="GTS-Pd-JOD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>

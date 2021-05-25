@@ -14,6 +14,8 @@ import UserNotifications
 import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
+import CoreTelephony
+
 class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NVActivityIndicatorViewable, MarvelCategoryDetailDelegate,MarvelAddDetailDelegate,MarvelRelatedAddDetailDelegate,MarvelLatestAddDetailDelegate,AddDetailDelegate,LocationCategoryDelegate,BlogDetailDelegate,MarvelLocationCategoryDelegate,NearBySearchDelegate,MarvelDefVerAddDetailDelegate, SwiftyAdDelegate, GADBannerViewDelegate, BannerCategoryDetailDelegate, OpenBannerCarouselDelegate, OpenPublicProfileDelegate {
     
     
@@ -136,8 +138,46 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         self.adForest_homeData()
         self.adForest_sendFCMToken()
         self.subscribeToTopicMessage()
+        
+        let countryCode = Locale.current.regionCode
+        print(countryCode)
+        let networkInfo = CTTelephonyNetworkInfo()
+
+            if let carrier = networkInfo.subscriberCellularProvider {
+                print("country code is: " + carrier.mobileCountryCode!);
+
+                //will return the actual country code
+                print("ISO country code is: " + carrier.isoCountryCode!);
+                let alert = Constants.showBasicAlert(message: "\(carrier.isoCountryCode):: \(carrier.mobileCountryCode)")
+                self.presentVC(alert)
+            }
+        let phoneUtil = CTTelephonyNetworkInfo()
+        if #available(iOS 13.0, *) {
+            print(phoneUtil.dataServiceIdentifier)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+
+
+        let networkStatus = CTTelephonyNetworkInfo()
+        if let carrier = networkStatus.subscriberCellularProvider {
+            print("MNC = \(carrier.mobileNetworkCode ?? "NO CODE")")
+        }
+        let cc = CTCarrier()
+        print("\(cc.mobileCountryCode)::\(cc.mobileNetworkCode)::\(cc.isoCountryCode)")
+        let chalo = getLanguageISO()
+        print(chalo)
+        
     }
-    
+    func getLanguageISO() -> String {
+        let locale = Locale.current
+        guard let languageCode = locale.languageCode,
+          let regionCode = locale.regionCode else {
+            return "de_DE"
+        }
+        return languageCode + "_" + regionCode
+      }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

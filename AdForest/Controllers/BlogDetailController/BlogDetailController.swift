@@ -141,7 +141,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK:- Table View Delegate Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -367,8 +367,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if section == 1 {
-            height = heightWk
-
+                height = heightWk
 //                contentHeight[indexPath.row] + 80
         }
         else if section == 2 {

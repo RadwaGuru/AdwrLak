@@ -20,6 +20,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var isBlogImg:Bool = false
     var isSettingImg:Bool = false
     var imagesArr = [UIImage]()
+//    var imagesArr: [UIImage] = []
+
     var isWplOn = false
     var isToplocationOn = false
     var isBlogOn = false
@@ -69,6 +71,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             guard let password = defaults.string(forKey: "password") else {
                 return
             }
+            guard let phoneNumber = defaults.string(forKey: "phoneNumber") else {
+                return
+            }
             if defaults.bool(forKey: "isSocial") {
                 let param: [String: Any] = [
                     "email": email,
@@ -76,7 +81,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 ]
                 print(param)
                 self.adForest_loginUser(parameters: param as NSDictionary)
-            } else {
+            }
+            else {
                 let param : [String : Any] = [
                     "email" : email,
                     "password": password
@@ -139,7 +145,6 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.locationSectionStyle,forKey: "locationSectionStyle")
                 self.defaults.set(successResponse.data.placesSearchType, forKey: "placesSearchType")
                 self.defaults.set(successResponse.data.adDetailStyle,forKey: "adDetailStyle")
-
                 self.home = successResponse.data.homeStyles
                 self.defaults.set(successResponse.data.homeStyles,forKey: "homeStyles")
                 self.topLocArr = successResponse.data.appTopLocation
@@ -202,12 +207,15 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.PusherUrl, forKey: "PusherUrl")
 //                self.settingExtrasData  = successResponse.data.extraTexts
 //                print(self.settingExtrasData.codeSentTo)
-                self.defaults.set(successResponse.data.extraTexts.codeSentTo, forKey: "codeSentTo")
-                self.defaults.set(successResponse.data.extraTexts.notReceived, forKey: "notReceived")
-                self.defaults.set(successResponse.data.extraTexts.tryAgain, forKey: "tryAgain")
-                self.defaults.set(successResponse.data.extraTexts.verifyNumber, forKey: "verifyNumber")
-                self.defaults.set(successResponse.data.extraTexts.phonePlaceholder, forKey: "phonePlaceholder")
-                self.defaults.set(successResponse.data.extraTexts.usernamePlaceHolder, forKey: "usernamePlaceHolder")
+                if successResponse.data.extraTexts != nil {
+                    self.defaults.set(successResponse.data.extraTexts.codeSentTo, forKey: "codeSentTo")
+                    self.defaults.set(successResponse.data.extraTexts.notReceived, forKey: "notReceived")
+                    self.defaults.set(successResponse.data.extraTexts.tryAgain, forKey: "tryAgain")
+                    self.defaults.set(successResponse.data.extraTexts.verifyNumber, forKey: "verifyNumber")
+                    self.defaults.set(successResponse.data.extraTexts.phonePlaceholder, forKey: "phonePlaceholder")
+                    self.defaults.set(successResponse.data.extraTexts.usernamePlaceHolder, forKey: "usernamePlaceHolder")
+
+                }
 
                 
                 
@@ -286,7 +294,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 if successResponse.data.menu.isShowMenu.blog == true{
                     self.settingBlogArr.append(successResponse.data.menu.blog)
                     UserDefaults.standard.set(true, forKey: "isBlog")
+//                    self.imagesArr.append(UIImage(named: "blog")!)
                     self.imagesArr.append(UIImage(named: "blog")!)
+
                 }
                 if successResponse.data.menu.isShowMenu.settings == true{
                     UserDefaults.standard.set(true, forKey: "isSet")
@@ -370,6 +380,9 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
         }
     }
     
+    
+
+    
     // Login User
     func adForest_loginUser(parameters: NSDictionary) {
         self.showLoader()
@@ -377,6 +390,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             self.stopAnimating()
             if successResponse.success {
                 self.defaults.set(true, forKey: "isLogin")
+//                self.defaults.setValue(true, forKey: "otp")
                 self.defaults.synchronize()
                 if self.home == "home1"{
                     self.appDelegate.moveToHome()

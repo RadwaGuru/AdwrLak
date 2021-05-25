@@ -88,6 +88,14 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     @IBOutlet weak var imgViewCheckBox: UIImageView!
     @IBOutlet weak var btnCheckBoxTermCond: UIButton!
     
+    @IBOutlet weak var containerTermsCondition: UIView!{
+        didSet{
+            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+                containerTermsCondition.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+            }
+        }
+
+    }
     
     
     //MARK:- Properties

@@ -553,6 +553,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.defaults.set(false, forKey: "isLogin")
                 self.defaults.set(false, forKey: "isGuest")
                 self.defaults.set(false, forKey: "isSocial")
+                self.defaults.set(false, forKey: "otp")
+
 //                let domain = Bundle.main.bundleIdentifier!
 //                UserDefaults.standard.removePersistentDomain(forName: domain)
 //                UserDefaults.standard.synchronize()
@@ -570,6 +572,8 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.defaults.set(false, forKey: "isLogin")
                 self.defaults.set(false, forKey: "isGuest")
                 self.defaults.set(false, forKey: "isSocial")
+                self.defaults.set(false, forKey: "otp")
+
 //                let domain = Bundle.main.bundleIdentifier!
 //                UserDefaults.standard.removePersistentDomain(forName: domain)
 //                UserDefaults.standard.synchronize()

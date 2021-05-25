@@ -15,7 +15,7 @@ protocol CustomHeaderParameterDelegate {
 
 
 class CustomHeader: UITableViewCell {
-
+    
     //MARK:- Outlets
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var lblTotalAds: UILabel!
@@ -42,19 +42,31 @@ class CustomHeader: UITableViewCell {
         super.awakeFromNib()
         selectionStyle = .none
         if UserDefaults.standard.bool(forKey: "isRtl") {
-            oltOrder.contentHorizontalAlignment = .left
-            imgIcon.isHidden = true
+            oltOrder.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+            oltOrder.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
         }
         else{
-            oltOrder.contentHorizontalAlignment = .right
-            
+            oltOrder.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         }
-        
+        //        if UserDefaults.standard.bool(forKey: "isRtl") {
+        //            oltOrder.contentHorizontalAlignment = .left
+        //            imgIcon.isHidden = true
+        //        }
+        //        else{
+        //            oltOrder.contentHorizontalAlignment = .right
+        //
+        //        }
     }
     
     //MARK:- Custom
     func orderDropDown() {
-        arrangeDropDown.anchorView = imgIcon
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            arrangeDropDown.anchorView = oltOrder
+            
+        }else{
+            arrangeDropDown.anchorView = imgIcon
+            
+        }
         arrangeDropDown.dataSource = orderArray
         print(orderArray)
         arrangeDropDown.selectionAction = { [unowned self] (index, item) in
