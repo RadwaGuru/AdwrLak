@@ -29,7 +29,7 @@ struct AddDetailStaticText {
     var showMegsBtn : Bool!
     var blockUser : AddDetailsBlockUser!
     var viewLink : String!
-    
+    var PhoneNotVerifiedMsg:String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -59,6 +59,7 @@ struct AddDetailStaticText {
         if let blockUserData = dictionary["block_user"] as? [String:Any]{
             blockUser = AddDetailsBlockUser(fromDictionary: blockUserData)
         }
+        PhoneNotVerifiedMsg = dictionary["phone_not_verified"] as? String
     }
     
     /**

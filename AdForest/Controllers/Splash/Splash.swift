@@ -82,6 +82,18 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 print(param)
                 self.adForest_loginUser(parameters: param as NSDictionary)
             }
+            else if defaults.bool(forKey: "otp"){
+                let param: [String: Any] = [
+                    "phone": phoneNumber,
+                    "name": email
+
+                ]
+                print(param)
+            
+                self.adForest_loginOTPUser(parameters: param as NSDictionary)
+
+            }
+
             else {
                 let param : [String : Any] = [
                     "email" : email,
@@ -205,8 +217,6 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.WhizChatEmptyMessage, forKey: "WhizChatEmptyMessage")
                 self.defaults.set(successResponse.data.WhizChatStartTyping, forKey: "WhizChatStartTyping")
                 self.defaults.set(successResponse.data.PusherUrl, forKey: "PusherUrl")
-//                self.settingExtrasData  = successResponse.data.extraTexts
-//                print(self.settingExtrasData.codeSentTo)
                 if successResponse.data.extraTexts != nil {
                     self.defaults.set(successResponse.data.extraTexts.codeSentTo, forKey: "codeSentTo")
                     self.defaults.set(successResponse.data.extraTexts.notReceived, forKey: "notReceived")
@@ -381,6 +391,34 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     }
     
     
+    // Login Userx
+    func adForest_loginOTPUser(parameters: NSDictionary) {
+        self.showLoader()
+        UserHandler.LoginOTPUser(parameter: parameters , success: { (successResponse) in
+            self.stopAnimating()
+            if successResponse.success {
+                self.defaults.set(true, forKey: "isLogin")
+//                self.defaults.setValue(true, forKey: "otp")
+                self.defaults.synchronize()
+                if self.home == "home1"{
+                    self.appDelegate.moveToHome()
+
+                }else if self.home == "home2"{
+                    self.appDelegate.moveToMultiHome()
+                }
+                else if self.home == "home3"{
+                    self.appDelegate.moveToMarvelHome()
+                }
+                
+            }
+            else {
+                self.appDelegate.moveToLogin()
+            }
+        }) { (error) in
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.presentVC(alert)
+        }
+    }
 
     
     // Login User

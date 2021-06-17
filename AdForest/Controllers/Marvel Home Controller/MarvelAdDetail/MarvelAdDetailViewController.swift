@@ -1395,13 +1395,13 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
     //MARK:- IBActions
     
     @IBAction func actionBtnWhatsApp(_ sender: Any) {
-//        if isPhoneNumberVerified == true {
+        if isPhoneNumberVerified == true {
             openWhatsApp(number: whatsAppNum)
-//        }
-//        else{
-//            let alert = Constants.showBasicAlert(message: "Phone number is not verified bhai ?")
-//            self.presentVC(alert)
-//        }
+        }
+        else{
+            let alert = Constants.showBasicAlert(message: (AddsHandler.sharedInstance.objAddDetails?.staticText.PhoneNotVerifiedMsg)!)
+            self.presentVC(alert)
+        }
         
     }
     @IBAction func actionSendMessage(_ sender: Any) {
@@ -1453,10 +1453,9 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
         AddsHandler.addDetails(parameter: param, success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                debugPrint("Check now:\(successResponse.data)")
                 self.title = successResponse.data.pageTitle
                 self.whatsAppNum = successResponse.data.adDetail.phone
-//                self.isPhoneNumberVerified = successResponse.data.callNowPopup.isPhoneVerified
+                self.isPhoneNumberVerified = successResponse.data.callNowPopup.isPhoneVerified
                 AddsHandler.sharedInstance.descTitle = successResponse.data.staticText.descriptionTitle
                 AddsHandler.sharedInstance.htmlText = successResponse.data.adDetail.adDesc
                 self.similarAdsTitle = successResponse.data.staticText.relatedPostsTitle

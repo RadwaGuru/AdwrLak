@@ -243,16 +243,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
         UserHandler.LoginOTPUser(parameter: parameters , success: { (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                //                if self.isVerifyOn && successResponse.data.isAccountConfirm == false {
-                //                    let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
-                //                        let confirmationVC = self.storyboard1.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
-                //                        confirmationVC.isFromVerification = true
-                //                        confirmationVC.user_id = successResponse.data.id
-                //                        self.navigationController?.pushViewController(confirmationVC, animated: true)
-                //                    })
-                //                    self.presentVC(alert)
-                //                }
-                //                else {
+         
                 self.defaults.set(true, forKey: "isLogin")
                 self.defaults.set(successResponse.data.userName, forKey: "email")
                 self.defaults.set("1122", forKey: "password")
@@ -269,18 +260,14 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
                     self.appDelegate.moveToMarvelHome()
                 }
                 
-                //                }
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
                     let confirmationVC = self.storyboard1.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
                     confirmationVC.isFromVerification = true
-                    //successResponse.data.id
-                    confirmationVC.user_id = 92
+                    confirmationVC.user_id = successResponse.data.id
                     self.navigationController?.pushViewController(confirmationVC, animated: true)
                 })
                 self.presentVC(alert)
-                //                let alert = Constants.showBasicAlert(message: successResponse.message)
-                //                self.presentVC(alert)
             }
         }) { (error) in
             let alert = Constants.showBasicAlert(message: error.message)
@@ -298,9 +285,15 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
                 self.defaults.set("1122", forKey: "password")
                 self.defaults.set(true, forKey: "isLogin")
                 self.defaults.synchronize()
-                self.appDelegate.moveToHome()
-                
-                debugPrint("========Ok ha andr ++++=========")
+                if self.homeStyle == "home1"{
+                    self.appDelegate.moveToHome()
+                    
+                }else if self.homeStyle == "home2"{
+                    self.appDelegate.moveToMultiHome()
+                }
+                else if self.homeStyle == "home3"{
+                    self.appDelegate.moveToMarvelHome()
+                }
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -348,14 +341,3 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
     
 }
 
-//var codeSentTo: String = UserDefaults.standard.string(forKey: "codeSentTo")!
-//var notReceived: String = UserDefaults.standard.string(forKey: "notReceived")!
-//var tryAgain: String = UserDefaults.standard.string(forKey: "tryAgain")!
-//var verifyNumber: String = UserDefaults.standard.string(forKey: "verifyNumber")!
-
-//self.defaults.set(successResponse.data.codeSentTo, forKey: "codeSentTo")
-//self.defaults.set(successResponse.data.notReceived, forKey: "notReceived")
-//self.defaults.set(successResponse.data.tryAgain, forKey: "tryAgain")
-//self.defaults.set(successResponse.data.verifyNumber, forKey: "verifyNumber")
-//
-//

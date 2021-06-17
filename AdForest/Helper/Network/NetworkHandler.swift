@@ -66,7 +66,7 @@ class NetworkHandler {
                    ] as! HTTPHeaders
               print(headers)
             }
-             if UserDefaults.standard.bool(forKey: "isSocial") {
+            else if UserDefaults.standard.bool(forKey: "isSocial") {
                 var email = ""
                 var password = ""
                 if let userEmail = UserDefaults.standard.string(forKey: "email") {
@@ -220,7 +220,7 @@ class NetworkHandler {
              print(headers)
            }
 
-            if UserDefaults.standard.bool(forKey: "isSocial") {
+          else if UserDefaults.standard.bool(forKey: "isSocial") {
                 print("Social Login")
                 var email = ""
                 var password = ""
@@ -355,7 +355,7 @@ class NetworkHandler {
          print(headers)
        }
 
-        if UserDefaults.standard.bool(forKey: "isSocial") {
+       else if UserDefaults.standard.bool(forKey: "isSocial") {
             print("Social Login")
             var email = ""
             var password = ""
@@ -477,9 +477,7 @@ class NetworkHandler {
               "AdForest-Login-Type":"otp"
               ] as! HTTPHeaders
          print(headers)
-       }
-
-        if UserDefaults.standard.bool(forKey: "isSocial") {
+       } else if UserDefaults.standard.bool(forKey: "isSocial") {
             print("Social Login")
             var email = ""
             var password = ""
@@ -584,7 +582,7 @@ class NetworkHandler {
          print(headers)
        }
 
-        if UserDefaults.standard.bool(forKey: "isSocial") {
+       else if UserDefaults.standard.bool(forKey: "isSocial") {
             print("Social Login")
             var email = ""
             var password = ""
@@ -706,10 +704,7 @@ class NetworkHandler {
               "AdForest-Login-Type":"otp"
               ] as! HTTPHeaders
          print(headers)
-       }
-
-        
-        if UserDefaults.standard.bool(forKey: "isSocial") {
+       } else if UserDefaults.standard.bool(forKey: "isSocial") {
             var email = ""
             var password = ""
             if let userEmail = UserDefaults.standard.string(forKey: "email") {

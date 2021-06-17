@@ -278,7 +278,56 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         }
         return true
     }
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if txtEmail.text?.isValidEmail == true {
+            txtPassword.isHidden = false
+            imgPassword.isHidden = false
+            phoneSeperator.isHidden = false
+            pwdSeperator.isHidden = false
+            imgPhone.isHidden = false
+            txtPhone.isHidden = false
+            imgUser.isHidden = false
+            txtName.isHidden = false
+
+            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
+            
+            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//            //, constant: -5
+            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//
+            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+
+        }
+        else if txtEmail.text?.isValidEmail == false {
+            txtPassword.isHidden = true
+            imgPassword.isHidden = true
+            imgPhone.isHidden = true
+            txtPhone.isHidden = true
+            imgUser.isHidden = true
+            txtName.isHidden = true
+            nameSeperator.isHidden = true
+            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//
+//
+//            imgPhone.isHidden = true
+//            txtPhone.isHidden = true
+//            txtPassword.isHidden = true
+//            imgPassword.isHidden = true
+//            pwdSeperator.isHidden = true
+//            phoneSeperator.isHidden = true
+//            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+            
+        }
+    }
+
 //    func textFieldDidEndEditing(_ textField: UITextField) {
 //        if txtEmail.text?.isValidEmail == true {
 //            txtPassword.isHidden = false
@@ -439,7 +488,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 }
             }
             
-            if isShowFacebook || isShowGoogle || isShowApple {
+            if isShowFacebook || isShowGoogle || isShowApple || isShowLinkedin{
                 if let sepratorText = objData?.separator {
                     self.lblOr.text = sepratorText
                 }
@@ -530,13 +579,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 
             }
             
-            else if isShowFacebook == false && isShowGoogle == false && isShowApple  {
-                //                self.btnFb.isHidden = true
-                //                self.buttonGoogle.isHidden = true
-                self.btnApple.isHidden = false
-                btnApple.topAnchor.constraint(equalTo: self.lblOr.bottomAnchor, constant: 18).isActive = true
-                
-            }
+
             
             else if isShowGoogle && isShowFacebook == false && isShowApple == false {
                 //                self.buttonGoogle.isHidden = false
@@ -548,30 +591,31 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             }
             
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin {
-                self.lblOr.isHidden = true
+                self.lblOr.isHidden = false
                 //                self.buttonGoogle.isHidden = true
                 //                self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
+//                collectionView.backgroundColor = .red
                 //                self.btnLinkedin.isHidden = false
-                //                btnLinkedin.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 18).isActive = true
                 
             }
             else if isShowFacebook == false && isShowGoogle == false && isShowApple == false && isShowLinkedin == false {
-                //                self.buttonGoogle.isHidden = true
-                //                self.btnFb.isHidden = true
                 self.btnApple.isHidden = true
-                //                self.btnLinkedin.isHidden = true
                 
                 
             }
             else if isShowFacebook  && isShowGoogle  && isShowApple  && isShowLinkedin == false {
                 self.lblOr.isHidden = false
-                //                self.buttonGoogle.isHidden = false
-                //                self.btnFb.isHidden = false
                 self.btnApple.isHidden = false
-                //                self.btnLinkedin.isHidden = true
                 
             }
+            else if isShowFacebook == false && isShowGoogle == false && isShowApple && isShowLinkedin == false {
+                self.btnApple.isHidden = false
+                collectionView.isHidden = true
+                btnApple.topAnchor.constraint(equalTo: self.containerViewSocialButton.topAnchor, constant: 8).isActive = true
+
+            }
+            
             //
             //            else if isShowFacebook == false && isShowGoogle == false && isShowApple  && isShowLinkedin {
             //                self.buttonGoogleLogin.isHidden = true
@@ -619,17 +663,6 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 btnCheckBoxSubscriber.isHidden = true
                 btnTextSubscriber.isHidden = true
             }
-            
-            //            if SubscribertExt  == "" {
-            //                 btnCheckBoxSubscriber.isHidden = true
-            //                btnTextSubscriber.isHidden = true
-            //            }else{
-            //                btnCheckBoxSubscriber.isHidden = false
-            //                btnTextSubscriber.isHidden = false
-            //            }
-            
-            
-            
         }
         collectionView
             .reloadData()
@@ -682,11 +715,11 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return 1
     }
     //Fixed position of items in CollectionView
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //        let padding: CGFloat = 0
-    //        let collectionViewSize = collectionView.frame.size.width - padding
-    //        return CGSize(width: collectionViewSize/3, height:120)
-    //    }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let padding: CGFloat = 0
+            let collectionViewSize = collectionView.frame.size.width - padding
+            return CGSize(width: collectionViewSize/3, height:120)
+        }
     //
     //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     //        return 0
@@ -705,17 +738,17 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     //    }
     
     //OLD STeps
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        print(width)
-        return CGSize(width: width/3, height: 120)
-        
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = collectionView.frame.width
+//        print(width)
+//        return CGSize(width: 120, height: 120)
+//
+//    }
     
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    //        return UIEdgeInsets.zero
-    //
-    //    }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return UIEdgeInsets.zero
+    
+        }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -860,7 +893,32 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         guard let password = txtPassword.text else {
             return
         }
-      if name == "" {
+
+        if txtEmail.text?.isValidPhone == true{
+            if checkBoxselectedBtn == true {
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "phone": email,
+                    subscriberPostValue: subscriberPostValue
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+//                defaults.set(password, forKey: "password")
+                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)            }
+            else{
+                let parameters : [String: Any] = [
+                    "name": name,
+                    "phone": email,
+                ]
+                print(parameters)
+                defaults.set(email, forKey: "email")
+//                defaults.set(password, forKey: "password")
+                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
+            }
+            
+            
+        }
+       else if name == "" {
             self.txtName.shake(6, withDelta: 10, speed: 0.06)
         }
         else if email == "" {
@@ -870,12 +928,12 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             self.txtEmail.shake(6, withDelta: 10, speed: 0.06)
         }
         
-        else if phone == "" {
-            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-        }
-        else if !phone.isValidPhone {
-            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
-        }
+//        else if phone == "" {
+//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+//        }
+//        else if !phone.isValidPhone {
+//            self.txtPhone.shake(6, withDelta: 10, speed: 0.06)
+//        }
         else if password == "" {
             self.txtPassword.shake(6, withDelta: 10, speed: 0.06)
         }

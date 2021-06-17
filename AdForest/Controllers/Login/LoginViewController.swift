@@ -296,36 +296,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             txtPassword.becomeFirstResponder()
         } else if textField == txtPassword {
             txtPassword.resignFirstResponder()
-            adForest_logIn()
         }
         return true
     }
 
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if txtEmail.text?.isValidPhone == true {
-////            txtPassword.placeholder = userNameplaceholder
-////            txtPassword.isSecureTextEntry = false
-//            imgEmail.image = #imageLiteral(resourceName: "Phone")
-////            imgPassword.image = #imageLiteral(resourceName: "profile")
-//            txtEmail.placeholder = plHolderPhoneNumber
-////            btnViewPassword.isHidden = true
-//            txtPassword.isHidden = true
-//            imgPassword.isHidden = true
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if txtEmail.text?.isValidPhone == true {
+//            txtPassword.placeholder = userNameplaceholder
+//            txtPassword.isSecureTextEntry = false
+            imgEmail.image = #imageLiteral(resourceName: "Phone")
+//            imgPassword.image = #imageLiteral(resourceName: "profile")
+            txtEmail.placeholder = plHolderPhoneNumber
 //            btnViewPassword.isHidden = true
-//            pwdSeperator.isHidden = true
-//            pwdView.isHidden = true
-//            buttonForgotPassword.translatesAutoresizingMaskIntoConstraints = false
-//            buttonForgotPassword.topAnchor.constraint(equalTo: self.emailView.bottomAnchor).isActive = true
-//
-//        } else {
-//            txtPassword.placeholder = pwdPlaceHolder
-//            txtPassword.isSecureTextEntry = true
-//            imgEmail.image = #imageLiteral(resourceName: "msg")
-//            imgPassword.image = #imageLiteral(resourceName: "Password")
-//            txtEmail.placeholder = emailPlaceHolder
-//            btnViewPassword.isHidden = false
-//        }
-//    }
+            txtPassword.isHidden = true
+            imgPassword.isHidden = true
+            btnViewPassword.isHidden = true
+            pwdSeperator.isHidden = true
+            pwdView.isHidden = true
+            buttonForgotPassword.translatesAutoresizingMaskIntoConstraints = false
+            buttonForgotPassword.topAnchor.constraint(equalTo: self.emailView.bottomAnchor).isActive = true
+
+        } else {
+            txtPassword.placeholder = pwdPlaceHolder
+            txtPassword.isSecureTextEntry = true
+            imgEmail.image = #imageLiteral(resourceName: "msg")
+            imgPassword.image = #imageLiteral(resourceName: "Password")
+            txtEmail.placeholder = emailPlaceHolder
+            btnViewPassword.isHidden = false
+        }
+    }
+
 
     // MARK: - Custom
 
@@ -673,14 +673,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
 
     func adForest_logIn() {
-//        if txtEmail.text?.isValidPhone == true {
-//            let param: [String: Any] = [
-////                "name": txtPassword.text!,
-//                "phone": txtEmail.text!,
-//            ]
-//            print(param)
-//            adForest_CheckloginUser(parameters: param as NSDictionary)
-//        } else {
+        if txtEmail.text?.isValidPhone == true {
+            let param: [String: Any] = [
+//                "name": txtPassword.text!,
+                "phone": txtEmail.text!,
+            ]
+            print(param)
+            adForest_CheckloginUser(parameters: param as NSDictionary)
+        } else {
             guard let email = txtEmail.text else {
                 return
             }
@@ -704,7 +704,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 adForest_loginUser(parameters: param as NSDictionary)
             }
         }
-//    }
+    }
 
     //    @IBAction func actionFBLogin(_ sender: UIButton) {
     //

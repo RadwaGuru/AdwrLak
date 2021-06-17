@@ -137,6 +137,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     var whizChatCommunicationId: String!
     var whizChatChatId = ""
     var whatsAppNum = ""
+    var isPhoneVerified = false
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,7 +186,19 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //MARK:- OpenWhatsApp
     @IBAction func ActionWhatsApp(_ sender: Any) {
-        openWhatsApp(number: whatsAppNum)
+        if self.defaults.bool(forKey: "isLogin") == false {
+            if let msg = self.defaults.string(forKey: "notLogin") {
+                self.showToast(message: msg)
+            }
+        }else{
+            if isPhoneVerified == true{
+                openWhatsApp(number: whatsAppNum)
+            }else{
+                let alert = Constants.showBasicAlert(message: (AddsHandler.sharedInstance.objAddDetails?.staticText.PhoneNotVerifiedMsg)!)
+                self.presentVC(alert)
+            }
+        }
+
     }
     //MARK:- Bounce Buttons
   @objc func bounceButton(){
@@ -544,6 +558,11 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     imgArr.append(ob)
                 }
                 cell.localImages = []
+                if  imgArr.count == 0 {
+                    for placeholder in sliderImage{
+                        imgArr.append(placeholder.thumb)
+                    }
+                }
                 cell.localImages = imgArr
                 cell.imageSliderSetting()
             }
@@ -1455,10 +1474,22 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func actionCallNow(_ sender: UIButton) {
         if (AddsHandler.sharedInstance.objAddDetails?.showPhoneToLogin)! && defaults.bool(forKey: "isAppOpen") {
-            if let notLoginMessage = defaults.string(forKey: "notLogin") {
-                self.showToast(message: notLoginMessage)
+            if defaults.bool(forKey: "isLogin") == false {
+                
+                if let notLoginMessage = defaults.string(forKey: "notLogin") {
+                    self.showToast(message: notLoginMessage)
+                }
             }
-        } else {
+            else {
+                let sendMsgVC = self.storyboard?.instantiateViewController(withIdentifier: ReplyCommentController.className) as! ReplyCommentController
+                sendMsgVC.modalPresentationStyle = .overCurrentContext
+                sendMsgVC.modalTransitionStyle = .coverVertical
+                sendMsgVC.isFromCall = true
+                sendMsgVC.objAddDetailData = AddsHandler.sharedInstance.objAddDetails
+                self.presentVC(sendMsgVC)
+            }
+        }
+        else {
             let sendMsgVC = self.storyboard?.instantiateViewController(withIdentifier: ReplyCommentController.className) as! ReplyCommentController
             sendMsgVC.modalPresentationStyle = .overCurrentContext
             sendMsgVC.modalTransitionStyle = .coverVertical
@@ -1476,6 +1507,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             if successResponse.success {
                 self.title = successResponse.data.pageTitle
                 self.whatsAppNum = successResponse.data.adDetail.phone
+                self.isPhoneVerified = successResponse.data.callNowPopup.isPhoneVerified
                 AddsHandler.sharedInstance.descTitle = successResponse.data.staticText.descriptionTitle
                 AddsHandler.sharedInstance.htmlText = successResponse.data.adDetail.adDesc
                 self.similarAdsTitle = successResponse.data.staticText.relatedPostsTitle
@@ -1504,6 +1536,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     self.serverTime = successResponse.data.adDetail.adTimer.timerServerTime
                 }
                 AddsHandler.sharedInstance.objAddDetails = successResponse.data
+                
                 self.bidsArray = [successResponse.data.staticText.adBids]
                 self.addVideoArray = [successResponse.data.adDetail.adVideo]
                 self.dataArray = [successResponse.data]
@@ -1527,6 +1560,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.adForest_populateData()
                 self.tableView.reloadData()
                 self.perform(#selector(self.reloadTable), with: nil, afterDelay: 1.5)
+               
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
