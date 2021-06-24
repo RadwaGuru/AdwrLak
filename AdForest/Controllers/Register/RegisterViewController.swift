@@ -1181,7 +1181,16 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 else {
                     self.defaults.set(true, forKey: "isLogin")
                     self.defaults.synchronize()
-                    self.appDelegate.moveToHome()
+                    if self.homeStyle == "home1"{
+                        self.appDelegate.moveToHome()
+                        
+                    }else if self.homeStyle == "home2"{
+                        self.appDelegate.moveToMultiHome()
+                    }
+                    else if self.homeStyle == "home3"{
+                        self.appDelegate.moveToMarvelHome()
+                    }
+                    
                 }
             }
             else {
