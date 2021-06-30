@@ -107,7 +107,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
-    
+    var locationStyle = ""
     
     
     // MARK: - De-Initialization
@@ -121,19 +121,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // self.navigationController?.isNavigationBarHidden = false
-        //        inters = GADInterstitial(adUnitID:"ca-app-pub-3940256099942544/4411468910")
-        //        let request = GADRequest()
-        //        // request.testDevices = [(kGADSimulatorID as! String),"79e5cafdc063cca47a7b4158f482669ad5a74c2b"]
-        //        request.testDevices = [kGADSimulatorID as! String, "2077ef9a63d2b398840261c8221a0c9a"]
-        //
-        //        inters.load(request)
-        
-        //        self.bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        
+    
         tableView.register(UINib(nibName: "CarouselHomeCell", bundle: nil), forCellReuseIdentifier: "CarouselHomeCell")
-        
+
         
         self.hideKeyboard()
         self.googleAnalytics(controllerName: "Home Controller")
@@ -725,27 +715,53 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                 }
             case "cat_locations":
-                let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
-                let data = AddsHandler.sharedInstance.objHomeData
-                
-                if self.isShowLocationButton {
-                    cell.oltViewAll.isHidden = false
-                    if let viewAllText = data?.catLocationsBtn.text {
-                        cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                if self.locationStyle == "horizental"{
+
+                    let cell: HomeNearAdsHorizontalCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsHorizontalCell", for: indexPath) as! HomeNearAdsHorizontalCell
+                    let data = AddsHandler.sharedInstance.objHomeData
+                    
+                    if self.isShowLocationButton {
+                        cell.oltViewAll.isHidden = false
+                        if let viewAllText = data?.catLocationsBtn.text {
+                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.btnViewAction = { () in
+                            let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
+                            self.navigationController?.pushViewController(detailVC, animated: true)
+                        }
+                    } else {
+                        cell.oltViewAll.isHidden = true
                     }
-                    cell.btnViewAction = { () in
-                        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
-                        self.navigationController?.pushViewController(detailVC, animated: true)
-                    }
-                } else {
-                    cell.oltViewAll.isHidden = true
+                    cell.lblTitle.text = catLocationTitle
+                    cell.dataArray = catLocationsArray
+                    cell.delegate = self
+                    cell.collectionView.reloadData()
+                    return cell
                 }
-                cell.lblTitle.text = catLocationTitle
-                cell.dataArray = catLocationsArray
-                cell.delegate = self
-                locationHeight = Double(cell.collectionView.contentSize.height)
-                cell.collectionView.reloadData()
-                return cell
+                else{
+                    let cell: HomeNearAdsCell = tableView.dequeueReusableCell(withIdentifier: "HomeNearAdsCell", for: indexPath) as! HomeNearAdsCell
+                    let data = AddsHandler.sharedInstance.objHomeData
+                    
+                    if self.isShowLocationButton {
+                        cell.oltViewAll.isHidden = false
+                        if let viewAllText = data?.catLocationsBtn.text {
+                            cell.oltViewAll.setTitle(viewAllText, for: .normal)
+                        }
+                        cell.btnViewAction = { () in
+                            let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationDetailController") as! LocationDetailController
+                            self.navigationController?.pushViewController(detailVC, animated: true)
+                        }
+                    } else {
+                        cell.oltViewAll.isHidden = true
+                    }
+                    cell.lblTitle.text = catLocationTitle
+                    cell.dataArray = catLocationsArray
+                    cell.delegate = self
+                    locationHeight = Double(cell.collectionView.contentSize.height)
+                    cell.collectionView.reloadData()
+                    return cell
+                }
+                
             case "sliders":
                 if latestHorizontalSingleAd == "horizental"{
                     let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
@@ -1104,11 +1120,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if categoryArray.isEmpty {
                     height = 0
                 } else{
-                    if self.isShowLocationButton {
-                        height = CGFloat(locationHeight) + 90
-                        //250
-                    } else {
-                        height = CGFloat(locationHeight) + 90
+                    if self.locationStyle == "horizental" {
+                        if self.isShowLocationButton {
+                            height = 250
+                        } else {
+                            height = 225
+                        }
+                    }
+                    else{
+                        if self.isShowLocationButton {
+                            height = CGFloat(locationHeight) + 90
+                            //250
+                        } else {
+                            height = CGFloat(locationHeight) + 90
+                        }
+
                     }
                 }
             } else if position == "nearby" {
@@ -1517,6 +1543,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 AddsHandler.sharedInstance.objHomeData = successResponse.data
                 AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
                 AddsHandler.sharedInstance.topLocationArray = successResponse.data.appTopLocationList
+                self.locationStyle = successResponse.data.locationsStyle
                 if successResponse.data.bannerCarousel != nil {
                     self.carouselDataArray  = successResponse.data.bannerCarousel.BannerSliders
                     self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll

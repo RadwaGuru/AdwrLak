@@ -101,7 +101,8 @@ class BannerCarouselCell: UITableViewCell,UICollectionViewDelegate,UICollectionV
         pageControl.currentPage = 0
         
         let objData = dataArray[indexPath.row]
-        cell.imgViewCarousel.contentMode = .scaleToFill
+        cell.imgViewCarousel.contentMode = .scaleAspectFit
+
         if let imgUrl = URL(string: objData.img) {
             cell.imgViewCarousel.sd_setShowActivityIndicatorView(true)
             cell.imgViewCarousel.sd_setIndicatorStyle(.gray)

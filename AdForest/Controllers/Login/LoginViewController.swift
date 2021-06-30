@@ -306,7 +306,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
 //            txtPassword.isSecureTextEntry = false
             imgEmail.image = #imageLiteral(resourceName: "Phone")
 //            imgPassword.image = #imageLiteral(resourceName: "profile")
-            txtEmail.placeholder = plHolderPhoneNumber
+            let phoneCode = Country.currentCountry
+            print("+" + phoneCode.phoneExtension)
+            txtEmail.placeholder = "+" + phoneCode.phoneExtension
 //            btnViewPassword.isHidden = true
             txtPassword.isHidden = true
             imgPassword.isHidden = true
@@ -1021,6 +1023,11 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
                         break
                     }
                 }
+            }
+        case let credentials as ASAuthorizationError:
+            DispatchQueue.main.async {
+ 
+                debugPrint("errrorrr",credentials._nsError)
             }
 
         default:

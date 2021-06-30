@@ -303,6 +303,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
 
         }
         else if txtEmail.text?.isValidEmail == false {
+            let phoneCode = Country.currentCountry
+            print("+" + phoneCode.phoneExtension)
+            txtEmail.placeholder = "+" + phoneCode.phoneExtension
             txtPassword.isHidden = true
             imgPassword.isHidden = true
             imgPhone.isHidden = true
@@ -904,7 +907,8 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
                 print(parameters)
                 defaults.set(email, forKey: "email")
 //                defaults.set(password, forKey: "password")
-                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)            }
+                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
+            }
             else{
                 let parameters : [String: Any] = [
                     "name": name,

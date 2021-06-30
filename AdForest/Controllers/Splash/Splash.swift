@@ -71,9 +71,6 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             guard let password = defaults.string(forKey: "password") else {
                 return
             }
-            guard let phoneNumber = defaults.string(forKey: "phoneNumber") else {
-                return
-            }
             if defaults.bool(forKey: "isSocial") {
                 let param: [String: Any] = [
                     "email": email,
@@ -83,6 +80,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.adForest_loginUser(parameters: param as NSDictionary)
             }
             else if defaults.bool(forKey: "otp"){
+                let phoneNumber = defaults.string(forKey: "phoneNumber")
                 let param: [String: Any] = [
                     "phone": phoneNumber,
                     "name": email

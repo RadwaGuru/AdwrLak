@@ -68,6 +68,8 @@
 		18108E6D2092F9720020D440 /* AdPostImagesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6C2092F9720020D440 /* AdPostImagesData.swift */; };
 		18108E6F2092F98A0020D440 /* AdPostImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E6E2092F98A0020D440 /* AdPostImages.swift */; };
 		18108E732092FC6F0020D440 /* AdPostImageArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18108E722092FC6F0020D440 /* AdPostImageArray.swift */; };
+		18139B8A268C5AEC006EFD01 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18139B88268C5AEC006EFD01 /* Countries.swift */; };
+		18139B8B268C5AEC006EFD01 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18139B89268C5AEC006EFD01 /* Country.swift */; };
 		18156B6125EFA3E60029B31B /* WhizChatInitRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6025EFA3E60029B31B /* WhizChatInitRoot.swift */; };
 		18156B6625EFA4060029B31B /* WhizChatInitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156B6525EFA4060029B31B /* WhizChatInitData.swift */; };
 		18156BB225EFD4FA0029B31B /* WhizChatList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18156BB125EFD4FA0029B31B /* WhizChatList.xib */; };
@@ -260,6 +262,7 @@
 		182C8B8D2158E2850007DFF9 /* AppSettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C8B8C2158E2850007DFF9 /* AppSettingData.swift */; };
 		182D6FBD20A44C8F00430E53 /* SettingsIsShowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D6FBC20A44C8F00430E53 /* SettingsIsShowMenu.swift */; };
 		183287B520EC9B9E0096A21E /* AdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183287B420EC9B9E0096A21E /* AdMob.swift */; };
+		18344DD9268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18344DD8268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift */; };
 		1834EC0E20DBF85800BF027C /* HomeBlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */; };
 		1836447825DA4E430031CDAA /* ChatImages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836447725DA4E430031CDAA /* ChatImages.xib */; };
 		1836447D25DA50150031CDAA /* ChatImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836447C25DA50150031CDAA /* ChatImages.swift */; };
@@ -773,6 +776,8 @@
 		18108E6C2092F9720020D440 /* AdPostImagesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostImagesData.swift; sourceTree = "<group>"; };
 		18108E6E2092F98A0020D440 /* AdPostImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostImages.swift; sourceTree = "<group>"; };
 		18108E722092FC6F0020D440 /* AdPostImageArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostImageArray.swift; sourceTree = "<group>"; };
+		18139B88268C5AEC006EFD01 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		18139B89268C5AEC006EFD01 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		18156B6025EFA3E60029B31B /* WhizChatInitRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatInitRoot.swift; sourceTree = "<group>"; };
 		18156B6525EFA4060029B31B /* WhizChatInitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatInitData.swift; sourceTree = "<group>"; };
 		18156BB125EFD4FA0029B31B /* WhizChatList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhizChatList.xib; sourceTree = "<group>"; };
@@ -966,6 +971,7 @@
 		182C8B8C2158E2850007DFF9 /* AppSettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingData.swift; sourceTree = "<group>"; };
 		182D6FBC20A44C8F00430E53 /* SettingsIsShowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsIsShowMenu.swift; sourceTree = "<group>"; };
 		183287B420EC9B9E0096A21E /* AdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMob.swift; sourceTree = "<group>"; };
+		18344DD8268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNearAdsHorizontalCell.swift; sourceTree = "<group>"; };
 		1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlogCell.swift; sourceTree = "<group>"; };
 		1836447725DA4E430031CDAA /* ChatImages.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatImages.xib; sourceTree = "<group>"; };
 		1836447C25DA50150031CDAA /* ChatImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImages.swift; sourceTree = "<group>"; };
@@ -1580,6 +1586,16 @@
 			path = AdPostImages;
 			sourceTree = "<group>";
 		};
+		18139B87268C5AEC006EFD01 /* Countries */ = {
+			isa = PBXGroup;
+			children = (
+				18139B88268C5AEC006EFD01 /* Countries.swift */,
+				18139B89268C5AEC006EFD01 /* Country.swift */,
+			);
+			name = Countries;
+			path = "../../../../UsmanOfficeData/WORK/AdForest Data/AdForest3.4/Client Apps/CustomWork/shabnamWork/AdForest/Models/Countries";
+			sourceTree = "<group>";
+		};
 		18156B5F25EFA3C60029B31B /* WhizChatModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2112,6 +2128,14 @@
 			path = AppSetting;
 			sourceTree = "<group>";
 		};
+		18344DD7268AE793003F16CC /* HomeNearAdsHorizontal */ = {
+			isa = PBXGroup;
+			children = (
+				18344DD8268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift */,
+			);
+			path = HomeNearAdsHorizontal;
+			sourceTree = "<group>";
+		};
 		1834EC0C20DBF82400BF027C /* HomeBlogCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2603,6 +2627,7 @@
 		189280A020DCB48800BFBCD1 /* HomeNearAds */ = {
 			isa = PBXGroup;
 			children = (
+				18344DD7268AE793003F16CC /* HomeNearAdsHorizontal */,
 				189280A120DCB4A300BFBCD1 /* HomeNearAdsCell.swift */,
 			);
 			path = HomeNearAds;
@@ -2983,6 +3008,7 @@
 		18BBFACB20510F620067662F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18139B87268C5AEC006EFD01 /* Countries */,
 				18156B5F25EFA3C60029B31B /* WhizChatModel */,
 				9601E7C62463E3CF00036649 /* LinkedIn */,
 				9674945923E087860035E58E /* EmptyCart */,
@@ -4318,6 +4344,7 @@
 				185B3C8F207E53BD00EDBBB4 /* BidsPrice.swift in Sources */,
 				182690C4208729ED00E2C966 /* AddStatus.swift in Sources */,
 				181B19E920AEAC1B0016BA7B /* HomeIsShowMenu.swift in Sources */,
+				18344DD9268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift in Sources */,
 				180A4F672328DA9E002BC411 /* RejectedAdsVideo.swift in Sources */,
 				182C7FE82068D4890080A391 /* ProfileDetailsExtra.swift in Sources */,
 				96A11647250F8442002C61FB /* AdTimerStrings.swift in Sources */,
@@ -4550,6 +4577,7 @@
 				18BBFAEF205113AE0067662F /* FacebookAuthentication.swift in Sources */,
 				182B4B51209069A800324D4E /* AdPostLocation.swift in Sources */,
 				18CE379125DD2FAE0053A299 /* ChatImagesReceiver.swift in Sources */,
+				18139B8B268C5AEC006EFD01 /* Country.swift in Sources */,
 				18BBD0BD20F74FC2002F640A /* ShopController.swift in Sources */,
 				96A11643250F302A002C61FB /* MarvelVerticalSLiderAdsTableViewCell.swift in Sources */,
 				180A4F6B2328E17B002BC411 /* RejectedAdsImages.swift in Sources */,
@@ -4795,6 +4823,7 @@
 				1825D24320BE7CC20059F29C /* HomeFeatureCollectionCell.swift in Sources */,
 				1852B0DF2083256A0014AF99 /* SentOfferChatAdImage.swift in Sources */,
 				CBA50E47253054AE004B0E04 /* MarvelCategoryDetailCell.swift in Sources */,
+				18139B8A268C5AEC006EFD01 /* Countries.swift in Sources */,
 				184EDB0A2078990F00A25228 /* AddDetailFieldsData.swift in Sources */,
 				18A1E6E725F105D700DA3EC4 /* WhizChatController.swift in Sources */,
 				182690F1208764D400E2C966 /* CategoryAd.swift in Sources */,
@@ -5044,7 +5073,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.1;
+				MARKETING_VERSION = 3.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
@@ -5074,7 +5103,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.1;
+				MARKETING_VERSION = 3.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
