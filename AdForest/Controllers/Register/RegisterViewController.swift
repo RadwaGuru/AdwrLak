@@ -279,7 +279,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if txtEmail.text?.isValidEmail == true {
+        if textField == txtEmail && txtEmail.text?.isValidEmail == true {
             txtPassword.isHidden = false
             imgPassword.isHidden = false
             phoneSeperator.isHidden = false
@@ -302,7 +302,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
 
         }
-        else if txtEmail.text?.isValidEmail == false {
+        else if textField == txtEmail && txtEmail.text?.isValidEmail == false {
             let phoneCode = Country.currentCountry
             print("+" + phoneCode.phoneExtension)
             txtEmail.placeholder = "+" + phoneCode.phoneExtension

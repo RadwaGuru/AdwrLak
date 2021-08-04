@@ -864,7 +864,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             address = txtAddress.text!
         }
         //address == ""  &&
-        if isAddressFieldRequired == true {
+        if isAddressFieldRequired == true && address.isEmpty == true {
             self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
         }else if isTermCond == false{
             self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)

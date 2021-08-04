@@ -215,6 +215,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.WhizChatEmptyMessage, forKey: "WhizChatEmptyMessage")
                 self.defaults.set(successResponse.data.WhizChatStartTyping, forKey: "WhizChatStartTyping")
                 self.defaults.set(successResponse.data.PusherUrl, forKey: "PusherUrl")
+                self.defaults.setValue(successResponse.data.isWhatsApp, forKey: "isWhatsApp")
+
                 if successResponse.data.extraTexts != nil {
                     self.defaults.set(successResponse.data.extraTexts.codeSentTo, forKey: "codeSentTo")
                     self.defaults.set(successResponse.data.extraTexts.notReceived, forKey: "notReceived")
@@ -318,17 +320,24 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                     self.imagesArr.append(UIImage(named:"location")!)
                     self.settingBlogArr.append(successResponse.data.menu.topLocation)
                 }
-                //                else{
-                //                    if UserHandler.sharedInstance.menuKeysArray.contains("top_location_text"){
-                //                    print("else ma ha ")
-                //                        self.showToast(message: "else ma ha ")
-                //                    }
-                //                }
-                if self.isWplOn == true{
+                
+                if successResponse.data.menu.isShowMenu.isWpmlActive == true{
                     UserDefaults.standard.string(forKey: "is_wpml_active")
                     self.imagesArr.append(UIImage(named:"language")!)
                     self.settingBlogArr.append(successResponse.data.menu.wpml)
+
                 }
+                if self.imagesArr.count == 1 {
+                    self.imagesArr.append(UIImage(named:"language")!)
+                    self.imagesArr.append(UIImage(named:"location")!)
+                    self.imagesArr.append(UIImage(named: "settings")!)
+                    self.imagesArr.append(UIImage(named: "blog")!)
+                }
+//                if self.isWplOn == true{
+//                    UserDefaults.standard.string(forKey: "is_wpml_active")
+//                    self.imagesArr.append(UIImage(named:"language")!)
+//                    self.settingBlogArr.append(successResponse.data.menu.wpml)
+//                }
                 
                 
                 UserDefaults.standard.set(self.settingBlogArr, forKey: "setArr")

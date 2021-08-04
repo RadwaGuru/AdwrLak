@@ -48,7 +48,9 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     
     //MARK:- Properties
     var dataArray = [AdPostImageArray]()
-    
+    var imgDelteArr = [AdPostImageArray]()
+    var imgDelete = false
+
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var ad_id = 0
     var delegate:imagesCount?
@@ -186,7 +188,7 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         cell.btnDelete = { () in
             let param: [String: Any] = ["ad_id": self.ad_id, "img_id": objData.imgId]
             self.removeItem(index: indexPath.row)
-        
+            self.imgDelete = true
             self.adForest_deleteImage(param: param as NSDictionary)
         }
         
@@ -239,6 +241,7 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         AddsHandler.adPostDeleteImages(param: param, success: { (successResponse) in
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             if successResponse.success {
+                self.imgDelteArr = successResponse.data.adImages
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.appDelegate.presentController(ShowVC: alert)
                // NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.adPostImageDelete), object: nil, userInfo: nil)

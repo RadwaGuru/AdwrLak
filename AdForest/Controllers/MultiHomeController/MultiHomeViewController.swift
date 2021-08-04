@@ -413,10 +413,23 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                 }
                 else{
                     if self.isShowLocationButton {
-                        height = CGFloat(locationHeight) + 90
-                        //250
+                        if locationSectionStyle == "style2"{
+                            height = 250
+                                 //CGFloat(locationHeight) + 90
+                        }
+                        else if locationSectionStyle == "style1"{
+                            height = CGFloat(locationHeight) + 90
+                        }
+//                        height = CGFloat(locationHeight) + 90
+                            //250
                     } else {
-                        height = CGFloat(locationHeight) + 90
+                        if locationSectionStyle == "style2"{
+                            height = 250
+                                 //CGFloat(locationHeight) + 90
+                        }
+                        else if locationSectionStyle == "style1"{
+                            height = CGFloat(locationHeight) + 90
+                        }
                     }
                 }
             } else if position == "nearby" {

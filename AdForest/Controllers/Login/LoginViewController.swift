@@ -1059,20 +1059,22 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
                 }
 
             } else {
-                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
-                if emApple != nil {
-                    let param: [String: Any] = [
-                        "email": emApple,
-                        "type": "social",
-                    ]
-                    print(param)
-                    self.defaults.set(true, forKey: "isSocial")
-                    UserDefaults.standard.set(emApple, forKey: "email")
-                    self.defaults.set("1122", forKey: "password")
-                    self.defaults.synchronize()
-                    UserDefaults.standard.set("true", forKey: "apple")
-                    self.adForest_loginUser(parameters: param as NSDictionary)
-                }
+                let alert = Constants.showBasicAlert(message: "error")
+                self.presentVC(alert)
+//                let emApple = UserDefaults.standard.value(forKey: "User_AppleID")!
+//                if emApple != nil {
+//                    let param: [String: Any] = [
+//                        "email": emApple,
+//                        "type": "social",
+//                    ]
+//                    print(param)
+//                    self.defaults.set(true, forKey: "isSocial")
+//                    UserDefaults.standard.set(emApple, forKey: "email")
+//                    self.defaults.set("1122", forKey: "password")
+//                    self.defaults.synchronize()
+//                    UserDefaults.standard.set("true", forKey: "apple")
+//                    self.adForest_loginUser(parameters: param as NSDictionary)
+//                }
             }
         }
     }

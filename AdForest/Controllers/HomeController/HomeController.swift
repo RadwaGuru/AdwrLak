@@ -1112,7 +1112,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         } else {
                             totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 210)
                         }
-                        height =  totalHeight
+                        if self.isShowCategoryButton == true{
+                            height =  totalHeight
+
+                        }else{
+                            height =  totalHeight - 100
+                        }
                     }
                 }
             }

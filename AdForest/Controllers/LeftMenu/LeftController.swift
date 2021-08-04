@@ -508,7 +508,24 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             break
         }
     }
-    
+    //MARK:- Guest Menu Others cc by Charlie
+     func changeOtherGuestMenues(controllerName: String) {
+        switch controllerName.lowercased() {
+        
+        case "blog":
+            slideMenuController()?.changeMainViewController(viewBlog, close: true)
+        case "settings":
+            slideMenuController()?.changeMainViewController(viewSettings, close: true)
+        case "locations":
+            slideMenuController()?.changeMainViewController(viewToplocation, close: true)
+        case "languages":
+            slideMenuController()?.changeMainViewController(langController, close: true)
+//        case "logout":
+//            logoutUser()
+        default:
+            break
+        }
+    }
     // change others guest menu
     func changeGuestMenu(_ other: OtherGuestMenues) {
         switch other {
@@ -795,53 +812,68 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         if indexPath.section == 2{
             if defaults.bool(forKey: "isLogin") == false {
-                if let menu = OtherGuestMenues(rawValue: indexPath.row) {
-                    print(menu)
-                    //                    self.changeGuestMenu(menu)
-                }
-//                debugPrint(UserHandler.sharedInstance.otherKeysArray)
-//                for item in UserHandler.sharedInstance.otherKeysArray{
-//                    if item == "top_location_text"{
-//                        if toplocation == true{
-//                            return 40
-//                        }else{
-//                            return 0
-//                        }
-//                    }else{
-//                        print("ignore")
+//                if let menu = OtherGuestMenues(rawValue: indexPath.row) {
+//                    print(menu)
+//                    //                    self.changeGuestMenu(menu)
+//                }
+
+                let img = UserDefaults.standard.array(forKey: "setArr")
+                    //UserHandler.sharedInstance.otherValuesArray[indexPath.row]
+                    //UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                print(img)
+                //lowercased()
+//                if img == "blog"{
+//                    if blog == true {
+//
+//                    return 40
+//
+//                    }
+//                    else{
+//                        return 0
+//
 //                    }
 //                }
-                let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
-                switch img.lowercased() {
-                case "blog":
-                    if blog == true{
-                        return 40
-                    }else{
-                        return 0
-                    }
-                case "wpml_menu_text":
-                    if wpml == true {
-                        return 40
-                    }
-                    else{
-                        return 0
-                        
-                    }
-                case "app_settings":
-                    if settings == true{
-                        return 40
-                    }else{
-                        return 0
-                    }
-                case "top_location_text":
-                    if toplocation == true{
-                        return 40
-                    }else{
-                        return 0
-                    }
-                default:
-                    return 40
-                }
+//                else if img == "wpml_menu_text"{
+//                    if blog == true {
+//
+//                    return 40
+//
+//                    }
+//                    else{
+//                        return 0
+//
+//                    }
+//                }
+//                switch img {
+//                case "blog":
+//                    if blog == true{
+//                        return 40
+//                    }else{
+//                        return 0
+//                    }
+//                case "wpml_menu_text":
+//                    if wpml == true {
+//                        return 40
+//                    }
+//                    else{
+//                        return 0
+//
+//                    }
+//                case "app_settings":
+//                    if settings == true{
+//                        return 40
+//                    }else{
+//                        return 0
+//                    }
+//                case "top_location_text":
+//                    if toplocation == true{
+//                        return 40
+//                    }else{
+//                        return 0
+//                    }
+//                default:
+//                    return 40
+//                }
             }
             else{
                 let img = UserHandler.sharedInstance.otherKeysArray[indexPath.row]
@@ -988,9 +1020,15 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             
             if defaults.bool(forKey: "isLogin") == false {
-                if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
-                    self.changeGuestMenu(menu)
-                }
+//                if let menu = OtherGuestMenues(rawValue: indexPath.row+1) {
+//                    self.changeGuestMenu(menu)
+//                }
+                let objGuestOtherMenu =  UserDefaults.standard.array(forKey: "setArr")
+
+                    //UserHandler.sharedInstance.otherKeysArray[indexPath.row]
+                print(objGuestOtherMenu![indexPath.row])
+                changeOtherGuestMenues(controllerName: objGuestOtherMenu![indexPath.row] as! String)
+
             }
                 
                 //            if isShowBlog {

@@ -175,6 +175,15 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
         }
         Timer.scheduledTimer(timeInterval:2.0, target: self, selector: #selector(bounceButton), userInfo: nil, repeats: true)
         navigationButtons()
+        if (defaults.bool(forKey: "isWhatsApp") == true) {
+            btnWhatsApp.isHidden = false
+            imgWhatsApp.isHidden = false
+        }
+        else{
+            btnWhatsApp.isHidden = true
+            imgWhatsApp.isHidden = true
+
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

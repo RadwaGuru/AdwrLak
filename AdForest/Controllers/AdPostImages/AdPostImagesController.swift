@@ -625,7 +625,13 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.ad_id = adID
             }
             if cell.isDrag == false{
-                cell.dataArray = self.imageArray
+                if cell.imgDelete == true
+                {
+                    cell.dataArray = cell.imgDelteArr
+                }
+                else{
+                    cell.dataArray = self.imageArray
+                }
             }else{
                 isDragAdpost = true
                 imgIdDrag = cell.imageIdArrAd

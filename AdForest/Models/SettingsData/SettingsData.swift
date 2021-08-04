@@ -57,6 +57,7 @@ struct SettingsData {
     var WhizChatEmptyMessage: String!
     var WhizChatStartTyping: String!
     var PusherUrl: String!
+    var isWhatsApp: Bool!
     var is_Top_Location: Bool!
     var wpml_menu_text: String!
     var langData : [LangData]!
@@ -207,7 +208,7 @@ struct SettingsData {
         WhizChatEmptyMessage = dictionary["whizchat_empty_message"] as? String
         WhizChatStartTyping = dictionary["whizchat_typing"] as? String
         PusherUrl = dictionary["pusher_url"] as? String
-       
+       isWhatsApp = dictionary["is_whatsapp"] as? Bool
 
 //        codeSentTo  = dictionary["code_sent"] as? String
 //        notReceived = dictionary["not_received"] as? String
