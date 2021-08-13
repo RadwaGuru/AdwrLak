@@ -1612,10 +1612,12 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                 AddsHandler.sharedInstance.objHomeData = successResponse.data
                 AddsHandler.sharedInstance.objLatestAds = successResponse.data.latestAds
                 AddsHandler.sharedInstance.topLocationArray = successResponse.data.appTopLocationList
-                self.carouselDataArray  = successResponse.data.bannerCarousel.BannerSliders
-                self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll
-                self.AutoScrollSpeeed = successResponse.data.bannerCarousel.AutoScrollSpeed
-                debugPrint("CarosueL Data ::\(self.carouselDataArray)")
+                if successResponse.data.bannerCarousel != nil{
+                    self.carouselDataArray  = successResponse.data.bannerCarousel.BannerSliders
+                    self.isAutoScroll  = successResponse.data.bannerCarousel.isAutoScroll
+                    self.AutoScrollSpeeed = successResponse.data.bannerCarousel.AutoScrollSpeed
+                    debugPrint("CarosueL Data ::\(self.carouselDataArray)")
+                }
 
                 
                 // Set Up AdMob Banner & Intersitial ID's

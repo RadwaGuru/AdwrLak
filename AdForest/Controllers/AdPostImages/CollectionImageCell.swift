@@ -12,7 +12,12 @@ import NVActivityIndicatorView
 protocol imagesCount {
     func imgeCount(count:Int)
 }
-
+protocol ImageDeletedBooleanDelegate {
+    func boolImageDeleted(imageDeleted:Bool)
+}
+protocol ImagesArrayDeletedDelegate {
+    func adPotDeletedImagesArr(imgArray:[AdPostImageArray],imagesDeleted:Bool)
+}
 class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, NVActivityIndicatorViewable {
 
     //MARK:- Properties
@@ -54,8 +59,8 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var ad_id = 0
     var delegate:imagesCount?
-    
-
+    var delegate2:ImageDeletedBooleanDelegate?
+    var delegate3:ImagesArrayDeletedDelegate?
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -242,14 +247,17 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             if successResponse.success {
                 self.imgDelteArr = successResponse.data.adImages
+                self.dataArray = successResponse.data.adImages
+                self.imgDelete = true
+               
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.appDelegate.presentController(ShowVC: alert)
                // NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.adPostImageDelete), object: nil, userInfo: nil)
                 self.delegate?.imgeCount(count: successResponse.data.adImages.count)
+                self.delegate3?.adPotDeletedImagesArr(imgArray: self.dataArray, imagesDeleted: true)
                 self.collectionView.reloadData()
 
-                print(successResponse.data.adImages.count)
-            }
+                print(successResponse.data.adImages.count)            }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.appDelegate.presentController(ShowVC: alert)

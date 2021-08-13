@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, textFieldValueDelegate, PopupValueChangeDelegate {
+class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, textFieldValueDelegate, PopupValueChangeDelegate,ImagesArrayDeletedDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
@@ -53,6 +53,8 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     var calledFrom = ""
     var homeStyles: String = UserDefaults.standard.string(forKey: "homeStyles")!
     var requireMessage = ""
+    var DeletedImagesArray = [AdPostImageArray]()
+    var AdPostImagesDeleted = false
     //MARK:- View Life Cycle
     
     override func viewDidLoad() {
@@ -355,8 +357,14 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         postVC.requireMessage = self.requireMessage
                         
                     }
-                    postVC.imageArray = self.imagesArray
-                    postVC.imageIDArray = self.imageIDArray
+                    if AdPostImagesDeleted == true {
+                        debugPrint("DeletedImagesArray:\(DeletedImagesArray.count)")
+                        postVC.imageArray = DeletedImagesArray
+                    }
+                    else{
+                        postVC.imageArray = self.imagesArray
+                        postVC.imageIDArray = self.imageIDArray
+                    }
                     postVC.isBid = self.isBidding
                     postVC.isImg = self.isImage
                     postVC.requireMessage = self.requireMessage
@@ -404,6 +412,14 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
             
             
 //        }
+    }
+    func adPotDeletedImagesArr(imgArray: [AdPostImageArray], imagesDeleted: Bool) {
+        var arr = imgArray
+        print(arr)
+        AdPostImagesDeleted = imagesDeleted
+        DeletedImagesArray = arr
+        debugPrint("\(DeletedImagesArray)::=======Boolean::\(AdPostImagesDeleted)")
+        
     }
     func showToastAdPost(message : String) {
 

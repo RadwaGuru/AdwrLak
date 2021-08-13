@@ -14,9 +14,8 @@ import OpalImagePicker
 import UITextField_Shake
 import JGProgressHUD
 
-class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount {
- 
-    
+class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount,ImagesArrayDeletedDelegate, ImageDeletedBooleanDelegate {
+     
    //textViewValueDelegate
   
     //MARK:- Outlets
@@ -84,6 +83,11 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var reqiop = false
     var isEmptyField = false
     var requireMessage = ""
+    var imagesDelete = false
+    var imagesArrayfromback = [AdPostImageArray]()
+    var delegate: ImagesArrayDeletedDelegate?
+    var imageUploading = false
+
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,7 +178,17 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
     }
-    
+    func adPotDeletedImagesArr(imgArray: [AdPostImageArray], imagesDeleted: Bool) {
+        print(imgArray)
+        self.imageArray = imgArray
+
+    }
+    func boolImageDeleted(imageDeleted: Bool) {
+        var imgDel = imageDeleted
+        imgDel = imageUploading
+        print(imageUploading)
+
+    }
     func forwardButton() {
         let button = UIButton(type: .custom)
         if #available(iOS 11, *) {
@@ -625,20 +639,37 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 cell.ad_id = adID
             }
             if cell.isDrag == false{
-                if cell.imgDelete == true
-                {
+                
+                if cell.imgDelete == true{
                     cell.dataArray = cell.imgDelteArr
-                }
-                else{
+                    self.delegate?.adPotDeletedImagesArr(imgArray: cell.imgDelteArr, imagesDeleted: true)
+
+                }else{
                     cell.dataArray = self.imageArray
+                    self.delegate?.adPotDeletedImagesArr(imgArray: self.imageArray, imagesDeleted: false)
+
                 }
             }else{
                 isDragAdpost = true
                 imgIdDrag = cell.imageIdArrAd
             }
+//            if cell.isDrag == false{
+//                if cell.imgDelete == true
+//                {
+//                    cell.dataArray = cell.imgDelteArr
+//                }
+//                else{
+//                    cell.dataArray = self.imageArray
+//                }
+//            }else{
+//                isDragAdpost = true
+//                imgIdDrag = cell.imageIdArrAd
+//            }
             print(UiImagesArrAdpost)
             imgCtrlCount = self.imageArray.count
             cell.delegate = self
+            cell.delegate2 = self
+            cell.delegate3 = self
             cell.collectionView.reloadData()
             return cell
         }
@@ -993,6 +1024,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             if successResponse.success {
                 self.imageArray = successResponse.data.adImages
                 self.imgCtrlCount = successResponse.data.adImages.count
+                self.imageUploading  = true
+
                 //add image id to array to send to next View Controller and hit to server
                 for item in self.imageArray {
                     self.imageIDArray.append(item.imgId)
