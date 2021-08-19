@@ -201,7 +201,8 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
             //            let htmlHeight = contentHeight[indexPath.row]
             cell.wkWebView.tag = indexPath.row
             cell.wkWebView.navigationDelegate = self
-            
+//            cell.wkWebView.autoresizingMask = .flexibleHeight
+
             //            cell.wkWebView.delegate = self
             cell.wkWebView.loadHTMLStringWithMagic(content:htmlString!, baseURL: nil)
             cell.wkWebView.scrollView.isScrollEnabled = false
@@ -347,13 +348,37 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
         return UITableViewCell()
     }
     
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-           heightWk = webView.scrollView.contentSize.height
-            tableView.reloadData()
-           print(webView.scrollView.contentSize.height)
-       }
+//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//           heightWk = webView.scrollView.contentSize.height
+//            tableView.reloadData()
+//           print(webView.scrollView.contentSize.height)
+//       }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        heightWk = webView.scrollView.contentSize.height
+        print(heightWk)
 
+    }
+    @objc func nokri_showNavController1(){
+        
+        let scrollPoint = CGPoint(x: 0, y: 0)
+        self.tableView.reloadSections([1], with: .none)
+        self.tableView.setContentOffset(scrollPoint, animated: true)
+        
+    }
     
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//          webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
+//              if complete != nil {
+//                webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [self] (height, error) in
+//                      // Here is your height
+//                    heightWk = height as! CGFloat
+//                    print(heightWk)
+////                    tableView.reloadSections([1], with: .none)
+//
+//                  })
+//              }
+//          })
+//      }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section = indexPath.section
         var height: CGFloat = 0.0
@@ -464,6 +489,11 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.replyArray = reply.reply
                 }
             self.tableView.reloadData()
+                
+                let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
+                self.tableView.setContentOffset(scrollPoint, animated: true)
+
+                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 4.5)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
