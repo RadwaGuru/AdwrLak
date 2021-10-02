@@ -1713,6 +1713,7 @@ extension UIViewController {
         
         //set titile
         self.navigationItem.title = title
+        self.navigationItem.titleView?.tintColor = .white
         
         let rightButton = UIBarButtonItem(image: UIImage(named: "home"), style: .plain, target: nil, action: nil)
         

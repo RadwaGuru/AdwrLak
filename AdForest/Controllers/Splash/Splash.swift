@@ -115,7 +115,8 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             } else {
                 //                let newViewController = AppIntroViewController()
                 //                self.navigationController?.pushViewController(newViewController, animated: true)
-                self.appDelegate.moveToLogin()
+//                self.appDelegate.moveToLogin()
+                self.appDelegate.moveToMainViewLoginRegisterController()
             }
         }
     }
@@ -138,7 +139,15 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.defaults.set(successResponse.data.mainColor, forKey: "mainColor")
                 self.appDelegate.customizeNavigationBar(barTintColor: Constants.hexStringToUIColor(hex: successResponse.data.mainColor))
                 //                self.navigationBarAppearace.tintColor = UIColor.white
-                //                self.navigationBarAppearace.barTintColor = Constants.hexStringToUIColor(hex: successResponse.data.mainColor)
+//                                self.navigationBarAppearace.barTintColor = Constants.hexStringToUIColor(hex: successResponse.data.mainColor)
+//                if #available(iOS 13.0, *) {
+//                    let app = UINavigationBarAppearance()
+//                    app.backgroundColor = Constants.hexStringToUIColor(hex: successResponse.data.mainColor)
+//                    self.navigationController?.navigationBar.scrollEdgeAppearance = app
+//                } else {
+//                    // Fallback on earlier versions
+//                }
+         
                 self.navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
                 self.defaults.set(successResponse.data.isRtl, forKey: "isRtl")
                 UserDefaults.standard.set(successResponse.data.locationType, forKey: "locType")

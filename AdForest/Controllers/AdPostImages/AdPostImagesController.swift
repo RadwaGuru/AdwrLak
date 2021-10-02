@@ -87,7 +87,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var imagesArrayfromback = [AdPostImageArray]()
     var delegate: ImagesArrayDeletedDelegate?
     var imageUploading = false
-
+    var page2Validation = false
+    var checkArray: [Bool] = []
+    var correctNow = false
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -255,6 +257,194 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //        }
 //    }
     
+//    @objc func onForwardButtonClciked() {
+////        var sectionRequired = 0
+////        var indexRequired = 0
+//        var requiredCheck = false
+//        localVariable = ""
+//        print(fieldsArray)
+//        for index in  0..<fieldsArray.count {
+//            if let objData = fieldsArray[index] as? AdPostField {
+//                if objData.fieldType == "select"  {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
+//                        var obj = AdPostField()
+//                        obj.fieldType = "select"
+//                        obj.fieldTypeName = cell.param
+//
+//                        print(cell.param)
+//                        obj.fieldVal = cell.selectedKey
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+//                 if objData.fieldType == "textfield"  {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? TextFieldCell {
+//                            var obj = AdPostField()
+//                            obj.fieldType = "textfield"
+//                            obj.fieldVal = cell.txtType.text
+//                            obj.fieldTypeName = cell.fieldName
+//
+//                            objArray.append(obj)
+//                            customArray.append(obj)
+//                    }
+//                }
+//                else if objData.fieldType == "textarea" {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DescriptionTableCell {
+//                        var obj = AdPostField()
+//                        obj.fieldType = "textarea"
+//                        obj.fieldVal = cell.txtDescription.text!
+//                        print(cell.txtDescription.text!)
+//                        if cell.txtDescription.text == "" && self.reqiop == true {
+//                            isEmptyField = true
+//                            cell.txtDescription.shake()
+//                        }else{
+//                            isEmptyField = false
+//                            obj.fieldTypeName = "ad_description"
+//                            objArray.append(obj)
+//                            //dataArray.app
+//                            customArray.append(obj)
+//
+//                        }
+//                    }
+//                }
+//
+////                else if objData.fieldType == "checkbox" {
+////                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CheckBoxCell {
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = cell.fieldName
+////                        cell.fieldName = obj.fieldTypeName
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+//////                        localVariable = ""
+//////                        for item in cell.valueArray {
+//////                            localVariable += item + ","
+//////                        }
+//////                        self.localDictionary[cell.fieldName] = localVariable
+////                    }
+////                }
+//                else if objData.fieldType == "textfield_url" {
+//                    if let cell: AdPostURLCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? AdPostURLCell {
+//                        var obj = AdPostField()
+//                        obj.fieldTypeName = cell.fieldName
+//                        guard let txtUrl = cell.txtUrl.text else {return}
+//                        if txtUrl.isValidURL {
+//                            obj.fieldVal = txtUrl
+//                            self.isValidUrl = true
+//                        } else {
+//                            cell.txtUrl.shake(6, withDelta: 10, speed: 0.06)
+//                            self.isValidUrl = false
+//                        }
+//
+//
+//                        objArray.append(obj)
+//                        customArray.append(obj)
+//                    }
+//                }
+////                else if objData.fieldType == "textfield_date" {
+////                    if let cell: CalenderSingleTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? CalenderSingleTableViewCell {
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = "date_input" //cell.fieldName
+////                        obj.fieldVal = "\(cell.currentDate)"
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+////                    }
+////                }
+////                else if objData.fieldType == "radio_color" {
+////                    if let cell: RadioColorAdTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? RadioColorAdTableViewCell {
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = "select_colors" //cell.fieldName
+////                        print(cell.selectedColor)
+////                        obj.fieldVal = cell.selectedColor
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+////                    }
+////                }
+////                else if objData.fieldType == "textfield_number" {
+////                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = "number_range" //cell.fieldName
+////                        obj.fieldVal = cell.txtMinPrice.text
+////                        print(cell.txtMinPrice.text!)
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+////                    }
+////                }
+//
+////                else if objData.fieldType == "radio" {
+////                    if let cell: AdpostRadioTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  AdpostRadioTableViewCell{
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = "radio" //cell.fieldName
+////                        obj.fieldVal = cell.seletedRad
+////                        print( cell.seletedRad)
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+////                    }
+////                }
+//
+//
+////                else if objData.fieldType == "textfield_number" {
+////                    if let cell: NumericRangeTableViewCell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as?  NumericRangeTableViewCell{
+////                        var obj = AdPostField()
+////                        obj.fieldTypeName = "number_range" //cell.fieldName
+////                        obj.fieldVal = cell.txtMinPrice.text
+////
+////
+////                        objArray.append(obj)
+////                        customArray.append(obj)
+////                    }
+////                }
+//            }
+//        }
+//        let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostMapController") as! AdPostMapController
+////        if imageIDArray.isEmpty {
+////            let alert = Constants.showBasicAlert(message: "Images Required")
+////            self.presentVC(alert)
+////        }
+////        else if isValidUrl == false {
+////
+////        }
+//       // else {
+//        if isDragAdpost == true{
+//            adPostVC.imageIdArray = imgIdDrag
+//        }else{
+//            adPostVC.imageIdArray = imageIDArray
+//        }
+////            adPostVC.imageIdArray = imageIDArray
+//            adPostVC.objArray = objArray
+//        print(objArray)
+//            adPostVC.customArray = self.customArray
+//            print(self.customArray)
+//
+//            adPostVC.localVariable = self.localVariable
+//            adPostVC.valueArray = self.valueArray
+//            adPostVC.localDictionary = self.localDictionary
+//        if isfromEditAd{
+//            adPostVC.isfromEditAd = self.isfromEditAd
+//        }
+//        let objData = AddsHandler.sharedInstance.objAdPost
+//        if self.isImagesRequired == objData?.data.images.isRequired{
+//
+//            let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
+//            if imgCtrlCount == 0{
+//                let alert = Constants.showBasicAlert(message: msgImg!)
+//                self.presentVC(alert)
+//            }
+//        else{
+//                self.navigationController?.pushViewController(adPostVC, animated: true)
+//
+//            }
+//
+//        }else if isEmptyField == true {
+//            let alert = Constants.showBasicAlert(message: self.requireMessage)
+//            self.presentVC(alert)
+//        }
+//
+//        else{
+//            self.navigationController?.pushViewController(adPostVC, animated: true)
+//
+//        }
+//
+//    }
     @objc func onForwardButtonClciked() {
 //        var sectionRequired = 0
 //        var indexRequired = 0
@@ -263,16 +453,46 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         print(fieldsArray)
         for index in  0..<fieldsArray.count {
             if let objData = fieldsArray[index] as? AdPostField {
+                if objData.fieldType == "image" {
+                    let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? UploadImageCell
+                    if objData.isRequired == true && imageIDArray.count == 0{
+                        page2Validation = false
+                        checkArray.append(page2Validation)
+                        cell!.shakeCells()
+                        cell!.containerView.layer.borderColor = UIColor.red.cgColor
+                        cell!.containerView.layer.borderWidth = 5
+                       
+                    }
+                    else{
+                        page2Validation = true
+                        checkArray.append(page2Validation)
+                    }
+                }
                 if objData.fieldType == "select"  {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
                         var obj = AdPostField()
                         obj.fieldType = "select"
                         obj.fieldTypeName = cell.param
-                        
+                    
                         print(cell.param)
                         obj.fieldVal = cell.selectedKey
-                        objArray.append(obj)
-                        customArray.append(obj)
+                        if obj.fieldType == "select"{
+                            if objData.isRequired == true && objData.fieldVal == "" {
+                                //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.shakeCells()
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                objArray.append(obj)
+                                customArray.append(obj)
+                            }
+                        }
+
                     }
                 }
                  if objData.fieldType == "textfield"  {
@@ -281,9 +501,20 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             obj.fieldType = "textfield"
                             obj.fieldVal = cell.txtType.text
                             obj.fieldTypeName = cell.fieldName
-                    
-                            objArray.append(obj)
-                            customArray.append(obj)
+                        if obj.fieldType == "textfield"{
+                            if objData.isRequired == true && objData.fieldVal == "" {
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.shakeCells()
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                objArray.append(obj)
+                                customArray.append(obj)
+                            }
+                        }
+//                            objArray.append(obj)
+//                            customArray.append(obj)
                     }
                 }
                 else if objData.fieldType == "textarea" {
@@ -292,17 +523,34 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         obj.fieldType = "textarea"
                         obj.fieldVal = cell.txtDescription.text!
                         print(cell.txtDescription.text!)
-                        if cell.txtDescription.text == "" && self.reqiop == true {
-                            isEmptyField = true
-                            cell.txtDescription.shake()
-                        }else{
-                            isEmptyField = false
-                            obj.fieldTypeName = "ad_description"
-                            objArray.append(obj)
-                            //dataArray.app
-                            customArray.append(obj)
-                            
+                        if obj.fieldType == "textarea"{
+                            if objData.isRequired == true && obj.fieldVal == "" {
+                                //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.shakeCells()
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
+
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                objArray.append(obj)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                customArray.append(obj)
+                            }
                         }
+//                        if cell.txtDescription.text == "" && self.reqiop == true {
+//                            isEmptyField = true
+//                            cell.txtDescription.shake()
+//                        }else{
+//                            isEmptyField = false
+//                            obj.fieldTypeName = "ad_description"
+//                            objArray.append(obj)
+//                            //dataArray.app
+//                            customArray.append(obj)
+//
+//                        }
                     }
                 }
                     
@@ -402,48 +650,115 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 //
 //        }
        // else {
-        if isDragAdpost == true{
-            adPostVC.imageIdArray = imgIdDrag
-        }else{
-            adPostVC.imageIdArray = imageIDArray
+        
+        for i in checkArray {
+            if i ==  true && checkArray.allSatisfy({$0}){
+                print("all true")
+                correctNow = true
+            }else{
+//                self.showToast(message: " Fields cannot be left EMPTY")
+                checkArray.removeAll()
+                break;
+            }
         }
-//            adPostVC.imageIdArray = imageIDArray
-            adPostVC.objArray = objArray
-        print(objArray)
-            adPostVC.customArray = self.customArray
-            print(self.customArray)
-            
-            adPostVC.localVariable = self.localVariable
-            adPostVC.valueArray = self.valueArray
-            adPostVC.localDictionary = self.localDictionary
-        if isfromEditAd{
-            adPostVC.isfromEditAd = self.isfromEditAd
-        }
-        let objData = AddsHandler.sharedInstance.objAdPost
-        if self.isImagesRequired == objData?.data.images.isRequired{
+       
+        if correctNow == true {
 
-            let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
-            if imgCtrlCount == 0{
-                let alert = Constants.showBasicAlert(message: msgImg!)
+                if isDragAdpost == true{
+                    adPostVC.imageIdArray = imgIdDrag
+                }else{
+                    adPostVC.imageIdArray = imageIDArray
+                }
+
+            
+    //            adPostVC.imageIdArray = imageIDArray
+                adPostVC.objArray = objArray
+            print(objArray)
+                adPostVC.customArray = self.customArray
+                print(self.customArray)
+
+                adPostVC.localVariable = self.localVariable
+                adPostVC.valueArray = self.valueArray
+                adPostVC.localDictionary = self.localDictionary
+            if isfromEditAd{
+                adPostVC.isfromEditAd = self.isfromEditAd
+            }
+            let objData = AddsHandler.sharedInstance.objAdPost
+            if self.isImagesRequired == objData?.data.images.isRequired{
+
+                let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
+                if imgCtrlCount == 0{
+                    let alert = Constants.showBasicAlert(message: msgImg!)
+                    self.presentVC(alert)
+                }
+            else{
+                    self.navigationController?.pushViewController(adPostVC, animated: true)
+
+                }
+
+            }else if isEmptyField == true {
+                let alert = Constants.showBasicAlert(message: self.requireMessage)
                 self.presentVC(alert)
             }
-        else{
+            else{
                 self.navigationController?.pushViewController(adPostVC, animated: true)
 
             }
-
-        }else if isEmptyField == true {
-            let alert = Constants.showBasicAlert(message: self.requireMessage)
-            self.presentVC(alert)
-        }
-       
-        else{
-            self.navigationController?.pushViewController(adPostVC, animated: true)
-
         }
         
+//        if checkArray.allSatisfy({$0}) {
+//            print("all true")
+//            if isDragAdpost == true{
+//                adPostVC.imageIdArray = imgIdDrag
+//            }else{
+//                adPostVC.imageIdArray = imageIDArray
+//            }
+//    //            adPostVC.imageIdArray = imageIDArray
+//                adPostVC.objArray = objArray
+//            print(objArray)
+//                adPostVC.customArray = self.customArray
+//                print(self.customArray)
+//
+//                adPostVC.localVariable = self.localVariable
+//                adPostVC.valueArray = self.valueArray
+//                adPostVC.localDictionary = self.localDictionary
+//            if isfromEditAd{
+//                adPostVC.isfromEditAd = self.isfromEditAd
+//            }
+//            let objData = AddsHandler.sharedInstance.objAdPost
+//            if self.isImagesRequired == objData?.data.images.isRequired{
+//
+//                let msgImg = UserDefaults.standard.string(forKey: "ImgReqMessage")
+//                if imgCtrlCount == 0{
+//                    let alert = Constants.showBasicAlert(message: msgImg!)
+//                    self.presentVC(alert)
+//                }
+//            else{
+//                    self.navigationController?.pushViewController(adPostVC, animated: true)
+//
+//                }
+//
+//            }else if isEmptyField == true {
+//                let alert = Constants.showBasicAlert(message: self.requireMessage)
+//                self.presentVC(alert)
+//            }
+//            else if isSelectedFieldEmpty == true {
+//                let alert = Constants.showBasicAlert(message: self.requireMessage)
+//                self.presentVC(alert)
+//            }
+//
+//            else{
+//                self.navigationController?.pushViewController(adPostVC, animated: true)
+//
+//            }
+//        } else {
+//            print("contains false") // "contains false\n"
+//            self.showToast(message: " Fields cannot be left EMPTY")
+//
+//        }
+        
     }
-    
+
     func adForest_populateData() {
         if  AddsHandler.sharedInstance.objAdPost != nil {
             let objData = AddsHandler.sharedInstance.objAdPost
@@ -917,9 +1232,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                     cell.lblTitle.text = title
                     cell.txtMinPrice.placeholder = title
                 }
-                cell.txtMinPrice.text = objData.fieldVal
+//                cell.txtMinPrice.text = objData.fieldVal
                 cell.delegate = self
-                numberRange(index: indexPath.row, fieldName: objData.fieldTypeName, fieldVal: objData.fieldVal, fieldType: "textfield_number")
+               // numberRange(index: indexPath.row, fieldName: objData.fieldTypeName, fieldVal: objData.fieldVal, fieldType: "textfield_number")
                 cell.fieldType = objData.fieldType
                 cell.fieldName = objData.fieldTypeName
                 cell.txtMinPrice.keyboardType = .numberPad
@@ -1216,4 +1531,12 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
     
 }
 
-
+extension UIView {
+    func shakeCells() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        layer.add(animation, forKey: "shake")
+    }
+}

@@ -58,6 +58,8 @@
 		180A4F752328E2FD002BC411 /* RejectedAdsTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A4F742328E2FD002BC411 /* RejectedAdsTimer.swift */; };
 		180A4F772328E367002BC411 /* TimerString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A4F762328E367002BC411 /* TimerString.swift */; };
 		180BF6DE219A950A0006D392 /* AddDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180BF6DD219A950A0006D392 /* AddDetailCell.swift */; };
+		180D846F26EF1E2600FE367C /* SocialLoginRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D846E26EF1E2600FE367C /* SocialLoginRegisterCell.swift */; };
+		180D847126EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D847026EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift */; };
 		180DC4022057B55D00A75C60 /* BlogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180DC4012057B55D00A75C60 /* BlogController.swift */; };
 		180DC4072057C9FC00A75C60 /* BlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180DC4052057C9FC00A75C60 /* BlogCell.swift */; };
 		180DC4082057C9FC00A75C60 /* BlogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180DC4062057C9FC00A75C60 /* BlogCell.xib */; };
@@ -264,6 +266,7 @@
 		183287B520EC9B9E0096A21E /* AdMob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183287B420EC9B9E0096A21E /* AdMob.swift */; };
 		18344DD9268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18344DD8268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift */; };
 		1834EC0E20DBF85800BF027C /* HomeBlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */; };
+		1835C72826E1160D00592C6E /* MainViewLoginRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835C72726E1160D00592C6E /* MainViewLoginRegisterController.swift */; };
 		1836447825DA4E430031CDAA /* ChatImages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836447725DA4E430031CDAA /* ChatImages.xib */; };
 		1836447D25DA50150031CDAA /* ChatImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836447C25DA50150031CDAA /* ChatImages.swift */; };
 		1836449825DA9B440031CDAA /* ChatFiles.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1836449725DA9B440031CDAA /* ChatFiles.xib */; };
@@ -628,6 +631,7 @@
 		18F6998025FB3B5C005027CB /* WhizChatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6997F25FB3B5C005027CB /* WhizChatMap.swift */; };
 		18F6998625FB3EDB005027CB /* WhizChatMapReceiver.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F6998525FB3EDB005027CB /* WhizChatMapReceiver.xib */; };
 		18F6998B25FB3F4D005027CB /* WhizChatMapReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */; };
+		18FDE08B26F3664D00DF8800 /* OTPControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FDE08A26F3664D00DF8800 /* OTPControllerViewController.swift */; };
 		18FE9C58236811A500E8756F /* MapBoxPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */; };
 		9601E7C82463E49600036649 /* LinkedInEmailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C72463E49600036649 /* LinkedInEmailModel.swift */; };
 		9601E7CA2463E4B500036649 /* LinkedInProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9601E7C92463E4B500036649 /* LinkedInProfileModel.swift */; };
@@ -766,6 +770,8 @@
 		180A4F742328E2FD002BC411 /* RejectedAdsTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectedAdsTimer.swift; sourceTree = "<group>"; };
 		180A4F762328E367002BC411 /* TimerString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerString.swift; sourceTree = "<group>"; };
 		180BF6DD219A950A0006D392 /* AddDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailCell.swift; sourceTree = "<group>"; };
+		180D846E26EF1E2600FE367C /* SocialLoginRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRegisterCell.swift; sourceTree = "<group>"; };
+		180D847026EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterTopHeaderCell.swift; sourceTree = "<group>"; };
 		180DC4012057B55D00A75C60 /* BlogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogController.swift; sourceTree = "<group>"; };
 		180DC4052057C9FC00A75C60 /* BlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCell.swift; sourceTree = "<group>"; };
 		180DC4062057C9FC00A75C60 /* BlogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlogCell.xib; sourceTree = "<group>"; };
@@ -973,6 +979,7 @@
 		183287B420EC9B9E0096A21E /* AdMob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMob.swift; sourceTree = "<group>"; };
 		18344DD8268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNearAdsHorizontalCell.swift; sourceTree = "<group>"; };
 		1834EC0D20DBF85800BF027C /* HomeBlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBlogCell.swift; sourceTree = "<group>"; };
+		1835C72726E1160D00592C6E /* MainViewLoginRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewLoginRegisterController.swift; sourceTree = "<group>"; };
 		1836447725DA4E430031CDAA /* ChatImages.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatImages.xib; sourceTree = "<group>"; };
 		1836447C25DA50150031CDAA /* ChatImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImages.swift; sourceTree = "<group>"; };
 		1836449725DA9B440031CDAA /* ChatFiles.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatFiles.xib; sourceTree = "<group>"; };
@@ -1345,6 +1352,7 @@
 		18F6997F25FB3B5C005027CB /* WhizChatMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatMap.swift; sourceTree = "<group>"; };
 		18F6998525FB3EDB005027CB /* WhizChatMapReceiver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhizChatMapReceiver.xib; sourceTree = "<group>"; };
 		18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhizChatMapReceiver.swift; sourceTree = "<group>"; };
+		18FDE08A26F3664D00DF8800 /* OTPControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPControllerViewController.swift; sourceTree = "<group>"; };
 		18FE9C57236811A500E8756F /* MapBoxPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxPlacesViewController.swift; sourceTree = "<group>"; };
 		27AC9C51A44B89C024F3EEAA /* Pods_AdForest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2A49835B1E8A0B4FBE203B /* Pods_AdForestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2144,6 +2152,16 @@
 			path = HomeBlogCell;
 			sourceTree = "<group>";
 		};
+		1835C72626E115BA00592C6E /* MainViewLoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				1835C72726E1160D00592C6E /* MainViewLoginRegisterController.swift */,
+				180D846E26EF1E2600FE367C /* SocialLoginRegisterCell.swift */,
+				180D847026EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift */,
+			);
+			path = MainViewLoginRegister;
+			sourceTree = "<group>";
+		};
 		1836447025DA4E240031CDAA /* Chat Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -2879,6 +2897,8 @@
 		18BBFAB8205109A30067662F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18FDE08926F3662300DF8800 /* OTPController */,
+				1835C72626E115BA00592C6E /* MainViewLoginRegister */,
 				183F853D261DDF8300ADF382 /* FirebasePhoneNumberVerification */,
 				181D95C625E3A2EA00E76418 /* CarouselCell */,
 				CBD318782552D9B00090F2F9 /* ContactWithAdmin */,
@@ -3575,6 +3595,14 @@
 				18F6998A25FB3F4D005027CB /* WhizChatMapReceiver.swift */,
 			);
 			path = WhizChatMapReceiver;
+			sourceTree = "<group>";
+		};
+		18FDE08926F3662300DF8800 /* OTPController */ = {
+			isa = PBXGroup;
+			children = (
+				18FDE08A26F3664D00DF8800 /* OTPControllerViewController.swift */,
+			);
+			path = OTPController;
 			sourceTree = "<group>";
 		};
 		18FE9C562368118A00E8756F /* MapBoxPlaces */ = {
@@ -4420,6 +4448,7 @@
 				9674945B23E0879D0035E58E /* EmptyCartRoot.swift in Sources */,
 				CB4371542535C40300118E32 /* MultiLatestAdCollectionViewCell.swift in Sources */,
 				182652C7207656B0007F6A21 /* StripePaymentForm.swift in Sources */,
+				180D846F26EF1E2600FE367C /* SocialLoginRegisterCell.swift in Sources */,
 				180BF6DE219A950A0006D392 /* AddDetailCell.swift in Sources */,
 				189280A220DCB4A300BFBCD1 /* HomeNearAdsCell.swift in Sources */,
 				18108E6F2092F98A0020D440 /* AdPostImages.swift in Sources */,
@@ -4553,6 +4582,7 @@
 				186A9FB72081053A008E646C /* SentOffersMessageAdImage.swift in Sources */,
 				185B13CD207D0B8500914AF0 /* SimilarAdsCell.swift in Sources */,
 				184EDAEC2078976A00A25228 /* AddDetailIsFeatured.swift in Sources */,
+				1835C72826E1160D00592C6E /* MainViewLoginRegisterController.swift in Sources */,
 				180A4F712328E23C002BC411 /* RejectedAdsSaved.swift in Sources */,
 				184EDAF62078980000A25228 /* AddDetailReplyDialogue.swift in Sources */,
 				961E4FDD250CE6C60086E313 /* MarvelFeatureVerticalTableViewCell.swift in Sources */,
@@ -4721,6 +4751,7 @@
 				183C65D7215B9532004A94EC /* AppSettingForm.swift in Sources */,
 				18AECFB2217DB6AE004C1DF9 /* CatIconsColumnBtn.swift in Sources */,
 				1899C6AF25F2507C00828AD5 /* WhizChatMessagesBoxData.swift in Sources */,
+				18FDE08B26F3664D00DF8800 /* OTPControllerViewController.swift in Sources */,
 				18C2CD02206A4FD900235E0E /* MyAdsAdVideo.swift in Sources */,
 				181EED8F20919E650018BB03 /* AdPostMapController.swift in Sources */,
 				189E886A20724DAE00ABB6A3 /* FileManager.swift in Sources */,
@@ -4757,6 +4788,7 @@
 				181CDE2C214A2D7200BD0B0C /* FeaturedAddsCell.swift in Sources */,
 				181888922081D376008736F7 /* OfferAdsPagination.swift in Sources */,
 				18C817382073B12200674C90 /* PackagesDataProductAmount.swift in Sources */,
+				180D847126EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift in Sources */,
 				182690BC2087298F00E2C966 /* HomeFeaturedAdd.swift in Sources */,
 				1818888E2081D33E008736F7 /* OfferAdsItem.swift in Sources */,
 				184EDAE2207896DB00A25228 /* AddDetailProfileDetail.swift in Sources */,

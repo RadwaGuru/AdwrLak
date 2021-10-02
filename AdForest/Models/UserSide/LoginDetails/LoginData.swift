@@ -17,15 +17,29 @@ struct LoginData {
     var forgotText : String!
     var formBtn : String!
     var googleBtn : String!
+    var linkedInBtn : String!
     var guestLogin : String!
+    var emailBtn:String!
+    var phoneBtn:String!
+    var PhoneVerificationtxt:String!
+    var OtpText:String!
+    var welcomeTxt:String!
+    var intoTxt:String!
     var guestText : String!
     var heading : String!
     var logo : String!
     var passwordPlaceholder : String!
     var registerText : String!
     var separator : String!
-    
     var isVerifyOn : Bool!
+    var pageTitle:String!
+    var registerTitle:String!
+    var codeSentTo: String!
+    var notReceived: String!
+    var tryAgain:String!
+    var verifyNumber:String!
+    var phonePlaceholder:String!
+    var enterPhoneError:String!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -38,6 +52,9 @@ struct LoginData {
         forgotText = dictionary["forgot_text"] as? String
         formBtn = dictionary["form_btn"] as? String
         googleBtn = dictionary["google_btn"] as? String
+        phoneBtn = dictionary["phone_btn"] as? String
+        emailBtn = dictionary["email_btn"] as? String
+        linkedInBtn = dictionary["linkedin_btn"] as? String
         guestLogin = dictionary["guest_login"] as? String
         guestText = dictionary["guest_text"] as? String
         heading = dictionary["heading"] as? String
@@ -45,8 +62,20 @@ struct LoginData {
         passwordPlaceholder = dictionary["password_placeholder"] as? String
         registerText = dictionary["register_text"] as? String
         separator = dictionary["separator"] as? String
-        
         isVerifyOn = dictionary["is_verify_on"] as? Bool
+        PhoneVerificationtxt = dictionary["phone_verification"] as? String
+        OtpText = dictionary["otp_text"] as? String
+        welcomeTxt = dictionary["welcome_txt"] as? String
+        intoTxt = dictionary["intro_text"] as? String
+        pageTitle = dictionary["page_title"] as? String
+        registerTitle = dictionary["register"] as? String
+        codeSentTo  = dictionary["code_sent"] as? String
+        notReceived = dictionary["not_received"] as? String
+        tryAgain = dictionary["try_again"] as? String
+        verifyNumber = dictionary["verify_number"] as? String
+        phonePlaceholder = dictionary["phone_number"] as? String
+        enterPhoneError = dictionary["input_number"] as? String
+
     }
     
     /**

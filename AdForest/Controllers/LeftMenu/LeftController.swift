@@ -410,10 +410,12 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let packageView = storyboard?.instantiateViewController(withIdentifier: PackagesController.className) as! PackagesController
         self.viewPackages = UINavigationController(rootViewController: packageView)
         
-        let loginView = storyboard?.instantiateViewController(withIdentifier: LoginViewController.className) as! LoginViewController
+        let loginView = storyboard?.instantiateViewController(withIdentifier: MainViewLoginRegisterController.className) as! MainViewLoginRegisterController
+        loginView.calledFrom = "Login"
         self.viewLogin = UINavigationController(rootViewController: loginView)
         
-        let registerView = storyboard?.instantiateViewController(withIdentifier: RegisterViewController.className) as! RegisterViewController
+        let registerView = storyboard?.instantiateViewController(withIdentifier: MainViewLoginRegisterController.className) as! MainViewLoginRegisterController
+        registerView.calledFrom = "register"
         self.viewRegister = UINavigationController(rootViewController: registerView)
         
     }
@@ -580,7 +582,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 FacebookAuthentication.signOut()
                 GoogleAuthenctication.signOut()
                 GIDSignIn.sharedInstance().signOut()
-                self.appDelegate.moveToLogin()
+                self.appDelegate.moveToMainViewLoginRegisterController()
                 self.stopAnimating()
             }
             else{
@@ -598,7 +600,7 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
                 FacebookAuthentication.signOut()
                 GoogleAuthenctication.signOut()
-                self.appDelegate.moveToLogin()
+                self.appDelegate.moveToMainViewLoginRegisterController()
             }
         }) { (error) in
             

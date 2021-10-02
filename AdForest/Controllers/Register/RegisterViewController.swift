@@ -190,7 +190,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         txtFieldsWithRtl()
         btnApple.isHidden = true
         BtnRegisterOTP.isHidden = true
-        //        lblOr.isHidden = true
+                lblOr.isHidden = true
         //        lblOr.topAnchor.constraint(equalTo: self.BtnRegisterOTP.bottomAnchor,constant: 8).isActive = true
         //        btnLinkedin.isHidden = true
         btnApple.layer.cornerRadius = 10
@@ -278,58 +278,58 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
         }
         return true
     }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == txtEmail && txtEmail.text?.isValidEmail == true {
-            txtPassword.isHidden = false
-            imgPassword.isHidden = false
-            phoneSeperator.isHidden = false
-            pwdSeperator.isHidden = false
-            imgPhone.isHidden = false
-            txtPhone.isHidden = false
-            imgUser.isHidden = false
-            txtName.isHidden = false
-
-            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
-            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
-            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
-            
-            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
-//            //, constant: -5
-            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if textField == txtEmail && txtEmail.text?.isValidEmail == true {
+//            txtPassword.isHidden = false
+//            imgPassword.isHidden = false
+//            phoneSeperator.isHidden = false
+//            pwdSeperator.isHidden = false
+//            imgPhone.isHidden = false
+//            txtPhone.isHidden = false
+//            imgUser.isHidden = false
+//            txtName.isHidden = false
 //
-            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
-
-        }
-        else if textField == txtEmail && txtEmail.text?.isValidEmail == false {
-            let phoneCode = Country.currentCountry
-            print("+" + phoneCode.phoneExtension)
-            txtEmail.placeholder = "+" + phoneCode.phoneExtension
-            txtPassword.isHidden = true
-            imgPassword.isHidden = true
-            imgPhone.isHidden = true
-            txtPhone.isHidden = true
-            imgUser.isHidden = true
-            txtName.isHidden = true
-            nameSeperator.isHidden = true
-            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
-            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//            txtPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            imgPhone.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+//            txtPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+//            imgPassword.topAnchor.constraint(equalTo: self.phoneSeperator.bottomAnchor,constant: 8).isActive = true
+//            lblOr.topAnchor.constraint(equalTo: self.buttonRegister.bottomAnchor, constant: 8).isActive = true
 //
+//            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+////            //, constant: -5
+//            buttonCheckBox.topAnchor.constraint(equalTo: self.pwdSeperator.bottomAnchor).isActive = true
+////
+//            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
 //
-//            imgPhone.isHidden = true
-//            txtPhone.isHidden = true
+//        }
+//        else if textField == txtEmail && txtEmail.text?.isValidEmail == false {
+//            let phoneCode = Country.currentCountry
+//            print("+" + phoneCode.phoneExtension)
+//            txtEmail.placeholder = "+" + phoneCode.phoneExtension
 //            txtPassword.isHidden = true
 //            imgPassword.isHidden = true
-//            pwdSeperator.isHidden = true
-//            phoneSeperator.isHidden = true
+//            imgPhone.isHidden = true
+//            txtPhone.isHidden = true
+//            imgUser.isHidden = true
+//            txtName.isHidden = true
+//            nameSeperator.isHidden = true
 //            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
 //            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
 //            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
-            
-        }
-    }
+////
+////
+////            imgPhone.isHidden = true
+////            txtPhone.isHidden = true
+////            txtPassword.isHidden = true
+////            imgPassword.isHidden = true
+////            pwdSeperator.isHidden = true
+////            phoneSeperator.isHidden = true
+////            buttonAgreeWithTermsConditions.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+////            buttonCheckBox.topAnchor.constraint(equalTo: self.emailSeperator.bottomAnchor,constant: 8).isActive = true
+////            buttonCheckBox.rightAnchor.constraint(equalTo: self.buttonAgreeWithTermsConditions.leftAnchor,constant: -8).isActive = true
+//
+//        }
+//    }
 
 //    func textFieldDidEndEditing(_ textField: UITextField) {
 //        if txtEmail.text?.isValidEmail == true {
@@ -897,32 +897,33 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
             return
         }
 
-        if txtEmail.text?.isValidPhone == true{
-            if checkBoxselectedBtn == true {
-                let parameters : [String: Any] = [
-                    "name": name,
-                    "phone": email,
-                    subscriberPostValue: subscriberPostValue
-                ]
-                print(parameters)
-                defaults.set(email, forKey: "email")
-//                defaults.set(password, forKey: "password")
-                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
-            }
-            else{
-                let parameters : [String: Any] = [
-                    "name": name,
-                    "phone": email,
-                ]
-                print(parameters)
-                defaults.set(email, forKey: "email")
-//                defaults.set(password, forKey: "password")
-                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
-            }
-            
-            
-        }
-       else if name == "" {
+//        if txtEmail.text?.isValidPhone == true{
+//            if checkBoxselectedBtn == true {
+//                let parameters : [String: Any] = [
+//                    "name": name,
+//                    "phone": email,
+//                    subscriberPostValue: subscriberPostValue
+//                ]
+//                print(parameters)
+//                defaults.set(email, forKey: "email")
+////                defaults.set(password, forKey: "password")
+//                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
+//            }
+//            else{
+//                let parameters : [String: Any] = [
+//                    "name": name,
+//                    "phone": email,
+//                ]
+//                print(parameters)
+//                defaults.set(email, forKey: "email")
+////                defaults.set(password, forKey: "password")
+//                self.adForest_AlreadyRegisterUser(param: parameters as NSDictionary)
+//            }
+//
+//
+//        }
+//       else
+           if name == "" {
             self.txtName.shake(6, withDelta: 10, speed: 0.06)
         }
         else if email == "" {

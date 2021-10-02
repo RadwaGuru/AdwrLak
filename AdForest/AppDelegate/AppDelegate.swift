@@ -200,13 +200,27 @@ extension AppDelegate {
 
 extension AppDelegate {
     func customizeNavigationBar(barTintColor: UIColor) {
-        let appearance = UINavigationBar.appearance()
-        appearance.setBackgroundImage(UIImage(), for: .default)
-        appearance.shadowImage = UIImage()
-        appearance.isTranslucent = false
-        appearance.barTintColor = barTintColor
-        //appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFontSize]
-        appearance.barStyle = .blackTranslucent
+//        let appearance = UINavigationBar.appearance()
+//        appearance.setBackgroundImage(UIImage(), for: .default)
+//        appearance.shadowImage = UIImage()
+//        appearance.isTranslucent = false
+//        appearance.barTintColor = barTintColor
+//        //appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFontSize]
+//        appearance.barStyle = .blackTranslucent
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.backgroundColor = barTintColor
+            navBarAppearance.shadowImage = nil // line
+            navBarAppearance.shadowColor = nil // line
+            navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).standardAppearance = navBarAppearance
+            UINavigationBar.appearance(whenContainedInInstancesOf: [UINavigationController.self]).scrollEdgeAppearance = navBarAppearance
+
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
     func moveToHome() {
@@ -295,7 +309,25 @@ extension AppDelegate {
         self.window?.rootViewController = nav
         self.window?.makeKeyAndVisible()
     }
-   
+    func moveToMainViewLoginRegisterController() {
+        
+        let proVc = storyboard.instantiateViewController(withIdentifier: MainViewLoginRegisterController.className) as! MainViewLoginRegisterController
+        proVc.calledFrom = "Login"
+        if defaults.bool(forKey: "isRtl") {
+            let rightViewController = storyboard.instantiateViewController(withIdentifier: LeftController.className) as! LeftController
+            let navi: UINavigationController = UINavigationController(rootViewController: proVc)
+            let slideMenuController = SlideMenuController(mainViewController: navi, rightMenuViewController: rightViewController)
+             navi.modalPresentationStyle = .fullScreen
+            self.window?.rootViewController = slideMenuController
+        } else {
+            let leftVC = storyboard.instantiateViewController(withIdentifier: LeftController.className) as! LeftController
+            let navi : UINavigationController = UINavigationController(rootViewController: proVc)
+             navi.modalPresentationStyle = .fullScreen
+            let slideMenuController = SlideMenuController(mainViewController: navi, leftMenuViewController: leftVC)
+            self.window?.rootViewController = slideMenuController
+        }
+        self.window?.makeKeyAndVisible()
+    }
     
     func moveToProfile() {
         let proVc = storyboard.instantiateViewController(withIdentifier: ProfileController.className) as! ProfileController

@@ -1266,16 +1266,21 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
             }
         }
         else if section == 6 {
-            let objData = dataArray[indexPath.row]
-            
-            if isRatingSectionShow == false{
+            if defaults.bool(forKey: "isLogin") == false {
                 height = 0
-            }else{
+            }
+            else{
+                let objData = dataArray[indexPath.row]
                 
-                if objData.adRatting.canRate && buttonText != "receive"  {
-                    height = 270
-                } else {
-                    height = 90
+                if isRatingSectionShow == false{
+                    height = 0
+                }else{
+                    
+                    if objData.adRatting.canRate && buttonText != "receive"  {
+                        height = 270
+                    } else {
+                        height = 90
+                    }
                 }
             }
         }
@@ -1464,7 +1469,9 @@ class MarvelAdDetailViewController: UIViewController,UITableViewDelegate, UITabl
             if successResponse.success {
                 self.title = successResponse.data.pageTitle
                 self.whatsAppNum = successResponse.data.adDetail.phone
-                self.isPhoneNumberVerified = successResponse.data.callNowPopup.isPhoneVerified
+                if successResponse.data.callNowPopup.isPhoneVerified != nil {
+                    self.isPhoneNumberVerified = successResponse.data.callNowPopup.isPhoneVerified
+                }
                 AddsHandler.sharedInstance.descTitle = successResponse.data.staticText.descriptionTitle
                 AddsHandler.sharedInstance.htmlText = successResponse.data.adDetail.adDesc
                 self.similarAdsTitle = successResponse.data.staticText.relatedPostsTitle
