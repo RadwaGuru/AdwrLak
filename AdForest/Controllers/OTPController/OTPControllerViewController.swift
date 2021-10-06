@@ -37,6 +37,8 @@ class OTPControllerViewController: UIViewController,NVActivityIndicatorViewable 
     var verifyNumber = ""
     var phonePlaceholder = ""
     var enterPhoneerror = ""
+    var isVerifyOn  = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -123,17 +125,16 @@ class OTPControllerViewController: UIViewController,NVActivityIndicatorViewable 
                 let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
                 verifyVC.modalPresentationStyle = .custom
 
-                verifyVC.codeSentTo = "self.codeSentToText"
-                verifyVC.codeNotReceived = "self.notReceived"
-                verifyVC.resendCode = "self.tryAgain"
-                verifyVC.verifyNumber = "self.verifyNumberText"
+                verifyVC.codeSentTo = self.codeSentToText
+                verifyVC.codeNotReceived = self.notReceived
+                verifyVC.resendCode = self.tryAgain
+                verifyVC.verifyNumber = self.verifyNumber
                 verifyVC.isFrom = "Login"
                 verifyVC.userName = successResponse.data.userName
                     //"qwerty123456"
                     
                 verifyVC.phoneNumber = self.txtPhoneNumber.text!
-                verifyVC.isVerifyOn = true
-                    //self.isVerifyOn
+                verifyVC.isVerifyOn = self.isVerifyOn
                 self.navigationController?.pushViewController(verifyVC, animated: true)
 
             } else {

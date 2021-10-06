@@ -1027,7 +1027,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate, UIScrollView
     @IBAction func actionLoginHere(_ sender: Any) {
         // self.navigationController?.popViewController(animated: true)
         
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//        self.navigationController?.pushViewController(vc!, animated: true)
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MainViewLoginRegisterController") as? MainViewLoginRegisterController
+        vc?.calledFrom = "Login"
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }

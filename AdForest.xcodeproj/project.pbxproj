@@ -602,6 +602,20 @@
 		18CE386D25DD594A0053A299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CE386C25DD594A0053A299 /* GoogleService-Info.plist */; };
 		18D04FDA21380A99001329D4 /* AdPostBumpAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D04FD921380A99001329D4 /* AdPostBumpAdd.swift */; };
 		18D04FDC21382496001329D4 /* AdPostFeaturedAdText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D04FDB21382496001329D4 /* AdPostFeaturedAdText.swift */; };
+		18D22C9D270C2C7700DE6EA6 /* ContinueWithFB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22C9C270C2C7700DE6EA6 /* ContinueWithFB.xib */; };
+		18D22C9F270C2C9300DE6EA6 /* ContinueWithFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22C9E270C2C9300DE6EA6 /* ContinueWithFB.swift */; };
+		18D22CA3270C3CB800DE6EA6 /* GoogleNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CA1270C3CB800DE6EA6 /* GoogleNib.swift */; };
+		18D22CA4270C3CB800DE6EA6 /* GoogleNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CA2270C3CB800DE6EA6 /* GoogleNib.xib */; };
+		18D22CA8270C40BC00DE6EA6 /* LinkedinNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CA6270C40BC00DE6EA6 /* LinkedinNib.swift */; };
+		18D22CA9270C40BC00DE6EA6 /* LinkedinNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CA7270C40BC00DE6EA6 /* LinkedinNib.xib */; };
+		18D22CAD270C430900DE6EA6 /* AppleNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CAB270C430900DE6EA6 /* AppleNib.swift */; };
+		18D22CAE270C430900DE6EA6 /* AppleNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CAC270C430900DE6EA6 /* AppleNib.xib */; };
+		18D22CB3270C451F00DE6EA6 /* OTPNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CB1270C451F00DE6EA6 /* OTPNib.swift */; };
+		18D22CB4270C451F00DE6EA6 /* OTPNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CB2270C451F00DE6EA6 /* OTPNib.xib */; };
+		18D22CB8270C5C4800DE6EA6 /* GuestNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CB6270C5C4800DE6EA6 /* GuestNib.swift */; };
+		18D22CB9270C5C4800DE6EA6 /* GuestNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CB7270C5C4800DE6EA6 /* GuestNib.xib */; };
+		18D22CBD270C5DD500DE6EA6 /* EmailNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D22CBB270C5DD500DE6EA6 /* EmailNib.swift */; };
+		18D22CBE270C5DD500DE6EA6 /* EmailNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D22CBC270C5DD500DE6EA6 /* EmailNib.xib */; };
 		18D8DCB021A6C46D008888BA /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8DCAE21A6C46D008888BA /* CustomHeader.swift */; };
 		18D8DCB121A6C46D008888BA /* CustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D8DCAF21A6C46D008888BA /* CustomHeader.xib */; };
 		18D8F566206B84E200D19830 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8F565206B84E200D19830 /* AlertView.swift */; };
@@ -1323,6 +1337,20 @@
 		18CE386C25DD594A0053A299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		18D04FD921380A99001329D4 /* AdPostBumpAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostBumpAdd.swift; sourceTree = "<group>"; };
 		18D04FDB21382496001329D4 /* AdPostFeaturedAdText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPostFeaturedAdText.swift; sourceTree = "<group>"; };
+		18D22C9C270C2C7700DE6EA6 /* ContinueWithFB.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContinueWithFB.xib; sourceTree = "<group>"; };
+		18D22C9E270C2C9300DE6EA6 /* ContinueWithFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueWithFB.swift; sourceTree = "<group>"; };
+		18D22CA1270C3CB800DE6EA6 /* GoogleNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleNib.swift; sourceTree = "<group>"; };
+		18D22CA2270C3CB800DE6EA6 /* GoogleNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoogleNib.xib; sourceTree = "<group>"; };
+		18D22CA6270C40BC00DE6EA6 /* LinkedinNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedinNib.swift; sourceTree = "<group>"; };
+		18D22CA7270C40BC00DE6EA6 /* LinkedinNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkedinNib.xib; sourceTree = "<group>"; };
+		18D22CAB270C430900DE6EA6 /* AppleNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNib.swift; sourceTree = "<group>"; };
+		18D22CAC270C430900DE6EA6 /* AppleNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppleNib.xib; sourceTree = "<group>"; };
+		18D22CB1270C451F00DE6EA6 /* OTPNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPNib.swift; sourceTree = "<group>"; };
+		18D22CB2270C451F00DE6EA6 /* OTPNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OTPNib.xib; sourceTree = "<group>"; };
+		18D22CB6270C5C4800DE6EA6 /* GuestNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNib.swift; sourceTree = "<group>"; };
+		18D22CB7270C5C4800DE6EA6 /* GuestNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuestNib.xib; sourceTree = "<group>"; };
+		18D22CBB270C5DD500DE6EA6 /* EmailNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailNib.swift; sourceTree = "<group>"; };
+		18D22CBC270C5DD500DE6EA6 /* EmailNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailNib.xib; sourceTree = "<group>"; };
 		18D8DCAE21A6C46D008888BA /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		18D8DCAF21A6C46D008888BA /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
 		18D8F565206B84E200D19830 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -2155,6 +2183,7 @@
 		1835C72626E115BA00592C6E /* MainViewLoginRegister */ = {
 			isa = PBXGroup;
 			children = (
+				18D22C9A270C2C3100DE6EA6 /* SocialNibs */,
 				1835C72726E1160D00592C6E /* MainViewLoginRegisterController.swift */,
 				180D846E26EF1E2600FE367C /* SocialLoginRegisterCell.swift */,
 				180D847026EF28CE00FE367C /* LoginRegisterTopHeaderCell.swift */,
@@ -3503,6 +3532,83 @@
 			path = Attachments;
 			sourceTree = "<group>";
 		};
+		18D22C9A270C2C3100DE6EA6 /* SocialNibs */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CBA270C5DB700DE6EA6 /* EmailNib */,
+				18D22CB5270C5BB300DE6EA6 /* GuestNib */,
+				18D22CB0270C44CA00DE6EA6 /* OTPNib */,
+				18D22CAA270C42E900DE6EA6 /* AppleNib */,
+				18D22CA5270C403800DE6EA6 /* LinkedInNib */,
+				18D22CA0270C3C9200DE6EA6 /* GoogleNib */,
+				18D22C9B270C2C5000DE6EA6 /* FBNib */,
+			);
+			path = SocialNibs;
+			sourceTree = "<group>";
+		};
+		18D22C9B270C2C5000DE6EA6 /* FBNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22C9C270C2C7700DE6EA6 /* ContinueWithFB.xib */,
+				18D22C9E270C2C9300DE6EA6 /* ContinueWithFB.swift */,
+			);
+			path = FBNib;
+			sourceTree = "<group>";
+		};
+		18D22CA0270C3C9200DE6EA6 /* GoogleNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CA1270C3CB800DE6EA6 /* GoogleNib.swift */,
+				18D22CA2270C3CB800DE6EA6 /* GoogleNib.xib */,
+			);
+			path = GoogleNib;
+			sourceTree = "<group>";
+		};
+		18D22CA5270C403800DE6EA6 /* LinkedInNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CA6270C40BC00DE6EA6 /* LinkedinNib.swift */,
+				18D22CA7270C40BC00DE6EA6 /* LinkedinNib.xib */,
+			);
+			path = LinkedInNib;
+			sourceTree = "<group>";
+		};
+		18D22CAA270C42E900DE6EA6 /* AppleNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CAB270C430900DE6EA6 /* AppleNib.swift */,
+				18D22CAC270C430900DE6EA6 /* AppleNib.xib */,
+			);
+			path = AppleNib;
+			sourceTree = "<group>";
+		};
+		18D22CB0270C44CA00DE6EA6 /* OTPNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CB1270C451F00DE6EA6 /* OTPNib.swift */,
+				18D22CB2270C451F00DE6EA6 /* OTPNib.xib */,
+			);
+			path = OTPNib;
+			sourceTree = "<group>";
+		};
+		18D22CB5270C5BB300DE6EA6 /* GuestNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CB6270C5C4800DE6EA6 /* GuestNib.swift */,
+				18D22CB7270C5C4800DE6EA6 /* GuestNib.xib */,
+			);
+			path = GuestNib;
+			sourceTree = "<group>";
+		};
+		18D22CBA270C5DB700DE6EA6 /* EmailNib */ = {
+			isa = PBXGroup;
+			children = (
+				18D22CBB270C5DD500DE6EA6 /* EmailNib.swift */,
+				18D22CBC270C5DD500DE6EA6 /* EmailNib.xib */,
+			);
+			path = EmailNib;
+			sourceTree = "<group>";
+		};
 		18D8DCAD21A6C449008888BA /* CustomHeader */ = {
 			isa = PBXGroup;
 			children = (
@@ -4046,13 +4152,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D22CB9270C5C4800DE6EA6 /* GuestNib.xib in Resources */,
 				1853BAE725FF590A00D30A44 /* Assets.xcassets in Resources */,
 				181DDA96233393CC001FF048 /* wow.gif in Resources */,
 				181ACC49207B912000564A33 /* YouTubeVideoCell.xib in Resources */,
 				18CE377625DD04B90053A299 /* ChatFilesImagestext.xib in Resources */,
 				18F6997B25FB3A0F005027CB /* WhizChatMap.xib in Resources */,
 				181DDA942333813B001FF048 /* heart.gif in Resources */,
+				18D22CA4270C3CB800DE6EA6 /* GoogleNib.xib in Resources */,
 				18CE378125DD26A80053A299 /* ChatFilesReceiver.xib in Resources */,
+				18D22CAE270C430900DE6EA6 /* AppleNib.xib in Resources */,
 				185B13C8207CB2E300914AF0 /* CommentCell.xib in Resources */,
 				186A9FAA2080F56D008E646C /* AddDetailProfileCell.xib in Resources */,
 				18196DFD2149185100F6515E /* CategoryDetailCell.xib in Resources */,
@@ -4061,8 +4170,10 @@
 				CBA50E4225304D94004B0E04 /* MarvelCategoryDetailCell.xib in Resources */,
 				185B3C70207E03A800EDBBB4 /* AdRatingCell.xib in Resources */,
 				18B34B982164B4FE00F8FA89 /* LoadMoreCell.xib in Resources */,
+				18D22CA9270C40BC00DE6EA6 /* LinkedinNib.xib in Resources */,
 				18CE381425DD4E950053A299 /* OverlayView.xib in Resources */,
 				CBD318742552D8BF0090F2F9 /* Main2.storyboard in Resources */,
+				18D22CB4270C451F00DE6EA6 /* OTPNib.xib in Resources */,
 				181C135F25F8AF3D0026F62C /* WhizChatOverlayView.xib in Resources */,
 				181DDA8B23335918001FF048 /* ReplyReactionCell.xib in Resources */,
 				1836447825DA4E430031CDAA /* ChatImages.xib in Resources */,
@@ -4072,6 +4183,7 @@
 				180519DC215A113100F74662 /* AboutAppCell.xib in Resources */,
 				1836449825DA9B440031CDAA /* ChatFiles.xib in Resources */,
 				18CE379725DD34070053A299 /* ChatFIlesTextImageReceiver.xib in Resources */,
+				18D22C9D270C2C7700DE6EA6 /* ContinueWithFB.xib in Resources */,
 				CB7E18C8252325EA00EC3E2C /* MarvelShareTableViewCell.xib in Resources */,
 				18A5503A213400CE002FCD02 /* SearchSectionCell.xib in Resources */,
 				181C88322052CDB50067B176 /* AddsStatusCell.xib in Resources */,
@@ -4090,6 +4202,7 @@
 				18F6998625FB3EDB005027CB /* WhizChatMapReceiver.xib in Resources */,
 				180A4F532328CEC4002BC411 /* RejectedAdsCell.xib in Resources */,
 				CB4A7323253431D5005FE49F /* MultiSearchSectionCell.xib in Resources */,
+				18D22CBE270C5DD500DE6EA6 /* EmailNib.xib in Resources */,
 				180DC40F2057F27D00A75C60 /* BlogDetailCell.xib in Resources */,
 				18CE386D25DD594A0053A299 /* GoogleService-Info.plist in Resources */,
 				96BFE9F424F7A87200B4B2F7 /* MarvelSearchSectionTableViewCell.xib in Resources */,
@@ -4388,6 +4501,7 @@
 				1852B0D5208324EA0014AF99 /* SentOfferChatRoot.swift in Sources */,
 				18BBFADA20510FA90067662F /* SettingsRoot.swift in Sources */,
 				CB43715F2535D00C00118E32 /* MultiAdsTableViewCell.swift in Sources */,
+				18D22CBD270C5DD500DE6EA6 /* EmailNib.swift in Sources */,
 				18B6A3FD21941F3B00B708D4 /* PaymentSuccessController.swift in Sources */,
 				96A11645250F3049002C61FB /* MarvelVerticalSLiderAdsCollectionViewCell.swift in Sources */,
 				182690BA2087297B00E2C966 /* HomeCategory.swift in Sources */,
@@ -4607,6 +4721,7 @@
 				18BBFAEF205113AE0067662F /* FacebookAuthentication.swift in Sources */,
 				182B4B51209069A800324D4E /* AdPostLocation.swift in Sources */,
 				18CE379125DD2FAE0053A299 /* ChatImagesReceiver.swift in Sources */,
+				18D22CB3270C451F00DE6EA6 /* OTPNib.swift in Sources */,
 				18139B8B268C5AEC006EFD01 /* Country.swift in Sources */,
 				18BBD0BD20F74FC2002F640A /* ShopController.swift in Sources */,
 				96A11643250F302A002C61FB /* MarvelVerticalSLiderAdsTableViewCell.swift in Sources */,
@@ -4635,6 +4750,7 @@
 				185B13C3207CA58900914AF0 /* ReplyCell.swift in Sources */,
 				182690CA20872A2D00E2C966 /* AddLocation.swift in Sources */,
 				9606055D250B56FC00A5219F /* MarvelHomeLatestVerticalDefaultTableViewCell.swift in Sources */,
+				18D22CA8270C40BC00DE6EA6 /* LinkedinNib.swift in Sources */,
 				07A70C94221687A9002ADAEF /* NumericRangeTableViewCell.swift in Sources */,
 				182690A62087288F00E2C966 /* HomeFirebase.swift in Sources */,
 				CB4A732825343705005FE49F /* MultiSearchSectionCell.swift in Sources */,
@@ -4683,6 +4799,7 @@
 				185A544921A2C1C700396D35 /* DeepLinkManager.swift in Sources */,
 				18DA84812625A328005A69EC /* BannerCarouselRoot.swift in Sources */,
 				185EAACC2099CC3D00E412DB /* AdPostLiveRoot.swift in Sources */,
+				18D22CA3270C3CB800DE6EA6 /* GoogleNib.swift in Sources */,
 				18CE381E25DD4F600053A299 /* PresentationController.swift in Sources */,
 				182690CE20872A5500E2C966 /* AddCat.swift in Sources */,
 				185A544721A2C17D00396D35 /* DeeplinkParser.swift in Sources */,
@@ -4708,8 +4825,10 @@
 				1818888C2081D320008736F7 /* OfferAdsReceivedOffer.swift in Sources */,
 				182652C520765694007F6A21 /* StripePaymentData.swift in Sources */,
 				96542F9D24EE810E0053AEC6 /* ContactSellerPopupName.swift in Sources */,
+				18D22C9F270C2C9300DE6EA6 /* ContinueWithFB.swift in Sources */,
 				18191A5B20737CE500FF67C8 /* UserRatingData.swift in Sources */,
 				183287B520EC9B9E0096A21E /* AdMob.swift in Sources */,
+				18D22CAD270C430900DE6EA6 /* AppleNib.swift in Sources */,
 				1826689B20C167EB00A70B1C /* PagesController.swift in Sources */,
 				18711CEB2089DA6B00474737 /* BlogPostData.swift in Sources */,
 				18C6C361205FEA100079E914 /* RegisterData.swift in Sources */,
@@ -4748,6 +4867,7 @@
 				96BFE9EB24F78D2400B4B2F7 /* MarvelCategoryCollectionViewCell.swift in Sources */,
 				181AD094206E80660059D534 /* BlogDetailCat.swift in Sources */,
 				07A70C92221650F0002ADAEF /* RadioColorAdTableViewCell.swift in Sources */,
+				18D22CB8270C5C4800DE6EA6 /* GuestNib.swift in Sources */,
 				183C65D7215B9532004A94EC /* AppSettingForm.swift in Sources */,
 				18AECFB2217DB6AE004C1DF9 /* CatIconsColumnBtn.swift in Sources */,
 				1899C6AF25F2507C00828AD5 /* WhizChatMessagesBoxData.swift in Sources */,

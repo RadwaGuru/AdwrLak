@@ -15,7 +15,7 @@ struct SettingsRegisterbuttonShow {
     var google : Bool!
     var apple : Bool!
     var linkedin: Bool!
-    
+    var phone: Bool!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -24,6 +24,7 @@ struct SettingsRegisterbuttonShow {
         google = dictionary["google"] as? Bool
         apple = dictionary["apple"] as? Bool
         linkedin = dictionary["linkedin"] as? Bool
+        phone = dictionary["phone"] as? Bool
     }
     
     /**

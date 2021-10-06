@@ -63,7 +63,16 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
     var verifyNumber = ""
     var phonePlaceholder = ""
     var enterPhoneerror = ""
+    var fbHeight = false
     
+    
+    var isShowGoogle = false
+    var isShowFacebook = false
+    var isShowApple = false
+    var isShowLinkedin = false
+    var isShowOTP = false
+    var isShowGuestButton = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,8 +86,18 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
         
         //        GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
+        tableView.register(UINib(nibName: "ContinueWithFB", bundle: nil), forCellReuseIdentifier: "ContinueWithFB")
+        tableView.register(UINib(nibName: "GoogleNib", bundle: nil), forCellReuseIdentifier: "GoogleNib")
+        tableView.register(UINib(nibName: "LinkedinNib", bundle: nil), forCellReuseIdentifier: "LinkedinNib")
+        tableView.register(UINib(nibName: "AppleNib", bundle: nil), forCellReuseIdentifier: "AppleNib")
+        tableView.register(UINib(nibName: "OTPNib", bundle: nil), forCellReuseIdentifier: "OTPNib")
+        tableView.register(UINib(nibName: "GuestNib", bundle: nil), forCellReuseIdentifier: "GuestNib")
+        tableView.register(UINib(nibName: "EmailNib", bundle: nil), forCellReuseIdentifier: "EmailNib")
+        
+        
+        
         adForest_loginDetails()
-
+        
         if #available(iOS 13, *) {
             setUpSignInAppleButton()
             
@@ -89,8 +108,6 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         //initViewData()
-
-        
     }
     func initViewData(){
         if calledFrom == "Login" {
@@ -326,6 +343,7 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
                 self.verifyNumber = successResponse.data.verifyNumber
                 self.phonePlaceholder = successResponse.data.phonePlaceholder
                 self.enterPhoneerror  = successResponse.data.enterPhoneError
+                self.adforestPopulateData()
                 self.tableView.reloadData()
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
@@ -392,23 +410,17 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
             
             return cell
         case 1:
-            let cell: SocialLoginRegisterCell = tableView.dequeueReusableCell(withIdentifier: "SocialLoginRegisterCell", for: indexPath) as! SocialLoginRegisterCell
-            cell.calledFrom = calledFrom
-            if calledFrom == "register"{
-                cell.viewLoginAsGuest.isHidden = true
-            }
-            if isAppOpen ==  false {
-                cell.viewLoginAsGuest.isHidden = true
-            }
-            cell.lblLoginByPhone.text = phonelbl
-            cell.lblLoginByApple.text = appleLabel
-            cell.lblLoginByGoogle.text = googleLabel
-            cell.lblLoginByLinkedIn.text = linkedINLabel
-            cell.lblLoginByEmail.text =  emailLbl
-            cell.lblLoginByFaceBook.text = facebookLabel
-            cell.lblLoginAsGuest.text = guest
-           
+            //            let cell: SocialLoginRegisterCell = tableView.dequeueReusableCell(withIdentifier: "SocialLoginRegisterCell", for: indexPath) as! SocialLoginRegisterCell
+            //            cell.calledFrom = calledFrom
+            //            if calledFrom == "register"{
+            //                cell.viewLoginAsGuest.isHidden = true
+            //            }
+            //            if isAppOpen ==  false {
+            //                cell.viewLoginAsGuest.isHidden = true
+            //            }
+            let cell: EmailNib = tableView.dequeueReusableCell(withIdentifier: "EmailNib", for: indexPath) as! EmailNib
             cell.btnActionLoginByEmail = { () in
+                
                 if self.calledFrom == "register"{
                     let registerVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
                     self.navigationController?.pushViewController(registerVC, animated: true)
@@ -418,10 +430,18 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
                     self.navigationController?.pushViewController(loginVC, animated: true)
                 }
             }
+            cell.lblTitle.text  = emailLbl
+            return cell
+        case 2:
+            let cell: ContinueWithFB = tableView.dequeueReusableCell(withIdentifier: "ContinueWithFB", for: indexPath) as! ContinueWithFB
             cell.btnActionLoginByFacebook = { () in
                 self.btnLoginFbOk()
                 
             }
+            cell.lblTitle.text  = facebookLabel
+            return cell
+        case 3:
+            let cell: GoogleNib = tableView.dequeueReusableCell(withIdentifier: "GoogleNib", for: indexPath) as! GoogleNib
             cell.btnActionLoginByGoogle = { () in
                 if GoogleAuthenctication.isLooggedIn {
                     GoogleAuthenctication.signOut()
@@ -429,13 +449,50 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
                     GoogleAuthenctication.signIn()
                 }
             }
-            cell.btnActionLoginByApple = {() in
-                self.actionHandleAppleSignin()
-            }
-            cell.btnActionLoginByLInkedIn = {() in
+            cell.lblTitle.text  = googleLabel
+            return cell
+        case 4:
+            let cell: LinkedinNib = tableView.dequeueReusableCell(withIdentifier: "LinkedinNib", for: indexPath) as! LinkedinNib
+            cell.btnActionLoginByLinkedin = { () in
                 self.linkedInAuthVC()
+                
             }
-            cell.btnActionLoginByGuest = {() in
+            
+            cell.lblTitle.text  = linkedINLabel
+            return cell
+        case 5:
+            let cell: AppleNib = tableView.dequeueReusableCell(withIdentifier: "AppleNib", for: indexPath) as! AppleNib
+            cell.btnActionLoginByApple = { () in
+                self.actionHandleAppleSignin()
+                
+            }
+            cell.lblTitle.text  = appleLabel
+            return cell
+        case 6:
+            let cell: OTPNib = tableView.dequeueReusableCell(withIdentifier: "OTPNib", for: indexPath) as! OTPNib
+            cell.btnActionLoginByOTP = { () in
+                let otpVC = self.storyboard?.instantiateViewController(withIdentifier: "OTPControllerViewController") as! OTPControllerViewController
+                otpVC.calledFrom = self.calledFrom
+                otpVC.phVerifcation = self.phTxt
+                otpVC.otpTxt = self.OTPTxt
+                otpVC.submit = self.submit
+                otpVC.placeholderField = self.phonePlaceholder
+                otpVC.codeSentTo = self.codeSentTo
+                otpVC.notReceived = self.notReceived
+                otpVC.tryAgain = self.tryAgain
+                otpVC.verifyNumber = self.verifyNumber
+                otpVC.phonePlaceholder = self.phonePlaceholder
+                otpVC.enterPhoneerror = self.enterPhoneerror
+                otpVC.isVerifyOn = self.isVerifyOn
+                self.navigationController?.pushViewController(otpVC, animated: true)
+                
+            }
+            
+            cell.lblTitle.text  = phonelbl
+            return cell
+        case 7:
+            let cell: GuestNib = tableView.dequeueReusableCell(withIdentifier: "GuestNib", for: indexPath) as! GuestNib
+            cell.btnActionLoginByGuest = { () in
                 self.defaults.set(true, forKey: "isGuest")
                 self.showLoader()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
@@ -449,22 +506,9 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
                     }
                     self.stopAnimating()
                 }
+                
             }
-            cell.btnActionLoginByPhone = {() in
-                let otpVC = self.storyboard?.instantiateViewController(withIdentifier: "OTPControllerViewController") as! OTPControllerViewController
-                otpVC.calledFrom = self.calledFrom
-                otpVC.phVerifcation = self.phTxt
-                otpVC.otpTxt = self.OTPTxt
-                otpVC.submit = self.submit
-                otpVC.placeholderField = self.phonePlaceholder
-                otpVC.codeSentTo = self.codeSentTo
-                otpVC.notReceived = self.notReceived
-                otpVC.tryAgain = self.tryAgain
-                otpVC.verifyNumber = self.verifyNumber
-                otpVC.phonePlaceholder = self.phonePlaceholder
-                otpVC.enterPhoneerror = self.enterPhoneerror
-                self.navigationController?.pushViewController(otpVC, animated: true)
-            }
+            cell.lblTitle.text  = guest
             return cell
         default:
             break
@@ -474,14 +518,57 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let section  = indexPath.section
         var height: CGFloat = 0
-        
         if section == 0{
             height =  156
-            
-        }else if section == 1{
-            height =  455
-            
         }
+        else if section == 1{
+            height =  60
+        }
+        else if section == 2 {
+            if isShowFacebook == false{
+                height  = 0
+                
+            }else{
+                height  = 60
+            }
+        }
+        else if section == 3 {
+            if isShowGoogle == false{
+                height  = 0
+                
+            }else{
+                height  = 60
+            }
+        }
+        else if section == 4 {
+            if isShowLinkedin == false{
+                height  = 0
+            }else{
+                height  = 60
+            }
+        }
+        else if section == 5 {
+            if isShowApple == false{
+                height  = 0
+                
+            }else{
+                height  = 60
+            }
+        }else if section == 6 {
+            if isShowOTP == false{
+                height  = 0
+            }else{
+                height  = 60
+            }
+        }
+        else if section == 7 {
+            if calledFrom == "register" || isShowGuestButton == false{
+                height = 0
+            }else{
+                height  = 60
+            }
+        }
+        
         return height
     }
     
@@ -489,9 +576,39 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
         return 1
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 8
     }
-    
+    func adforestPopulateData(){
+        let settings = defaults.object(forKey: "settings")
+        let settingObject = NSKeyedUnarchiver.unarchiveObject(with: settings as! Data) as! [String: Any]
+        let objSettings = SettingsRoot(fromDictionary: settingObject)
+        let objData = UserHandler.sharedInstance.objLoginDetails
+        if let isVerification = objData?.isVerifyOn {
+            isVerifyOn = isVerification
+        }
+        // Show/hide google and facebook button
+
+        if let isGoogle = objSettings.data.registerBtnShow.google {
+            isShowGoogle = isGoogle
+        }
+        if let isFacebook = objSettings.data.registerBtnShow.facebook {
+            isShowFacebook = isFacebook
+        }
+        if let isApple = objSettings.data.registerBtnShow.apple {
+            isShowApple = isApple
+        }
+        if let isLinkedin = objSettings.data.registerBtnShow.linkedin {
+            isShowLinkedin = isLinkedin
+        }
+        if let isOTP = objSettings.data.registerBtnShow.phone {
+            isShowOTP = isOTP
+        }
+        if let isShowGuest = objSettings.data.isAppOpen {
+            isShowGuestButton = isShowGuest
+        }
+      
+        
+    }
 }
 @available(iOS 13.0, *)
 extension MainViewLoginRegisterController: ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate {

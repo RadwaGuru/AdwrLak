@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
          GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        self.requestIDFA()
+//        self.requestIDFA()
 //        GADMobileAds.sharedInstance().start(completionHandler: nil)
 
 
@@ -157,7 +157,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AppEvents.activateApp()
         //To Check Deep Link
         deepLinker.checkDeepLink()
-        
+                self.requestIDFA()
+
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

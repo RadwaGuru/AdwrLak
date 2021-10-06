@@ -441,15 +441,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
                 lblOr.text = guestText
                 
             }
+//            if isShowGuestButton {
+//                //                buttonGuestLogin.isHidden = false
+//                if let guestText = objData?.guestLogin {
+//                    buttonGuestLogin.setTitle(guestText, for: .normal)
+//                }
+//            } else {
+//                buttonGuestLogin.isHidden = true
+//            }
             if isShowGuestButton {
                 //                buttonGuestLogin.isHidden = false
                 if let guestText = objData?.guestLogin {
                     buttonGuestLogin.setTitle(guestText, for: .normal)
                 }
             } else {
-                buttonGuestLogin.isHidden = true
+                lblOr.isHidden = true
             }
-            
             // Show/hide google and facebook button
             //            var isShowGoogle = false
             //            var isShowFacebook = false
@@ -830,8 +837,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
     }
     
     @IBAction func actionRegisterWithUs(_ sender: Any) {
-        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
-        navigationController?.pushViewController(registerVC, animated: true)
+//        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+//        navigationController?.pushViewController(registerVC, animated: true)
+        let registerVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewLoginRegisterController") as! MainViewLoginRegisterController
+        registerVC.calledFrom = "register"
+        self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
     // MARK: - Google Delegate Methods
@@ -919,6 +929,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, NVActivityIndi
             if successResponse.success {
                 UserHandler.sharedInstance.objLoginDetails = successResponse.data
                 self.adForest_populateData()
+                
             } else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.presentVC(alert)
