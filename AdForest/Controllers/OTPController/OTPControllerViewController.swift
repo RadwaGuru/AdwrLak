@@ -125,7 +125,7 @@ class OTPControllerViewController: UIViewController,NVActivityIndicatorViewable 
                 let verifyVC = self.storyboard2.instantiateViewController(withIdentifier: "FirebasePhoneNumberVerificationViewController") as! FirebasePhoneNumberVerificationViewController
                 verifyVC.modalPresentationStyle = .custom
 
-                verifyVC.codeSentTo = self.codeSentToText
+                verifyVC.codeSentTo = self.codeSentTo
                 verifyVC.codeNotReceived = self.notReceived
                 verifyVC.resendCode = self.tryAgain
                 verifyVC.verifyNumber = self.verifyNumber

@@ -928,8 +928,10 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             customDictionary[value.fieldTypeName] = formattedArray//value.fieldVal
             print(customDictionary)
             }else{
-            customDictionary[value.fieldTypeName] = value.fieldVal
-            print(customDictionary)
+                if value.fieldTypeName != nil {
+                    customDictionary[value.fieldTypeName] = value.fieldVal
+                    print(customDictionary)
+                }
             }
 
 

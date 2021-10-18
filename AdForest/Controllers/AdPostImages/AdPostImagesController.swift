@@ -454,18 +454,19 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         for index in  0..<fieldsArray.count {
             if let objData = fieldsArray[index] as? AdPostField {
                 if objData.fieldType == "image" {
-                    let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? UploadImageCell
-                    if objData.isRequired == true && imageIDArray.count == 0{
-                        page2Validation = false
-                        checkArray.append(page2Validation)
-                        cell!.shakeCells()
-                        cell!.containerView.layer.borderColor = UIColor.red.cgColor
-                        cell!.containerView.layer.borderWidth = 5
-                       
-                    }
-                    else{
-                        page2Validation = true
-                        checkArray.append(page2Validation)
+                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? UploadImageCell{
+                        if objData.isRequired == true && imageIDArray.count == 0{
+                            page2Validation = false
+                            checkArray.append(page2Validation)
+                            cell.shakeCells()
+                            cell.containerView.layer.borderColor = UIColor.red.cgColor
+                            cell.containerView.layer.borderWidth = 5
+                           
+                        }
+                        else{
+                            page2Validation = true
+                            checkArray.append(page2Validation)
+                        }
                     }
                 }
                 if objData.fieldType == "select"  {
@@ -1491,21 +1492,21 @@ extension AdPostImagesController:textValDelegate,textValDescDelegate,textValDate
     }
     
     func textValDesc(value: String, indexPath: Int, fieldType: String, section: Int,fieldNam:String) {
-//        if fieldType == "textarea"{
-//            var obj = AdPostField()
-//            obj.fieldType = "textarea"
-//            obj.fieldVal = value
-//            obj.fieldTypeName = fieldNam  //"ad_description"
-//            print(value)
-//            self.fieldsArray[indexPath].fieldVal = value
-//            self.fieldsArray[indexPath].isRequired = false
-//            //self.dataArray.append(obj)
-//            self.fieldsArray.append(obj)
-//            objArray.append(obj)
-//            isEditStart = true
-//
-//            //customArray.append(obj)
-//        }
+        if fieldType == "textarea"{
+            var obj = AdPostField()
+            obj.fieldType = "textarea"
+            obj.fieldVal = value
+            obj.fieldTypeName = fieldNam  //"ad_description"
+            print(value)
+            self.fieldsArray[indexPath].fieldVal = value
+            self.fieldsArray[indexPath].isRequired = false
+            //self.dataArray.append(obj)
+            self.fieldsArray.append(obj)
+            objArray.append(obj)
+            isEditStart = true
+
+            customArray.append(obj)
+        }
     }
     
     func textVal(value: String, indexPath: Int,fieldType:String,section:Int,fieldNam:String) {

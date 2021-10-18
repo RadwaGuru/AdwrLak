@@ -201,9 +201,13 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         
                         if obj.fieldTypeName == "ad_price_type" {
                             priceHide = selectedKey
+//                               tableView.reloadData()
+                            let indexPath = IndexPath(item: 3, section: 0)
+                            tableView.reloadRows(at: [indexPath], with: .none)
+
                         }
-                        tableView.reloadData()
-                        
+                     
+                       
                         
                         
                         if fieldTitle == self.dataArray[index].fieldTypeName {
@@ -212,9 +216,6 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
                         }
                     }
                 }
-                
-                
-                
             }
         }
     }

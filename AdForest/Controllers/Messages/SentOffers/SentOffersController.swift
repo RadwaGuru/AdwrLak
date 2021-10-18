@@ -72,6 +72,7 @@ class SentOffersController: UIViewController, UITableViewDelegate, UITableViewDa
             self.adForest_sentOffersData()
         }
         self.showLoader()
+        
     }
     //MARK: - Custom
     func showLoader(){

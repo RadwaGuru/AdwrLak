@@ -48,7 +48,11 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
             self.addBackButtonToNavigationBar()
         }
         navigationButtons()
-        
+        edgesForExtendedLayout = []
+        navigationController?.navigationBar.isTranslucent = false
+
+
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,8 +119,6 @@ class MessagesController: ButtonBarPagerTabStripViewController, NVActivityIndica
             let sentOffers = SB.instantiateViewController(withIdentifier: "SentOffersController") as! SentOffersController
             let addsOffer = SB.instantiateViewController(withIdentifier: "OffersOnAdsController") as! OffersOnAdsController
             let blockedController = SB.instantiateViewController(withIdentifier: "BlockedUserChatViewController") as! BlockedUserChatViewController
-            
-            
             let childVC = [sentOffers, addsOffer, blockedController]
             return childVC
             
