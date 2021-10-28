@@ -778,7 +778,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
 
     func imgeCount(count: Int) {
         imgCtrlCount = count
-//        self.tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: 0), with: .none)
      }
     //MARK:- Add Data Delegate
     /*
@@ -959,10 +959,13 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 if cell.imgDelete == true{
                     cell.dataArray = cell.imgDelteArr
                     self.delegate?.adPotDeletedImagesArr(imgArray: cell.imgDelteArr, imagesDeleted: true)
+                    imgCtrlCount = cell.imgDelteArr.count
+
 
                 }else{
                     cell.dataArray = self.imageArray
                     self.delegate?.adPotDeletedImagesArr(imgArray: self.imageArray, imagesDeleted: false)
+                    imgCtrlCount = self.imageArray.count
 
                 }
             }else{
