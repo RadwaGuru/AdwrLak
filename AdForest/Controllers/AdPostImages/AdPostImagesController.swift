@@ -469,6 +469,55 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         }
                     }
                 }
+//                if objData.fieldType == "select"  {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
+//                        var obj = AdPostField()
+//                        obj.fieldType = "select"
+//                        obj.fieldTypeName = cell.param
+//
+//                        print(cell.param)
+//                        obj.fieldVal = cell.selectedKey
+//                        if obj.fieldType == "select"{
+//                            if objData.isRequired == true && objData.fieldVal == "" {
+//                                //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
+//                                page2Validation = false
+//                                checkArray.append(page2Validation)
+//                                cell.shakeCells()
+//                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+//                                cell.containerView.layer.borderWidth = 5
+//                            }else{
+//                                page2Validation = true
+//                                checkArray.append(page2Validation)
+//                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+//                                objArray.append(obj)
+//                                customArray.append(obj)
+//                            }
+//                        }
+//
+//                    }
+//                }
+//                 if objData.fieldType == "textfield"  {
+//                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? TextFieldCell {
+//                            var obj = AdPostField()
+//                            obj.fieldType = "textfield"
+//                            obj.fieldVal = cell.txtType.text
+//                            obj.fieldTypeName = cell.fieldName
+//                        if obj.fieldType == "textfield"{
+//                            if objData.isRequired == true && objData.fieldVal == "" {
+//                                page2Validation = false
+//                                checkArray.append(page2Validation)
+//                                cell.shakeCells()
+//                            }else{
+//                                page2Validation = true
+//                                checkArray.append(page2Validation)
+//                                objArray.append(obj)
+//                                customArray.append(obj)
+//                            }
+//                        }
+////                            objArray.append(obj)
+////                            customArray.append(obj)
+//                    }
+//                }
                 if objData.fieldType == "select"  {
                     if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 2)) as? DropDownCell {
                         var obj = AdPostField()
@@ -478,7 +527,35 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         print(cell.param)
                         obj.fieldVal = cell.selectedKey
                         if obj.fieldType == "select"{
-                            if objData.isRequired == true && objData.fieldVal == "" {
+                            if objData.isRequired == true && objData.fieldVal == "" || objData.fieldVal == nil{
+                                //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.shakeCells()
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                objArray.append(obj)
+                                customArray.append(obj)
+                            }
+                            if objData.isRequired == true && objData.fieldTypeName == "ad_price_type" && objData.fieldVal == nil{
+                                //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.shakeCells()
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                objArray.append(obj)
+                                customArray.append(obj)
+                            }
+                            if  objData.fieldTypeName == "ad_currency" || objData.fieldVal == ""{
                                 //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
                                 page2Validation = false
                                 checkArray.append(page2Validation)
@@ -506,11 +583,28 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                             if objData.isRequired == true && objData.fieldVal == "" {
                                 page2Validation = false
                                 checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
                                 cell.shakeCells()
                             }else{
                                 page2Validation = true
                                 checkArray.append(page2Validation)
                                 objArray.append(obj)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                customArray.append(obj)
+                            }
+                            if objData.isRequired == true || objData.fieldTypeName == "ad_price" && objData.fieldVal == nil {
+                                page2Validation = false
+                                checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.red.cgColor
+                                cell.containerView.layer.borderWidth = 5
+
+                                cell.shakeCells()
+                            }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                objArray.append(obj)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
                                 customArray.append(obj)
                             }
                         }
