@@ -13,6 +13,7 @@ import Alamofire
 import OpalImagePicker
 import UITextField_Shake
 import JGProgressHUD
+import CollageView
 
 class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount,ImagesArrayDeletedDelegate, ImageDeletedBooleanDelegate {
      
@@ -555,7 +556,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                 objArray.append(obj)
                                 customArray.append(obj)
                             }
-                            if  objData.fieldTypeName == "ad_currency" || objData.fieldVal == ""{
+                            if  objData.fieldTypeName == "ad_currency" && objData.fieldVal == ""{
                                 //self.showToast(message: "\(objData.fieldName) cannot be left EMPTY")
                                 page2Validation = false
                                 checkArray.append(page2Validation)
@@ -563,6 +564,14 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                 cell.containerView.layer.borderColor = UIColor.red.cgColor
                                 cell.containerView.layer.borderWidth = 5
                             }else{
+                                page2Validation = true
+                                checkArray.append(page2Validation)
+                                cell.containerView.layer.borderColor = UIColor.clear.cgColor
+                                objArray.append(obj)
+                                customArray.append(obj)
+                            }
+                            if objData.isRequired == false && objData.fieldTypeName == "ad_bidding" && objData.fieldVal == ""{
+                               
                                 page2Validation = true
                                 checkArray.append(page2Validation)
                                 cell.containerView.layer.borderColor = UIColor.clear.cgColor
