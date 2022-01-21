@@ -143,6 +143,7 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var uploadImageHeading = ""
     var uploadDocumentHeading = ""
     var txtMsg = ""
+    var calledFrom = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -157,7 +158,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        self.showBackButton()
+        if calledFrom == "splash"{
+            self.addBackButton()
+        }else{
+            self.showBackButton()
+        }
         self.refreshButton()
         self.googleAnalytics(controllerName: "Chat Controller")
         documentInteractionController.delegate = self
@@ -177,8 +182,9 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         txtMessage.delegate = self
         if UserDefaults.standard.string(forKey: "fromNotification") == "1"{
-            btnClose.isHidden = false
-            topConstraint.constant += 10
+            btnClose.isHidden = true
+//            topConstraint.constant += 10
+            topConstraint.constant -= 30
             UserDefaults.standard.set("3", forKey: "fromNotification")
 
         }else{
@@ -220,7 +226,36 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         keyboardHandling()
     }
-    
+    // MARK:- Go toHOmepage from ChatController.
+    func addBackButton() {
+        self.hideBackButton()
+        let backButton = UIButton(type: .custom)
+        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        if UserDefaults.standard.bool(forKey: "isRtl") {
+            backButton.setBackgroundImage(#imageLiteral(resourceName: "arabicBackButton"), for: .normal)
+        } else {
+            backButton.setBackgroundImage(#imageLiteral(resourceName: "backbutton"), for: .normal)
+        }
+        backButton.addTarget(self, action: #selector(onBackButtonClciked), for: .touchUpInside)
+        let backBarButton = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButton
+        
+    }
+    @objc override func onBackButtonClciked() {
+        if homeStyles == "home1"{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeController") as! HomeController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+                
+        }
+        else if homeStyles == "home2"{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MultiHomeViewController") as! MultiHomeViewController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+        else if homeStyles == "home3"{
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "SOTabBarViewController") as! SOTabBarViewController
+                self.navigationController?.pushViewController(tabBarVC, animated: true)
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //if Constants.isIphoneX == true{

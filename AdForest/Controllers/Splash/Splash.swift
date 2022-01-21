@@ -41,6 +41,17 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     var home = "homeMulti"
     var topLocArr : [HomeAppTopLocation]!
     var settingExtrasData: SettingsExtra!
+    var ad_id = ""
+    var sender_id = ""
+    var receiver_id = ""
+    var messageType = ""
+    var isBlocked :String?
+    var blockMessage = ""
+    var btn_text = ""
+    var notiTopic = ""
+    var NTitle = ""
+    var NMessage = ""
+    var NImage = ""
     //MARK:- Properties
     
     override func viewDidLoad() {
@@ -91,7 +102,22 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                 self.adForest_loginOTPUser(parameters: param as NSDictionary)
 
             }
-
+//            else if notiTopic == "broadcast"{
+//                print("broadcast: \(NTitle) \(NMessage) \(NImage)")
+////                var NTitle = ""
+////                var NMessage = ""
+////                var NImage = ""
+//            }
+            else if notiTopic == "chat"{
+                let chatVC = self.storyboard?.instantiateViewController(withIdentifier: ChatController.className) as! ChatController
+                chatVC.ad_id = ad_id
+                chatVC.sender_id = sender_id
+                chatVC.receiver_id = receiver_id
+                chatVC.messageType = messageType
+                chatVC.calledFrom = "splash"
+                UserDefaults.standard.set("1", forKey: "fromNotification")
+                self.navigationController?.pushViewController(chatVC, animated: true)
+            }
             else {
                 let param : [String : Any] = [
                     "email" : email,

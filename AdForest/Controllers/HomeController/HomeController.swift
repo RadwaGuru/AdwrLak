@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
 import IQKeyboardManagerSwift
+import FirebaseAnalytics
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate,OpenBannerCarouselDelegate, BannerCategoryDetailDelegate,OpenPublicProfileDelegate{
@@ -147,6 +148,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.oltAddPost.isHidden = false
         }
         currentVc = self
+        self.googleAnalytics(controllerName: "Home Controller")
+
         //self.adForest_homeData()
         
     }
@@ -1615,6 +1618,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }
                         gai.tracker(withTrackingId: analyticKey)
                         gai.trackUncaughtExceptions = true
+                        let tracker = gai.tracker(withTrackingId: analyticKey)
+
+                        let event = GAIDictionaryBuilder.createScreenView()
+                        tracker?.send(event!.build() as! [NSObject: Any])
+                        
+//                        Analytics.logEvent("HomeController",
+//                                           parameters: [AnalyticsParameterScreenName: "HomeController",
+//                                                       AnalyticsParameterScreenClass: screenClass])
+                        
+                        Analytics.logEvent("HomeController", parameters: nil)
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemID: "HomeController"
+                        ])
                     }
                 }
                 

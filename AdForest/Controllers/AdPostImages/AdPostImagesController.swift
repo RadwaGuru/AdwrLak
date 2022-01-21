@@ -626,6 +626,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         var obj = AdPostField()
                         obj.fieldType = "textarea"
                         obj.fieldVal = cell.txtDescription.text!
+                        obj.fieldTypeName = cell.fieldName
                         print(cell.txtDescription.text!)
                         if obj.fieldType == "textarea"{
                             if objData.isRequired == true && obj.fieldVal == "" {

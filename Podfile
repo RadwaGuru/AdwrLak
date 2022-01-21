@@ -17,6 +17,7 @@ target 'AdForest' do
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'GoogleAnalytics'
+    pod 'Firebase/Analytics'
     
     # IQKeyboardManager
     pod 'IQKeyboardManagerSwift'

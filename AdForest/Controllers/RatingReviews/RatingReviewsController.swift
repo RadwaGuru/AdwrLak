@@ -25,7 +25,7 @@ class RatingReviewsController: UIViewController, UITableViewDelegate, UITableVie
             tableView.tableFooterView = UIView()
             tableView.separatorStyle = .none
             tableView.register(UINib(nibName: ReplyCell.className, bundle: nil), forCellReuseIdentifier: ReplyCell.className)
-//            tableView.register(UINib(nibName: CommentCell.className, bundle: nil), forCellReuseIdentifier: CommentCell.className)
+            tableView.register(UINib(nibName: CommentCell.className, bundle: nil), forCellReuseIdentifier: CommentCell.className)
             tableView.register(UINib(nibName: ReplyReactionCell.className, bundle: nil), forCellReuseIdentifier: ReplyReactionCell.className)
             
         }

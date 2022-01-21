@@ -25,7 +25,7 @@ import GoogleSignIn
 import SocketIO
 import AppTrackingTransparency
 import AdSupport
-
+import FirebaseAnalytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
     
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let defaults = UserDefaults.standard
     var deviceFcmToken = "0"
     var interstitial: GADInterstitial?
-
+    var calledFrom = ""
     
     func createAndLoadInterstitial() -> GADInterstitial? {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3521346996890484/7679081330")
@@ -73,6 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         keyboardManager.enable = true
         self.setUpGoogleMaps()
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(true)
+
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
         UNUserNotificationCenter.current().delegate = self
@@ -201,13 +203,6 @@ extension AppDelegate {
 
 extension AppDelegate {
     func customizeNavigationBar(barTintColor: UIColor) {
-//        let appearance = UINavigationBar.appearance()
-//        appearance.setBackgroundImage(UIImage(), for: .default)
-//        appearance.shadowImage = UIImage()
-//        appearance.isTranslucent = false
-//        appearance.barTintColor = barTintColor
-//        //appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFontSize]
-//        appearance.barStyle = .blackTranslucent
         if #available(iOS 13.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
@@ -220,6 +215,14 @@ extension AppDelegate {
 
         } else {
             // Fallback on earlier versions
+            
+                let appearance = UINavigationBar.appearance()
+                appearance.setBackgroundImage(UIImage(), for: .default)
+                appearance.shadowImage = UIImage()
+                appearance.isTranslucent = false
+                appearance.barTintColor = barTintColor
+                appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFontSize]
+                appearance.barStyle = .blackTranslucent
         }
         
     }
@@ -423,28 +426,31 @@ extension AppDelegate  {
                     UserDefaults.standard.set(Notititle, forKey: "Notititle")
                     UserDefaults.standard.set(Notimessage, forKey: "Notimessage")
                     UserDefaults.standard.set(NotiImage, forKey: "NotiImage")
-//                    let HomeVC = storyboard.instantiateViewController(withIdentifier: HomeController.className) as! HomeController
-//                    let nav: UINavigationController = UINavigationController(rootViewController: HomeVC)
-//                    HomeVC.NTitle = Notititle!
-//                    HomeVC.NMessage = Notimessage!
-//                    HomeVC.NImage = NotiImage!
-//                    self.window?.rootViewController = nav
-//                    UserDefaults.standard.set("1", forKey: "fromNotification")
-//                    self.window?.makeKeyAndVisible()
+                    let HomeVC = storyboard.instantiateViewController(withIdentifier: Splash.className) as! Splash
+                    let nav: UINavigationController = UINavigationController(rootViewController: HomeVC)
+                    HomeVC.NTitle = Notititle!
+                    HomeVC.NMessage = Notimessage!
+                    HomeVC.NImage = NotiImage!
+                    self.window?.rootViewController = nav
+                    UserDefaults.standard.set("1", forKey: "fromNotification")
+                    self.window?.makeKeyAndVisible()
 
-                     self.moveToHome()
+                    print("Splash")
                 }else{
                     let adId = userinf[AnyHashable("adId")] as? String
                     let message = userinf[AnyHashable("message")] as? String
                     let senderId = userinf[AnyHashable("senderId")] as? String
                     let recieverId = userinf[AnyHashable("recieverId")] as? String
                     let type = userinf[AnyHashable("type")] as? String
-                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
+//                    let chatVC = self.storyboard.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+
                     let nav: UINavigationController = UINavigationController(rootViewController: chatVC)
                     chatVC.ad_id = adId!
                     chatVC.sender_id = senderId!
                     chatVC.receiver_id = recieverId!
                     chatVC.messageType = type!
+                    chatVC.notiTopic = "chat"
                     self.window?.rootViewController = nav
                     UserDefaults.standard.set("1", forKey: "fromNotification")
                     self.window?.makeKeyAndVisible()
