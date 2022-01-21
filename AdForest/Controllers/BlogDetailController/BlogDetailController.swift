@@ -493,7 +493,7 @@ class BlogDetailController: UIViewController, UITableViewDelegate, UITableViewDa
                 let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height + self.tableView.contentSize.height)
                 self.tableView.setContentOffset(scrollPoint, animated: true)
 
-                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 4.5)
+                self.perform(#selector(self.nokri_showNavController1), with: nil, afterDelay: 0.5)
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
