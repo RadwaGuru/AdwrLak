@@ -39,6 +39,9 @@ PODS:
     - FirebaseAnalytics (= 6.4.2)
   - Firebase/CoreOnly (6.23.0):
     - FirebaseCore (= 6.6.7)
+  - Firebase/Crashlytics (6.23.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 4.0.0)
   - Firebase/Messaging (6.23.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.3.1)
@@ -71,6 +74,14 @@ PODS:
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseCrashlytics (4.0.0):
+    - FirebaseAnalyticsInterop (~> 1.2)
+    - FirebaseCore (~> 6.6)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleDataTransport (~> 6.0)
+    - GoogleDataTransportCCTSupport (~> 3.0)
+    - nanopb (~> 0.3.901)
+    - PromisesObjC (~> 1.2)
   - FirebaseInstallations (1.2.0):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/Environment (~> 6.6)
@@ -212,6 +223,7 @@ DEPENDENCIES:
   - FBSDKShareKit
   - Firebase/Analytics
   - Firebase/Auth
+  - Firebase/Crashlytics
   - Firebase/Messaging
   - FSPagerView
   - Google-Mobile-Ads-SDK
@@ -268,6 +280,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
+    - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
@@ -339,6 +352,7 @@ SPEC CHECKSUMS:
   FirebaseCore: a2788a0d5f6c1dff17b8f79b4a73654a8d4bfdbd
   FirebaseCoreDiagnostics: b59c024493a409f8aecba02c99928d0d8431d159
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseCrashlytics: 941608d2a3475b48fb7010b998703d07696b8db1
   FirebaseInstallations: 2119fb3e46b0a88bfdbf12562f855ee3252462fa
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 828e66eb357a893e3cebd9ee0f6bc1941447cc94
@@ -389,6 +403,6 @@ SPEC CHECKSUMS:
   ZGTooltipView: 729e358044530a05be00c8c1e1092e81db491996
   ZoomableImageSlider: d83c275765d6f9f6e23d1ae05f1b513e564b632e
 
-PODFILE CHECKSUM: eadc34e3aca9d08fe8bb631c01539dfff236dd78
+PODFILE CHECKSUM: 3ed9790c356da7264470bd26fe777bf54bc167bf
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

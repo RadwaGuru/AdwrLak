@@ -1451,6 +1451,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         else{
+            
             let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
             self.navigationController?.pushViewController(adPostVC, animated: true)
         }

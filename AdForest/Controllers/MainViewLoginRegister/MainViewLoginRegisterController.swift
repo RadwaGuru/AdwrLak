@@ -63,6 +63,7 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
     var verifyNumber = ""
     var phonePlaceholder = ""
     var enterPhoneerror = ""
+    var headerImage = ""
     var fbHeight = false
     
     
@@ -343,6 +344,7 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
                 self.verifyNumber = successResponse.data.verifyNumber
                 self.phonePlaceholder = successResponse.data.phonePlaceholder
                 self.enterPhoneerror  = successResponse.data.enterPhoneError
+                self.headerImage = successResponse.data.logo
                 self.adforestPopulateData()
                 self.tableView.reloadData()
             } else {
@@ -407,17 +409,16 @@ class MainViewLoginRegisterController: UIViewController,NVActivityIndicatorViewa
             let cell: LoginRegisterTopHeaderCell = tableView.dequeueReusableCell(withIdentifier: "LoginRegisterTopHeaderCell", for: indexPath) as! LoginRegisterTopHeaderCell
             cell.lblHeading.text = welcomeTxt
             cell.lblSubHeading.text = introTxt
+            if let imgUrl = URL(string: headerImage) {
+                cell.imgHeader.sd_setShowActivityIndicatorView(true)
+                cell.imgHeader.sd_setIndicatorStyle(.gray)
+                cell.imgHeader.sd_setImage(with: imgUrl, completed: nil)
+            }
+            
             
             return cell
         case 1:
-            //            let cell: SocialLoginRegisterCell = tableView.dequeueReusableCell(withIdentifier: "SocialLoginRegisterCell", for: indexPath) as! SocialLoginRegisterCell
-            //            cell.calledFrom = calledFrom
-            //            if calledFrom == "register"{
-            //                cell.viewLoginAsGuest.isHidden = true
-            //            }
-            //            if isAppOpen ==  false {
-            //                cell.viewLoginAsGuest.isHidden = true
-            //            }
+
             let cell: EmailNib = tableView.dequeueReusableCell(withIdentifier: "EmailNib", for: indexPath) as! EmailNib
             cell.btnActionLoginByEmail = { () in
                 

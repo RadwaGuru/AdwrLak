@@ -26,6 +26,7 @@ import SocketIO
 import AppTrackingTransparency
 import AdSupport
 import FirebaseAnalytics
+import FirebaseCrashlytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, NotificationBannerDelegate {
     
@@ -74,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.setUpGoogleMaps()
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(true)
-
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
         UNUserNotificationCenter.current().delegate = self

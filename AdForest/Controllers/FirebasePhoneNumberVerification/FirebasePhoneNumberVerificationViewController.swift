@@ -171,10 +171,7 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
     
     func requestOTP(){
         Auth.auth().languageCode = "en"
-        //        phoneNumber = "+923316789159"
-        //        let phoneNumber = "+16505554567"
-        
-        //"+923137633303"
+       
         
         // Step 4: Request SMS
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in

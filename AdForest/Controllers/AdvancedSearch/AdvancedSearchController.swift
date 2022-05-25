@@ -29,12 +29,20 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
             tableView.separatorStyle = .none
             tableView.register(UINib(nibName: "CalendarCell", bundle: nil), forCellReuseIdentifier: "CalendarCell")
             tableView.register(UINib(nibName: "SearchNowButtonCell", bundle: nil), forCellReuseIdentifier: "SearchNowButtonCell")
+//            tableView.register(UINib(nibName: "DropDownLocationCell", bundle: nil), forCellReuseIdentifier: "DropDownLocationCell")
+//            self.tableView.register(DropDownLocationCell.self, forCellReuseIdentifier: "DropDownLocationCell")
+
         }
     }
     
     //MARK:- Properties
     var delegate :leftMenuProtocol?
     var dataArray = [SearchData]()
+//    {
+//        didSet {
+//            tableView.reloadData()
+//        }
+//    }
     
     var data = [SearchData]()
     var addInfoDictionary = [String: Any]()
@@ -47,6 +55,7 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
     var latitude  = 0
     var longitude = 0
 
+    var CatNot = false
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -57,10 +66,15 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
         self.adMob()
         self.googleAnalytics(controllerName: "Advanced Search Controller")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Constants.NotificationName.searchDynamicData), object: nil, queue: nil) { (notification) in
+            debugPrint("========Notificatoin\(notification)")
             self.dataArray = self.newArray
             self.dynamicArray = AddsHandler.sharedInstance.objSearchArray
             self.dataArray.insert(contentsOf: AddsHandler.sharedInstance.objSearchArray, at: 2)
+            debugPrint("========dataArry::::\(self.dataArray):::::::::=====dynamicArr::::\(self.dynamicArray)")
+
             self.tableView.reloadData()
+ 
+            
         }
         
     }
@@ -182,9 +196,20 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                 }
                 if newArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
                     addInfoDictionary[value.fieldTypeName] = value.fieldVal
+                    if  latitude != 0 {
+                        addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    }
+                    else{
+                        addInfoDictionary.updateValue("", forKey: "nearby_latitude")
 
-                    addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
-                    addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
+                    }
+                    if  longitude != 0 {
+                        addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
+                    }
+                    else{
+                        addInfoDictionary.updateValue("", forKey: "nearby_longitude")
+
+                    }
 
                     //customDictionary[value.fieldTypeName] = value.fieldVal // NEW
                     print(addInfoDictionary)
@@ -192,12 +217,34 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     customDictionary[value.fieldTypeName] = value.fieldVal
                     addInfoDictionary[value.fieldTypeName] = value.fieldVal // NEW
                     //Nawa
-                    addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
-                    addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
-                    
-                    customDictionary.updateValue(latitude, forKey: "nearby_latitude")
-                    customDictionary.updateValue(longitude, forKey: "nearby_longitude")
-///Nawa
+                    if  latitude != 0 {
+                        addInfoDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    }
+                    else{
+                        addInfoDictionary.updateValue("", forKey: "nearby_latitude")
+
+                    }
+                    if  longitude != 0 {
+                        addInfoDictionary.updateValue(longitude, forKey: "nearby_longitude")
+                    }
+                    else{
+                        addInfoDictionary.updateValue("", forKey: "nearby_longitude")
+
+                    }
+                    if  latitude != 0 {
+                        customDictionary.updateValue(latitude, forKey: "nearby_latitude")
+                    }
+                    else{
+                        customDictionary.updateValue("", forKey: "nearby_latitude")
+
+                    }
+                    if  longitude != 0 {
+                        customDictionary.updateValue(longitude, forKey: "nearby_longitude")
+                    }
+                    else{
+                        customDictionary.updateValue("", forKey: "nearby_longitude")
+
+                    }///Nawa
                     print(customDictionary)
                 }
             }
@@ -238,17 +285,63 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
+        debugPrint("++++++++CeelforRow++++++:::::\(dataArray)")
         switch section {
         case 0:
             let objData = dataArray[indexPath.row]
-            if objData.fieldType == "select" {
+            if objData.fieldType == "select" && objData.fieldTypeName=="ad_country"{
+                let cell: DropDownLocationCell = tableView.dequeueReusableCell(withIdentifier: "DropDownLocationCell", for: indexPath) as! DropDownLocationCell
+
+
+                if let title = objData.title {
+                    cell.locationLbl.text = title
+                }
+
+
+                cell.btnPopupAction = { () in
+                    print("clicked")
+                    cell.dropDownKeysArray = []
+                    cell.dropDownValuesArray = []
+                    cell.fieldTypeName = []
+                    cell.hasSubArray = []
+                    cell.hasTemplateArray = []
+                    cell.hasCategoryTempelateArray = []
+
+                    for item in objData.values {
+                        if item.id == "" {
+                            continue
+                        }
+                        cell.dropDownKeysArray.append(item.id)
+                        cell.dropDownValuesArray.append(item.name)
+                        cell.fieldTypeName.append(objData.fieldTypeName)
+                        cell.hasSubArray.append(item.hasSub)
+                        cell.hasTemplateArray.append(item.hasTemplate)
+                        if objData.hasCatTemplate != nil {
+                        cell.hasCategoryTempelateArray.append(objData.hasCatTemplate)
+                        }
+                        cell.hasCategoryTempelateArray.append(true)
+                    }
+                    cell.accountDropDown()
+                    cell.valueDropDown.show()
+                    cell.section = 0
+                    cell.fieldNam = objData.fieldTypeName
+                    cell.indexes = indexPath.row
+                    cell.delegate = self
+                    cell.locationBtn.setTitle(cell.selectedValue, for: .normal)
+
+                }
+
+                return cell
+            }
+            else if objData.fieldType == "select" && objData.fieldTypeName != "ad_country" {
                 let cell: SearchDropDown = tableView.dequeueReusableCell(withIdentifier: "SearchDropDown", for: indexPath) as! SearchDropDown
                 
+                    
+                
+//                debugPrint("===========Upar ha=========== \(objData)")
                 if let title = objData.title {
                     cell.lblName.text = title
                 }
-                
-                
                 
                 
 //
@@ -302,8 +395,11 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
 //                    }
 //
 //                }
-              
-                
+//                let catName =  UserDefaults.standard.string(forKey: "CatName")
+//                if catName != nil{
+//                cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
+//                }
+            
                 
                 
                 
@@ -314,22 +410,23 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                         continue
                     }
 
-//                    if i == 1 {
-                        print(cell.selectedValue)
+                    if i == 1 {
+                        debugPrint("============Catwala==========\(objData.fieldVal)")
+//                    cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
 
-//                        if cell.selectedValue == ""{
-////                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
-//                            cell.selectedKey = String(item.id)
-//                        }else{
+                        if cell.selectedValue == ""{
+                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                            cell.selectedKey = String(item.id)
+                        }
+//                        else{
 //                            cell.oltPopup.setTitle(item.name, for: .normal)
 //                            cell.selectedKey = String(item.id)
-                        //}
+//                        }
 
-//                    }
-//                    i = i + 1
+                    }
+                    i = i + 1
                 }
-                
-                
+
                 cell.btnPopupAction = { () in
                     cell.dropDownKeysArray = []
                     cell.dropDownValuesArray = []
@@ -360,9 +457,10 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                     cell.delegate = self
                     
                 }
+                
                 return cell
             }
-                
+        
             else if objData.fieldType == "radio" {
                 let cell: RadioButtonCell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell", for: indexPath) as! RadioButtonCell
                 if let title = objData.title {
@@ -546,8 +644,10 @@ class AdvancedSearchController: UIViewController, NVActivityIndicatorViewable, U
                             if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchDropDown {
                                 var obj = SearchData()
                                 obj.fieldTypeName = cell.param
-                                obj.fieldVal = cell.selectedKey
-                                print(cell.selectedKey)
+                                if obj.fieldTypeName != ""{
+                                    obj.fieldVal = cell.selectedKey
+                                    print(cell.selectedKey)
+                                }
                                 obj.fieldType = "select"
                                 self.data.append(obj)
                             }
@@ -795,14 +895,15 @@ extension AdvancedSearchController: RangeNumberDelegate,ColorRadioDelegate,check
     func selectValue(selectVal: String, selectKey: String, fieldType: String, section: Int,indexPath: Int, fieldTypeName: String) {
         
         if fieldType == "select" {
-            //print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
+//            print("Index Path Selected \(indexPath,MinDate,MaxDate,fieldType)")
             var obj = SearchData()
             obj.fieldType = fieldType
-            obj.fieldVal = selectVal
+            obj.fieldVal = selectKey
             dataArray[indexPath].fieldVal = selectVal
             obj.fieldTypeName = fieldTypeName
-          //  self.dataArray.append(obj)
+//            self.dataArray.append(obj)
             self.data.append(obj)
+            print("\(selectVal):\(selectKey):\(section):\(indexPath):\(fieldTypeName): \(fieldType)")
         }
         
     }

@@ -158,11 +158,11 @@ class ChatController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        if calledFrom == "splash"{
-            self.addBackButton()
-        }else{
+//        if calledFrom == "splash"{
+//            self.addBackButton()
+//        }else{
             self.showBackButton()
-        }
+//        }
         self.refreshButton()
         self.googleAnalytics(controllerName: "Chat Controller")
         documentInteractionController.delegate = self

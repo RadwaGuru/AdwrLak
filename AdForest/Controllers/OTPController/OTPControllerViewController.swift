@@ -46,7 +46,8 @@ class OTPControllerViewController: UIViewController,NVActivityIndicatorViewable 
         lblHeading.text = phVerifcation
         lblSubHeading.text = otpTxt
         btnSubmit.setTitle(submit, for: .normal)
-        txtPhoneNumber.placeholder = placeholderField
+        let phoneCode = Country.currentCountry
+        txtPhoneNumber.placeholder = "+" + phoneCode.phoneExtension
         txtPhoneNumber.keyboardType = .phonePad
         self.showBackButton()
     }
