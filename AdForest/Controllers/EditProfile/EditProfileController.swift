@@ -259,6 +259,12 @@ class EditProfileController: UIViewController, UITableViewDelegate, UITableViewD
                 if let nameValue = objData.displayName.value {
                     cell.txtName.text = nameValue
                 }
+                if let emailText = objData.userEmail.value{
+                    cell.textEmail.text = emailText
+                }
+                if let emailValue = objData.userEmail.key {
+                    cell.lblEmail.text = emailValue
+                }
                 if let phoneText = objData.phone.key {
                     cell.lblPhone.text = phoneText
                 }
@@ -749,6 +755,9 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
             }
         }
     }
+    
+    @IBOutlet weak var textEmail: UITextField!
+    @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var lblPhone: UILabel!
@@ -1009,7 +1018,9 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         guard let phone = txtPhone.text else {
             return
         }
-        
+        guard let email = textEmail.text else {
+            return
+        }
         guard let location = textAddress.text else {
             return
         }
@@ -1036,15 +1047,29 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         ]
         print(custom)
         
-        
-        let parameters: [String: Any] = [
-            "user_name": name,
-            "phone_number": phone,
-            "account_type": accountType,
-            "location": location,
-            "user_introduction" : introduction,
-            "social_icons": custom
-        ]
+        let parameters: [String: Any]
+        let isOtp = UserDefaults.standard.bool(forKey: "otp")
+        if (isOtp) {
+            parameters = [
+                "user_name": name,
+                "phone_number": phone,
+                "user_email":  email,
+                "account_type": accountType,
+                "location": location,
+                "user_introduction" : introduction,
+                "social_icons": custom
+            ]
+        }
+        else{
+            parameters = [
+                "user_name": name,
+                "phone_number": phone,
+                "account_type": accountType,
+                "location": location,
+                "user_introduction" : introduction,
+                "social_icons": custom
+            ]
+        }
         
         print(parameters)
         self.adForest_updateProfile(params: parameters as NSDictionary)

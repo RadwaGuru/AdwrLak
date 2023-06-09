@@ -112,7 +112,7 @@ class CategoryController: UIViewController, UITableViewDelegate, UITableViewData
             print(param)
             self.adForest_categoryData(param: param as NSDictionary)
         } else {
-            let param: [String: Any] = ["ad_cats1" : categoryID, "page_number": 1]
+            let param: [String: Any] = ["ad_cats1" : categoryID == 0 ? "" :categoryID, "page_number": 1]
             print(param)
             self.adForest_categoryData(param: param as NSDictionary)
         }

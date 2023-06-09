@@ -57,6 +57,11 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        fatalError()
+        if UserDefaults.standard.bool(forKey: "isGuest") {
+            print("val")
+        }else{
+            self.defaults.set(true, forKey: "isGuest")
+        }
         self.settingsdata()
     }
     
@@ -472,6 +477,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
             self.stopAnimating()
             if successResponse.success {
                 self.defaults.set(true, forKey: "isLogin")
+                self.defaults.set(false, forKey: "isGuest")
 //                self.defaults.setValue(true, forKey: "otp")
                 self.defaults.synchronize()
                 if self.home == "home1"{

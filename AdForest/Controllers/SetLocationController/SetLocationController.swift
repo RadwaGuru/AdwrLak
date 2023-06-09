@@ -120,6 +120,7 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
         self.dismissVC(completion: nil)
     }
     
+    
 
     func showLoader(){
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
@@ -131,7 +132,7 @@ class SetLocationController: UIViewController, NVActivityIndicatorViewable,NearB
         AddsHandler.topLocation(parameter: parameter, success: {[unowned self] (successResponse) in
             self.stopAnimating()
             if successResponse.success {
-                let alert = AlertView.prepare(title: successResponse.message, message: "", okAction: {
+                let alert = AlertView.prepare(title: successResponse.message, message: "", okAction: { [self] in
                     if homeStyle == "home1"{
                         self.appDelegate.moveToHome()
                         

@@ -945,6 +945,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             let custom = Constants.json(from: customDictionary)
             if AddsHandler.sharedInstance.isCategoeyTempelateOn {
             let param: [String: Any] = ["custom_fields": custom!]
+                print(param)
             parameter.merge(with: param)
             }
             parameter.merge(with: addInfoDictionary)
