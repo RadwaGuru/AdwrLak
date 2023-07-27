@@ -158,6 +158,9 @@ class FirebasePhoneNumberVerificationViewController: UIViewController, OTPDelega
                 }
                 else{
                     let parameter : [String: Any] = ["phone_number": self.phoneNumber]
+                    self.defaults.set(true, forKey: "otp")
+                    self.defaults.set(true, forKey: "isLogin")
+                    self.defaults.setValue(self.phoneNumber, forKey: "phoneNumber")
                     print(parameter)
                     self.adForest_verifyCode(parameter: parameter as NSDictionary)
                     

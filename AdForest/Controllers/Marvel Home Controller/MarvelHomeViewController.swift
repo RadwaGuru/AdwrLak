@@ -68,7 +68,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
             bannerViewTop.isHidden = true
         }
     }
-//    
+//
     let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
     var defaults = UserDefaults.standard
     var dataArray = [HomeSlider]()
@@ -98,6 +98,10 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
     var backgroundView = UIView()
     var addPosition = ["search_Cell"]
     var barButtonItems = [UIBarButtonItem]()
+    var otpLoginBool: Bool = false
+    var otpLoginAlertMsg: String!
+    var otpLoginAlertCancelBtn: String!
+    var otpLoginAlertProfileBtn: String!
     
     var viewAllText = ""
     var catLocationTitle = ""
@@ -1393,6 +1397,18 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
                 //UserDefaults.standard.set(true, forKey: "can")
                 if let feature = successResponse.data.isShowFeatured {
                     self.isShowFeature = feature
+                }
+                if successResponse.data.otpLoginBool != nil {
+                    self.otpLoginBool = successResponse.data.otpLoginBool
+                    UserDefaults.standard.set(successResponse.data.otpLoginBool, forKey: "otpLoginBool")
+                    if self.otpLoginBool == false {
+                        self.otpLoginAlertMsg = successResponse.data.userVerification.otpAlertMsg
+                        self.otpLoginAlertProfileBtn = successResponse.data.userVerification.otpAlertProfile
+                        self.otpLoginAlertCancelBtn = successResponse.data.userVerification.otpAlertCancel
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertMsg, forKey: "otpAlertMsg")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertProfile, forKey: "otpAlertProfileBtn")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertCancel, forKey: "otpAlertCancel")
+                    }
                 }
                 if let feature = successResponse.data.featuredPosition {
                     self.featurePosition = feature

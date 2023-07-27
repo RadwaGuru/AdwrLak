@@ -1072,7 +1072,17 @@ class EditProfileCell: UITableViewCell, UITextFieldDelegate, GMSMapViewDelegate,
         }
         
         print(parameters)
-        self.adForest_updateProfile(params: parameters as NSDictionary)
+        let mailText = UserDefaults.standard.string(forKey: "enterEmail")
+        if textEmail.text == "" {
+            let alertController = UIAlertController(title: "Alert", message: mailText, preferredStyle: .alert)
+            let cancelBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(cancelBtn)
+            self.appDel.presentController(ShowVC: alertController)
+        }else{
+            UserDefaults.standard.set(true, forKey: "otpLoginBool")
+            self.adForest_updateProfile(params: parameters as NSDictionary)
+        }
+//        self.adForest_updateProfile(params: parameters as NSDictionary)
     }
     
     @IBAction func actionDelete(_ sender: Any) {

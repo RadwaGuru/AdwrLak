@@ -16,6 +16,7 @@ struct SettingsExtra {
     var verifyNumber:String!
     var phonePlaceholder:String!
     var usernamePlaceHolder:String!
+    var enterEmail:String!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -27,6 +28,8 @@ struct SettingsExtra {
         verifyNumber = dictionary["verify_number"] as? String
         phonePlaceholder = dictionary["phone"] as? String
         usernamePlaceHolder = dictionary["name"] as? String
+        enterEmail = dictionary["enter_email"] as? String
+
     }
     
     /**

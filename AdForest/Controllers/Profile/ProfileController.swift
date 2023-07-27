@@ -507,8 +507,19 @@ class ProfileController: UIViewController , UITableViewDelegate, UITableViewData
                 
             }
         }else{
-            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-            self.navigationController?.pushViewController(adPostVC, animated: true)
+            let otpLoginBool = UserDefaults.standard.bool(forKey: "otpLoginBool")
+            let otpLoginAlertMsg = UserDefaults.standard.string(forKey: "otpAlertMsg")
+            let otpLoginAlertCancel = UserDefaults.standard.string(forKey: "otpAlertCancel")
+            if otpLoginBool == false{
+                let alertController = UIAlertController(title: "Alert", message: otpLoginAlertMsg, preferredStyle: .alert)
+                let cancelBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+            }
+            else{
+                let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+            }
         }
         
     }

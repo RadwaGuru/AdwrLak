@@ -105,6 +105,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var SliderColHeight: Double = 0
     var locationHeight: Double = 0
     var showVertical:Bool = false
+    var otpLoginBool: Bool = false
+    var otpLoginAlertMsg: String!
+    var otpLoginAlertCancelBtn: String!
+    var otpLoginAlertProfileBtn: String!
     var showVerticalAds: String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var latestHorizontalSingleAd:String = UserDefaults.standard.string(forKey: "homescreenLayout")!
     var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
@@ -1411,7 +1415,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
         let can = UserDefaults.standard.bool(forKey: "can")
         
-        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+        if defaults.bool(forKey: "isGuest") && defaults.bool(forKey: "isLogin") == false {
             
             var msgLogin = ""
             
@@ -1446,14 +1450,25 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 alertController.addAction(okBtn)
                 alertController.addAction(cancelBtn)
                 self.presentVC(alertController)
-                
             }
-            
         }
         else{
+            let otpLoginBool = UserDefaults.standard.bool(forKey: "otpLoginBool")
+            if otpLoginBool == false{
+                let alertController = UIAlertController(title: "Alert", message: otpLoginAlertMsg, preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: self.otpLoginAlertProfileBtn, style: .default){
+                    (ok) in self.appDelegate.moveToProfile()
+                }
+                let cancelBtn = UIAlertAction(title: self.otpLoginAlertCancelBtn, style: .cancel, handler: nil)
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+            }
+            else{
+                let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+            }
             
-            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-            self.navigationController?.pushViewController(adPostVC, animated: true)
         }
         
         
@@ -1489,7 +1504,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if successResponse.data.viewAll != nil {
                     self.viewAllText = successResponse.data.viewAll
                     
-                }                
+                }
                 //Get value of show/hide buttons of location and categories
                 if successResponse.data.catIconsColumnBtn != nil {
                     self.isShowCategoryButton = successResponse.data.catIconsColumnBtn.isShow
@@ -1515,6 +1530,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 if let isSort = successResponse.data.adsPositionSorter {
                     self.isAdPositionSort = isSort
+                }
+                if successResponse.data.otpLoginBool != nil {
+                    self.otpLoginBool = successResponse.data.otpLoginBool
+                    UserDefaults.standard.set(successResponse.data.otpLoginBool, forKey: "otpLoginBool")
+                    if self.otpLoginBool == false {
+                        self.otpLoginAlertMsg = successResponse.data.userVerification.otpAlertMsg
+                        self.otpLoginAlertProfileBtn = successResponse.data.userVerification.otpAlertProfile
+                        self.otpLoginAlertCancelBtn = successResponse.data.userVerification.otpAlertCancel
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertMsg, forKey: "otpAlertMsg")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertProfile, forKey: "otpAlertProfileBtn")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertCancel, forKey: "otpAlertCancel")
+                    }
                 }
                 self.addPosition = ["search_Cell"]
                 if self.isAdPositionSort {

@@ -108,6 +108,10 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
     var SliderColHeight: Double = 0
     var nearByColHeight: Double = 0
     var locationHeight: Double = 0
+    var otpLoginBool: Bool = false
+    var otpLoginAlertMsg: String!
+    var otpLoginAlertCancelBtn: String!
+    var otpLoginAlertProfileBtn: String!
     var featuredAdLayout: String = UserDefaults.standard.string(forKey: "featuredAdsLayout")!
     var latestAdLayout: String = UserDefaults.standard.string(forKey: "latestAdsLayout")!
     var nearbyAdLayout: String = UserDefaults.standard.string(forKey: "nearByAdsLayout")!
@@ -1014,7 +1018,7 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                     locationHeight = Double(cell.collectionView.contentSize.height)
                     cell.collectionView.reloadData()
                     return cell
-                }else if locationSectionStyle == "style2" { 
+                }else if locationSectionStyle == "style2" {
                     let cell: MarvelHomeLocationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MarvelHomeLocationTableViewCell", for: indexPath) as! MarvelHomeLocationTableViewCell
                     let data = AddsHandler.sharedInstance.objHomeData
                     
@@ -1576,6 +1580,18 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
                 if let isSort = successResponse.data.adsPositionSorter {
                     self.isAdPositionSort = isSort
                 }
+                if successResponse.data.otpLoginBool != nil {
+                    self.otpLoginBool = successResponse.data.otpLoginBool
+                    UserDefaults.standard.set(successResponse.data.otpLoginBool, forKey: "otpLoginBool")
+                    if self.otpLoginBool == false {
+                        self.otpLoginAlertMsg = successResponse.data.userVerification.otpAlertMsg
+                        self.otpLoginAlertProfileBtn = successResponse.data.userVerification.otpAlertProfile
+                        self.otpLoginAlertCancelBtn = successResponse.data.userVerification.otpAlertCancel
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertMsg, forKey: "otpAlertMsg")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertProfile, forKey: "otpAlertProfileBtn")
+                        UserDefaults.standard.set(successResponse.data.userVerification.otpAlertCancel, forKey: "otpAlertCancel")
+                    }
+                }
                 self.addPosition = ["search_Cell"]
                 if self.isAdPositionSort {
                     self.addPosition += successResponse.data.adsPosition
@@ -1796,9 +1812,23 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
             
         }
         else{
-            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-            adPostVC.calledFrom == "home2"
-            self.navigationController?.pushViewController(adPostVC, animated: true)
+            let otpLoginBool = UserDefaults.standard.bool(forKey: "otpLoginBool")
+            if otpLoginBool == false{
+                let alertController = UIAlertController(title: "Alert", message: otpLoginAlertMsg, preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: self.otpLoginAlertProfileBtn, style: .default){
+                    (ok) in self.appDelegate.moveToProfile()
+                }
+                let cancelBtn = UIAlertAction(title: self.otpLoginAlertCancelBtn, style: .cancel, handler: nil)
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+            }
+            else{
+                let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+                adPostVC.calledFrom == "home2"
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+            }
+            
         }
         
         

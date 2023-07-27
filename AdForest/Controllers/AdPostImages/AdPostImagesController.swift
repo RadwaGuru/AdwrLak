@@ -15,7 +15,11 @@ import UITextField_Shake
 import JGProgressHUD
 import CollageView
 
-class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount,ImagesArrayDeletedDelegate, ImageDeletedBooleanDelegate {
+class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount,ImagesArrayDeletedDelegate, ImageDeletedBooleanDelegate,remaningUploadImagesCount {
+ 
+    
+    
+    
      
    //textViewValueDelegate
   
@@ -91,11 +95,12 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var page2Validation = false
     var checkArray: [Bool] = []
     var correctNow = false
+    var remaningUploadImagesMessage = ""
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackButton()
-        self.hideKeyboard()
+//        self.hideKeyboard()
         self.forwardButton()
 //        self.adForest_populateData()
 //        self.imgeCount(count: imgCtrlCount)
@@ -190,6 +195,13 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
         var imgDel = imageDeleted
         imgDel = imageUploading
         print(imageUploading)
+
+    }
+    
+    func adpostUploadImagesRemaning(count: Int, message: String) {
+        debugPrint("checkCountAfterDel:\(count),\(message)")
+        self.maximumImagesAllowed = count
+        self.remaningUploadImagesMessage = message
 
     }
     func forwardButton() {
@@ -931,9 +943,6 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                         SwiftyAd.shared.showBanner(from: self, at: .bottom)
                     }
                 }
-//                if isShowInterstital {
-//                    self.perform(#selector(self.showAd), with: nil, afterDelay: 2.5)
-//                }
             }
         }
     }
@@ -1025,7 +1034,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                                        imagePicker.allowedMediaTypes = Set([PHAssetMediaType.image])
                                        // maximum message
                                        let configuration = OpalImagePickerConfiguration()
-                                       configuration.maximumSelectionsAllowedMessage = NSLocalizedString((objData?.data.images.message)!, comment: "")
+                                       configuration.maximumSelectionsAllowedMessage = NSLocalizedString((self.remaningUploadImagesMessage != "" ? self.remaningUploadImagesMessage : objData?.data.images.message)!, comment: "")
                                        imagePicker.configuration = configuration
                                        imagePicker.imagePickerDelegate = self
                                        self.present(imagePicker, animated: true, completion: nil)
@@ -1093,6 +1102,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             cell.delegate = self
             cell.delegate2 = self
             cell.delegate3 = self
+            cell.delegateRemainingImages = self
             cell.collectionView.reloadData()
             return cell
         }
@@ -1457,7 +1467,8 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
                 self.imagesMsg = successResponse.data.images.message
                 
                 UserDefaults.standard.set( self.imagesMsg, forKey: "imgMsg")
-                self.tableView.reloadData()
+                self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+//                self.tableView.reloadData()
             }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)

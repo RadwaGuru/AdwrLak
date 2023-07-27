@@ -8,7 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
-
+import OSLog
 class Splash: UIViewController, NVActivityIndicatorViewable {
     
     
@@ -62,10 +62,59 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
         }else{
             self.defaults.set(true, forKey: "isGuest")
         }
-        self.settingsdata()
+        checkForUpdates()
+//        self.settingsdata()
     }
     
+    func checkForUpdates() {
+            let appID = "1387738252" // Your app's App Store ID
+            let url = URL(string: "http://itunes.apple.com/lookup?id=\(appID)")!
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                           let results = json["results"] as? [[String: Any]],
+                           let appStoreVersion = results[0]["version"] as? String,
+                           let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                            if appStoreVersion >= currentVersion {
+                                DispatchQueue.main.async {
+                                    self.showUpdateAlert()
+                                }
+                            }else{
+                                if #available(iOS 14.0, *) {
+                                    Logger().debug("Normal")
+                                    self.settingsdata()
 
+                                } else {
+                                    // Fallback on earlier versions
+                                    debugPrint("Normal")
+                                    self.settingsdata()
+
+                                }
+                            }
+                        }
+                    } catch {
+                        print("Error parsing JSON: \(error)")
+                    }
+                }
+            }
+            task.resume()
+        }
+        
+        func showUpdateAlert() {
+            let alert = UIAlertController(title: "Update Available",
+                                          message: "A new version of the app is available. Update now?",
+                                          preferredStyle: .alert)
+            let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
+                if let url = URL(string: "https://apps.apple.com/app/\(1387738252)") {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Later", style: .cancel, handler: {(_) in  self.settingsdata()})
+            alert.addAction(updateAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -266,7 +315,7 @@ class Splash: UIViewController, NVActivityIndicatorViewable {
                     self.defaults.set(successResponse.data.extraTexts.verifyNumber, forKey: "verifyNumber")
                     self.defaults.set(successResponse.data.extraTexts.phonePlaceholder, forKey: "phonePlaceholder")
                     self.defaults.set(successResponse.data.extraTexts.usernamePlaceHolder, forKey: "usernamePlaceHolder")
-
+                    self.defaults.set(successResponse.data.extraTexts.enterEmail, forKey: "enterEmail")
                 }
 
                 

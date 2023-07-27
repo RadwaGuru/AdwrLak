@@ -394,6 +394,7 @@
 		18605F8E214F7D7900B3B567 /* SeekBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18605F8D214F7D7900B3B567 /* SeekBar.swift */; };
 		18605F90214F7D9000B3B567 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18605F8F214F7D9000B3B567 /* RadioButtonCell.swift */; };
 		18605F92214F7DB800B3B567 /* RadioButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18605F91214F7DB800B3B567 /* RadioButtonTableViewCell.swift */; };
+		1860BA9A2A713D7500AB4B24 /* ProfileEmailVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860BA992A713D7500AB4B24 /* ProfileEmailVerification.swift */; };
 		18630F7020693B3600DC16DC /* NumberVerifyRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18630F6F20693B3600DC16DC /* NumberVerifyRoot.swift */; };
 		18630F7220693B4D00DC16DC /* NumberVerifyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18630F7120693B4D00DC16DC /* NumberVerifyData.swift */; };
 		18630F7420693BF100DC16DC /* NumberVerifyResend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18630F7320693BF100DC16DC /* NumberVerifyResend.swift */; };
@@ -1122,6 +1123,7 @@
 		18605F8D214F7D7900B3B567 /* SeekBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekBar.swift; sourceTree = "<group>"; };
 		18605F8F214F7D9000B3B567 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
 		18605F91214F7DB800B3B567 /* RadioButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonTableViewCell.swift; sourceTree = "<group>"; };
+		1860BA992A713D7500AB4B24 /* ProfileEmailVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmailVerification.swift; sourceTree = "<group>"; };
 		18630F6F20693B3600DC16DC /* NumberVerifyRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberVerifyRoot.swift; sourceTree = "<group>"; };
 		18630F7120693B4D00DC16DC /* NumberVerifyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberVerifyData.swift; sourceTree = "<group>"; };
 		18630F7320693BF100DC16DC /* NumberVerifyResend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberVerifyResend.swift; sourceTree = "<group>"; };
@@ -2069,6 +2071,7 @@
 				96A11646250F8442002C61FB /* AdTimerStrings.swift */,
 				18DA84782625A246005A69EC /* BannerCarouselData.swift */,
 				18DA84802625A328005A69EC /* BannerCarouselRoot.swift */,
+				1860BA992A713D7500AB4B24 /* ProfileEmailVerification.swift */,
 			);
 			path = HomeData;
 			sourceTree = "<group>";
@@ -4511,6 +4514,7 @@
 				181B19E920AEAC1B0016BA7B /* HomeIsShowMenu.swift in Sources */,
 				18344DD9268AE7DA003F16CC /* HomeNearAdsHorizontalCell.swift in Sources */,
 				180A4F672328DA9E002BC411 /* RejectedAdsVideo.swift in Sources */,
+				1860BA9A2A713D7500AB4B24 /* ProfileEmailVerification.swift in Sources */,
 				182C7FE82068D4890080A391 /* ProfileDetailsExtra.swift in Sources */,
 				96A11647250F8442002C61FB /* AdTimerStrings.swift in Sources */,
 				18F6998B25FB3F4D005027CB /* WhizChatMapReceiver.swift in Sources */,

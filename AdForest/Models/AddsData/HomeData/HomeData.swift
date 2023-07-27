@@ -18,6 +18,7 @@ struct HomeData {
     var catLocationsColumn : Int!
     var catLocationsTitle : String!
     var catLocationsType : String!
+    var otpLoginBool : Bool!
     var featuredAds : HomeFeaturedAdd!
     var featuredPosition : String!
     var fieldTypeName : String!
@@ -42,10 +43,15 @@ struct HomeData {
     var ad_post : HomeAdpost!
     var bannerCarousel: BannerCarouselRoot!
     var locationsStyle:String!
+    var userVerification: ProfileEmailVerification!
+
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
+        if let dataData = dictionary["email_dialog"] as? [String:Any]{
+            userVerification = ProfileEmailVerification(fromDictionary: dataData)
+        }
         adsPosition = dictionary["ads_position"] as? [String]
         adsPositionSorter = dictionary["ads_position_sorter"] as? Bool
         catIcons = [CatIcon]()
@@ -66,6 +72,7 @@ struct HomeData {
         catLocationsColumn = dictionary["cat_locations_column"] as? Int
         catLocationsTitle = dictionary["cat_locations_title"] as? String
         catLocationsType = dictionary["cat_locations_type"] as? String
+        otpLoginBool = dictionary["has_user_email"] as? Bool
         if let featuredAdsData = dictionary["featured_ads"] as? [String:Any]{
             featuredAds = HomeFeaturedAdd(fromDictionary: featuredAdsData)
         }
@@ -164,6 +171,9 @@ struct HomeData {
         }
         if catLocationsType != nil{
             dictionary["cat_locations_type"] = catLocationsType
+        }
+        if otpLoginBool != nil{
+            dictionary["has_user_email"] = otpLoginBool
         }
         if featuredAds != nil{
             dictionary["featured_ads"] = featuredAds.toDictionary()

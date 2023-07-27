@@ -133,8 +133,24 @@ class ShopController: UIViewController,WKUIDelegate,WKNavigationDelegate  {
                 
             }
         }else{
-            let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-            self.navigationController?.pushViewController(adPostVC, animated: true)
+            let otpLoginBool = UserDefaults.standard.bool(forKey: "otpLoginBool")
+            let otpLoginAlertMsg = UserDefaults.standard.string(forKey: "otpAlertMsg")
+            let otpLoginAlertCancel = UserDefaults.standard.string(forKey: "otpAlertCancel")
+            let otpLoginAlertProfile = UserDefaults.standard.string(forKey: "otpAlertProfileBtn")
+            if otpLoginBool == false{
+                let alertController = UIAlertController(title: "Alert", message: otpLoginAlertMsg, preferredStyle: .alert)
+                let cancelBtn = UIAlertAction(title: otpLoginAlertCancel, style: .cancel, handler: nil)
+                let okBtn = UIAlertAction(title: otpLoginAlertProfile, style: .default){
+                    (ok) in self.appDelegate.moveToProfile()
+                }
+                alertController.addAction(okBtn)
+                alertController.addAction(cancelBtn)
+                self.presentVC(alertController)
+            }
+            else{
+                let adPostVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
+                self.navigationController?.pushViewController(adPostVC, animated: true)
+            }
         }
     }
     override func viewDidAppear(_ animated: Bool) {

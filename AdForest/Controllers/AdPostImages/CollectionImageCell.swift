@@ -18,6 +18,9 @@ protocol ImageDeletedBooleanDelegate {
 protocol ImagesArrayDeletedDelegate {
     func adPotDeletedImagesArr(imgArray:[AdPostImageArray],imagesDeleted:Bool)
 }
+protocol remaningUploadImagesCount{
+    func adpostUploadImagesRemaning(count:Int,message:String)
+}
 class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, NVActivityIndicatorViewable {
 
     //MARK:- Properties
@@ -61,33 +64,14 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     var delegate:imagesCount?
     var delegate2:ImageDeletedBooleanDelegate?
     var delegate3:ImagesArrayDeletedDelegate?
+    var delegateRemainingImages:remaningUploadImagesCount?
     //MARK:- View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
         
     }
-    
-//
-//    @available(iOS 11.0, *)
-//    fileprivate func reorderItems(coordinator: UICollectionViewDropCoordinator , destinationationIndexpath: IndexPath , collectionView: UICollectionView){
-//
-//        if let item = coordinator.items.first,
-//            let sourceIndexPath = item.sourceIndexPath{
-//            collectionView.performBatchUpdates({
-//
-//                self.dataArray.remove(at: sourceIndexPath.item)
-//                let moveImage = dataArray[sourceIndexPath.item]
-////item.dragItem.localObject as! String
-//                self.dataArray.insert(moveImage, at: destinationationIndexpath.item)
-//
-//
-//                collectionView.deleteItems(at: [sourceIndexPath])
-//                collectionView.insertItems(at: [destinationationIndexpath])
-//            },completion: nil)
-//            coordinator.drop(item.dragItem, toItemAt: destinationationIndexpath)
-//        }
-//    }
+
     
     @available(iOS 11.0, *)
         private func reorderItems(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView)
@@ -165,41 +149,60 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         return dataArray.count
             
     }
-    
+
+    func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            if let data = try? Data(contentsOf: url) {
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesCell", for: indexPath) as! ImagesCell
         
         let objData = dataArray[indexPath.row]
-
-        for id in dataArray{
-            if id.imgId != nil{
-                imageIdArrAd.append(id.imgId)
+        
+        for id in dataArray {
+            if let imgId = id.imgId {
+                imageIdArrAd.append(imgId)
             }
         }
+        
         print(imageIdArrAd)
-//        if let imgUrl = URL(string: objData.thumb ){
-//            cell.imgPictures.setImage(from: imgUrl)
-//        }
-            
         
-        let url = URL(string:objData.thumb)
-        
-        if let data = try? Data(contentsOf: url!)
-        {
-            let image: UIImage = UIImage(data: data)!
-            cell.imgPictures.image = image
+        if let imgUrl = URL(string: objData.thumb) {
+            loadImage(from: imgUrl) { image in
+                if let image = image {
+                    cell.imgPictures.image = image
+                } else {
+                    // Handle the case when image loading fails
+                    cell.imgPictures.image = nil
+                }
+            }
         }
         
-        cell.btnDelete = { () in
-            let param: [String: Any] = ["ad_id": self.ad_id, "img_id": objData.imgId]
-            self.removeItem(index: indexPath.row)
-            self.imgDelete = true
-            self.adForest_deleteImage(param: param as NSDictionary)
+        cell.btnDelete = { [weak self] in
+            let param: [String: Any] = ["ad_id": self?.ad_id, "img_id": objData.imgId]
+            self?.removeItem(index: indexPath.row)
+            self?.imgDelete = true
+            self?.adForest_deleteImage(param: param as NSDictionary)
         }
         
-       //  self.rotateImageAppropriately(cell.imgPictures.image)
+        // self.rotateImageAppropriately(cell.imgPictures.image)
+        
         return cell
     }
+
+
+    
     
     
     func rotateImageAppropriately(_ imageToRotate: UIImage?) -> UIImage? {
@@ -257,7 +260,11 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
                 self.delegate3?.adPotDeletedImagesArr(imgArray: self.dataArray, imagesDeleted: true)
                 self.collectionView.reloadData()
 
-                print(successResponse.data.adImages.count)            }
+                print(successResponse.data.adImages.count)
+                let param: [String: Any] = ["is_update": ""]
+                print(param)
+                self.adForest_adPost(param: param as NSDictionary)
+            }
             else {
                 let alert = Constants.showBasicAlert(message: successResponse.message)
                 self.appDelegate.presentController(ShowVC: alert)
@@ -265,6 +272,22 @@ class CollectionImageCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             
         }) { (error) in
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.appDelegate.presentController(ShowVC: alert)
+        }
+    }
+    //MARK:- API Calls
+    func adForest_adPost(param: NSDictionary) {
+        print(param)
+        AddsHandler.adPost(parameter: param, success: { (successResponse) in
+            if successResponse.success {
+            debugPrint("nowMe\(successResponse)")
+                self.delegateRemainingImages?.adpostUploadImagesRemaning(count: successResponse.data.images.numbers, message:successResponse.data.images.message)
+            } else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.appDelegate.presentController(ShowVC: alert)
+            }
+        }) { (error) in
             let alert = Constants.showBasicAlert(message: error.message)
             self.appDelegate.presentController(ShowVC: alert)
         }
