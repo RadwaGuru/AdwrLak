@@ -1,0 +1,6 @@
+framework module MaterialProgressBar {
+  umbrella header "MaterialProgressBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '12.0'
 
-target 'AdForest' do
+target 'AdwrLak' do
     # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     use_frameworks!
     
-    # Pods for AdForest
+    # Pods for AdwrLak
     
     #Facebook login
     pod 'FBSDKCoreKit'
@@ -84,7 +84,7 @@ target 'AdForest' do
     pod 'NotificationBannerSwift'
     
     #Show Action Sheet
-    pod 'ActionSheetPicker-3.0'
+    #pod 'ActionSheetPicker-3.0'
     
     #Picker Library
     # pod 'TCPickerView'
@@ -98,6 +98,7 @@ target 'AdForest' do
     pod 'JGProgressHUD'
 
     #Play Gif 
+    source 'https://github.com/CocoaPods/Specs.git'
     pod 'SwiftyGif'
     pod 'Popover'
     
@@ -126,13 +127,39 @@ pod "ZoomableImageSlider"
   #carousel
 #pod "CLabsImageSlider", '~> 0.1.2'
 #pod 'ZCycleView'
+end
+
 
 post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+    installer.generated_projects.each do |project|
+        project.targets.each do |target|
+            target.build_configurations.each do |config|
+                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+             end
+        end
+    end
+  
+    
+    
+    
+    installer.pods_project.targets.each do |target|
+      # Make it build with XCode 15
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+      
+      if ['SwiftyGif'].include? target.name
+              target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '4.0'
+              end
+      end
+      # Make it work with GoogleDataTransport
+      if target.name.start_with? "GoogleDataTransport"
+        target.build_configurations.each do |config|
+          config.build_settings['CLANG_WARN_STRICT_PROTOTYPES'] = 'NO'
+        end
+      end
     end
   end
-end
-
-end

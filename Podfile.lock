@@ -1,5 +1,4 @@
 PODS:
-  - ActionSheetPicker-3.0 (2.3.0)
   - Alamofire (4.9.1)
   - Alamofire-SwiftyJSON (3.0.0):
     - Alamofire (~> 4.5)
@@ -211,7 +210,6 @@ PODS:
     - Kingfisher (= 5.14.1)
 
 DEPENDENCIES:
-  - ActionSheetPicker-3.0
   - Alamofire
   - Alamofire-SwiftyJSON
   - CollageView (~> 1.0.4)
@@ -260,7 +258,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - ActionSheetPicker-3.0
     - Alamofire
     - Alamofire-SwiftyJSON
     - AlamofireImage
@@ -332,7 +329,6 @@ SPEC REPOS:
     - ZoomableImageSlider
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Alamofire-SwiftyJSON: 2b3649d57dc7bb2880fb8b86f8bb969397666916
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
@@ -403,6 +399,6 @@ SPEC CHECKSUMS:
   ZGTooltipView: 729e358044530a05be00c8c1e1092e81db491996
   ZoomableImageSlider: d83c275765d6f9f6e23d1ae05f1b513e564b632e
 
-PODFILE CHECKSUM: 463d72b5a462ecd4b59566e11c932ed79c779e36
+PODFILE CHECKSUM: 5597e0220c739f9d1728c0225a94dd6f582ffb19
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.13.0
